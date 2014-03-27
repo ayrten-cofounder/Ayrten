@@ -46,8 +46,8 @@ public class Scrots implements ApplicationListener
 		
 		if (Gdx.input.isTouched())
 		{
-			position.x += 1f;
-			position.y += 1f;
+			position.x = Gdx.input.getX();
+			position.y = Gdx.input.getY();
 		}
 		
 		batch.begin();
