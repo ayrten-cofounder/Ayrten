@@ -27,7 +27,7 @@ public class Scrots implements ApplicationListener {
 		texture = new Texture(Gdx.files.internal("data/libgdx.png"));
 		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
-		TextureRegion region = new TextureRegion(texture, 0, 0, 512, 275);
+		TextureRegion region = new TextureRegion(texture, 50, 50, 100, 100);
 		
 		sprite = new Sprite(region);
 		sprite.setSize(0.9f, 0.9f * sprite.getHeight() / sprite.getWidth());
@@ -45,6 +45,11 @@ public class Scrots implements ApplicationListener {
 	public void render() {		
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		if(Gdx.input.isTouched())
+		{
+			System.out.println("X coord: " + Gdx.input.getX() + " Y coord: " + Gdx.input.getY());
+		}
 		
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
