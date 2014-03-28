@@ -21,6 +21,7 @@ public class Scrots implements ApplicationListener
 	private int			w;
 	private int			h;
 	
+	
 	@Override
 	public void create()
 	{
