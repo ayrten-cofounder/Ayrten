@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- Text Size -->
+    <dimen name="small">12sp</dimen>
+    <dimen name="medium">14sp</dimen>
+    <dimen name="large">16sp</dimen>
+    <dimen name="xtraLarge">50sp</dimen>
+
+    <!-- Margins -->
+    <dimen name="button_margin">10dp</dimen>
+
+</resources>
