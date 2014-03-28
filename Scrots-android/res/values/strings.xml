@@ -2,12 +2,5 @@
 <resources>
 
     <string name="app_name">Scrots</string>
-    <string name="ayrten">Ayrten</string>
-    <string name="title_activity_menu_screen">MenuScreen</string>
-
-    <!-- Button Strings -->
-    <string name="play">Play</string>
-    <string name="options">Options</string>
-    <string name="highscore">High Score</string>
 
 </resources>
