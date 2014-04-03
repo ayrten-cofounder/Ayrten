@@ -1,5 +1,6 @@
 package com.ayrten.scrots;
 
+import com.ayrten.scrots.dots.RandomDotGenerator;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -13,22 +14,29 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Scrots implements ApplicationListener
 {
+	private RandomDotGenerator generator;
+	
 	private SpriteBatch	batch;
 	private Texture		texture;
 	TextureRegion		region;
 	Vector2				position;
 	
+	private int			w;
+	private int			h;
+	
+	
 	@Override
 	public void create()
 	{
+		w = Gdx.graphics.getWidth();
+		h = Gdx.graphics.getHeight();
+		
 		batch = new SpriteBatch();
 		
-		texture = new Texture(Gdx.files.internal("data/libgdx.png"));
+		texture = new Texture(Gdx.files.internal("data/green_circle.png"));
 		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
-		region = new TextureRegion(texture, 0, 0, 50, 50);
-		
-		position = new Vector2(50,50);
+		position = new Vector2(50, 50);
 	}
 	
 	@Override
@@ -47,11 +55,11 @@ public class Scrots implements ApplicationListener
 		if (Gdx.input.isTouched())
 		{
 			position.x = Gdx.input.getX();
-			position.y = Gdx.input.getY();
+			position.y = h - Gdx.input.getY();
 		}
 		
 		batch.begin();
-		batch.draw(region, position.x, position.y);
+		batch.draw(texture, position.x, position.y);
 		batch.end();
 	}
 	
