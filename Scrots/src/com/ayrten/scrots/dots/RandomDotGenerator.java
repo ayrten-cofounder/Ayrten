@@ -38,16 +38,8 @@ public class RandomDotGenerator
 		greenDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 	}
 	
-	private int getRandomHeight()
-	{
-		return 0;
-	}
-	
-	private int getRandomWidth()
-	{
-		return 0;
-	}
-	
+	// Gets random dot type
+	// Then gets random position
 	public Dot getRandomDot()
 	{
 		Dot randomDot = null;
