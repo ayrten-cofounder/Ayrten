@@ -1,29 +1,30 @@
 package com.ayrten.scrots;
 
+import java.util.ArrayList;
+
+import com.ayrten.scrots.dots.Dot;
 import com.ayrten.scrots.dots.RandomDotGenerator;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 public class Scrots implements ApplicationListener
 {
-	private RandomDotGenerator generator;
+	private RandomDotGenerator	generator;
 	
-	private SpriteBatch	batch;
-	private Texture		texture;
-	TextureRegion		region;
-	Vector2				position;
+	private SpriteBatch			batch;
+	private Texture				texture;
+	TextureRegion				region;
+	Vector2						position;
 	
-	private int			w;
-	private int			h;
+	ArrayList<Dot> dot_array = new ArrayList<Dot>();
 	
+	private int					w;
+	private int					h;
 	
 	@Override
 	public void create()
@@ -31,10 +32,8 @@ public class Scrots implements ApplicationListener
 		w = Gdx.graphics.getWidth();
 		h = Gdx.graphics.getHeight();
 		
+		generator = new RandomDotGenerator(w, h);
 		batch = new SpriteBatch();
-		
-		texture = new Texture(Gdx.files.internal("data/green_circle.png"));
-		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
 		position = new Vector2(50, 50);
 	}
@@ -54,12 +53,16 @@ public class Scrots implements ApplicationListener
 		
 		if (Gdx.input.isTouched())
 		{
-			position.x = Gdx.input.getX();
-			position.y = h - Gdx.input.getY();
+			dot_array.add(generator.getRandomDot());
 		}
 		
 		batch.begin();
-		batch.draw(texture, position.x, position.y);
+
+		for(Dot dot: dot_array)
+		{
+			batch.draw(dot.getTexture(), dot.getX(), dot.getY());
+		}
+		
 		batch.end();
 	}
 	
