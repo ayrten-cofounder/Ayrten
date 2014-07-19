@@ -3,6 +3,8 @@ package com.ayrten.scrots;
 import java.util.ArrayList;
 
 import com.ayrten.scrots.dots.Dot;
+import com.ayrten.scrots.dots.GreenDot;
+import com.ayrten.scrots.dots.Level;
 import com.ayrten.scrots.dots.RandomDotGenerator;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -11,6 +13,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class Scrots implements ApplicationListener
 {
@@ -26,6 +29,12 @@ public class Scrots implements ApplicationListener
 	private int					w;
 	private int					h;
 	
+	Level level;
+	boolean passed;
+	boolean init;
+	
+	Image image;
+	
 	@Override
 	public void create()
 	{
@@ -36,6 +45,11 @@ public class Scrots implements ApplicationListener
 		batch = new SpriteBatch();
 		
 		position = new Vector2(50, 50);
+		
+		level = new Level(1, w, h);
+		passed = false;
+		init = true;
+		
 	}
 	
 	@Override
@@ -57,11 +71,20 @@ public class Scrots implements ApplicationListener
 		}
 		
 		batch.begin();
-
-		for(Dot dot: dot_array)
+		
+		if(init)
 		{
-			batch.draw(dot.getTexture(), dot.getX(), dot.getY());
+			ArrayList<GreenDot> greens = level.get_grn_dots();
+			for(GreenDot dot: greens)
+			{
+				batch.draw(dot.getTexture(), dot.getX(),  dot.getY());
+			}
 		}
+		else
+		{
+			
+		}
+		
 		
 		batch.end();
 	}
