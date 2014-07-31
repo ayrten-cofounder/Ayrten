@@ -2,6 +2,7 @@ package com.ayrten.scrots.dots;
 
 import java.util.Random;
 
+import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 //import com.badlogic.gdx.graphics.Texture.TextureFilter;
@@ -23,10 +24,13 @@ public class DotGenerator
 	private int					height;
 	private int					width;
 	
-	public DotGenerator(int width, int height)
+	private Manager gm;
+	
+	public DotGenerator(int width, int height, Manager gm)
 	{
 		this.width = width;
 		this.height = height;
+		this.gm = gm;
 		
 		redDot = new Texture(Gdx.files.internal("data/red_dot.png"));
 		// redDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
@@ -40,21 +44,21 @@ public class DotGenerator
 	
 	public GreenDot genGreenDot()
 	{
-		GreenDot gDot = new GreenDot(greenDot);
+		GreenDot gDot = new GreenDot(greenDot, gm);
 		setRandPositions(gDot);
 		return gDot;
 	}
 	
 	public RedDot genRedDot()
 	{
-		RedDot rDot = new RedDot(redDot);
+		RedDot rDot = new RedDot(redDot, gm);
 		setRandPositions(rDot);
 		return rDot;
 	}
 	
 	public BlueDot genBlueDot()
 	{
-		BlueDot bDot = new BlueDot(blueDot);
+		BlueDot bDot = new BlueDot(blueDot, gm);
 		setRandPositions(bDot);
 		return bDot;
 	}
@@ -70,13 +74,13 @@ public class DotGenerator
 		switch (dotType)
 		{
 			case 0:
-				randomDot = new GreenDot(greenDot);
+				randomDot = new GreenDot(greenDot, gm);
 				break;
 			case 1:
-				randomDot = new BlueDot(blueDot);
+				randomDot = new BlueDot(blueDot, gm);
 				break;
 			case 2:
-				randomDot = new RedDot(redDot);
+				randomDot = new RedDot(redDot, gm);
 				break;
 			default:
 				break;

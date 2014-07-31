@@ -1,7 +1,11 @@
-package com.ayrten.scrots.dots;
+package com.ayrten.scrots.manager;
 
 import java.util.ArrayList;
 
+import com.ayrten.scrots.dots.BlueDot;
+import com.ayrten.scrots.dots.DotGenerator;
+import com.ayrten.scrots.dots.GreenDot;
+import com.ayrten.scrots.dots.RedDot;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
@@ -19,11 +23,11 @@ public class Level
 	private int level;
 	private DotGenerator generator;
 	
-	public Level(int level, int width, int height)
+	public Level(int level, int width, int height, Manager gm)
 	{
 		assert level >= 0;
 		this.level = level;
-		generator = new DotGenerator(width, height);
+		generator = new DotGenerator(width, height, gm);
 		
 		greenDots = new ArrayList<GreenDot>();
 		redDots = new ArrayList<RedDot>();
