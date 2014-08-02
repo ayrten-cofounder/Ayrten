@@ -1,11 +1,8 @@
-package com.ayrten.scrots.manager;
+package com.ayrten.scrots.dots;
 
 import java.util.ArrayList;
 
-import com.ayrten.scrots.dots.BlueDot;
-import com.ayrten.scrots.dots.DotGenerator;
-import com.ayrten.scrots.dots.GreenDot;
-import com.ayrten.scrots.dots.RedDot;
+import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
