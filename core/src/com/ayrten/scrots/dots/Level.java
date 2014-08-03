@@ -35,6 +35,11 @@ public class Level
 		gen_blue_dots();
 	}
 	
+	public boolean level_clear()
+	{
+		return greenDots.isEmpty();
+	}
+	
 	public ArrayList<GreenDot> get_grn_dots()
 	{
 		return greenDots;

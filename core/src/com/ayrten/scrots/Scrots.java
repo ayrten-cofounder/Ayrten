@@ -3,7 +3,6 @@ package com.ayrten.scrots;
 import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -12,9 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class Scrots implements ApplicationListener
 {
-	private SpriteBatch batch;
-	TextureRegion region;
-
 	private GameMode gamemode;
 	private Manager gm;
 	private Stage stage;
@@ -27,20 +23,17 @@ public class Scrots implements ApplicationListener
 	{
 		w = Gdx.graphics.getWidth();
 		h = Gdx.graphics.getHeight();
-		System.out.println("Width of screen: " + w);
-		System.out.println("Height of scrren: " + h);
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 
-		batch = new SpriteBatch();
 		gm = new Manager(0); // Starts with 0 points
-		gamemode = new GameMode(batch, stage, gm, w, h);
+		gamemode = new GameMode(stage, gm, w, h);
 	}
 
 	@Override
 	public void dispose()
 	{
-		batch.dispose();
+		gamemode.dispose();
 	}
 
 	@Override

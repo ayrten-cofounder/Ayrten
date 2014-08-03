@@ -16,7 +16,7 @@ public class GreenDot extends Dot
 	{
 		super.touchedByAnAngel();
 		
-		// Add a point every time it gets popped
-		gm.plusOnePoint();
+		// Removes a green dot from the array
+		gm.minusGreenDot();
 	}
 }
