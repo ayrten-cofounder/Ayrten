@@ -1,8 +1,9 @@
 package com.ayrten.scrots;
 
-import com.ayrten.scrots.game.Game;
+import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,7 +15,7 @@ public class Scrots implements ApplicationListener
 	private SpriteBatch batch;
 	TextureRegion region;
 
-	private Game game;
+	private GameMode gamemode;
 	private Manager gm;
 	private Stage stage;
 
@@ -33,7 +34,7 @@ public class Scrots implements ApplicationListener
 
 		batch = new SpriteBatch();
 		gm = new Manager(0); // Starts with 0 points
-		game = new Game(batch, stage, gm, w, h);
+		gamemode = new GameMode(batch, stage, gm, w, h);
 	}
 
 	@Override
@@ -49,7 +50,7 @@ public class Scrots implements ApplicationListener
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		game.render();
+		gamemode.render();
 	}
 
 	@Override
@@ -65,5 +66,6 @@ public class Scrots implements ApplicationListener
 	@Override
 	public void resume()
 	{
+		
 	}
 }

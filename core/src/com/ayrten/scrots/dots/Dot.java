@@ -1,9 +1,10 @@
 package com.ayrten.scrots.dots;
 
 import com.ayrten.scrots.manager.Manager;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -11,12 +12,16 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 public class Dot extends Actor
 {
 	private Texture dot;
-	public Manager gm;
 
-	public Dot(Texture dot, Manager gm)
+	public Manager gm;
+	
+	public Sound pop;
+
+	public Dot(Texture dot, Manager gm, Sound pop)
 	{
 		this.dot = dot;
 		this.gm = gm;
+		this.pop = pop;
 		setBounds(getX(), getY(), dot.getWidth(), dot.getHeight());
 		// An InputListener is a subclass of EventListener
 		addListener(new InputListener()
@@ -36,7 +41,6 @@ public class Dot extends Actor
 
 				// Remove the actor from the stage.
 				event.getTarget().remove();
-
 			}
 		});
 	}
@@ -45,6 +49,7 @@ public class Dot extends Actor
 	public void touchedByAnAngel()
 	{
 		// Ovverridde
+		pop.play();
 	}
 
 	public void setTexture(Texture dot)

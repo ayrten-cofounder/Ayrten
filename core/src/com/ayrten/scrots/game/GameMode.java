@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 import com.ayrten.scrots.dots.Level;
 import com.ayrten.scrots.manager.Manager;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
-public class Game
+public class GameMode
 {
 	private SpriteBatch batch;
 	private Stage stage;
@@ -16,14 +18,14 @@ public class Game
 	
 	private ArrayList<Level> all_levels = new ArrayList<Level>();	
 	private Level curr_level;
-	private int curr_lvl = 0;
+	// private int curr_lvl = 0;
 	private CharSequence str = " points";
 	
 	private BitmapFont font = new BitmapFont();
 
 	private int w, h;
 
-	public Game(SpriteBatch batch, Stage stage, Manager gm, int width,
+	public GameMode(SpriteBatch batch, Stage stage, Manager gm, int width,
 			int height)
 	{
 		this.batch = batch;

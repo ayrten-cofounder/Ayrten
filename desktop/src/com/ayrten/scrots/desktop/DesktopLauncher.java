@@ -8,7 +8,7 @@ import com.ayrten.scrots.ScrotsGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		// new LwjglApplication(new Scrots(), config);
-		new LwjglApplication(new ScrotsGame(), config);
+		new LwjglApplication(new Scrots(), config);
+		// new LwjglApplication(new ScrotsGame(), config);
 	}
 }
