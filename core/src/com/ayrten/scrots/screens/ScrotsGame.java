@@ -1,4 +1,4 @@
-package com.ayrten.scrots;
+package com.ayrten.scrots.screens;
 
 
 import com.badlogic.gdx.Game;
@@ -14,6 +14,12 @@ public class ScrotsGame extends Game
 	public SpriteBatch batch;
     public BitmapFont font;
     public Preferences prefs;
+    
+    // Going to create the main screens here since we don't want to create them 
+    // on the fly, compared to the loading screen.
+    // Note: if it takes up too much phone resources, we can always create them on the fly later
+    public MainMenuScreen main_menu;
+    
     FreeTypeFontGenerator font_generator;
     
 	// Different screens.
@@ -25,7 +31,9 @@ public class ScrotsGame extends Game
 		// Initialize variables
 		batch = new SpriteBatch();
 		font = new BitmapFont();
-		// Load
+		main_menu = new MainMenuScreen(this);
+		
+		// Load preferences set by options
 		prefs = Gdx.app.getPreferences("My Preferences");
 		
 		loading_screen = new LoadingScreen(this);

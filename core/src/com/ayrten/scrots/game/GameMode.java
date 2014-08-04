@@ -25,8 +25,7 @@ public class GameMode
 
 	private int w, h;
 
-	public GameMode(SpriteBatch batch, Stage stage, Manager gm, int width,
-			int height)
+	public GameMode(SpriteBatch batch, Stage stage, Manager gm, int width, int height)
 	{
 		this.batch = batch;
 		this.stage = stage;

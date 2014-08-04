@@ -34,6 +34,7 @@ public class DotGenerator {
 		this.height = height;
 		this.gm = gm;
 
+		// Move these textures up to GameMode? - Tony
 		redDot = new Texture(Gdx.files.internal("data/red_dot.png"));
 		// redDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 

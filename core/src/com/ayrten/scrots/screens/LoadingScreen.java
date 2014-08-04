@@ -1,4 +1,4 @@
-package com.ayrten.scrots;
+package com.ayrten.scrots.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 
 public class LoadingScreen implements Screen 
 {
-	ScrotsGame game;
+	private ScrotsGame game;
 	// Here, Music is better than Sound cause it's a longer. Sound should only be for short file like sounds effects.
 	// Sound bg;
 	Music bg;
@@ -33,9 +33,9 @@ public class LoadingScreen implements Screen
 
 		if(Gdx.input.isTouched())
 		{
-			game.setScreen(new MainMenuScreen(game));
+			game.setScreen(game.main_menu);
 			bg.stop();
-			dispose();
+			this.dispose();
 		}
 	}
 	
@@ -50,7 +50,8 @@ public class LoadingScreen implements Screen
 	}
 
 	@Override
-	public void show() {
+	public void show() 
+	{
 		bg.play();
 		bg.setLooping(true);
 	}

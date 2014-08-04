@@ -24,6 +24,7 @@ public class Level
 	{
 		assert level >= 0;
 		this.level = level;
+		// Maybe should move this up to the GameMode level? - Tony
 		generator = new DotGenerator(width, height, gm);
 		
 		greenDots = new ArrayList<GreenDot>();
