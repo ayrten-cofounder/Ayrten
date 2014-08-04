@@ -12,28 +12,32 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class GameMode
 {
-	private SpriteBatch batch;
+	private SpriteBatch batch = new SpriteBatch();;
 	private Stage stage;
 	private Manager gm;
-	
-	private ArrayList<Level> all_levels = new ArrayList<Level>();	
+
+	private ArrayList<Level> all_levels = new ArrayList<Level>();
 	private Level curr_level;
 	// private int curr_lvl = 0;
 	private CharSequence str = " points";
-	
+
 	private BitmapFont font = new BitmapFont();
 
 	private int w, h;
 
-	public GameMode(SpriteBatch batch, Stage stage, Manager gm, int width, int height)
+	public GameMode(Stage stage, Manager gm, int width, int height)
 	{
-		this.batch = batch;
 		this.stage = stage;
 		this.gm = gm;
 		this.w = width;
 		this.h = height;
-		
+
 		generate();
+	}
+
+	public void dispose()
+	{
+		batch.dispose();
 	}
 
 	private void generate()
@@ -46,6 +50,7 @@ public class GameMode
 		}
 
 		curr_level = all_levels.remove(0);
+		gm.setLevel(curr_level);
 		for (int i = 0; i < curr_level.get_blue_dots().size(); i++)
 		{
 			stage.addActor(curr_level.get_blue_dots().get(i));
@@ -76,16 +81,26 @@ public class GameMode
 			batch.end();
 
 			stage.draw();
-			if (stage.getActors().size == 0)
+			if (curr_level.level_clear())
 			{
+				stage.clear();
+				gm.plusOnePoint();
+				
 				// Level newLevel = new Level()
 				curr_level = all_levels.remove(0);
+				gm.setLevel(curr_level);
 				for (int i = 0; i < curr_level.get_blue_dots().size(); i++)
+				{
 					stage.addActor(curr_level.get_blue_dots().get(i));
+				}
 				for (int i = 0; i < curr_level.get_grn_dots().size(); i++)
+				{
 					stage.addActor(curr_level.get_grn_dots().get(i));
+				}
 				for (int i = 0; i < curr_level.get_red_dots().size(); i++)
+				{
 					stage.addActor(curr_level.get_red_dots().get(i));
+				}
 			}
 		}
 	}
