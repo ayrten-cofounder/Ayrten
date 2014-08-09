@@ -31,13 +31,16 @@ public class ScrotsGame extends Game
 		// Initialize variables
 		batch = new SpriteBatch();
 		font = new BitmapFont();
-		main_menu = new MainMenuScreen(this);
+		main_menu = new MainMenuScreen();
 		
 		// Load preferences set by options
 		prefs = Gdx.app.getPreferences("My Preferences");
 		
 		loading_screen = new LoadingScreen(this);
 		setScreen(loading_screen);
+		
+		// Catches when the user presses the back button.
+		Gdx.input.setCatchBackKey(true);
 	}
 
 	@Override

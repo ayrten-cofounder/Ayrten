@@ -30,11 +30,6 @@ public class GameScreen implements Screen
 		gm = new Manager(0); // Starts with 0 points
 		gamemode = new GameMode(stage, gm, w, h);
 	}
-	
-	public Stage getStage()
-	{
-		return stage;
-	}
 
 	@Override
 	public void dispose()
@@ -72,8 +67,7 @@ public class GameScreen implements Screen
 	@Override
 	public void show() 
 	{
-		// TODO Auto-generated method stub
-		
+		Gdx.input.setInputProcessor(stage);
 	}
 
 	@Override
