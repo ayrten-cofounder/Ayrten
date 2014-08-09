@@ -6,10 +6,12 @@
 package com.ayrten.scrots.manager;
 
 import com.ayrten.scrots.dots.Level;
+import com.ayrten.scrots.time.Time;
 
 public class Manager
 {
 	private Level curr_level;
+	private Time time;
 
 	// True if player loses
 	private boolean game_over = false;
@@ -20,11 +22,18 @@ public class Manager
 	public Manager(int score)
 	{
 		this.score = score;
+		
+		time = new Time(this);
 	}
 
 	public void setLevel(Level level)
 	{
 		this.curr_level = level;
+	}
+	
+	public void startGame()
+	{
+		time.startTime();
 	}
 
 	public void minusGreenDot()
@@ -54,6 +63,16 @@ public class Manager
 	public void addXPoint(int x)
 	{
 		score = score + x;
+	}
+	
+	public String getTime()
+	{
+		return time.getTime();
+	}
+	
+	public void addTime(float x)
+	{
+		time.addTime(x);
 	}
 
 	public int getPoints()

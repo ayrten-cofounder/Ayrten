@@ -18,10 +18,11 @@ public class GameMode
 
 	private ArrayList<Level> all_levels = new ArrayList<Level>();
 	private Level curr_level;
-	// private int curr_lvl = 0;
 	private CharSequence str = " points";
+	private CharSequence time = "Time left: ";
 
-	private BitmapFont font = new BitmapFont();
+	private BitmapFont font_points = new BitmapFont();
+	private BitmapFont font_time = new BitmapFont();
 
 	private int w, h;
 
@@ -33,6 +34,7 @@ public class GameMode
 		this.h = height;
 
 		generate();
+		gm.startGame();
 	}
 
 	public void dispose()
@@ -43,7 +45,7 @@ public class GameMode
 	private void generate()
 	{
 		// Generate the first 20 levels.
-		for (int i = 0; i < 20; i++)
+		for (int i = 1; i < 20; i++)
 		{
 			Level lvl = new Level(i, w, h, gm);
 			all_levels.add(lvl);
@@ -70,22 +72,26 @@ public class GameMode
 		if (gm.isGameOver())
 		{
 			batch.begin();
-			font.draw(batch, "Game Over", 50, 50);
+			font_points.draw(batch, "Game Over", 50, 50);
 			batch.end();
 		}
 		else
 		{
 
 			batch.begin();
-			font.draw(batch, String.valueOf(gm.getPoints()) + str, 50, 50);
+			font_points.draw(batch, String.valueOf(gm.getPoints()) + str, 50,
+					50);
+			font_time.draw(batch, time + gm.getTime(), 50, 65);
+
 			batch.end();
 
 			stage.draw();
 			if (curr_level.level_clear())
 			{
+				// One point for clearing a level
 				stage.clear();
 				gm.plusOnePoint();
-				
+
 				// Level newLevel = new Level()
 				curr_level = all_levels.remove(0);
 				gm.setLevel(curr_level);
