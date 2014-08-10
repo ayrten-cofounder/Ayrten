@@ -29,10 +29,11 @@ public class DotGenerator {
 
 	private Manager gm;
 
-	public DotGenerator(int width, int height, Manager gm) {
+	public DotGenerator(int width, int height, Manager gm, Sound pop) {
 		this.width = width;
 		this.height = height;
 		this.gm = gm;
+		this.pop = pop;
 
 		// Move these textures up to GameMode? - Tony
 		redDot = new Texture(Gdx.files.internal("data/red_dot.png"));
@@ -43,8 +44,6 @@ public class DotGenerator {
 
 		greenDot = new Texture(Gdx.files.internal("data/green_dot.png"));
 		// greenDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		
-		pop = Gdx.audio.newSound(Gdx.files.internal("sounds/pop.mp3"));
 	}
 
 	public GreenDot genGreenDot() {

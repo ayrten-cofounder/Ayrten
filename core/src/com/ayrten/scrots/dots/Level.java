@@ -3,6 +3,7 @@ package com.ayrten.scrots.dots;
 import java.util.ArrayList;
 
 import com.ayrten.scrots.manager.Manager;
+import com.ayrten.scrots.screens.ScrotsGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
@@ -25,7 +26,7 @@ public class Level
 		assert level >= 0;
 		this.level = level;
 		// Maybe should move this up to the GameMode level? - Tony
-		generator = new DotGenerator(width, height, gm);
+		generator = new DotGenerator(width, height, gm, ((ScrotsGame) Gdx.app.getApplicationListener()).pop);
 		
 		greenDots = new ArrayList<GreenDot>();
 		redDots = new ArrayList<RedDot>();

@@ -10,14 +10,12 @@ public class LoadingScreen implements Screen
 	private ScrotsGame game;
 	// Here, Music is better than Sound cause it's a longer. Sound should only be for short file like sounds effects.
 	// Sound bg;
-	Music bg;
 	
 	public LoadingScreen(ScrotsGame game)
 	{
 		this.game = game;
 		// bg = Gdx.audio.newSound(Gdx.files.internal("sounds/Naoki Sato - Final Wish.mp3"));
 		// bg = Gdx.audio.newMusic(Gdx.files.internal("sounds/Naoki Sato - Final Wish.mp3"));
-		bg = Gdx.audio.newMusic(Gdx.files.internal("sounds/Shinji Orito - Yume no Ato I.mp3"));
 	}
 
 	@Override
@@ -34,14 +32,15 @@ public class LoadingScreen implements Screen
 		if(Gdx.input.isTouched())
 		{
 			game.setScreen(game.main_menu);
-			bg.stop();
+			//game.bg.stop();
 			this.dispose();
 		}
 	}
 	
 	@Override
-	public void dispose() {
-		bg.dispose();
+	public void dispose() 
+	{
+		//bg.dispose();
 	}
 
 	@Override
@@ -52,8 +51,8 @@ public class LoadingScreen implements Screen
 	@Override
 	public void show() 
 	{
-		bg.play();
-		bg.setLooping(true);
+		// bg.play();
+		// bg.setLooping(true);
 	}
 
 	@Override

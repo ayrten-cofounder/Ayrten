@@ -4,9 +4,12 @@ package com.ayrten.scrots.screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 // Game is an ApplicationListener just like initial setup of Scrots, but with more functionality.
 public class ScrotsGame extends Game 
@@ -14,6 +17,9 @@ public class ScrotsGame extends Game
 	public SpriteBatch batch;
     public BitmapFont font;
     public Preferences prefs;
+    public Sound pop;
+    public Skin skin;
+    public Music bg;
     
     // Going to create the main screens here since we don't want to create them 
     // on the fly, compared to the loading screen.
@@ -31,15 +37,19 @@ public class ScrotsGame extends Game
 		// Initialize variables
 		batch = new SpriteBatch();
 		font = new BitmapFont();
-		main_menu = new MainMenuScreen();
-		
-		// Load preferences set by options
 		prefs = Gdx.app.getPreferences("My Preferences");
+		pop = Gdx.audio.newSound(Gdx.files.internal("sounds/pop.mp3"));
+		skin = new Skin(Gdx.files.internal("data/uiskin.json"));
+		bg = Gdx.audio.newMusic(Gdx.files.internal("sounds/Shinji Orito - Yume no Ato I.mp3"));
 		
+		main_menu = new MainMenuScreen();		
 		loading_screen = new LoadingScreen(this);
+		
+		bg.setLooping(true);
+		bg.play();
 		setScreen(loading_screen);
 		
-		// Catches when the user presses the back button.
+		// Catches when the user presses the back button. Has no effects on desktop.
 		Gdx.input.setCatchBackKey(true);
 	}
 
@@ -49,6 +59,8 @@ public class ScrotsGame extends Game
 		loading_screen.dispose();
 		// Make the changes persist. (ie. saves an XML file for Windows in /Users/<user>/.prefs/
 		prefs.flush();
+		pop.dispose();
+		skin.dispose();
 	}
 
 }

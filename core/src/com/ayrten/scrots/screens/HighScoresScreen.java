@@ -1,6 +1,7 @@
 package com.ayrten.scrots.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -21,20 +22,21 @@ public class HighScoresScreen implements Screen
 	{
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
 		stage.draw();
+		
+		if(Gdx.input.isKeyPressed(Input.Keys.BACKSPACE))
+			game.setScreen(game.main_menu);
 	}
 
 	@Override
-	public void dispose() {
-		// TODO Auto-generated method stub
+	public void dispose() 
+	{
 		stage.dispose();
 	}
 	
 	@Override
 	public void resize(int width, int height) 
 	{
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -45,20 +47,20 @@ public class HighScoresScreen implements Screen
 	}
 
 	@Override
-	public void hide() {
-		// TODO Auto-generated method stub
+	public void hide() 
+	{
 		
 	}
 
 	@Override
-	public void pause() {
-		// TODO Auto-generated method stub
+	public void pause() 
+	{
 		
 	}
 
 	@Override
-	public void resume() {
-		// TODO Auto-generated method stub
+	public void resume() 
+	{
 		
 	}
 }
