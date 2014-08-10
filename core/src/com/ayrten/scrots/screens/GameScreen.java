@@ -41,9 +41,9 @@ public class GameScreen implements Screen
 	public void render(float delta)
 	{
 		if(game.prefs.getString("bg_color").equals("White"))
-		  Gdx.gl.glClearColor(1, 1, 1, 1);
+			Gdx.gl.glClearColor(1, 1, 1, 1);
 		else
-		  Gdx.gl.glClearColor(0, 0, 0, 0);
+			Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		gamemode.render();

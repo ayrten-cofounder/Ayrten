@@ -109,9 +109,9 @@ public class MainMenuScreen implements Screen
 	public void render(float delta) 
 	{
 		if(((ScrotsGame) Gdx.app.getApplicationListener()).prefs.getString("bg_color").equals("White"))
-		  Gdx.gl.glClearColor(1, 1, 1, 1);
+			Gdx.gl.glClearColor(1, 1, 1, 1);
 		else
-		  Gdx.gl.glClearColor(0, 0, 0, 0);
+			Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		stage.draw();
