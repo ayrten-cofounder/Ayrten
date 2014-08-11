@@ -6,43 +6,42 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 public class MainMenuScreen implements Screen 
 {
+	private ScrotsGame game;
 	private TextButton start;
 	private TextButton options;
 	private TextButton high_score;
 	private Stage stage;
-	private Skin skin;
 	
 	// For options and high scores screens
-	private TextButton back_button;
-	
 	private OptionsScreen options_screen;
 	private HighScoresScreen high_score_screen;
 	private GameScreen game_screen;
 	
-	public MainMenuScreen()
+	public MainMenuScreen(ScrotsGame game)
 	{	
 		// Initialize variables
+		this.game = game;
 		stage = new Stage();
 		
 		Table table = new Table(); 
-//		table.setFillParent(true);
-		table.setHeight(Gdx.graphics.getHeight()/4);
-		table.setCenterPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/3);
-
-		stage.addActor(table);
-		skin = ((ScrotsGame) Gdx.app.getApplicationListener()).skin;
+		table.setSkin(game.skin);
+		table.setCenterPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/4);
 		
 		options_screen = new OptionsScreen((ScrotsGame) Gdx.app.getApplicationListener());
 		high_score_screen = new HighScoresScreen((ScrotsGame) Gdx.app.getApplicationListener());
 		game_screen = new GameScreen((ScrotsGame) Gdx.app.getApplicationListener());
 		
-		start = new TextButton("Start", skin);
+		start = new TextButton("", game.skin);
+		LabelStyle style = new LabelStyle();
+		style.font = game.font_16;
+		start.add(new Label("Start", style));
 		start.setBounds(start.getX(), start.getY(), start.getWidth(), start.getHeight());
 		start.addListener(new InputListener()
 		{
@@ -60,7 +59,9 @@ public class MainMenuScreen implements Screen
 			}
 		});
 		
-		options = new TextButton("Options", skin);
+		options = new TextButton("", game.skin);
+		// Based on what background it is, set the color of the font? white = > black? ugly?
+		options.add(new Label("Options", style));
 		options.setBounds(options.getX(), options.getY(), options.getWidth(), options.getHeight());
 		options.addListener(new InputListener()
 		{
@@ -77,7 +78,8 @@ public class MainMenuScreen implements Screen
 			}
 		});
 		
-		high_score = new TextButton("High Scores", skin);
+		high_score = new TextButton("", game.skin);
+		high_score.add(new Label("High Scores", style));
 		high_score.setBounds(high_score.getX(), high_score.getY(), high_score.getWidth(), high_score.getHeight());
 		high_score.addListener(new InputListener()
 		{
@@ -96,22 +98,24 @@ public class MainMenuScreen implements Screen
 
 		table.add(start);
 		table.row();
-		table.add().expand().fill();
+		table.add("").height(Gdx.graphics.getHeight()/50);
 		table.row();
 		table.add(options);
 		table.row();
-		table.add().expand().fill();
+		table.add("").height(Gdx.graphics.getHeight()/50);
 		table.row();
 		table.add(high_score);
+		
+		stage.addActor(table);
 	}
 
 	@Override
 	public void render(float delta) 
 	{
-		if(((ScrotsGame) Gdx.app.getApplicationListener()).prefs.getString("bg_color").equals("White"))
-			Gdx.gl.glClearColor(1, 1, 1, 1);
-		else
+		if(game.prefs.getString("bg_color").equals("Black"))
 			Gdx.gl.glClearColor(0, 0, 0, 0);
+		else
+			Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		stage.draw();

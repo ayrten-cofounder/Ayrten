@@ -7,6 +7,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 public class HighScoresScreen implements Screen
@@ -18,9 +21,17 @@ public class HighScoresScreen implements Screen
 	{
 		this.game = game;
 		stage = new Stage();
-		TextButton back = new TextButton("Back", game.skin);
-		back.setBounds(back.getX(), back.getY(), back.getWidth(), back.getHeight());
 		
+		Table table = new Table();
+		table.setFillParent(true);
+		table.left().top();
+		
+		LabelStyle style = new LabelStyle();
+		style.font = game.font_16;
+		
+		TextButton back = new TextButton("", game.skin);
+		back.add(new Label("Back", style));
+		back.setBounds(back.getX(), back.getY(), back.getWidth(), back.getHeight());
 		back.setPosition(0, Gdx.graphics.getHeight() - back.getHeight());
 		back.addListener(new InputListener()
 		{
@@ -37,16 +48,18 @@ public class HighScoresScreen implements Screen
 			}
 		});	
 		
-		stage.addActor(back);
+		table.add(back);
+		
+		stage.addActor(table);
 	}
 
 	@Override
 	public void render(float delta) 
 	{
-		if(game.prefs.getString("bg_color").equals("White"))
-			Gdx.gl.glClearColor(1, 1, 1, 1);
-		else
+		if(game.prefs.getString("bg_color").equals("Black"))
 			Gdx.gl.glClearColor(0, 0, 0, 0);
+		else
+			Gdx.gl.glClearColor(1, 1, 1, 1);
 		
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stage.draw();

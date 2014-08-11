@@ -2,20 +2,33 @@ package com.ayrten.scrots.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 public class LoadingScreen implements Screen 
 {
 	private ScrotsGame game;
-	// Here, Music is better than Sound cause it's a longer. Sound should only be for short file like sounds effects.
-	// Sound bg;
+	private Stage stage;
 	
 	public LoadingScreen(ScrotsGame game)
 	{
 		this.game = game;
-		// bg = Gdx.audio.newSound(Gdx.files.internal("sounds/Naoki Sato - Final Wish.mp3"));
-		// bg = Gdx.audio.newMusic(Gdx.files.internal("sounds/Naoki Sato - Final Wish.mp3"));
+
+		stage = new Stage();
+
+		Label.LabelStyle style = new Label.LabelStyle();
+		style.font = game.font_120;
+		Label scrots = new Label("SCROTS", style);
+		scrots.setCenterPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/3 * 2);
+		
+		style.font = game.font_32;
+		Label ayrten = new Label("by Ayrten", style);
+		ayrten.setCenterPosition(Gdx.graphics.getWidth()/2 + (Gdx.graphics.getWidth()/10), 
+				Gdx.graphics.getHeight()/3 * 2 - scrots.getHeight());
+		
+		stage.addActor(scrots);
+		stage.addActor(ayrten);
 	}
 
 	@Override
@@ -24,15 +37,11 @@ public class LoadingScreen implements Screen
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		game.batch.begin();
-		game.font.draw(game.batch, "SCROTS", Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
-		game.font.draw(game.batch, "by Ayrten", Gdx.graphics.getWidth()/2 + 50, Gdx.graphics.getHeight()/2 - 100);
-		game.batch.end();
+		stage.draw();
 
 		if(Gdx.input.isTouched())
 		{
 			game.setScreen(game.main_menu);
-			//game.bg.stop();
 			this.dispose();
 		}
 	}
@@ -40,7 +49,7 @@ public class LoadingScreen implements Screen
 	@Override
 	public void dispose() 
 	{
-		//bg.dispose();
+		stage.dispose();
 	}
 
 	@Override
@@ -51,8 +60,7 @@ public class LoadingScreen implements Screen
 	@Override
 	public void show() 
 	{
-		// bg.play();
-		// bg.setLooping(true);
+		
 	}
 
 	@Override
