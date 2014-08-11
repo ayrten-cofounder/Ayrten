@@ -11,10 +11,12 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 public class Dot extends Actor
 {
+	private static final float SIZE_RATIO = 10;
+	
 	private Texture dot;
 
 	public Manager gm;
-	
+
 	public Sound pop;
 
 	public Dot(Texture dot, Manager gm, Sound pop)
@@ -43,6 +45,16 @@ public class Dot extends Actor
 				event.getTarget().remove();
 			}
 		});
+	}
+
+	private float getCircleWidth()
+	{
+		return (float) (gm.w / SIZE_RATIO);
+	}
+
+	private float getCircleHeight()
+	{
+		return (float) (gm.h / SIZE_RATIO);
 	}
 
 	// This class shall be overriddent by the blue, green, red dots

@@ -6,24 +6,42 @@
 package com.ayrten.scrots.manager;
 
 import com.ayrten.scrots.dots.Level;
+import com.ayrten.scrots.highscore.HighScore;
 import com.ayrten.scrots.time.Time;
 
 public class Manager
 {
 	private Level curr_level;
 	private Time time;
+	private HighScore highscore;
+	
 
 	// True if player loses
 	private boolean game_over = false;
 
 	// The score, time, etc. of the game
 	private int score;
+	
+	public int w, h;
 
-	public Manager(int score)
+	public Manager(int score, int w, int h)
 	{
 		this.score = score;
+		this.w = w;
+		this.h = h;
 		
 		time = new Time(this);
+		highscore = new HighScore();
+	}
+	
+	public String getHighScore()
+	{
+		return highscore.getHighScore();
+	}
+	
+	public void setHighScore()
+	{
+		highscore.setHighScore(score);
 	}
 
 	public void setLevel(Level level)

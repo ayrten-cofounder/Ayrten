@@ -27,7 +27,7 @@ public class GameScreen implements Screen
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 
-		gm = new Manager(0); // Starts with 0 points
+		gm = new Manager(0, w, h); // Starts with 0 points
 		gamemode = new GameMode(stage, gm, w, h);
 	}
 

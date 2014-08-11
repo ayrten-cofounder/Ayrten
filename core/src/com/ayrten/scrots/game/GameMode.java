@@ -51,28 +51,17 @@ public class GameMode
 			all_levels.add(lvl);
 		}
 
-		curr_level = all_levels.remove(0);
-		gm.setLevel(curr_level);
-		for (int i = 0; i < curr_level.get_blue_dots().size(); i++)
-		{
-			stage.addActor(curr_level.get_blue_dots().get(i));
-		}
-		for (int i = 0; i < curr_level.get_grn_dots().size(); i++)
-		{
-			stage.addActor(curr_level.get_grn_dots().get(i));
-		}
-		for (int i = 0; i < curr_level.get_red_dots().size(); i++)
-		{
-			stage.addActor(curr_level.get_red_dots().get(i));
-		}
+		setStage();
 	}
 
 	public void render()
 	{
 		if (gm.isGameOver())
 		{
+			gm.setHighScore();
 			batch.begin();
-			font_points.draw(batch, "Game Over", 50, 50);
+			font_points.draw(batch, "Game Over", 50, 65);
+			font_time.draw(batch, "Highscore: " + gm.getHighScore(), 50, 50);
 			batch.end();
 		}
 		else
@@ -93,21 +82,30 @@ public class GameMode
 				gm.plusOnePoint();
 
 				// Level newLevel = new Level()
-				curr_level = all_levels.remove(0);
-				gm.setLevel(curr_level);
-				for (int i = 0; i < curr_level.get_blue_dots().size(); i++)
-				{
-					stage.addActor(curr_level.get_blue_dots().get(i));
-				}
-				for (int i = 0; i < curr_level.get_grn_dots().size(); i++)
-				{
-					stage.addActor(curr_level.get_grn_dots().get(i));
-				}
-				for (int i = 0; i < curr_level.get_red_dots().size(); i++)
-				{
-					stage.addActor(curr_level.get_red_dots().get(i));
-				}
+				setStage();
 			}
+		}
+	}
+
+	public void setStage()
+	{
+		curr_level = all_levels.remove(0);
+		gm.setLevel(curr_level);
+		for (int i = 0; i < curr_level.get_blue_dots().size(); i++)
+		{
+			stage.addActor(curr_level.get_blue_dots().get(i));
+		}
+		for (int i = 0; i < curr_level.get_grn_dots().size(); i++)
+		{
+			stage.addActor(curr_level.get_grn_dots().get(i));
+		}
+		for (int i = 0; i < curr_level.get_red_dots().size(); i++)
+		{
+			stage.addActor(curr_level.get_red_dots().get(i));
+		}
+		for (int i = 0; i < curr_level.get_baby_blue_dots().size(); i++)
+		{
+			stage.addActor(curr_level.get_baby_blue_dots().get(i));
 		}
 	}
 }
