@@ -34,9 +34,15 @@ public class DotGenerator
 
 	public DotGenerator(int width, int height, Manager gm)
 	{
+	}
+
+	public DotGenerator(int width, int height, Manager gm, Sound pop)
+	{
+
 		this.width = width;
 		this.height = height;
 		this.gm = gm;
+		this.pop = pop;
 
 		// Move these textures up to GameMode? - Tony
 		redDot = new Texture(Gdx.files.internal("data/red_dot.png"));
@@ -52,6 +58,7 @@ public class DotGenerator
 		// babyBlueDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
 		pop = Gdx.audio.newSound(Gdx.files.internal("sounds/pop.mp3"));
+
 	}
 
 	public GreenDot genGreenDot()
@@ -117,7 +124,7 @@ public class DotGenerator
 	{
 		int w = random.nextInt(width);
 		int h = random.nextInt(height);
-		
+
 		if (w == 0)
 		{
 			w += target.getTexture().getWidth();
@@ -135,7 +142,7 @@ public class DotGenerator
 		{
 			h = height - target.getTexture().getHeight();
 		}
-		
+
 		target.setPosition(w, h);
 	}
 }

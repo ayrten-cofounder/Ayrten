@@ -6,143 +6,136 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
-public class MainMenuScreen implements Screen
+public class MainMenuScreen implements Screen 
 {
+	private ScrotsGame game;
 	private TextButton start;
 	private TextButton options;
 	private TextButton high_score;
 	private Stage stage;
-	private Skin skin;
-
+	
 	// For options and high scores screens
-	private TextButton back_button;
-
 	private OptionsScreen options_screen;
 	private HighScoresScreen high_score_screen;
 	private GameScreen game_screen;
-
-	public MainMenuScreen()
-	{
+	
+	public MainMenuScreen(ScrotsGame game)
+	{	
 		// Initialize variables
+		this.game = game;
 		stage = new Stage();
-
-		Table table = new Table();
-		table.setFillParent(true);
-
-		stage.addActor(table);
-//		skin = new Skin(Gdx.files.internal("data/uiskin.json"));
-
-		options_screen = new OptionsScreen(
-				(ScrotsGame) Gdx.app.getApplicationListener());
-		high_score_screen = new HighScoresScreen(
-				(ScrotsGame) Gdx.app.getApplicationListener());
-		game_screen = new GameScreen(
-				(ScrotsGame) Gdx.app.getApplicationListener());
-/*
-		start = new TextButton("Start", skin);
-		// start.setPosition(Gdx.graphics.getWidth()/2,
-		// Gdx.graphics.getHeight()/2);
-		start.setBounds(start.getX(), start.getY(), start.getWidth(),
-				start.getHeight());
+		
+		Table table = new Table(); 
+		table.setSkin(game.skin);
+		table.setCenterPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/4);
+		
+		options_screen = new OptionsScreen((ScrotsGame) Gdx.app.getApplicationListener());
+		high_score_screen = new HighScoresScreen((ScrotsGame) Gdx.app.getApplicationListener());
+		game_screen = new GameScreen((ScrotsGame) Gdx.app.getApplicationListener());
+		
+		start = new TextButton("", game.skin);
+		LabelStyle style = new LabelStyle();
+		style.font = game.font_16;
+		start.add(new Label("Start", style));
+		start.setBounds(start.getX(), start.getY(), start.getWidth(), start.getHeight());
 		start.addListener(new InputListener()
 		{
 			// Need this or else it won't recognize the touch down event.
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button)
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
 				return true;
 			}
-
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button)
+			
+			public void touchUp(InputEvent event, float x, float y,	int pointer, int button)
 			{
-				((ScrotsGame) Gdx.app.getApplicationListener())
-						.setScreen(game_screen);
+				if(((ScrotsGame) Gdx.app.getApplicationListener()).prefs.getBoolean("sound_effs"))
+				  ((ScrotsGame) Gdx.app.getApplicationListener()).pop.play();
+				((ScrotsGame) Gdx.app.getApplicationListener()).setScreen(game_screen);
 			}
 		});
-
-		options = new TextButton("Options", skin);
-		// options.setPosition(x, y);
-		options.setBounds(options.getX(), options.getY(), options.getWidth(),
-				options.getHeight());
+		
+		options = new TextButton("", game.skin);
+		// Based on what background it is, set the color of the font? white = > black? ugly?
+		options.add(new Label("Options", style));
+		options.setBounds(options.getX(), options.getY(), options.getWidth(), options.getHeight());
 		options.addListener(new InputListener()
 		{
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button)
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
 				return true;
 			}
-
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button)
+			
+			public void touchUp(InputEvent event, float x, float y,	int pointer, int button)
 			{
-				((ScrotsGame) Gdx.app.getApplicationListener())
-						.setScreen(options_screen);
+				if(((ScrotsGame) Gdx.app.getApplicationListener()).prefs.getBoolean("sound_effs"))
+					  ((ScrotsGame) Gdx.app.getApplicationListener()).pop.play();
+				((ScrotsGame) Gdx.app.getApplicationListener()).setScreen(options_screen);
 			}
 		});
-
-		high_score = new TextButton("High Scores", skin);
-		// high_score.setPosition(x, y);
-		high_score.setBounds(high_score.getX(), high_score.getY(),
-				high_score.getWidth(), high_score.getHeight());
+		
+		high_score = new TextButton("", game.skin);
+		high_score.add(new Label("High Scores", style));
+		high_score.setBounds(high_score.getX(), high_score.getY(), high_score.getWidth(), high_score.getHeight());
 		high_score.addListener(new InputListener()
 		{
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button)
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
 				return true;
 			}
-
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button)
+			
+			public void touchUp(InputEvent event, float x, float y,	int pointer, int button)
 			{
-				((ScrotsGame) Gdx.app.getApplicationListener())
-						.setScreen(high_score_screen);
+				if(((ScrotsGame) Gdx.app.getApplicationListener()).prefs.getBoolean("sound_effs"))
+				  ((ScrotsGame) Gdx.app.getApplicationListener()).pop.play();
+				((ScrotsGame) Gdx.app.getApplicationListener()).setScreen(high_score_screen);
 			}
 		});
-*/
-		// stage.addActor(start);
-		// stage.addActor(options);
-		// stage.addActor(high_score);
-		table.row().height(50);
+
 		table.add(start);
-		table.row().height(50);
+		table.row();
+		table.add("").height(Gdx.graphics.getHeight()/50);
+		table.row();
 		table.add(options);
-		table.row().height(50);
+		table.row();
+		table.add("").height(Gdx.graphics.getHeight()/50);
+		table.row();
 		table.add(high_score);
-
+		
+		stage.addActor(table);
 	}
 
 	@Override
-	public void render(float delta)
+	public void render(float delta) 
 	{
-		Gdx.gl.glClearColor(1, 1, 1, 1);
+		if(game.prefs.getString("bg_color").equals("Black"))
+			Gdx.gl.glClearColor(0, 0, 0, 0);
+		else
+			Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-//		 stage.draw();
-		((ScrotsGame) Gdx.app.getApplicationListener()).setScreen(game_screen);
-		Table.drawDebug(stage);
+		
+		stage.draw();
 	}
 
 	@Override
-	public void dispose()
+	public void dispose() 
 	{
 		// Remove all actors
 		stage.dispose();
 	}
-
+	
 	@Override
-	public void resize(int width, int height)
+	public void resize(int width, int height) 
 	{
 
 	}
 
 	@Override
-	public void show()
+	public void show() 
 	{
 		Gdx.input.setInputProcessor(stage);
 	}
@@ -150,18 +143,18 @@ public class MainMenuScreen implements Screen
 	@Override
 	public void hide()
 	{
-
+		
 	}
 
 	@Override
-	public void pause()
+	public void pause() 
 	{
-
+		
 	}
 
 	@Override
-	public void resume()
+	public void resume() 
 	{
-
+		
 	}
 }

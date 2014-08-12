@@ -1,6 +1,7 @@
 package com.ayrten.scrots.dots;
 
 import com.ayrten.scrots.manager.Manager;
+import com.ayrten.scrots.screens.ScrotsGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -39,7 +40,7 @@ public class Dot extends Actor
 			{
 
 				// Gotta get touched by an angel ;)
-				touchedByAnAngel();
+				  touchedByAnAngel();
 
 				// Remove the actor from the stage.
 				event.getTarget().remove();
@@ -60,8 +61,8 @@ public class Dot extends Actor
 	// This class shall be overriddent by the blue, green, red dots
 	public void touchedByAnAngel()
 	{
-		// Ovverridde
-		pop.play();
+		if(((ScrotsGame) Gdx.app.getApplicationListener()).prefs.getBoolean("sound_effs"))
+		  pop.play();
 	}
 
 	public void setTexture(Texture dot)
