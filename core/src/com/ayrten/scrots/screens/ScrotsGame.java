@@ -74,6 +74,7 @@ public class ScrotsGame extends Game
 		// Initialize variables
 		batch = new SpriteBatch();
 		prefs = Gdx.app.getPreferences("com.ayrten.scrots-preferences");
+		System.out.println("Storage: " + Gdx.files.isLocalStorageAvailable());
 		pop = Gdx.audio.newSound(Gdx.files.internal("sounds/pop.mp3"));
 		skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 		bg = Gdx.audio.newMusic(Gdx.files.internal("sounds/Shinji Orito - Yume no Ato I.mp3"));
