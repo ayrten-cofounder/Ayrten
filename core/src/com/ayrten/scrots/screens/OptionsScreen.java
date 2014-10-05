@@ -134,6 +134,7 @@ public class OptionsScreen implements Screen
 		game.prefs.putString("mode", mode.getSelected());
 		game.prefs.putString("bg_color", bg_color.getSelected());
 		game.prefs.putBoolean("sound_effs", sound_effs.isChecked());
+		game.prefs.flush();
 	}
 	
 	@Override

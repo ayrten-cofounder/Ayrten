@@ -76,7 +76,7 @@ public class ScrotsGame extends Game
 		prefs = Gdx.app.getPreferences("com.ayrten.scrots-preferences");
 		pop = Gdx.audio.newSound(Gdx.files.internal("sounds/pop.mp3"));
 		skin = new Skin(Gdx.files.internal("data/uiskin.json"));
-		bg = Gdx.audio.newMusic(Gdx.files.internal("sounds/Shinji Orito - Yume no Ato I.mp3"));
+		bg = Gdx.audio.newMusic(Gdx.files.internal("bgm/Cycles.mp3"));
 		
 		int displayWidth  = prefs.getInteger("display-width", 0);
 		int displayHeight = prefs.getInteger("display-height", 0);
