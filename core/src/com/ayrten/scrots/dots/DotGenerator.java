@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 
 //import com.badlogic.gdx.graphics.Texture.TextureFilter;
 
@@ -45,15 +46,19 @@ public class DotGenerator
 		this.pop = pop;
 
 		// Move these textures up to GameMode? - Tony
+//		redDot = new NinePatch(new Texture(Gdx.files.internal("data/red.9.png")));
 		redDot = new Texture(Gdx.files.internal("data/red_dot.png"));
 		// redDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
+//		blueDot = new NinePatch(new Texture(Gdx.files.internal("data/blue.9.png")));
 		blueDot = new Texture(Gdx.files.internal("data/blue_dot.png"));
 		// blueDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
+//		greenDot = new NinePatch(new Texture(Gdx.files.internal("data/green.9.png")));
 		greenDot = new Texture(Gdx.files.internal("data/green_dot.png"));
 		// greenDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
+//		babyBlueDot = new NinePatch(new Texture(Gdx.files.internal("data/baby_blue.9.png")));
 		babyBlueDot = new Texture(Gdx.files.internal("data/baby_blue_dot.png"));
 		// babyBlueDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
@@ -131,7 +136,7 @@ public class DotGenerator
 		}
 		else if (w + target.getTexture().getWidth() > width)
 		{
-			w = width - target.getTexture().getWidth();
+			w = (int) (width - target.getTexture().getWidth());
 		}
 
 		if (h == 0)
@@ -140,7 +145,7 @@ public class DotGenerator
 		}
 		else if (h + target.getTexture().getHeight() > height)
 		{
-			h = height - target.getTexture().getHeight();
+			h = (int) (height - target.getTexture().getHeight());
 		}
 
 		target.setPosition(w, h);
