@@ -1,11 +1,15 @@
-package com.ayrten.scrots.dots;
+package com.ayrten.scrots.level;
 
 import java.util.ArrayList;
 
+import com.ayrten.scrots.dots.BabyBlueDot;
+import com.ayrten.scrots.dots.BlueDot;
+import com.ayrten.scrots.dots.DotGenerator;
+import com.ayrten.scrots.dots.GreenDot;
+import com.ayrten.scrots.dots.RedDot;
 import com.ayrten.scrots.manager.Manager;
 import com.ayrten.scrots.screens.ScrotsGame;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 
 public class Level
 {
@@ -19,13 +23,6 @@ public class Level
 	private ArrayList<RedDot> redDots;
 	private ArrayList<BlueDot> blueDots;
 	private ArrayList<BabyBlueDot> babyBlueDots;
-
-	// static final Texture red_texture = new
-	// Texture(Gdx.files.internal("data/red_dot.png"));
-	// static final Texture grn_texture = new
-	// Texture(Gdx.files.internal("data/green_dot.png"));
-	// static final Texture blu_texture = new
-	// Texture(Gdx.files.internal("data/blue_dot.png"));
 
 	private int level;
 	private DotGenerator generator;

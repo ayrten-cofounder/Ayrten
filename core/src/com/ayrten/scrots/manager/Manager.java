@@ -5,8 +5,8 @@
 
 package com.ayrten.scrots.manager;
 
-import com.ayrten.scrots.dots.Level;
 import com.ayrten.scrots.highscore.HighScore;
+import com.ayrten.scrots.level.Level;
 import com.ayrten.scrots.time.Time;
 
 public class Manager
