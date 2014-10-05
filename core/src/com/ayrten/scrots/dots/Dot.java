@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -15,6 +16,7 @@ public class Dot extends Actor
 	private static final float SIZE_RATIO = 15;
 	
 	private Texture dot;
+//	private NinePatch dot;
 
 	public Manager gm;
 
@@ -86,5 +88,6 @@ public class Dot extends Actor
 	public void draw(Batch batch, float alpha)
 	{
 		batch.draw(dot, getX(), getY(), getCircleWidth(), getCircleHeight());
+//		dot.draw(batch, getX(), getY(), getCircleWidth(), getCircleHeight());
 	}
 }
