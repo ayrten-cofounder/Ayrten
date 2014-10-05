@@ -1,8 +1,8 @@
 package com.ayrten.scrots.screens;
 
 import com.ayrten.scrots.game.GameMode;
+import com.ayrten.scrots.game.NormalGameMode;
 import com.ayrten.scrots.manager.Manager;
-import com.ayrten.scrots.screens.ScrotsGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -27,8 +27,9 @@ public class GameScreen implements Screen
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 
-		gm = new Manager(0); // Starts with 0 points
-		gamemode = new GameMode(stage, gm, w, h);
+		gm = new Manager(0, w, h); // Starts with 0 points
+		gamemode = new NormalGameMode(stage, gm, w, h);
+		
 	}
 
 	@Override

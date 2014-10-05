@@ -12,10 +12,12 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 public class Dot extends Actor
 {
+	private static final float SIZE_RATIO = 15;
+	
 	private Texture dot;
 
 	public Manager gm;
-	
+
 	public Sound pop;
 
 	public Dot(Texture dot, Manager gm, Sound pop)
@@ -46,6 +48,16 @@ public class Dot extends Actor
 		});
 	}
 
+	private float getCircleWidth()
+	{
+		return (float) (gm.w / SIZE_RATIO);
+	}
+
+	private float getCircleHeight()
+	{
+		return (float) (gm.w / SIZE_RATIO);
+	}
+
 	// This class shall be overriddent by the blue, green, red dots
 	public void touchedByAnAngel()
 	{
@@ -73,6 +85,6 @@ public class Dot extends Actor
 	@Override
 	public void draw(Batch batch, float alpha)
 	{
-		batch.draw(dot, getX(), getY());
+		batch.draw(dot, getX(), getY(), getCircleWidth(), getCircleHeight());
 	}
 }
