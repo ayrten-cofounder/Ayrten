@@ -34,8 +34,6 @@ public class OptionsScreen implements Screen
 		stage = new Stage();
 		
 		Table table = new Table();
-		// table.setHeight(Gdx.graphics.getHeight());
-		// table.setWidth(Gdx.graphics.getWidth());
 		table.setFillParent(true);
 		table.setSkin(game.skin);
 		

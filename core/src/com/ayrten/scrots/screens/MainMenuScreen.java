@@ -53,7 +53,7 @@ public class MainMenuScreen implements Screen
 			
 			public void touchUp(InputEvent event, float x, float y,	int pointer, int button)
 			{
-				if(((ScrotsGame) Gdx.app.getApplicationListener()).prefs.getBoolean("sound_effs"))
+				if(((ScrotsGame) Gdx.app.getApplicationListener()).prefs.getBoolean("sound_effs", true))
 				  ((ScrotsGame) Gdx.app.getApplicationListener()).pop.play();
 				((ScrotsGame) Gdx.app.getApplicationListener()).setScreen(game_screen);
 			}

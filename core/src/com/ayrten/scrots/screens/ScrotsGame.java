@@ -50,26 +50,6 @@ public class ScrotsGame extends Game
 	@Override
 	public void create() 
 	{
-		SortedMap<Integer, List<String>> map = new TreeMap<Integer, List<String>>();
-		List<String> list = map.get(1);
-		if(list == null)
-		{
-			list = new ArrayList<String>();
-			list.add("Tony");
-			list.add("John");
-		}
-		map.put(1, list);
-		
-		list = map.get(5000);
-		list = new ArrayList<String>();
-		list.add("Andy");
-		map.put(5000, list);
-		
-		
-		for(int i = map.entrySet().size() - 1; i >= 0; i--)
-		{
-			
-		}
 		
 		// Initialize variables
 		batch = new SpriteBatch();

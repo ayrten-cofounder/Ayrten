@@ -61,7 +61,7 @@ public class Dot extends Actor
 	// This class shall be overriddent by the blue, green, red dots
 	public void touchedByAnAngel()
 	{
-		if(((ScrotsGame) Gdx.app.getApplicationListener()).prefs.getBoolean("sound_effs"))
+		if(((ScrotsGame) Gdx.app.getApplicationListener()).prefs.getBoolean("sound_effs", true))
 		  pop.play();
 	}
 
