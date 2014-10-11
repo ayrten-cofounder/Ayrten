@@ -29,11 +29,14 @@ public class GameScreen implements Screen
 		Gdx.input.setInputProcessor(stage);
 
 		gm = new Manager(0, w, h); // Starts with 0 points
-		if(game.prefs.getString("mode").equals("Normal"))
-			gamemode = new NormalGameMode(stage, gm, w, h);
-		else
-			gamemode = new ChallengeGameMode(stage, gm, w, h);
-		
+		if(game.prefs.getString("mode").equals("Normal")) {
+			gamemode = new NormalGameMode(game, stage, gm, w, h);
+			System.out.println("Creating normal game mode");
+		}
+		else {
+			gamemode = new ChallengeGameMode(game, stage, gm, w, h);
+			System.out.println("Creating challenge mode");
+		}
 	}
 
 	@Override

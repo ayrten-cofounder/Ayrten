@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.ayrten.scrots.level.Level;
 import com.ayrten.scrots.manager.Manager;
+import com.ayrten.scrots.screens.ScrotsGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -23,15 +24,20 @@ public class GameMode
 
 	private BitmapFont font_points = new BitmapFont();
 	private BitmapFont font_time = new BitmapFont();
+	private ScrotsGame game;
 
 	private int w, h;
 
-	public GameMode(Stage stage, Manager gm, int width, int height)
+	public GameMode(ScrotsGame game, Stage stage, Manager gm, int width, int height)
 	{
+		this.game = game;
 		this.stage = stage;
 		this.gm = gm;
 		this.w = width;
 		this.h = height;
+		
+		font_points = game.font_16;
+		font_time = game.font_16;
 
 		generate();
 		gm.startGame();
