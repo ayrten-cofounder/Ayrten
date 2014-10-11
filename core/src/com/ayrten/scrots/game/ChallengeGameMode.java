@@ -1,6 +1,13 @@
 package com.ayrten.scrots.game;
 
-public class ChallengeGameMode
+import com.ayrten.scrots.manager.Manager;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+
+public class ChallengeGameMode extends NormalGameMode
 {
+
+	public ChallengeGameMode(Stage stage, Manager gm, int width, int height) {
+		super(stage, gm, width, height);
+	}
 
 }

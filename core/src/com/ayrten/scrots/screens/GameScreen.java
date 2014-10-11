@@ -1,5 +1,6 @@
 package com.ayrten.scrots.screens;
 
+import com.ayrten.scrots.game.ChallengeGameMode;
 import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.game.NormalGameMode;
 import com.ayrten.scrots.manager.Manager;
@@ -28,7 +29,10 @@ public class GameScreen implements Screen
 		Gdx.input.setInputProcessor(stage);
 
 		gm = new Manager(0, w, h); // Starts with 0 points
-		gamemode = new NormalGameMode(stage, gm, w, h);
+		if(game.prefs.getString("mode").equals("Normal"))
+			gamemode = new NormalGameMode(stage, gm, w, h);
+		else
+			gamemode = new ChallengeGameMode(stage, gm, w, h);
 		
 	}
 
