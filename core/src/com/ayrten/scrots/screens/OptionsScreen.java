@@ -5,6 +5,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -12,9 +14,13 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox.SelectBoxStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class OptionsScreen implements Screen
 {
@@ -37,13 +43,18 @@ public class OptionsScreen implements Screen
 		table.setFillParent(true);
 		table.setSkin(game.skin);
 		
+		
 		LabelStyle style = new LabelStyle();
-		style.font = game.font_16;
+		style.font = game.font_32;
 		
 		mode = new SelectBox<String>(game.skin);
 		mode.setItems("Normal", "Challenge");
 		if(!game.prefs.getString("mode", "").equals(""))
 			mode.setSelected(game.prefs.getString("mode"));
+		// Set the font size of the current shown item.
+		mode.getStyle().font = game.font_32;
+		// Set the font size of all the items in the list.
+		mode.getList().getStyle().font = game.font_32;
 		
 		sound_effs = new CheckBox("", game.skin);
 		sound_effs.setChecked(true);
@@ -59,7 +70,6 @@ public class OptionsScreen implements Screen
 		back.add(new Label("Back", style));
 		back.setBounds(back.getX(), back.getY(), back.getWidth(), back.getHeight());
 		back.setPosition(0, Gdx.graphics.getHeight() - back.getHeight());
-		// back.setPosition(Gdx.graphics.getWidth()/2, 0);
 		back.addListener(new InputListener()
 		{
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
@@ -69,7 +79,7 @@ public class OptionsScreen implements Screen
 			
 			public void touchUp(InputEvent event, float x, float y,	int pointer, int button)
 			{
-				if(((ScrotsGame) Gdx.app.getApplicationListener()).prefs.getBoolean("sound_effs"))
+				if(((ScrotsGame) Gdx.app.getApplicationListener()).main_menu.get_options_screen().sound_effs.isChecked())
 				  ((ScrotsGame) Gdx.app.getApplicationListener()).pop.play();
 				((ScrotsGame) Gdx.app.getApplicationListener()).setScreen(((ScrotsGame) Gdx.app.getApplicationListener()).main_menu);
 			}
@@ -80,7 +90,7 @@ public class OptionsScreen implements Screen
 		table.add("").height(Gdx.graphics.getHeight()/5 * 2);
 		table.row();
 		table.add(new Label("Game Mode: ", style)).left().padLeft((float) (Gdx.graphics.getWidth()/label_pad_left));
-		table.add(mode).center().padLeft(Gdx.graphics.getWidth()/6);
+		table.add(mode).center().padLeft(Gdx.graphics.getWidth()/6).height(style.font.getLineHeight()).width(500);
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight()/50);
 		table.row();
@@ -94,6 +104,10 @@ public class OptionsScreen implements Screen
 		
 		table.left().top();
 		stage.addActor(table);
+		// When user initially touch drop-down list, it shows a scroll instead of
+		// expanding fully. This expands the list beforehand so when user interacts
+		// with drop-down list for first time, it will expand fully.
+		mode.showList();
 	}
 	
 	@Override

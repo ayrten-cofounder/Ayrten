@@ -40,7 +40,7 @@ public class MainMenuScreen implements Screen
 		
 		start = new TextButton("", game.skin);
 		LabelStyle style = new LabelStyle();
-		style.font = game.font_16;
+		style.font = game.font_32;
 		start.add(new Label("Start", style));
 		start.setBounds(start.getX(), start.getY(), start.getWidth(), start.getHeight());
 		start.addListener(new InputListener()
@@ -72,7 +72,7 @@ public class MainMenuScreen implements Screen
 			
 			public void touchUp(InputEvent event, float x, float y,	int pointer, int button)
 			{
-				if(((ScrotsGame) Gdx.app.getApplicationListener()).prefs.getBoolean("sound_effs"))
+				if(((ScrotsGame) Gdx.app.getApplicationListener()).prefs.getBoolean("sound_effs", true))
 					  ((ScrotsGame) Gdx.app.getApplicationListener()).pop.play();
 				((ScrotsGame) Gdx.app.getApplicationListener()).setScreen(options_screen);
 			}
@@ -90,7 +90,7 @@ public class MainMenuScreen implements Screen
 			
 			public void touchUp(InputEvent event, float x, float y,	int pointer, int button)
 			{
-				if(((ScrotsGame) Gdx.app.getApplicationListener()).prefs.getBoolean("sound_effs"))
+				if(((ScrotsGame) Gdx.app.getApplicationListener()).prefs.getBoolean("sound_effs", true))
 				  ((ScrotsGame) Gdx.app.getApplicationListener()).pop.play();
 				((ScrotsGame) Gdx.app.getApplicationListener()).setScreen(high_score_screen);
 			}
@@ -119,6 +119,11 @@ public class MainMenuScreen implements Screen
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		stage.draw();
+	}
+	
+	public OptionsScreen get_options_screen()
+	{
+		return options_screen;
 	}
 
 	@Override

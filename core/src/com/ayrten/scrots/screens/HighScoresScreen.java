@@ -27,7 +27,7 @@ public class HighScoresScreen implements Screen
 		table.left().top();
 		
 		LabelStyle style = new LabelStyle();
-		style.font = game.font_16;
+		style.font = game.font_32;
 		
 		TextButton back = new TextButton("", game.skin);
 		back.add(new Label("Back", style));
