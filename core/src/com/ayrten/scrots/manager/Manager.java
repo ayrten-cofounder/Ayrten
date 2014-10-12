@@ -5,6 +5,9 @@
 
 package com.ayrten.scrots.manager;
 
+import java.util.ArrayList;
+
+import com.ayrten.scrots.dots.Dot;
 import com.ayrten.scrots.level.Level;
 import com.ayrten.scrots.scoreboard.Scoreboard;
 import com.ayrten.scrots.time.Time;
@@ -61,6 +64,26 @@ public class Manager
 	public void startGame()
 	{
 		time.startTime();
+	}
+	
+	public void changeDotSize()
+	{
+		for(Dot dot : curr_level.get_baby_blue_dots())
+		{
+			dot.resetRatio();
+		}
+		for(Dot dot : curr_level.get_blue_dots())
+		{
+			dot.resetRatio();
+		}
+		for(Dot dot : curr_level.get_red_dots())
+		{
+			dot.resetRatio();
+		}
+		for(Dot dot : curr_level.get_grn_dots())
+		{
+			dot.resetRatio();
+		}
 	}
 
 	public void minusGreenDot()
