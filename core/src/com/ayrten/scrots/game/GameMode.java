@@ -121,7 +121,7 @@ public class GameMode
 		{
 			stage.addActor(curr_level.get_blue_dots().get(i));
 		}
-		
+
 		for (int i = 0; i < curr_level.get_red_dots().size(); i++)
 		{
 			stage.addActor(curr_level.get_red_dots().get(i));
@@ -135,6 +135,10 @@ public class GameMode
 		for (int i = 0; i < curr_level.get_baby_blue_dots().size(); i++)
 		{
 			stage.addActor(curr_level.get_baby_blue_dots().get(i));
+		}
+		for (int i = 0; i < curr_level.get_grn_dots().size(); i++)
+		{
+			stage.addActor(curr_level.get_grn_dots().get(i));
 		}
 	}
 }
