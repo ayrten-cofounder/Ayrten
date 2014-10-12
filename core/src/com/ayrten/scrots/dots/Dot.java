@@ -65,7 +65,7 @@ public class Dot extends Actor {
 		if (((ScrotsGame) Gdx.app.getApplicationListener()).prefs.getBoolean(
 				"sound_effs", true))
 			pop.play();
-		gm.changeDotSize();
+//		gm.changeDotSize();
 	}
 
 	public void setTexture(Texture dot) {

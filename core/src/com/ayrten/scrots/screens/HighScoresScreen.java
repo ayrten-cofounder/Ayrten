@@ -1,5 +1,8 @@
 package com.ayrten.scrots.screens;
 
+import com.ayrten.scrots.scoreboard.NormalScoreboard;
+import com.ayrten.scrots.scoreboard.Scoreboard;
+import com.ayrten.scrots.scoreboard.Scoreboard.Scores;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -14,6 +17,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 public class HighScoresScreen implements Screen
 {
+	private float label_pad_left = (float) 5.5;
+	
 	private ScrotsGame game;
 	private Stage stage;
 	
@@ -24,7 +29,7 @@ public class HighScoresScreen implements Screen
 		
 		Table table = new Table();
 		table.setFillParent(true);
-		table.left().top();
+		table.setSkin(game.skin);
 		
 		LabelStyle style = new LabelStyle();
 		style.font = game.font_32;
@@ -48,9 +53,62 @@ public class HighScoresScreen implements Screen
 			}
 		});	
 		
-		table.add(back);
+		table.add(back).left().top();
+		
+		setHighScoreTable(table);
 		
 		stage.addActor(table);
+	}
+	
+	private void setHighScoreTable(Table table)
+	{
+		NormalScoreboard normal = new NormalScoreboard();
+		fillInHighScore(normal, table);
+	}
+	
+	private void fillInHighScore(Scoreboard scoreboard, Table table)
+	{
+		LabelStyle style_big = new LabelStyle();
+		style_big.font = game.font_64;
+		
+		LabelStyle style_small = new LabelStyle();
+		style_small.font = game.font_32;
+		
+		Scores scores = scoreboard.getAllScores();
+		
+		table.row();
+		table.add("").height(Gdx.graphics.getHeight()/5 * 2);
+		table.row();
+		table.add(new Label("Highscore" , style_big)).padLeft((float) (Gdx.graphics.getWidth()/label_pad_left));
+		table.row();
+		table.add("").height(Gdx.graphics.getHeight()/50);
+		table.row();
+		table.add(new Label(scores.first_name, style_small)).left().padLeft((float) (Gdx.graphics.getWidth()/label_pad_left));
+		table.add(new Label(String.valueOf(scores.first), style_small)).center().padLeft(Gdx.graphics.getWidth()/6).height(style_small.font.getLineHeight());
+		table.row();
+		table.add("").height(Gdx.graphics.getHeight()/50);
+		table.row();
+		table.add(new Label(scores.second_name, style_small)).left().padLeft((float) (Gdx.graphics.getWidth()/label_pad_left));
+		table.add(new Label(String.valueOf(scores.second), style_small)).center().padLeft(Gdx.graphics.getWidth()/6).height(style_small.font.getLineHeight());
+		table.row();
+		table.add("").height(Gdx.graphics.getHeight()/50);
+		table.row();
+		table.add(new Label(scores.third_name, style_small)).left().padLeft((float) (Gdx.graphics.getWidth()/label_pad_left));
+		table.add(new Label(String.valueOf(scores.third), style_small)).center().padLeft(Gdx.graphics.getWidth()/6).height(style_small.font.getLineHeight());
+		table.row();
+		table.add("").height(Gdx.graphics.getHeight()/50);
+		table.row();
+		table.add(new Label(scores.fourth_name, style_small)).left().padLeft((float) (Gdx.graphics.getWidth()/label_pad_left));
+		table.add(new Label(String.valueOf(scores.fourth), style_small)).center().padLeft(Gdx.graphics.getWidth()/6).height(style_small.font.getLineHeight());
+		table.row();
+		table.add("").height(Gdx.graphics.getHeight()/50);
+		table.row();
+		table.add(new Label(scores.fifth_name, style_small)).left().padLeft((float) (Gdx.graphics.getWidth()/label_pad_left));
+		table.add(new Label(String.valueOf(scores.fifth), style_small)).center().padLeft(Gdx.graphics.getWidth()/6).height(style_small.font.getLineHeight());
+		table.row();
+		table.add("").height(Gdx.graphics.getHeight()/50);
+		table.row();
+		
 	}
 
 	@Override
