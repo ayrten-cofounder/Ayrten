@@ -21,7 +21,10 @@ public class Scoreboard {
 		public String fifth_name = "";
 	}
 
-	public Scoreboard() {
+	public Scores scores;
+	public Scoreboard() 
+	{
+		scores = getAllScores();
 	}
 
 	public int getLowestHighScore() {
@@ -35,6 +38,21 @@ public class Scoreboard {
 		}
 
 		return 0;
+	}
+	
+	public void clearScores()
+	{
+		scores.first  = 0;
+		scores.second = 0;
+		scores.third  = 0;
+		scores.fourth = 0;
+		scores.fifth  = 0;
+
+		scores.first_name = "";
+		scores.second_name = "";
+		scores.third_name = "";
+		scores.fourth_name = "";
+		scores.fifth_name = "";
 	}
 
 	public Scores getAllScores() {
@@ -50,7 +68,7 @@ public class Scoreboard {
 		return new Scores();
 	}
 
-	public void setHighScore(int highscore, String name) {
+	public void addHighScore(int highscore, String name) {
 		Scores scores = getAllScores();
 		Json json = new Json();
 		

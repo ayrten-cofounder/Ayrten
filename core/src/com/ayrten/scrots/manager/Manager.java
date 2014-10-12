@@ -43,9 +43,9 @@ public class Manager
 		return sb;
 	}
 	
-	public void setHighScore(String name)
+	public void addHighScore(String name)
 	{
-		sb.setHighScore(score, name);
+		sb.addHighScore(score, name);
 	}
 	
 	public int get_player_score()

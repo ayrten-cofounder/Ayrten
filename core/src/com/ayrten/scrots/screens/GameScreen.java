@@ -38,14 +38,17 @@ public class GameScreen implements Screen
 		if(game.prefs.getString("mode").equals("Normal")) 
 		{
 			gamemode = new NormalGameMode(game, stage, gm, w, h);
-			NormalScoreboard nsb = new NormalScoreboard();
-			gm.setScoreboard(nsb);
+			gm.setScoreboard(game.main_menu.nsb);
 		}
 		else {
 			gamemode = new ChallengeGameMode(game, stage, gm, w, h);
-			ChallengeScoreboard csb = new ChallengeScoreboard();
-			gm.setScoreboard(csb);
+			gm.setScoreboard(game.main_menu.csb);
 		}
+	}
+	
+	public Manager getManager()
+	{
+		return gm;
 	}
 
 	@Override

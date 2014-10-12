@@ -38,7 +38,6 @@ public class ScrotsGame extends Game
     FreeTypeFontGenerator font_generator;
     
 	// Different screens.
-    LoadingScreen loading_screen;
     
 	@Override
 	public void create() 
@@ -82,7 +81,7 @@ public class ScrotsGame extends Game
 		
 		// Screens
 		main_menu = new MainMenuScreen(this);		
-		loading_screen = new LoadingScreen(this);
+		LoadingScreen loading_screen = new LoadingScreen(this);
 		
 		bg.setLooping(true);
 		bg.play();

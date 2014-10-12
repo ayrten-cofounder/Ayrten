@@ -2,16 +2,20 @@ package com.ayrten.scrots.game;
 
 import java.util.ArrayList;
 
+import javax.print.attribute.TextSyntax;
+
 import com.ayrten.scrots.level.Level;
 import com.ayrten.scrots.manager.Manager;
 import com.ayrten.scrots.screens.ScrotsGame;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 
 public class GameMode
@@ -28,8 +32,11 @@ public class GameMode
 	protected BitmapFont font_points;
 	protected BitmapFont font_time;
 	protected ScrotsGame game;
-
+	
+	protected TextField user_name;
+	protected Label game_over;
 	protected int w, h;
+	protected boolean should_clear_stage;
 
 	public GameMode(ScrotsGame game, Stage stage, Manager gm, int width, int height)
 	{
@@ -39,10 +46,53 @@ public class GameMode
 		this.w = width;
 		this.h = height;
 		this.batch = (SpriteBatch) stage.getBatch();
+		should_clear_stage = true;
 		
 		font_points = game.font_16;
 		font_time = game.font_16;
 		
+		Label.LabelStyle labelStyle = new Label.LabelStyle();
+		labelStyle.font = game.font_64;
+		
+		TextFieldStyle textStyle = new TextFieldStyle();
+		textStyle.font = game.font_32;
+		
+		if(game.prefs.getString("bg_color", "").equals("") 
+				|| game.prefs.getString("bg_color", "").equals("White"))
+		{
+			labelStyle.fontColor = Color.BLACK;
+			textStyle.fontColor = Color.BLACK;
+			font_points.setColor(Color.BLACK);
+			font_time.setColor(Color.BLACK);
+		}
+		else
+		{
+			labelStyle.fontColor = Color.WHITE;
+			textStyle.fontColor = Color.WHITE;
+			font_points.setColor(Color.WHITE);
+			font_time.setColor(Color.WHITE);
+		}
+
+		game_over = new Label("Game Over!", labelStyle);
+		game_over.setCenterPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/3 * 2);
+		
+		user_name = new TextField("", textStyle);
+		user_name.setCenterPosition(Gdx.graphics.getWidth()/2,  Gdx.graphics.getHeight()/3 * 2 - labelStyle.font.getLineHeight());
+		user_name.setMessageText("Enter your name");
+		user_name.setTextFieldListener(new TextFieldListener() 
+		{
+			public void keyTyped(TextField textField, char key) 
+			{
+				if(key == '\n'|| Gdx.input.isKeyPressed(Keys.ENTER))
+				{
+					((ScrotsGame) Gdx.app.getApplicationListener()).main_menu.game_screen.getManager().addHighScore(textField.getText());
+					((ScrotsGame) Gdx.app.getApplicationListener()).setScreen(((ScrotsGame) Gdx.app.getApplicationListener()).main_menu);
+					
+				}
+			}
+		});
+		
+		Gdx.input.setInputProcessor(this.stage);
 		generate();
 		gm.startGame();
 	}
@@ -106,34 +156,22 @@ public class GameMode
 
 	public void gameOver()
 	{
-		
-		/*
-		batch.begin();
-		font_game_over.draw(batch, "Game Over", Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/3 * 2);
-		// font_time.draw(batch, "Highscore: " + gm.getHighScore(), 50, 50);
-		batch.end();
-		*/
-		// Draw box to input to user name
-		
-//		gm.get_player_score() > gm.getScoreBoard().getLowestHighScore()
-		if(true)
+		if(should_clear_stage)
 		{
 			stage.clear();
-			Label.LabelStyle style = new Label.LabelStyle();
-			style.font = game.font_64;
-			Label game_over = new Label("Game Over!", style);
-			game_over.setCenterPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/3 * 2);
+			should_clear_stage = false;
 			stage.addActor(game_over);
-			stage.draw();
-		}	
+			if(gm.get_player_score() > gm.getScoreBoard().getLowestHighScore())
+			{
+				stage.addActor(user_name);
+			}
+			else
+			{
+				// Replay
+				// Main menu
+			}
+		}
 		
-		TextFieldStyle style = new TextFieldStyle();
-		style.fontColor = Color.RED;
-		style.font = game.font_32;
-		TextField textfield = new TextField("test", style);
-		textfield.setX(300);
-		textfield.setY(300);
-		stage.addActor(textfield );
 		stage.draw();
 	}
 
