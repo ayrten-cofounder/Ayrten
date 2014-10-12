@@ -14,11 +14,10 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 public class Dot extends Actor {
-	private static final int BUMP_IT_UP = 50;
+	private static final int BUMP_IT_UP = 15; // min
 	private static final float MAX_SIZE_RATIO = 30; // No use really...
 	private float size_ratio = MAX_SIZE_RATIO / 2; // arbituary
-													// buffer...jk....is min
-													// size
+													// buffer...jk
 
 	private Texture dot;
 	// private NinePatch dot;
@@ -66,6 +65,7 @@ public class Dot extends Actor {
 		if (((ScrotsGame) Gdx.app.getApplicationListener()).prefs.getBoolean(
 				"sound_effs", true))
 			pop.play();
+		gm.changeDotSize();
 	}
 
 	public void setTexture(Texture dot) {
@@ -80,13 +80,18 @@ public class Dot extends Actor {
 		setX(x);
 		setY(y);
 	}
+	
+	public void resetRatio()
+	{
+		size_ratio = random.nextInt(BUMP_IT_UP) + size_ratio;
+	}
 
 	// Overridden functions.
 	@Override
 	public void draw(Batch batch, float alpha) {
 		batch.draw(dot, getX(), getY(),
-				getCircleWidth() + random.nextInt(BUMP_IT_UP),
-				getCircleHeight() + random.nextInt(BUMP_IT_UP));
+				getCircleWidth(),
+				getCircleHeight());
 		// dot.draw(batch, getX(), getY(), getCircleWidth(), getCircleHeight());
 	}
 }
