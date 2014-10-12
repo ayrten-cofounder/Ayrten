@@ -7,8 +7,8 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 1900;
-		config.height = 1000;
+		config.width = 900;
+		config.height = 600;
 		System.out.println("WIDTH: " + config.width);
 		System.out.println("HEIGHT: " + config.height);
 		new LwjglApplication(new ScrotsGame(), config);

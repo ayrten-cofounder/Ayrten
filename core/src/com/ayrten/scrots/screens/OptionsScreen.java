@@ -86,7 +86,7 @@ public class OptionsScreen implements Screen
 		table.add("").height(Gdx.graphics.getHeight()/5 * 2);
 		table.row();
 		table.add(new Label("Game Mode: ", style)).left().padLeft((float) (Gdx.graphics.getWidth()/label_pad_left));
-		table.add(mode).center().padLeft(Gdx.graphics.getWidth()/6).height(style.font.getLineHeight()).width(500);
+		table.add(mode).center().padLeft(Gdx.graphics.getWidth()/6).height(style.font.getLineHeight());
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight()/50);
 		table.row();
