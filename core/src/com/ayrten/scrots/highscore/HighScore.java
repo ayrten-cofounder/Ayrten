@@ -5,7 +5,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 
 public class HighScore {
-	private FileHandle handle;
+	protected String file = "highscore.txt";
 
 	public static class Scores {
 		public int first = 0;
@@ -19,55 +19,67 @@ public class HighScore {
 	}
 
 	public String getHighScore() {
-		// handle = Gdx.files.internal("data/highscore.txt");
-		//
-		// if (handle.exists())
-		// {
-		// if (!handle.readString().isEmpty())
-		// {
-		// return handle.readString();
-		// }
-		// }
-		// else
-		// {
-		// return "0";
-		// }
-		//
-		// return "0";
-		
-		String file = readFile("highscore.txt");
-		
-		if(!file.isEmpty())
-		{
+		String file = readFile(this.file);
+
+		if (!file.isEmpty()) {
 			Json json = new Json();
 			Scores scores = json.fromJson(Scores.class, file);
-			
+
 			return String.valueOf(scores.first);
 		}
-		
+
 		return "0";
 	}
 
-	public void setHighScore(int highscore) {
-		// if (Integer.valueOf(getHighScore()) < highscore)
-		// {
-		// handle = Gdx.files.local("data/highscore.txt");
-		// handle.writeString(String.valueOf(highscore), false);
-		// }
-		
-		if(Integer.valueOf(getHighScore()) < highscore)
-		{
-			Scores score = new Scores();
-			score.first = highscore;
+	public Scores getAllScores() {
+		String file = readFile(this.file);
 
+		if (!file.isEmpty()) {
 			Json json = new Json();
-			writeFile("highscore.txt", json.toJson(score));
+			Scores scores = json.fromJson(Scores.class, file);
+
+			return scores;
 		}
 
-		// if(handle.exists())
-		// {
-		// handle.writeString(String.valueOf(highscore), false);
-		// }
+		return new Scores();
+	}
+
+	public void setHighScore(int highscore) {
+		Scores scores = getAllScores();
+		Json json = new Json();
+		
+		if(scores.first < highscore)
+		{
+			scores.fifth = scores.fourth;
+			scores.fourth = scores.third;
+			scores.third = scores.second;
+			scores.second = scores.first;
+			scores.first = highscore;
+		}
+		else if(scores.second < highscore)
+		{
+			scores.fifth = scores.fourth;
+			scores.fourth = scores.third;
+			scores.third = scores.second;
+			scores.second = highscore;
+		}
+		else if(scores.third < highscore)
+		{
+			scores.fifth = scores.fourth;
+			scores.fourth = scores.third;
+			scores.third = highscore;
+		}
+		else if(scores.fourth < highscore)
+		{
+			scores.fifth = scores.fourth;
+			scores.fourth = highscore;
+		}
+		else if(scores.fifth < highscore)
+		{
+			scores.fifth = highscore;
+		}
+		
+		writeFile(this.file, json.toJson(scores));
 	}
 
 	public static void writeFile(String fileName, String s) {
