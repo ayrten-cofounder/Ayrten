@@ -2,18 +2,22 @@ package com.ayrten.scrots.game;
 
 import java.util.ArrayList;
 
-import javax.print.attribute.TextSyntax;
-
 import com.ayrten.scrots.level.Level;
 import com.ayrten.scrots.manager.Manager;
+import com.ayrten.scrots.screens.GameScreen;
 import com.ayrten.scrots.screens.ScrotsGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
@@ -33,8 +37,12 @@ public class GameMode
 	protected BitmapFont font_time;
 	protected ScrotsGame game;
 	
+	// Widgets
 	protected TextField user_name;
 	protected Label game_over;
+	protected TextButton replay;
+	protected TextButton main_menu;
+	
 	protected int w, h;
 	protected boolean should_clear_stage;
 
@@ -51,33 +59,74 @@ public class GameMode
 		font_points = game.font_16;
 		font_time = game.font_16;
 		
-		Label.LabelStyle labelStyle = new Label.LabelStyle();
-		labelStyle.font = game.font_64;
+		Label.LabelStyle overStyle = new Label.LabelStyle();
+		overStyle.font = game.font_64;
 		
 		TextFieldStyle textStyle = new TextFieldStyle();
 		textStyle.font = game.font_32;
 		
+		LabelStyle buttonStyle = new LabelStyle();
+		buttonStyle.font = game.font_32;
+		
 		if(game.prefs.getString("bg_color", "").equals("") 
 				|| game.prefs.getString("bg_color", "").equals("White"))
 		{
-			labelStyle.fontColor = Color.BLACK;
-			textStyle.fontColor = Color.BLACK;
+			overStyle.fontColor   = Color.BLACK;
+			textStyle.fontColor   = Color.BLACK;
+			buttonStyle.fontColor = Color.BLACK;
 			font_points.setColor(Color.BLACK);
 			font_time.setColor(Color.BLACK);
 		}
 		else
 		{
-			labelStyle.fontColor = Color.WHITE;
-			textStyle.fontColor = Color.WHITE;
+			overStyle.fontColor   = Color.WHITE;
+			textStyle.fontColor   = Color.WHITE;
+			buttonStyle.fontColor = Color.WHITE;
 			font_points.setColor(Color.WHITE);
 			font_time.setColor(Color.WHITE);
 		}
-
-		game_over = new Label("Game Over!", labelStyle);
+		
+		replay = new TextButton("", game.skin);
+		replay.add(new Label("Replay", buttonStyle));
+		replay.setBounds(replay.getX(), replay.getY(), replay.getWidth(), replay.getHeight());
+		replay.addListener(new InputListener()
+		{
+			// Need this or else it won't recognize the touch down event.
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+			{
+				return true;
+			}
+			
+			public void touchUp(InputEvent event, float x, float y,	int pointer, int button)
+			{
+				GameScreen game_screen = new GameScreen((ScrotsGame) Gdx.app.getApplicationListener());
+				((ScrotsGame) Gdx.app.getApplicationListener()).main_menu.game_screen = game_screen;
+				((ScrotsGame) Gdx.app.getApplicationListener()).setScreen(((ScrotsGame) Gdx.app.getApplicationListener()).main_menu.game_screen);
+			}
+		});
+		
+		main_menu = new TextButton("", game.skin);
+		main_menu.add(new Label("Main Menu", buttonStyle));
+		main_menu.setBounds(main_menu.getX(), main_menu.getY(), main_menu.getWidth(), main_menu.getHeight());
+		main_menu.addListener(new InputListener()
+		{
+			// Need this or else it won't recognize the touch down event.
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+			{
+				return true;
+			}
+			
+			public void touchUp(InputEvent event, float x, float y,	int pointer, int button)
+			{
+				((ScrotsGame) Gdx.app.getApplicationListener()).setScreen(((ScrotsGame) Gdx.app.getApplicationListener()).main_menu);
+			}
+		});
+		
+		game_over = new Label("Game Over!", overStyle);
 		game_over.setCenterPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/3 * 2);
 		
 		user_name = new TextField("", textStyle);
-		user_name.setCenterPosition(Gdx.graphics.getWidth()/2,  Gdx.graphics.getHeight()/3 * 2 - labelStyle.font.getLineHeight());
+		user_name.setCenterPosition(Gdx.graphics.getWidth()/2,  Gdx.graphics.getHeight()/3 * 2 - overStyle.font.getLineHeight());
 		user_name.setMessageText("Enter your name");
 		user_name.setTextFieldListener(new TextFieldListener() 
 		{
@@ -104,8 +153,7 @@ public class GameMode
 	
 	public void resize(int width, int height)
 	{
-//		stage.setViewport(new StretchViewport(width, height));
-//		stage.getCamera().position.set(width, height, 0);
+
 	}
 
 	protected void generate()
@@ -167,8 +215,15 @@ public class GameMode
 			}
 			else
 			{
-				// Replay
-				// Main menu
+				Table table = new Table();
+				table.setSkin(game.skin);
+				table.setCenterPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+				table.add(replay);
+				table.row();
+				table.add("").height(Gdx.graphics.getHeight()/50);
+				table.row();
+				table.add(main_menu);
+				stage.addActor(table);
 			}
 		}
 		
@@ -181,7 +236,6 @@ public class GameMode
 		stage.clear();
 		gm.plusOnePoint();
 
-		// Level newLevel = new Level()
 		setStage();
 	}
 

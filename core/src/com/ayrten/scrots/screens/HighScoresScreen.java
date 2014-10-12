@@ -21,13 +21,14 @@ public class HighScoresScreen implements Screen
 	
 	private ScrotsGame game;
 	private Stage stage;
+	private Table table;
 	
 	public HighScoresScreen(ScrotsGame game)
 	{
 		this.game = game;
 		stage = new Stage();
 		
-		Table table = new Table();
+		table = new Table();
 		table.setFillParent(true);
 		table.setSkin(game.skin);
 		
@@ -54,16 +55,14 @@ public class HighScoresScreen implements Screen
 		});	
 		
 		table.add(back).left().top();
-		
 		setHighScoreTable(table);
-		
 		stage.addActor(table);
 	}
 	
 	private void setHighScoreTable(Table table)
 	{
-		NormalScoreboard normal = new NormalScoreboard();
-		fillInHighScore(normal, table);
+		// NormalScoreboard normal = new NormalScoreboard();
+		fillInHighScore(game.main_menu.nsb, table);
 	}
 	
 	private void fillInHighScore(Scoreboard scoreboard, Table table)

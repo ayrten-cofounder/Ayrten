@@ -1,6 +1,5 @@
 package com.ayrten.scrots.screens;
 
-import com.ayrten.scrots.game.ChallengeGameMode;
 import com.ayrten.scrots.scoreboard.ChallengeScoreboard;
 import com.ayrten.scrots.scoreboard.NormalScoreboard;
 import com.badlogic.gdx.Gdx;
@@ -43,7 +42,7 @@ public class MainMenuScreen implements Screen
 		table.setCenterPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/4);
 		
 		options_screen = new OptionsScreen((ScrotsGame) Gdx.app.getApplicationListener());
-		high_score_screen = new HighScoresScreen((ScrotsGame) Gdx.app.getApplicationListener());
+		// high_score_screen = new HighScoresScreen((ScrotsGame) Gdx.app.getApplicationListener());
 		// game_screen = new GameScreen((ScrotsGame) Gdx.app.getApplicationListener());
 		
 		start = new TextButton("", game.skin);
@@ -82,7 +81,7 @@ public class MainMenuScreen implements Screen
 			public void touchUp(InputEvent event, float x, float y,	int pointer, int button)
 			{
 				if(((ScrotsGame) Gdx.app.getApplicationListener()).prefs.getBoolean("sound_effs", true))
-					  ((ScrotsGame) Gdx.app.getApplicationListener()).pop.play();
+					((ScrotsGame) Gdx.app.getApplicationListener()).pop.play();
 				((ScrotsGame) Gdx.app.getApplicationListener()).setScreen(options_screen);
 			}
 		});
@@ -101,6 +100,8 @@ public class MainMenuScreen implements Screen
 			{
 				if(((ScrotsGame) Gdx.app.getApplicationListener()).prefs.getBoolean("sound_effs", true))
 				  ((ScrotsGame) Gdx.app.getApplicationListener()).pop.play();
+				if(((ScrotsGame) Gdx.app.getApplicationListener()).main_menu.high_score_screen == null)
+					((ScrotsGame) Gdx.app.getApplicationListener()).main_menu.high_score_screen = new HighScoresScreen((ScrotsGame) Gdx.app.getApplicationListener());
 				((ScrotsGame) Gdx.app.getApplicationListener()).setScreen(high_score_screen);
 			}
 		});

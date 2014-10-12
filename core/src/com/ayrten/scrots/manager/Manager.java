@@ -5,8 +5,6 @@
 
 package com.ayrten.scrots.manager;
 
-import java.util.ArrayList;
-
 import com.ayrten.scrots.dots.Dot;
 import com.ayrten.scrots.level.Level;
 import com.ayrten.scrots.scoreboard.Scoreboard;
