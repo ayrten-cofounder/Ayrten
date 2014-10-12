@@ -1,13 +1,6 @@
 package com.ayrten.scrots.screens;
 
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
-
-import com.ayrten.scrots.BitmapFontWriter;
+// import com.ayrten.scrots.BitmapFontWriter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
@@ -128,7 +121,7 @@ public class ScrotsGame extends Game
 		return (font);
 	}
 	
-	
+	/*
 	private void saveFontToFile(BitmapFont font, int fontSize, String fontName, PixmapPacker packer) {
 		// Cannot use "internal" because it's read only.
 		FileHandle fontFile = Gdx.files.local(fontName + fontSize + ".fnt"); // .fnt path
@@ -143,6 +136,7 @@ public class ScrotsGame extends Game
 		}
 		BitmapFontWriter.writeFont(font.getData(), pageRefs, fontFile, new BitmapFontWriter.FontInfo(fontName, fontSize), 1, 1);
 	}
+	*/
 	
 
 }

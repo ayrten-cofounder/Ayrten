@@ -22,7 +22,7 @@ public class MainMenuScreen implements Screen
 	// For options and high scores screens
 	private OptionsScreen options_screen;
 	private HighScoresScreen high_score_screen;
-	private GameScreen game_screen;
+	// private GameScreen game_screen;
 	
 	public MainMenuScreen(ScrotsGame game)
 	{	
@@ -36,7 +36,7 @@ public class MainMenuScreen implements Screen
 		
 		options_screen = new OptionsScreen((ScrotsGame) Gdx.app.getApplicationListener());
 		high_score_screen = new HighScoresScreen((ScrotsGame) Gdx.app.getApplicationListener());
-		game_screen = new GameScreen((ScrotsGame) Gdx.app.getApplicationListener());
+		// game_screen = new GameScreen((ScrotsGame) Gdx.app.getApplicationListener());
 		
 		start = new TextButton("", game.skin);
 		LabelStyle style = new LabelStyle();
@@ -55,6 +55,7 @@ public class MainMenuScreen implements Screen
 			{
 				if(((ScrotsGame) Gdx.app.getApplicationListener()).prefs.getBoolean("sound_effs", true))
 				  ((ScrotsGame) Gdx.app.getApplicationListener()).pop.play();
+				GameScreen game_screen = new GameScreen((ScrotsGame) Gdx.app.getApplicationListener());
 				((ScrotsGame) Gdx.app.getApplicationListener()).setScreen(game_screen);
 			}
 		});

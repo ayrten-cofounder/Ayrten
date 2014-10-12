@@ -5,28 +5,26 @@ import java.util.ArrayList;
 import com.ayrten.scrots.level.Level;
 import com.ayrten.scrots.manager.Manager;
 import com.ayrten.scrots.screens.ScrotsGame;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class GameMode
 {
-	private SpriteBatch batch = new SpriteBatch();;
-	private Stage stage;
-	private Manager gm;
+	protected SpriteBatch batch = new SpriteBatch();;
+	protected Stage stage;
+	protected Manager gm;
 
-	private ArrayList<Level> all_levels = new ArrayList<Level>();
-	private Level curr_level;
-	private CharSequence str = " points";
-	private CharSequence time = "Time left: ";
+	protected ArrayList<Level> all_levels = new ArrayList<Level>();
+	protected Level curr_level;
+	protected CharSequence str = " points";
+	protected CharSequence time = "Time left: ";
 
-	private BitmapFont font_points = new BitmapFont();
-	private BitmapFont font_time = new BitmapFont();
-	private ScrotsGame game;
+	protected BitmapFont font_points = new BitmapFont();
+	protected BitmapFont font_time = new BitmapFont();
+	protected ScrotsGame game;
 
-	private int w, h;
+	protected int w, h;
 
 	public GameMode(ScrotsGame game, Stage stage, Manager gm, int width, int height)
 	{
@@ -48,7 +46,7 @@ public class GameMode
 		batch.dispose();
 	}
 
-	private void generate()
+	protected void generate()
 	{
 		// Generate the first 20 levels.
 		for (int i = 1; i < 20; i++)
@@ -123,14 +121,17 @@ public class GameMode
 		{
 			stage.addActor(curr_level.get_blue_dots().get(i));
 		}
-		for (int i = 0; i < curr_level.get_grn_dots().size(); i++)
-		{
-			stage.addActor(curr_level.get_grn_dots().get(i));
-		}
+		
 		for (int i = 0; i < curr_level.get_red_dots().size(); i++)
 		{
 			stage.addActor(curr_level.get_red_dots().get(i));
 		}
+		
+		for (int i = 0; i < curr_level.get_grn_dots().size(); i++)
+		{
+			stage.addActor(curr_level.get_grn_dots().get(i));
+		}
+		
 		for (int i = 0; i < curr_level.get_baby_blue_dots().size(); i++)
 		{
 			stage.addActor(curr_level.get_baby_blue_dots().get(i));
