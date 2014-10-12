@@ -28,6 +28,8 @@ public class OptionsScreen implements Screen
 	
 	private float label_pad_left = (float) 5.5; // Lower # = more left
 	
+	private String curr_mode = "Normal";
+	
 	public OptionsScreen(ScrotsGame game)
 	{
 		this.game = game;

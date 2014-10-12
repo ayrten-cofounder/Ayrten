@@ -42,7 +42,7 @@ public class MainMenuScreen implements Screen
 		table.setCenterPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/4);
 		
 		options_screen = new OptionsScreen((ScrotsGame) Gdx.app.getApplicationListener());
-		// high_score_screen = new HighScoresScreen((ScrotsGame) Gdx.app.getApplicationListener());
+		high_score_screen = new HighScoresScreen((ScrotsGame) Gdx.app.getApplicationListener());
 		// game_screen = new GameScreen((ScrotsGame) Gdx.app.getApplicationListener());
 		
 		start = new TextButton("", game.skin);
@@ -102,7 +102,7 @@ public class MainMenuScreen implements Screen
 				  ((ScrotsGame) Gdx.app.getApplicationListener()).pop.play();
 //				if(((ScrotsGame) Gdx.app.getApplicationListener()).main_menu.high_score_screen == null)
 //					((ScrotsGame) Gdx.app.getApplicationListener()).main_menu.high_score_screen = new HighScoresScreen((ScrotsGame) Gdx.app.getApplicationListener());
-				high_score_screen = new HighScoresScreen((ScrotsGame) Gdx.app.getApplicationListener());
+//				high_score_screen = new HighScoresScreen((ScrotsGame) Gdx.app.getApplicationListener());
 				((ScrotsGame) Gdx.app.getApplicationListener()).setScreen(high_score_screen);
 			}
 		});
