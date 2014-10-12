@@ -9,8 +9,6 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = 900;
 		config.height = 600;
-		System.out.println("WIDTH: " + config.width);
-		System.out.println("HEIGHT: " + config.height);
 		new LwjglApplication(new ScrotsGame(), config);
 	}
 }
