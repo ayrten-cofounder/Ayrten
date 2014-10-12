@@ -10,10 +10,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 // public class Scrots implements ApplicationListener
 public class GameScreen implements Screen
 {
+	private static int VIRTUAL_WIDTH = 900;
+	private static int VIRTUAL_HEIGHT = 600;
+	
 	private GameMode gamemode;
 	private Manager gm;
 	private Stage stage;
@@ -65,7 +69,6 @@ public class GameScreen implements Screen
 	@Override
 	public void resize(int width, int height)
 	{
-		
 	}
 
 	@Override
