@@ -100,8 +100,9 @@ public class MainMenuScreen implements Screen
 			{
 				if(((ScrotsGame) Gdx.app.getApplicationListener()).prefs.getBoolean("sound_effs", true))
 				  ((ScrotsGame) Gdx.app.getApplicationListener()).pop.play();
-				if(((ScrotsGame) Gdx.app.getApplicationListener()).main_menu.high_score_screen == null)
-					((ScrotsGame) Gdx.app.getApplicationListener()).main_menu.high_score_screen = new HighScoresScreen((ScrotsGame) Gdx.app.getApplicationListener());
+//				if(((ScrotsGame) Gdx.app.getApplicationListener()).main_menu.high_score_screen == null)
+//					((ScrotsGame) Gdx.app.getApplicationListener()).main_menu.high_score_screen = new HighScoresScreen((ScrotsGame) Gdx.app.getApplicationListener());
+				high_score_screen = new HighScoresScreen((ScrotsGame) Gdx.app.getApplicationListener());
 				((ScrotsGame) Gdx.app.getApplicationListener()).setScreen(high_score_screen);
 			}
 		});
