@@ -24,17 +24,17 @@ public class Scoreboard {
 	public Scoreboard() {
 	}
 
-	public String getHighScore() {
+	public int getLowestHighScore() {
 		String file = readFile(this.file);
 
 		if (!file.isEmpty()) {
 			Json json = new Json();
 			Scores scores = json.fromJson(Scores.class, file);
 
-			return String.valueOf(scores.first);
+			return (scores.fifth);
 		}
 
-		return "0";
+		return 0;
 	}
 
 	public Scores getAllScores() {

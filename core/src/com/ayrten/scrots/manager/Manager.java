@@ -13,9 +13,8 @@ public class Manager
 {
 	private Level curr_level;
 	private Time time;
-	private Scoreboard highscore;
+	private Scoreboard sb;
 	
-
 	// True if player loses
 	private boolean game_over = false;
 
@@ -31,17 +30,27 @@ public class Manager
 		this.h = h;
 		
 		time = new Time(this);
-		highscore = new Scoreboard();
+		sb = new Scoreboard();
 	}
 	
-	public String getHighScore()
+	public void setScoreboard(Scoreboard sb)
 	{
-		return highscore.getHighScore();
+		this.sb = sb;
+	}
+	
+	public Scoreboard getScoreBoard()
+	{
+		return sb;
 	}
 	
 	public void setHighScore(String name)
 	{
-		highscore.setHighScore(score, name);
+		sb.setHighScore(score, name);
+	}
+	
+	public int get_player_score()
+	{
+		return score;
 	}
 
 	public void setLevel(Level level)
@@ -91,11 +100,6 @@ public class Manager
 	public void addTime(float x)
 	{
 		time.addTime(x);
-	}
-
-	public int getPoints()
-	{
-		return score;
 	}
 
 	public boolean isGameOver()

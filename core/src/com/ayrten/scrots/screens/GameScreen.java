@@ -4,6 +4,8 @@ import com.ayrten.scrots.game.ChallengeGameMode;
 import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.game.NormalGameMode;
 import com.ayrten.scrots.manager.Manager;
+import com.ayrten.scrots.scoreboard.ChallengeScoreboard;
+import com.ayrten.scrots.scoreboard.NormalScoreboard;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -29,13 +31,16 @@ public class GameScreen implements Screen
 		Gdx.input.setInputProcessor(stage);
 
 		gm = new Manager(0, w, h); // Starts with 0 points
-		if(game.prefs.getString("mode").equals("Normal")) {
+		if(game.prefs.getString("mode").equals("Normal")) 
+		{
 			gamemode = new NormalGameMode(game, stage, gm, w, h);
-			System.out.println("Creating normal game mode");
+			NormalScoreboard nsb = new NormalScoreboard();
+			gm.setScoreboard(nsb);
 		}
 		else {
 			gamemode = new ChallengeGameMode(game, stage, gm, w, h);
-			System.out.println("Creating challenge mode");
+			ChallengeScoreboard csb = new ChallengeScoreboard();
+			gm.setScoreboard(csb);
 		}
 	}
 

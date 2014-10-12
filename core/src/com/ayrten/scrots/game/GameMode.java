@@ -5,9 +5,13 @@ import java.util.ArrayList;
 import com.ayrten.scrots.level.Level;
 import com.ayrten.scrots.manager.Manager;
 import com.ayrten.scrots.screens.ScrotsGame;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class GameMode
 {
@@ -20,8 +24,8 @@ public class GameMode
 	protected CharSequence str = " points";
 	protected CharSequence time = "Time left: ";
 
-	protected BitmapFont font_points = new BitmapFont();
-	protected BitmapFont font_time = new BitmapFont();
+	protected BitmapFont font_points;
+	protected BitmapFont font_time;
 	protected ScrotsGame game;
 
 	protected int w, h;
@@ -36,7 +40,7 @@ public class GameMode
 		
 		font_points = game.font_16;
 		font_time = game.font_16;
-
+		
 		generate();
 		gm.startGame();
 	}
@@ -80,7 +84,7 @@ public class GameMode
 	public void point()
 	{
 		batch.begin();
-		font_points.draw(batch, String.valueOf(gm.getPoints()) + str, 50, 50);
+		font_points.draw(batch, String.valueOf(gm.get_player_score()) + str, Gdx.graphics.getWidth()/20, Gdx.graphics.getHeight()/20);
 		batch.end();
 
 	}
@@ -88,20 +92,32 @@ public class GameMode
 	public void time()
 	{
 		batch.begin();
-		font_time.draw(batch, time + gm.getTime(), 50, 65);
+		font_time.draw(batch, time + gm.getTime(), Gdx.graphics.getWidth()/20, Gdx.graphics.getHeight()/20 + font_points.getLineHeight());
 		batch.end();
-
 	}
 
 	public void gameOver()
 	{
-		// Draw box to input to user name
-		gm.setHighScore("test");
 		
+		/*
 		batch.begin();
-		font_points.draw(batch, "Game Over", 50, 65);
-		font_time.draw(batch, "Highscore: " + gm.getHighScore(), 50, 50);
+		font_game_over.draw(batch, "Game Over", Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/3 * 2);
+		// font_time.draw(batch, "Highscore: " + gm.getHighScore(), 50, 50);
 		batch.end();
+		*/
+		// Draw box to input to user name
+		
+//		gm.get_player_score() > gm.getScoreBoard().getLowestHighScore()
+		if(true)
+		{
+			stage.clear();
+			Label.LabelStyle style = new Label.LabelStyle();
+			style.font = game.font_64;
+			Label game_over = new Label("Game Over!", style);
+			game_over.setCenterPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/3 * 2);
+			stage.addActor(game_over);
+			stage.draw();
+		}	
 	}
 
 	public void levelClear()
