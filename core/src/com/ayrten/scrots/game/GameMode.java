@@ -5,14 +5,16 @@ import java.util.ArrayList;
 import com.ayrten.scrots.level.Level;
 import com.ayrten.scrots.manager.Manager;
 import com.ayrten.scrots.screens.ScrotsGame;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 
 public class GameMode
 {
-	protected SpriteBatch batch = new SpriteBatch();;
+	protected SpriteBatch batch = new SpriteBatch();
 	protected Stage stage;
 	protected Manager gm;
 
@@ -34,6 +36,7 @@ public class GameMode
 		this.gm = gm;
 		this.w = width;
 		this.h = height;
+		this.batch = (SpriteBatch) stage.getBatch();
 		
 		font_points = game.font_16;
 		font_time = game.font_16;
@@ -109,6 +112,15 @@ public class GameMode
 		font_points.draw(batch, "Game Over", 50, 65);
 		font_time.draw(batch, "Highscore: " + gm.getHighScore(), 50, 50);
 		batch.end();
+		
+		TextFieldStyle style = new TextFieldStyle();
+		style.fontColor = Color.RED;
+		style.font = game.font_32;
+		TextField textfield = new TextField("test", style);
+		textfield.setX(300);
+		textfield.setY(300);
+		stage.addActor(textfield );
+		stage.draw();
 	}
 
 	public void levelClear()

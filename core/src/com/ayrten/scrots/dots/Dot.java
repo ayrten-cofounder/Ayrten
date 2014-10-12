@@ -87,7 +87,7 @@ public class Dot extends Actor
 	@Override
 	public void draw(Batch batch, float alpha)
 	{
-		batch.draw(dot, getX(), getY());
+		batch.draw(dot, getX(), getY(), getCircleWidth(), getCircleHeight());
 //		dot.draw(batch, getX(), getY(), getCircleWidth(), getCircleHeight());
 	}
 }

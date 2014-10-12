@@ -29,7 +29,7 @@ public class GameScreen implements Screen
 		this.game =  game;
 		w = Gdx.graphics.getWidth();
 		h = Gdx.graphics.getHeight();
-		stage = new Stage(new StretchViewport(VIRTUAL_HEIGHT, VIRTUAL_WIDTH));
+		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 
 		gm = new Manager(0, w, h); // Starts with 0 points
