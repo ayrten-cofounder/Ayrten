@@ -61,3 +61,5 @@ build/
 
 ## OS Specific
 .DS_Store
+
+scrots-desktop/src/com/ayrten/scrots/desktop/DesktopLauncher.java
