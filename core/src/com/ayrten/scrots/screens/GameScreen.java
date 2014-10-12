@@ -8,10 +8,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 // public class Scrots implements ApplicationListener
 public class GameScreen implements Screen
 {
+	private static int VIRTUAL_WIDTH = 900;
+	private static int VIRTUAL_HEIGHT = 600;
+	
 	private GameMode gamemode;
 	private Manager gm;
 	private Stage stage;
@@ -25,7 +29,7 @@ public class GameScreen implements Screen
 		this.game =  game;
 		w = Gdx.graphics.getWidth();
 		h = Gdx.graphics.getHeight();
-		stage = new Stage();
+		stage = new Stage(new StretchViewport(VIRTUAL_HEIGHT, VIRTUAL_WIDTH));
 		Gdx.input.setInputProcessor(stage);
 
 		gm = new Manager(0, w, h); // Starts with 0 points
@@ -60,7 +64,6 @@ public class GameScreen implements Screen
 	@Override
 	public void resize(int width, int height)
 	{
-		
 	}
 
 	@Override

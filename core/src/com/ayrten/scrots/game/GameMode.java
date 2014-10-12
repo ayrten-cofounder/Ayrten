@@ -8,6 +8,7 @@ import com.ayrten.scrots.screens.ScrotsGame;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 public class GameMode
 {
@@ -44,6 +45,12 @@ public class GameMode
 	public void dispose()
 	{
 		batch.dispose();
+	}
+	
+	public void resize(int width, int height)
+	{
+//		stage.setViewport(new StretchViewport(width, height));
+//		stage.getCamera().position.set(width, height, 0);
 	}
 
 	protected void generate()
