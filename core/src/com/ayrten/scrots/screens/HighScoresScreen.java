@@ -109,18 +109,20 @@ public class HighScoresScreen implements Screen {
 		Scores scores = scoreboard.getAllScores();
 
 		table.add(back).top().left();
-		table.add(mode).center();
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / 5);
 		table.row();
-		table.add(new Label("Highscore", style_big)).center();
+		table.add(new Label("Highscore", style_big)).left()
+				.padLeft((float) (Gdx.graphics.getWidth() / label_pad_left));
+		table.add(mode).top().right().padRight(Gdx.graphics.getWidth() / 6)
+				.height(style_big.font.getLineHeight());
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / height);
 		table.row();
 		table.add(new Label(scores.first_name, style_small)).left()
 				.padLeft((float) (Gdx.graphics.getWidth() / label_pad_left));
-		table.add(new Label(String.valueOf(scores.first), style_small))
-				.center().padLeft(Gdx.graphics.getWidth() / 6)
+		table.add(new Label(String.valueOf(scores.first), style_small)).right()
+				.padRight(Gdx.graphics.getWidth() / 6)
 				.height(style_small.font.getLineHeight());
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / height);
@@ -128,15 +130,15 @@ public class HighScoresScreen implements Screen {
 		table.add(new Label(scores.second_name, style_small)).left()
 				.padLeft((float) (Gdx.graphics.getWidth() / label_pad_left));
 		table.add(new Label(String.valueOf(scores.second), style_small))
-				.center().padLeft(Gdx.graphics.getWidth() / 6)
+				.right().padRight(Gdx.graphics.getWidth() / 6)
 				.height(style_small.font.getLineHeight());
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / height);
 		table.row();
 		table.add(new Label(scores.third_name, style_small)).left()
 				.padLeft((float) (Gdx.graphics.getWidth() / label_pad_left));
-		table.add(new Label(String.valueOf(scores.third), style_small))
-				.center().padLeft(Gdx.graphics.getWidth() / 6)
+		table.add(new Label(String.valueOf(scores.third), style_small)).right()
+				.padRight(Gdx.graphics.getWidth() / 6)
 				.height(style_small.font.getLineHeight());
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / height);
@@ -144,18 +146,18 @@ public class HighScoresScreen implements Screen {
 		table.add(new Label(scores.fourth_name, style_small)).left()
 				.padLeft((float) (Gdx.graphics.getWidth() / label_pad_left));
 		table.add(new Label(String.valueOf(scores.fourth), style_small))
-				.center().padLeft(Gdx.graphics.getWidth() / 6)
+				.right().padRight(Gdx.graphics.getWidth() / 6)
 				.height(style_small.font.getLineHeight());
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / height);
 		table.row();
 		table.add(new Label(scores.fifth_name, style_small)).left()
 				.padLeft((float) (Gdx.graphics.getWidth() / label_pad_left));
-		table.add(new Label(String.valueOf(scores.fifth), style_small))
-				.center().padLeft(Gdx.graphics.getWidth() / 6)
+		table.add(new Label(String.valueOf(scores.fifth), style_small)).right()
+				.padRight(Gdx.graphics.getWidth() / 6)
 				.height(style_small.font.getLineHeight());
 		table.row();
-		table.add("").height(Gdx.graphics.getHeight() / height);
+		table.add("").height(Gdx.graphics.getHeight() / height).expand();
 		table.row();
 	}
 
