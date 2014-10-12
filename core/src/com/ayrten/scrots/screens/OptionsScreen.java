@@ -54,6 +54,7 @@ public class OptionsScreen implements Screen
 		
 		sound_effs = new CheckBox("", game.skin);
 		sound_effs.setChecked(true);
+		sound_effs.getCells().get(0).size(game.font_32.getLineHeight()/2, game.font_32.getLineHeight()/2);
 		if(game.prefs.getBoolean("sound_effs", true) == false)
 			sound_effs.setChecked(false);
 		

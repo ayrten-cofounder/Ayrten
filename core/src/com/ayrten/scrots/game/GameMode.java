@@ -95,7 +95,8 @@ public class GameMode
 
 	public void gameOver()
 	{
-		gm.setHighScore();
+		// Draw box to input to user name
+		gm.setHighScore("test");
 		
 		batch.begin();
 		font_points.draw(batch, "Game Over", 50, 65);

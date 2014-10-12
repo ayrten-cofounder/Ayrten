@@ -1,10 +1,10 @@
-package com.ayrten.scrots.highscore;
+package com.ayrten.scrots.scoreboard;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 
-public class HighScore {
+public class Scoreboard {
 	protected String file = "highscore.txt";
 
 	public static class Scores {
@@ -13,9 +13,15 @@ public class HighScore {
 		public int third = 0;
 		public int fourth = 0;
 		public int fifth = 0;
+		
+		public String first_name = "";
+		public String second_name = "";
+		public String third_name = "";
+		public String fourth_name = "";
+		public String fifth_name = "";
 	}
 
-	public HighScore() {
+	public Scoreboard() {
 	}
 
 	public String getHighScore() {
@@ -44,7 +50,7 @@ public class HighScore {
 		return new Scores();
 	}
 
-	public void setHighScore(int highscore) {
+	public void setHighScore(int highscore, String name) {
 		Scores scores = getAllScores();
 		Json json = new Json();
 		
@@ -55,6 +61,12 @@ public class HighScore {
 			scores.third = scores.second;
 			scores.second = scores.first;
 			scores.first = highscore;
+			
+			scores.fifth_name = scores.fourth_name;
+			scores.fourth_name = scores.third_name;
+			scores.third_name = scores.second_name;
+			scores.second_name = scores.first_name;
+			scores.first_name = name;
 		}
 		else if(scores.second < highscore)
 		{
@@ -62,21 +74,35 @@ public class HighScore {
 			scores.fourth = scores.third;
 			scores.third = scores.second;
 			scores.second = highscore;
+			
+			scores.fifth_name = scores.fourth_name;
+			scores.fourth_name = scores.third_name;
+			scores.third_name = scores.second_name;
+			scores.second_name = name;
 		}
 		else if(scores.third < highscore)
 		{
 			scores.fifth = scores.fourth;
 			scores.fourth = scores.third;
 			scores.third = highscore;
+			
+			scores.fifth_name = scores.fourth_name;
+			scores.fourth_name = scores.third_name;
+			scores.third_name = name;
 		}
 		else if(scores.fourth < highscore)
 		{
 			scores.fifth = scores.fourth;
 			scores.fourth = highscore;
+			
+			scores.fifth_name = scores.fourth_name;
+			scores.fourth_name = name;
 		}
 		else if(scores.fifth < highscore)
 		{
 			scores.fifth = highscore;
+			
+			scores.fifth_name = name;
 		}
 		
 		writeFile(this.file, json.toJson(scores));

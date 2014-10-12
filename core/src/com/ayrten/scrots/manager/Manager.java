@@ -5,15 +5,15 @@
 
 package com.ayrten.scrots.manager;
 
-import com.ayrten.scrots.highscore.HighScore;
 import com.ayrten.scrots.level.Level;
+import com.ayrten.scrots.scoreboard.Scoreboard;
 import com.ayrten.scrots.time.Time;
 
 public class Manager
 {
 	private Level curr_level;
 	private Time time;
-	private HighScore highscore;
+	private Scoreboard highscore;
 	
 
 	// True if player loses
@@ -31,7 +31,7 @@ public class Manager
 		this.h = h;
 		
 		time = new Time(this);
-		highscore = new HighScore();
+		highscore = new Scoreboard();
 	}
 	
 	public String getHighScore()
@@ -39,9 +39,9 @@ public class Manager
 		return highscore.getHighScore();
 	}
 	
-	public void setHighScore()
+	public void setHighScore(String name)
 	{
-		highscore.setHighScore(score);
+		highscore.setHighScore(score, name);
 	}
 
 	public void setLevel(Level level)
