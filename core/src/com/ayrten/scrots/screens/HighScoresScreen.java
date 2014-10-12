@@ -20,7 +20,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 public class HighScoresScreen implements Screen {
-	private float label_pad_left = (float) 5.5;
+	private float pad_left = (float) 5.5;
+	private float pad_right = (float) 5.5;
 	private int height = 75;
 
 	private ScrotsGame game;
@@ -64,8 +65,6 @@ public class HighScoresScreen implements Screen {
 		});
 
 		mode = new SelectBox<String>(game.skin);
-		mode.getStyle().font = game.font_32;
-		mode.getList().getStyle().font = game.font_32;
 		mode.setItems("Normal", "Challenge");
 		if (!game.prefs.getString("mode", "").equals(""))
 			mode.setSelected(game.prefs.getString("mode"));
@@ -107,54 +106,57 @@ public class HighScoresScreen implements Screen {
 		style_small.font = game.font_32;
 
 		Scores scores = scoreboard.getAllScores();
+		
+		float width = Gdx.graphics.getWidth();
+		float font_width = style_big.font.getMultiLineBounds("Highscore").width;
+		float center = (width / 2) - (font_width/2);
 
 		table.add(back).top().left();
+		table.add(mode).top().right();
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / 5);
 		table.row();
 		table.add(new Label("Highscore", style_big)).left()
-				.padLeft((float) (Gdx.graphics.getWidth() / label_pad_left));
-		table.add(mode).top().right().padRight(Gdx.graphics.getWidth() / 6)
-				.height(style_big.font.getLineHeight());
+				.padLeft(center).fillX();
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / height);
 		table.row();
 		table.add(new Label(scores.first_name, style_small)).left()
-				.padLeft((float) (Gdx.graphics.getWidth() / label_pad_left));
+				.padLeft((float) (Gdx.graphics.getWidth() / pad_left));
 		table.add(new Label(String.valueOf(scores.first), style_small)).right()
-				.padRight(Gdx.graphics.getWidth() / 6)
+				.padRight(Gdx.graphics.getWidth() / pad_right)
 				.height(style_small.font.getLineHeight());
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / height);
 		table.row();
 		table.add(new Label(scores.second_name, style_small)).left()
-				.padLeft((float) (Gdx.graphics.getWidth() / label_pad_left));
+				.padLeft((float) (Gdx.graphics.getWidth() / pad_left));
 		table.add(new Label(String.valueOf(scores.second), style_small))
-				.right().padRight(Gdx.graphics.getWidth() / 6)
+				.right().padRight(Gdx.graphics.getWidth() / pad_right)
 				.height(style_small.font.getLineHeight());
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / height);
 		table.row();
 		table.add(new Label(scores.third_name, style_small)).left()
-				.padLeft((float) (Gdx.graphics.getWidth() / label_pad_left));
+				.padLeft((float) (Gdx.graphics.getWidth() / pad_left));
 		table.add(new Label(String.valueOf(scores.third), style_small)).right()
-				.padRight(Gdx.graphics.getWidth() / 6)
+				.padRight(Gdx.graphics.getWidth() / pad_right)
 				.height(style_small.font.getLineHeight());
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / height);
 		table.row();
 		table.add(new Label(scores.fourth_name, style_small)).left()
-				.padLeft((float) (Gdx.graphics.getWidth() / label_pad_left));
+				.padLeft((float) (Gdx.graphics.getWidth() / pad_left));
 		table.add(new Label(String.valueOf(scores.fourth), style_small))
-				.right().padRight(Gdx.graphics.getWidth() / 6)
+				.right().padRight(Gdx.graphics.getWidth() / pad_right)
 				.height(style_small.font.getLineHeight());
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / height);
 		table.row();
 		table.add(new Label(scores.fifth_name, style_small)).left()
-				.padLeft((float) (Gdx.graphics.getWidth() / label_pad_left));
+				.padLeft((float) (Gdx.graphics.getWidth() / pad_left));
 		table.add(new Label(String.valueOf(scores.fifth), style_small)).right()
-				.padRight(Gdx.graphics.getWidth() / 6)
+				.padRight(Gdx.graphics.getWidth() / pad_right)
 				.height(style_small.font.getLineHeight());
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / height).expand();
