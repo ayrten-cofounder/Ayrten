@@ -125,6 +125,14 @@ public class Scoreboard {
 		
 		writeFile(this.file, json.toJson(scores));
 	}
+	
+	public void clearScoreboard()
+	{
+		Scores scores = new Scores();
+		Json json = new Json();
+		
+		writeFile(this.file, json.toJson(scores));
+	}
 
 	public static void writeFile(String fileName, String s) {
 		FileHandle file = Gdx.files.local(fileName);

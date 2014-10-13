@@ -9,7 +9,9 @@ import com.ayrten.scrots.screens.ScrotsGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -21,6 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class GameMode
 {
@@ -126,8 +129,11 @@ public class GameMode
 		game_over.setCenterPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/3 * 2);
 		
 		user_name = new TextField("", textStyle);
-		user_name.setCenterPosition(Gdx.graphics.getWidth()/2,  Gdx.graphics.getHeight()/3 * 2 - overStyle.font.getLineHeight());
 		user_name.setMessageText("Enter your name");
+		user_name.setMaxLength(19);
+		user_name.setWidth(textStyle.font.getBounds("01234567890123456789").width);
+		user_name.getStyle().background = new NinePatchDrawable( new NinePatch(new Texture(Gdx.files.internal("data/blue_box.9.png"))));
+		user_name.setCenterPosition(Gdx.graphics.getWidth()/2,  Gdx.graphics.getHeight()/3 * 2 - overStyle.font.getLineHeight());
 		user_name.setTextFieldListener(new TextFieldListener() 
 		{
 			public void keyTyped(TextField textField, char key) 
@@ -190,7 +196,7 @@ public class GameMode
 	public void point()
 	{
 		batch.begin();
-		font_points.draw(batch, String.valueOf(gm.get_player_score()) + str, Gdx.graphics.getWidth()/20, Gdx.graphics.getHeight()/20);
+		font_points.draw(batch, String.valueOf(gm.get_player_score()) + str, Gdx.graphics.getWidth()/20, Gdx.graphics.getHeight() - (Gdx.graphics.getHeight()/20));
 		batch.end();
 
 	}
@@ -198,7 +204,7 @@ public class GameMode
 	public void time()
 	{
 		batch.begin();
-		font_time.draw(batch, time + gm.getTime(), Gdx.graphics.getWidth()/20, Gdx.graphics.getHeight()/20 + font_points.getLineHeight());
+		font_time.draw(batch, time + gm.getTime(), Gdx.graphics.getWidth()/20, Gdx.graphics.getHeight() - (Gdx.graphics.getHeight()/20) - font_points.getLineHeight());
 		batch.end();
 	}
 

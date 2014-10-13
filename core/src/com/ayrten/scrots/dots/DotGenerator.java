@@ -41,7 +41,7 @@ public class DotGenerator
 	{
 
 		this.width = width;
-		this.height = height;
+		this.height = height - (height / 5);
 		this.gm = gm;
 		this.pop = pop;
 

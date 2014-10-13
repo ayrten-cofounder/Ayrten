@@ -7,6 +7,7 @@ import com.ayrten.scrots.scoreboard.Scoreboard.Scores;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -30,6 +31,12 @@ public class HighScoresScreen implements Screen {
 	private Table table;
 	private SelectBox<String> mode;
 	private TextButton back;
+	private TextButton clear;
+	
+	LabelStyle style_big;
+	LabelStyle style_small;
+	
+	private boolean loaded = false;
 
 	public HighScoresScreen(ScrotsGame game) {
 		this.game = game;
@@ -39,6 +46,14 @@ public class HighScoresScreen implements Screen {
 		table.setFillParent(true);
 		table.setSkin(game.skin);
 
+		style_big = new LabelStyle();
+		style_big.font = game.font_64;
+
+		style_small = new LabelStyle();
+		style_small.font = game.font_32;
+		
+		switchFontColor();
+		
 		LabelStyle style = new LabelStyle();
 		style.font = game.font_32;
 
@@ -63,6 +78,26 @@ public class HighScoresScreen implements Screen {
 								.getApplicationListener()).main_menu);
 			}
 		});
+		
+		clear = new TextButton("", game.skin);
+		clear.add(new Label("Clear", style));
+		clear.setBounds(clear.getX(), clear.getY(), clear.getWidth(),
+				clear.getHeight());
+		clear.setPosition(0, Gdx.graphics.getHeight() - clear.getHeight());
+		clear.addListener(new InputListener() {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				return true;
+			}
+
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
+				if (((ScrotsGame) Gdx.app.getApplicationListener()).prefs
+						.getBoolean("sound_effs"))
+					((ScrotsGame) Gdx.app.getApplicationListener()).pop.play();
+				clearScoreboard();
+			}
+		});
 
 		mode = new SelectBox<String>(game.skin);
 		mode.setItems("Normal", "Challenge");
@@ -82,7 +117,33 @@ public class HighScoresScreen implements Screen {
 		setHighScoreTable(table);
 		stage.addActor(table);
 	}
+	
+	private void clearScoreboard()
+	{
+		if (mode.getSelected().equals("Normal")) {
+			NormalScoreboard scoreboard = new NormalScoreboard();
+			scoreboard.clearScoreboard();
+		} else {
+			ChallengeScoreboard scoreboard = new ChallengeScoreboard();
+			scoreboard.clearScoreboard();
+		}
+		switchHighScoreTable();
+	}
 
+	private void switchFontColor()
+	{
+		if (game.prefs.getString("bg_color").equals("Black"))
+		{
+			style_big.fontColor = Color.WHITE;
+			style_small.fontColor = Color.WHITE;
+		}
+		else
+		{
+			style_big.fontColor = Color.BLACK;
+			style_small.fontColor = Color.BLACK;
+		}
+}
+	
 	private void switchHighScoreTable() {
 		table.clear();
 		setHighScoreTable(table);
@@ -99,12 +160,6 @@ public class HighScoresScreen implements Screen {
 	}
 
 	private void fillInHighScore(Scoreboard scoreboard, Table table) {
-		LabelStyle style_big = new LabelStyle();
-		style_big.font = game.font_64;
-
-		LabelStyle style_small = new LabelStyle();
-		style_small.font = game.font_32;
-
 		Scores scores = scoreboard.getAllScores();
 		
 		float width = Gdx.graphics.getWidth();
@@ -159,7 +214,7 @@ public class HighScoresScreen implements Screen {
 				.padRight(Gdx.graphics.getWidth() / pad_right)
 				.height(style_small.font.getLineHeight());
 		table.row();
-		table.add("").height(Gdx.graphics.getHeight() / height).expand();
+		table.add(clear).expand();
 		table.row();
 	}
 
@@ -191,6 +246,8 @@ public class HighScoresScreen implements Screen {
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
+		switchFontColor();
+		switchHighScoreTable();
 	}
 
 	@Override
