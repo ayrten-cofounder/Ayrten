@@ -51,7 +51,7 @@ public class Dot extends Actor {
 				event.getTarget().remove();
 				
 				
-				dotChange();
+//				dotChange();
 			}
 		});
 	}
@@ -95,7 +95,7 @@ public class Dot extends Actor {
 	
 	public void resetRatio()
 	{
-		size_ratio = random.nextInt(BUMP_IT_UP) + size_ratio;
+		size_ratio = random.nextInt(BUMP_IT_UP) + BUMP_IT_UP;
 	}
 
 	// Overridden functions.
