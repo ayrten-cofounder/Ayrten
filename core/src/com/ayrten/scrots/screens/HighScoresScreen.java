@@ -13,6 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
@@ -32,10 +34,10 @@ public class HighScoresScreen implements Screen {
 	private SelectBox<String> mode;
 	private TextButton back;
 	private TextButton clear;
-	
+
 	LabelStyle style_big;
 	LabelStyle style_small;
-	
+
 	private boolean loaded = false;
 
 	public HighScoresScreen(ScrotsGame game) {
@@ -51,9 +53,9 @@ public class HighScoresScreen implements Screen {
 
 		style_small = new LabelStyle();
 		style_small.font = game.font_32;
-		
+
 		switchFontColor();
-		
+
 		LabelStyle style = new LabelStyle();
 		style.font = game.font_32;
 
@@ -73,12 +75,23 @@ public class HighScoresScreen implements Screen {
 				if (((ScrotsGame) Gdx.app.getApplicationListener()).prefs
 						.getBoolean("sound_effs"))
 					((ScrotsGame) Gdx.app.getApplicationListener()).pop.play();
-				((ScrotsGame) Gdx.app.getApplicationListener())
+				
+				stage.getRoot().getColor().a = 1;
+			    SequenceAction sequenceAction = new SequenceAction();
+			    sequenceAction.addAction(Actions.fadeOut(0.5f));
+			    sequenceAction.addAction(Actions.run(new Runnable() {
+			        @Override
+			        public void run() {
+			        	((ScrotsGame) Gdx.app.getApplicationListener())
 						.setScreen(((ScrotsGame) Gdx.app
 								.getApplicationListener()).main_menu);
+			        }
+			    }));
+			    stage.getRoot().addAction(sequenceAction);
+				
 			}
 		});
-		
+
 		clear = new TextButton("", game.skin);
 		clear.add(new Label("Clear", style));
 		clear.setBounds(clear.getX(), clear.getY(), clear.getWidth(),
@@ -117,9 +130,8 @@ public class HighScoresScreen implements Screen {
 		setHighScoreTable(table);
 		stage.addActor(table);
 	}
-	
-	private void clearScoreboard()
-	{
+
+	private void clearScoreboard() {
 		if (mode.getSelected().equals("Normal")) {
 			NormalScoreboard scoreboard = new NormalScoreboard();
 			scoreboard.clearScoreboard();
@@ -130,20 +142,16 @@ public class HighScoresScreen implements Screen {
 		switchHighScoreTable();
 	}
 
-	private void switchFontColor()
-	{
-		if (game.prefs.getString("bg_color").equals("Black"))
-		{
+	private void switchFontColor() {
+		if (game.prefs.getString("bg_color").equals("Black")) {
 			style_big.fontColor = Color.WHITE;
 			style_small.fontColor = Color.WHITE;
-		}
-		else
-		{
+		} else {
 			style_big.fontColor = Color.BLACK;
 			style_small.fontColor = Color.BLACK;
 		}
-}
-	
+	}
+
 	private void switchHighScoreTable() {
 		table.clear();
 		setHighScoreTable(table);
@@ -161,18 +169,18 @@ public class HighScoresScreen implements Screen {
 
 	private void fillInHighScore(Scoreboard scoreboard, Table table) {
 		Scores scores = scoreboard.getAllScores();
-		
+
 		float width = Gdx.graphics.getWidth();
 		float font_width = style_big.font.getMultiLineBounds("Highscore").width;
-		float center = (width / 2) - (font_width/2);
+		float center = (width / 2) - (font_width / 2);
 
 		table.add(back).top().left();
 		table.add(mode).top().right();
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / 5);
 		table.row();
-		table.add(new Label("Highscore", style_big)).left()
-				.padLeft(center).fillX();
+		table.add(new Label("Highscore", style_big)).left().padLeft(center)
+				.fillX();
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / height);
 		table.row();
@@ -246,6 +254,8 @@ public class HighScoresScreen implements Screen {
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
+		stage.getRoot().getColor().a = 0;
+		stage.getRoot().addAction(Actions.fadeIn(1f));
 		switchFontColor();
 		switchHighScoreTable();
 	}

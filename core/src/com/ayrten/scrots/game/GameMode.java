@@ -27,6 +27,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class GameMode
 {
+	public static final int NORMAL_MODE = 1;
+	public static final int CHALLENGE_MODE = 2;
+	
 	protected SpriteBatch batch = new SpriteBatch();
 	protected Stage stage;
 	protected Manager gm;
@@ -130,9 +133,9 @@ public class GameMode
 		
 		user_name = new TextField("", textStyle);
 		user_name.setMessageText("Enter your name");
+		user_name.getStyle().background = new NinePatchDrawable( new NinePatch(new Texture(Gdx.files.internal("data/gray_box.9.png"))));
 		user_name.setMaxLength(19);
 		user_name.setWidth(textStyle.font.getBounds("01234567890123456789").width);
-		user_name.getStyle().background = new NinePatchDrawable( new NinePatch(new Texture(Gdx.files.internal("data/blue_box.9.png"))));
 		user_name.setCenterPosition(Gdx.graphics.getWidth()/2,  Gdx.graphics.getHeight()/3 * 2 - overStyle.font.getLineHeight());
 		user_name.setTextFieldListener(new TextFieldListener() 
 		{

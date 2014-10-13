@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -159,7 +160,6 @@ public class MainMenuScreen implements Screen
 	@Override
 	public void hide()
 	{
-		
 	}
 
 	@Override
@@ -171,6 +171,5 @@ public class MainMenuScreen implements Screen
 	@Override
 	public void resume() 
 	{
-		
 	}
 }
