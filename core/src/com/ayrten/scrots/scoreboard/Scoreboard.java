@@ -14,11 +14,11 @@ public class Scoreboard {
 		public int fourth = 0;
 		public int fifth = 0;
 		
-		public String first_name = "";
-		public String second_name = "";
-		public String third_name = "";
-		public String fourth_name = "";
-		public String fifth_name = "";
+		public String first_name = "n/a";
+		public String second_name = "n/a";
+		public String third_name = "n/a";
+		public String fourth_name = "n/a";
+		public String fifth_name = "n/a";
 	}
 
 	public Scores scores;
@@ -38,21 +38,6 @@ public class Scoreboard {
 		}
 
 		return 0;
-	}
-	
-	public void clearScores()
-	{
-		scores.first  = 0;
-		scores.second = 0;
-		scores.third  = 0;
-		scores.fourth = 0;
-		scores.fifth  = 0;
-
-		scores.first_name = "";
-		scores.second_name = "";
-		scores.third_name = "";
-		scores.fourth_name = "";
-		scores.fifth_name = "";
 	}
 
 	public Scores getAllScores() {

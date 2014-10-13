@@ -8,6 +8,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 // public class Scrots implements ApplicationListener
 public class GameScreen implements Screen
@@ -19,6 +20,8 @@ public class GameScreen implements Screen
 
 	private int w;
 	private int h;
+	
+	public boolean go_back = false;
 
 	public GameScreen(ScrotsGame game)
 	{
@@ -63,6 +66,20 @@ public class GameScreen implements Screen
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		gamemode.render();
+//		if(go_back)
+//		{
+//			go_back = false;
+//			stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(1f), Actions.run(new Runnable() {
+//				
+//				@Override
+//				public void run() {
+//					((ScrotsGame) Gdx.app.getApplicationListener())
+//					.setScreen(((ScrotsGame) Gdx.app
+//							.getApplicationListener()).main_menu);
+//				}
+//			})));
+//			System.out.println("got in here");
+//		}
 	}
 
 	@Override

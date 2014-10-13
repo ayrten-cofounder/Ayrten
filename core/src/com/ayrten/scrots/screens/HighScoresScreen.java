@@ -38,11 +38,12 @@ public class HighScoresScreen implements Screen {
 	LabelStyle style_big;
 	LabelStyle style_small;
 
-	private boolean loaded = false;
+	private boolean should_add_action;
 
 	public HighScoresScreen(ScrotsGame game) {
 		this.game = game;
 		stage = new Stage();
+		should_add_action = true;
 
 		table = new Table();
 		table.setFillParent(true);
@@ -76,19 +77,15 @@ public class HighScoresScreen implements Screen {
 						.getBoolean("sound_effs"))
 					((ScrotsGame) Gdx.app.getApplicationListener()).pop.play();
 				
-				stage.getRoot().getColor().a = 1;
-			    SequenceAction sequenceAction = new SequenceAction();
-			    sequenceAction.addAction(Actions.fadeOut(0.5f));
-			    sequenceAction.addAction(Actions.run(new Runnable() {
-			        @Override
-			        public void run() {
-			        	((ScrotsGame) Gdx.app.getApplicationListener())
+				stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(1f), Actions.run(new Runnable() {
+					
+					@Override
+					public void run() {
+						((ScrotsGame) Gdx.app.getApplicationListener())
 						.setScreen(((ScrotsGame) Gdx.app
 								.getApplicationListener()).main_menu);
-			        }
-			    }));
-			    stage.getRoot().addAction(sequenceAction);
-				
+					}
+				})));
 			}
 		});
 
@@ -237,8 +234,19 @@ public class HighScoresScreen implements Screen {
 		stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
 		stage.draw();
 
-		if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE))
-			game.setScreen(game.main_menu);
+		if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE) && should_add_action)
+		{
+			should_add_action = false;
+			stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(1f), Actions.run(new Runnable() {
+				
+				@Override
+				public void run() {
+					((ScrotsGame) Gdx.app.getApplicationListener())
+					.setScreen(((ScrotsGame) Gdx.app
+							.getApplicationListener()).main_menu);
+				}
+			})));
+		}
 	}
 
 	@Override
@@ -254,10 +262,10 @@ public class HighScoresScreen implements Screen {
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
-		stage.getRoot().getColor().a = 0;
-		stage.getRoot().addAction(Actions.fadeIn(1f));
+		stage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(1f)));
 		switchFontColor();
 		switchHighScoreTable();
+		should_add_action = true;
 	}
 
 	@Override

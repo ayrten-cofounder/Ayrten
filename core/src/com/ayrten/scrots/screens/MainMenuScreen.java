@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -101,9 +100,6 @@ public class MainMenuScreen implements Screen
 			{
 				if(((ScrotsGame) Gdx.app.getApplicationListener()).prefs.getBoolean("sound_effs", true))
 				  ((ScrotsGame) Gdx.app.getApplicationListener()).pop.play();
-//				if(((ScrotsGame) Gdx.app.getApplicationListener()).main_menu.high_score_screen == null)
-//					((ScrotsGame) Gdx.app.getApplicationListener()).main_menu.high_score_screen = new HighScoresScreen((ScrotsGame) Gdx.app.getApplicationListener());
-//				high_score_screen = new HighScoresScreen((ScrotsGame) Gdx.app.getApplicationListener());
 				((ScrotsGame) Gdx.app.getApplicationListener()).setScreen(high_score_screen);
 			}
 		});

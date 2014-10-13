@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -29,11 +30,13 @@ public class OptionsScreen implements Screen
 	private float label_pad_left = (float) 5.5; // Lower # = more left
 	
 	private String curr_mode = "Normal";
+	private boolean should_add_action;
 	
 	public OptionsScreen(ScrotsGame game)
 	{
 		this.game = game;
 		stage = new Stage();
+		should_add_action = true;
 		
 		Table table = new Table();
 		table.setFillParent(true);
@@ -80,7 +83,15 @@ public class OptionsScreen implements Screen
 			{
 				if(((ScrotsGame) Gdx.app.getApplicationListener()).main_menu.get_options_screen().sound_effs.isChecked())
 				  ((ScrotsGame) Gdx.app.getApplicationListener()).pop.play();
-				((ScrotsGame) Gdx.app.getApplicationListener()).setScreen(((ScrotsGame) Gdx.app.getApplicationListener()).main_menu);
+stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(1f), Actions.run(new Runnable() {
+					
+					@Override
+					public void run() {
+						((ScrotsGame) Gdx.app.getApplicationListener())
+						.setScreen(((ScrotsGame) Gdx.app
+								.getApplicationListener()).main_menu);
+					}
+				})));
 			}
 		});
 		
@@ -129,14 +140,27 @@ public class OptionsScreen implements Screen
 		
 		game.prefs.putBoolean("sound_effs", sound_effs.isChecked());
 		
-		if(Gdx.input.isKeyPressed(Input.Keys.BACKSPACE))
-			game.setScreen(game.main_menu);
+		if(Gdx.input.isKeyPressed(Input.Keys.BACKSPACE) && should_add_action)
+		{
+			should_add_action = false;
+			stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(1f), Actions.run(new Runnable() {
+				
+				@Override
+				public void run() {
+					((ScrotsGame) Gdx.app.getApplicationListener())
+					.setScreen(((ScrotsGame) Gdx.app
+							.getApplicationListener()).main_menu);
+				}
+			})));
+		}
 	}
 	
 	@Override
 	public void show() 
 	{
 		Gdx.input.setInputProcessor(stage);
+		stage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(1f)));
+		should_add_action = true;
 	}
 	
 	@Override

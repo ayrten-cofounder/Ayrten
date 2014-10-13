@@ -105,8 +105,9 @@ public class GameMode
 			
 			public void touchUp(InputEvent event, float x, float y,	int pointer, int button)
 			{
-				GameScreen game_screen = new GameScreen((ScrotsGame) Gdx.app.getApplicationListener());
-				((ScrotsGame) Gdx.app.getApplicationListener()).main_menu.game_screen = game_screen;
+				GameScreen new_game = new GameScreen((ScrotsGame) Gdx.app.getApplicationListener());
+				((ScrotsGame) Gdx.app.getApplicationListener()).main_menu.game_screen.dispose();
+				((ScrotsGame) Gdx.app.getApplicationListener()).main_menu.game_screen = new_game;
 				((ScrotsGame) Gdx.app.getApplicationListener()).setScreen(((ScrotsGame) Gdx.app.getApplicationListener()).main_menu.game_screen);
 			}
 		});
@@ -124,6 +125,7 @@ public class GameMode
 			
 			public void touchUp(InputEvent event, float x, float y,	int pointer, int button)
 			{
+				((GameScreen) ((ScrotsGame) Gdx.app.getApplicationListener()).getScreen()).dispose();
 				((ScrotsGame) Gdx.app.getApplicationListener()).setScreen(((ScrotsGame) Gdx.app.getApplicationListener()).main_menu);
 			}
 		});
@@ -145,7 +147,7 @@ public class GameMode
 				{
 					((ScrotsGame) Gdx.app.getApplicationListener()).main_menu.game_screen.getManager().addHighScore(textField.getText());
 					((ScrotsGame) Gdx.app.getApplicationListener()).setScreen(((ScrotsGame) Gdx.app.getApplicationListener()).main_menu);
-					
+					// ((GameScreen) ((ScrotsGame) Gdx.app.getApplicationListener()).getScreen()).go_back = true;
 				}
 			}
 		});
