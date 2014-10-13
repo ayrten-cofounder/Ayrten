@@ -2,6 +2,7 @@ package com.ayrten.scrots.dots;
 
 import java.util.Random;
 
+import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.manager.Manager;
 import com.ayrten.scrots.screens.ScrotsGame;
 import com.badlogic.gdx.Gdx;
@@ -43,11 +44,14 @@ public class Dot extends Actor {
 			public void touchUp(InputEvent event, float x, float y,
 					int pointer, int button) {
 
-				// Gotta get touched by an angel ;)
+				// Gotta get touched by an angel ;
 				touchedByAnAngel();
 
 				// Remove the actor from the stage.
 				event.getTarget().remove();
+				
+				
+				dotChange();
 			}
 		});
 	}
@@ -79,6 +83,14 @@ public class Dot extends Actor {
 	public void setPosition(float x, float y) {
 		setX(x);
 		setY(y);
+	}
+	
+	private void dotChange()
+	{	
+		if(gm.get_game_mode() == GameMode.CHALLENGE_MODE)
+		{
+			gm.changeDotSize();
+		}
 	}
 	
 	public void resetRatio()

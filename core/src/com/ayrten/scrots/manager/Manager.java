@@ -16,6 +16,9 @@ public class Manager
 	private Time time;
 	private Scoreboard sb;
 	
+	// Game mode
+	private int mode;
+	
 	// True if player loses
 	private boolean game_over = false;
 
@@ -34,6 +37,11 @@ public class Manager
 		sb = new Scoreboard();
 	}
 	
+	public void setMode(int mode)
+	{
+		this.mode = mode;
+	}
+	
 	public void setScoreboard(Scoreboard sb)
 	{
 		this.sb = sb;
@@ -47,6 +55,11 @@ public class Manager
 	public void addHighScore(String name)
 	{
 		sb.addHighScore(score, name);
+	}
+	
+	public int get_game_mode()
+	{
+		return mode;
 	}
 	
 	public int get_player_score()
