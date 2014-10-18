@@ -8,6 +8,7 @@ import com.ayrten.scrots.screens.GameScreen;
 import com.ayrten.scrots.screens.ScrotsGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -51,6 +52,8 @@ public class GameMode
 	
 	protected int w, h;
 	protected boolean should_clear_stage;
+	
+	protected Sound level_clear_sound;
 
 	public GameMode(ScrotsGame game, Stage stage, Manager gm, int width, int height)
 	{
@@ -61,6 +64,7 @@ public class GameMode
 		this.h = height;
 		this.batch = (SpriteBatch) stage.getBatch();
 		should_clear_stage = true;
+		level_clear_sound = Gdx.audio.newSound(Gdx.files.internal("sounds/level_complete.wav")); 
 		
 		font_points = game.font_16;
 		font_time = game.font_16;
@@ -248,6 +252,7 @@ public class GameMode
 		gm.plusOnePoint();
 
 		setStage();
+    level_clear_sound.play();
 	}
 
 	public void setStage()
