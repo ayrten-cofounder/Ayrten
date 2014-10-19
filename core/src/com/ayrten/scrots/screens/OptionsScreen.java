@@ -1,5 +1,6 @@
 package com.ayrten.scrots.screens;
 
+import com.ayrten.scrots.manager.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -19,7 +20,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 public class OptionsScreen implements Screen
 {
-	private ScrotsGame game;
 	private Stage stage;
 	
 	// Actors
@@ -31,42 +31,41 @@ public class OptionsScreen implements Screen
 	
 	private boolean should_add_action;
 	
-	public OptionsScreen(ScrotsGame game)
+	public OptionsScreen()
 	{
-		this.game = game;
 		stage = new Stage();
 		should_add_action = true;
 		
 		Table table = new Table();
 		table.setFillParent(true);
-		table.setSkin(game.skin);
+		table.setSkin(Assets.skin);
 		
 		LabelStyle style = new LabelStyle();
-		style.font = game.font_32;
+		style.font = Assets.font_32;
 		
-		mode = new SelectBox<String>(game.skin);
-		mode.getStyle().font = game.font_32;
-		mode.getList().getStyle().font = game.font_32;
+		mode = new SelectBox<String>(Assets.skin);
+		mode.getStyle().font = Assets.font_32;
+		mode.getList().getStyle().font = Assets.font_32;
 		mode.setItems("Normal", "Challenge");
-		if(!game.prefs.getString("mode", "").equals(""))
-			mode.setSelected(game.prefs.getString("mode"));
+		if(!Assets.prefs.getString("mode", "").equals(""))
+			mode.setSelected(Assets.prefs.getString("mode"));
 		// Set the font size of the current shown item.
-		mode.getStyle().font = game.font_32;
+		mode.getStyle().font = Assets.font_32;
 		// Set the font size of all the items in the list.
-		mode.getList().getStyle().font = game.font_32;
+		mode.getList().getStyle().font = Assets.font_32;
 		
-		sound_effs = new CheckBox("", game.skin);
+		sound_effs = new CheckBox("", Assets.skin);
 		sound_effs.setChecked(true);
-		sound_effs.getCells().get(0).size(game.font_32.getLineHeight()/2, game.font_32.getLineHeight()/2);
-		if(game.prefs.getBoolean("sound_effs", true) == false)
+		sound_effs.getCells().get(0).size(Assets.font_32.getLineHeight()/2, Assets.font_32.getLineHeight()/2);
+		if(Assets.prefs.getBoolean("sound_effs", true) == false)
 			sound_effs.setChecked(false);
 		
-		bg_color = new SelectBox<String>(game.skin);
+		bg_color = new SelectBox<String>(Assets.skin);
 		bg_color.setItems("White" , "Black");
-		if(!game.prefs.getString("bg_color", "").equals(""))
-			bg_color.setSelected(game.prefs.getString("bg_color"));
+		if(!Assets.prefs.getString("bg_color", "").equals(""))
+			bg_color.setSelected(Assets.prefs.getString("bg_color"));
 		
-		TextButton back = new TextButton("", game.skin);
+		TextButton back = new TextButton("", Assets.skin);
 		back.add(new Label("Back", style));
 		back.setBounds(back.getX(), back.getY(), back.getWidth(), back.getHeight());
 		back.setPosition(0, Gdx.graphics.getHeight() - back.getHeight());
@@ -80,7 +79,7 @@ public class OptionsScreen implements Screen
 			public void touchUp(InputEvent event, float x, float y,	int pointer, int button)
 			{
 				if(((ScrotsGame) Gdx.app.getApplicationListener()).main_menu.get_options_screen().sound_effs.isChecked())
-				  ((ScrotsGame) Gdx.app.getApplicationListener()).pop.play();
+				  Assets.pop.play();
 stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(1f), Actions.run(new Runnable() {
 					
 					@Override
@@ -136,7 +135,7 @@ stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(1f), Actions.
 		stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
 		stage.draw();
 		
-		game.prefs.putBoolean("sound_effs", sound_effs.isChecked());
+		Assets.prefs.putBoolean("sound_effs", sound_effs.isChecked());
 		
 		if(Gdx.input.isKeyPressed(Input.Keys.BACKSPACE) && should_add_action)
 		{
@@ -164,18 +163,18 @@ stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(1f), Actions.
 	@Override
 	public void hide() 
 	{
-		game.prefs.putString("mode", mode.getSelected());
-		game.prefs.putString("bg_color", bg_color.getSelected());
-		game.prefs.putBoolean("sound_effs", sound_effs.isChecked());
-		game.prefs.flush();
+		Assets.prefs.putString("mode", mode.getSelected());
+		Assets.prefs.putString("bg_color", bg_color.getSelected());
+		Assets.prefs.putBoolean("sound_effs", sound_effs.isChecked());
+		Assets.prefs.flush();
 	}
 	
 	@Override
 	public void dispose() 
 	{
-		game.prefs.putString("mode", mode.getSelected());
-		game.prefs.putString("bg_color", bg_color.getSelected());
-		game.prefs.putBoolean("sound_effs", sound_effs.isChecked());
+		Assets.prefs.putString("mode", mode.getSelected());
+		Assets.prefs.putString("bg_color", bg_color.getSelected());
+		Assets.prefs.putBoolean("sound_effs", sound_effs.isChecked());
 		stage.dispose();
 	}
 	

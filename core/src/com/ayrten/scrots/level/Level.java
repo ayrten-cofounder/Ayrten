@@ -8,8 +8,6 @@ import com.ayrten.scrots.dots.DotGenerator;
 import com.ayrten.scrots.dots.GreenDot;
 import com.ayrten.scrots.dots.RedDot;
 import com.ayrten.scrots.manager.Manager;
-import com.ayrten.scrots.screens.ScrotsGame;
-import com.badlogic.gdx.Gdx;
 
 public class Level
 {
@@ -34,9 +32,8 @@ public class Level
 		// Maybe should move this up to the GameMode level? - Tony
 		generator = new DotGenerator(width, height, gm);
 
-		generator = new DotGenerator(width, height, gm,
-				((ScrotsGame) Gdx.app.getApplicationListener()).pop);
-
+		generator = new DotGenerator(width, height, gm);
+				
 		greenDots = new ArrayList<GreenDot>();
 		redDots = new ArrayList<RedDot>();
 		blueDots = new ArrayList<BlueDot>();

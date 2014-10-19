@@ -2,14 +2,8 @@ package com.ayrten.scrots.dots;
 
 import java.util.Random;
 
+import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
-
-//import com.badlogic.gdx.graphics.Texture.TextureFilter;
 
 public class DotGenerator {
 	private int dots = 3; // For the random generator: to
@@ -19,12 +13,12 @@ public class DotGenerator {
 
 	private Random random = new Random();
 
-	private Texture redDot;
-	private Texture blueDot;
-	private Texture greenDot;
-	private Texture babyBlueDot;
+//	private Texture redDot;
+//	private Texture blueDot;
+//	private Texture greenDot;
+//	private Texture babyBlueDot;
 
-	private Sound pop;
+//	private Sound pop;
 
 	// Width and height of the game window
 	private int height;
@@ -33,53 +27,32 @@ public class DotGenerator {
 	private Manager gm;
 
 	public DotGenerator(int width, int height, Manager gm) {
-	}
-
-	public DotGenerator(int width, int height, Manager gm, Sound pop) {
 
 		this.width = width;
 		this.height = height - (height / 5);
 		this.gm = gm;
-		this.pop = pop;
-
-		// Move these textures up to GameMode? - Tony
-		redDot = new Texture(Gdx.files.internal("data/red_dot.png"));
-		redDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-
-		blueDot = new Texture(Gdx.files.internal("data/blue_dot.png"));
-		blueDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-
-		greenDot = new Texture(Gdx.files.internal("data/green_dot.png"));
-		greenDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-
-		babyBlueDot = new Texture(
-				Gdx.files.internal("data/baby_blue_dot.png"));
-		babyBlueDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-
-		// pop = Gdx.audio.newSound(Gdx.files.internal("sounds/pop.mp3"));
-
 	}
 
 	public GreenDot genGreenDot() {
-		GreenDot gDot = new GreenDot(greenDot, gm, pop);
+		GreenDot gDot = new GreenDot(Assets.greenDot, gm, Assets.pop);
 		setRandPositions(gDot);
 		return gDot;
 	}
 
 	public RedDot genRedDot() {
-		RedDot rDot = new RedDot(redDot, gm, pop);
+		RedDot rDot = new RedDot(Assets.redDot, gm, Assets.pop);
 		setRandPositions(rDot);
 		return rDot;
 	}
 
 	public BlueDot genBlueDot() {
-		BlueDot bDot = new BlueDot(blueDot, gm, pop);
+		BlueDot bDot = new BlueDot(Assets.blueDot, gm, Assets.pop);
 		setRandPositions(bDot);
 		return bDot;
 	}
 
 	public BabyBlueDot genBabyBlueDot() {
-		BabyBlueDot bbDot = new BabyBlueDot(babyBlueDot, gm, pop);
+		BabyBlueDot bbDot = new BabyBlueDot(Assets.babyBlueDot, gm, Assets.pop);
 		setRandPositions(bbDot);
 		return bbDot;
 	}
@@ -93,16 +66,16 @@ public class DotGenerator {
 
 		switch (dotType) {
 		case 0:
-			randomDot = new GreenDot(greenDot, gm, pop);
+			randomDot = new GreenDot(Assets.greenDot, gm, Assets.pop);
 			break;
 		case 1:
-			randomDot = new BlueDot(blueDot, gm, pop);
+			randomDot = new BlueDot(Assets.blueDot, gm, Assets.pop);
 			break;
 		case 2:
-			randomDot = new RedDot(redDot, gm, pop);
+			randomDot = new RedDot(Assets.redDot, gm, Assets.pop);
 			break;
 		case 3:
-			randomDot = new BabyBlueDot(babyBlueDot, gm, pop);
+			randomDot = new BabyBlueDot(Assets.babyBlueDot, gm, Assets.pop);
 			break;
 		default:
 			break;

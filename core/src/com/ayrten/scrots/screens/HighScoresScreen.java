@@ -1,5 +1,6 @@
 package com.ayrten.scrots.screens;
 
+import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.scoreboard.ChallengeScoreboard;
 import com.ayrten.scrots.scoreboard.NormalScoreboard;
 import com.ayrten.scrots.scoreboard.Scoreboard;
@@ -14,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
@@ -27,7 +27,6 @@ public class HighScoresScreen implements Screen {
 	private float pad_right = (float) 5.5;
 	private int height = 75;
 
-	private ScrotsGame game;
 	private Stage stage;
 
 	private Table table;
@@ -40,27 +39,26 @@ public class HighScoresScreen implements Screen {
 
 	private boolean should_add_action;
 
-	public HighScoresScreen(ScrotsGame game) {
-		this.game = game;
+	public HighScoresScreen() {
 		stage = new Stage();
 		should_add_action = true;
 
 		table = new Table();
 		table.setFillParent(true);
-		table.setSkin(game.skin);
+		table.setSkin(Assets.skin);
 
 		style_big = new LabelStyle();
-		style_big.font = game.font_64;
+		style_big.font = Assets.font_64;
 
 		style_small = new LabelStyle();
-		style_small.font = game.font_32;
+		style_small.font = Assets.font_32;
 
 		switchFontColor();
 
 		LabelStyle style = new LabelStyle();
-		style.font = game.font_32;
+		style.font = Assets.font_32;
 
-		back = new TextButton("", game.skin);
+		back = new TextButton("", Assets.skin);
 		back.add(new Label("Back", style));
 		back.setBounds(back.getX(), back.getY(), back.getWidth(),
 				back.getHeight());
@@ -73,9 +71,8 @@ public class HighScoresScreen implements Screen {
 
 			public void touchUp(InputEvent event, float x, float y,
 					int pointer, int button) {
-				if (((ScrotsGame) Gdx.app.getApplicationListener()).prefs
-						.getBoolean("sound_effs"))
-					((ScrotsGame) Gdx.app.getApplicationListener()).pop.play();
+				if (Assets.prefs.getBoolean("sound_effs"))
+					Assets.pop.play();
 				
 				stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(1f), Actions.run(new Runnable() {
 					
@@ -89,7 +86,7 @@ public class HighScoresScreen implements Screen {
 			}
 		});
 
-		clear = new TextButton("", game.skin);
+		clear = new TextButton("", Assets.skin);
 		clear.add(new Label("Clear", style));
 		clear.setBounds(clear.getX(), clear.getY(), clear.getWidth(),
 				clear.getHeight());
@@ -102,21 +99,20 @@ public class HighScoresScreen implements Screen {
 
 			public void touchUp(InputEvent event, float x, float y,
 					int pointer, int button) {
-				if (((ScrotsGame) Gdx.app.getApplicationListener()).prefs
-						.getBoolean("sound_effs"))
-					((ScrotsGame) Gdx.app.getApplicationListener()).pop.play();
+				if (Assets.prefs.getBoolean("sound_effs"))
+					Assets.pop.play();
 				clearScoreboard();
 			}
 		});
 
-		mode = new SelectBox<String>(game.skin);
+		mode = new SelectBox<String>(Assets.skin);
 		mode.setItems("Normal", "Challenge");
-		if (!game.prefs.getString("mode", "").equals(""))
-			mode.setSelected(game.prefs.getString("mode"));
+		if (!Assets.prefs.getString("mode", "").equals(""))
+			mode.setSelected(Assets.prefs.getString("mode"));
 		// Set the font size of the current shown item.
-		mode.getStyle().font = game.font_32;
+		mode.getStyle().font = Assets.font_32;
 		// Set the font size of all the items in the list.
-		mode.getList().getStyle().font = game.font_32;
+		mode.getList().getStyle().font = Assets.font_32;
 		mode.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
@@ -140,7 +136,7 @@ public class HighScoresScreen implements Screen {
 	}
 
 	private void switchFontColor() {
-		if (game.prefs.getString("bg_color").equals("Black")) {
+		if (Assets.prefs.getString("bg_color").equals("Black")) {
 			style_big.fontColor = Color.WHITE;
 			style_small.fontColor = Color.WHITE;
 		} else {
@@ -225,7 +221,7 @@ public class HighScoresScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		if (game.prefs.getString("bg_color").equals("Black"))
+		if (Assets.prefs.getString("bg_color").equals("Black"))
 			Gdx.gl.glClearColor(0, 0, 0, 0);
 		else
 			Gdx.gl.glClearColor(1, 1, 1, 1);

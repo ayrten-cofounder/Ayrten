@@ -3,19 +3,16 @@ package com.ayrten.scrots.dots;
 import java.util.Random;
 
 import com.ayrten.scrots.game.GameMode;
+import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
-import com.ayrten.scrots.screens.ScrotsGame;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 public class Dot extends Actor {
-	private static final int BUMP_IT_UP = 15; // min
 	private static final float MAX_SIZE_RATIO = 15; // No use really...
 	private float size_ratio = MAX_SIZE_RATIO / 2; // arbituary
 													// buffer...jk
@@ -65,8 +62,7 @@ public class Dot extends Actor {
 
 	// This class shall be overriddent by the blue, green, red dots
 	public void touchedByAnAngel() {
-		if (((ScrotsGame) Gdx.app.getApplicationListener()).prefs.getBoolean(
-				"sound_effs", true)) {
+		if (Assets.prefs.getBoolean("sound_effs", true)) {
 			pop.play();
 		}
 	}

@@ -1,5 +1,6 @@
 package com.ayrten.scrots.screens;
 
+import com.ayrten.scrots.manager.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -18,11 +19,11 @@ public class LoadingScreen implements Screen
 		stage = new Stage();
 
 		Label.LabelStyle style = new Label.LabelStyle();
-		style.font = game.font_120;
+		style.font = Assets.font_120;
 		Label scrots = new Label("SCROTS", style);
 		scrots.setCenterPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/3 * 2);
 		
-		style.font = game.font_32;
+		style.font = Assets.font_32;
 		Label ayrten = new Label("by Ayrten", style);
 		ayrten.setCenterPosition(Gdx.graphics.getWidth()/2 + (Gdx.graphics.getWidth()/10), 
 				Gdx.graphics.getHeight()/3 * 2 - scrots.getHeight());

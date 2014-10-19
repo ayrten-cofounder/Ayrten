@@ -1,20 +1,20 @@
 package com.ayrten.scrots.game;
 
+import com.ayrten.scrots.level.Level;
 import com.ayrten.scrots.manager.Manager;
-import com.ayrten.scrots.screens.ScrotsGame;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class ChallengeGameMode extends NormalGameMode
 {
 
-	public ChallengeGameMode(ScrotsGame game, Stage stage, Manager gm, int width, int height) 
+	public ChallengeGameMode(Stage stage, Manager gm, int width, int height) 
 	{
-		super(game, stage, gm, width, height);
+		super(stage, gm, width, height);
 	}
 	
-	public void setStage()
+	public Level gen_curr_level()
 	{
-		curr_level = all_levels.remove(0);
+		Level curr_level = all_levels.remove(0);
 		gm.setLevel(curr_level);
 		for(int i = 0; i < curr_level.get_baby_blue_dots().size(); i++)
 		{
@@ -47,5 +47,7 @@ public class ChallengeGameMode extends NormalGameMode
 		{
 			stage.addActor(curr_level.get_grn_dots().get(i));
 		}
+		
+		return curr_level;
 	}
 }
