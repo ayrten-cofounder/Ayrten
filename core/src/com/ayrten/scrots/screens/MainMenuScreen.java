@@ -19,6 +19,7 @@ public class MainMenuScreen implements Screen
 	private TextButton start;
 	private TextButton options;
 	private TextButton high_score;
+	private TextButton tutorial;
 	private Stage stage;
 	
 	// For options and high scores screens

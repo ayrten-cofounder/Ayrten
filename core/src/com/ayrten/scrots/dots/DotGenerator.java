@@ -60,9 +60,19 @@ public class DotGenerator
 
 //		babyBlueDot = new NinePatch(new Texture(Gdx.files.internal("data/baby_blue.9.png")));
 		babyBlueDot = new Texture(Gdx.files.internal("data/baby_blue_dot_big.png"));
+		redDot = new Texture(Gdx.files.internal("data/red_dot.png"));
+		// redDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
+		blueDot = new Texture(Gdx.files.internal("data/blue_dot.png"));
+		// blueDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
+		greenDot = new Texture(Gdx.files.internal("data/green_dot.png"));
+		// greenDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
+		babyBlueDot = new Texture(Gdx.files.internal("data/baby_blue_dot.png"));
 		// babyBlueDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
-		pop = Gdx.audio.newSound(Gdx.files.internal("sounds/pop.mp3"));
+		// pop = Gdx.audio.newSound(Gdx.files.internal("sounds/pop.mp3"));
 
 	}
 
