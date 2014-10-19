@@ -42,6 +42,7 @@ public class GameMode {
 
 	protected BitmapFont font_points;
 	protected BitmapFont font_time;
+	protected BitmapFont font_fps;
 	protected ScrotsGame game;
 
 	// Widgets
@@ -73,6 +74,7 @@ public class GameMode {
 
 		font_points = game.font_16;
 		font_time = game.font_16;
+		font_fps = game.font_16;
 
 		Label.LabelStyle overStyle = new Label.LabelStyle();
 		overStyle.font = game.font_64;
@@ -217,6 +219,9 @@ public class GameMode {
 		font_points.draw(batch, String.valueOf(gm.get_player_score()) + str,
 				Gdx.graphics.getWidth() / 20, Gdx.graphics.getHeight()
 						- (Gdx.graphics.getHeight() / 20));
+		float fps = 1f / Gdx.graphics.getDeltaTime();
+		font_fps.draw(batch, "fps: " + fps, Gdx.graphics.getWidth() / 2,
+				Gdx.graphics.getHeight() - (Gdx.graphics.getHeight() / 20));
 		batch.end();
 
 	}
