@@ -32,7 +32,7 @@ public class Dot extends Actor {
 		this.dot = dot;
 		this.gm = gm;
 		this.pop = pop;
-		random = new Random(System.currentTimeMillis());
+		random = new Random(System.nanoTime());
 		setBounds(getX(), getY(), dot.getWidth(), dot.getHeight());
 		// An InputListener is a subclass of EventListener
 		addListener(new InputListener() {
@@ -49,9 +49,6 @@ public class Dot extends Actor {
 
 				// Remove the actor from the stage.
 				event.getTarget().remove();
-				
-				
-//				dotChange();
 			}
 		});
 	}
@@ -67,9 +64,10 @@ public class Dot extends Actor {
 	// This class shall be overriddent by the blue, green, red dots
 	public void touchedByAnAngel() {
 		if (((ScrotsGame) Gdx.app.getApplicationListener()).prefs.getBoolean(
-				"sound_effs", true))
+				"sound_effs", true)) {
 			pop.play();
-//		gm.changeDotSize();
+		}
+		dotChange();
 	}
 
 	public void setTexture(Texture dot) {
@@ -84,26 +82,29 @@ public class Dot extends Actor {
 		setX(x);
 		setY(y);
 	}
-	
-	private void dotChange()
-	{	
-		if(gm.get_game_mode() == GameMode.CHALLENGE_MODE)
-		{
+
+	private void dotChange() {
+		if (gm.get_game_mode() == GameMode.CHALLENGE_MODE) {
 			gm.changeDotSize();
 		}
 	}
-	
-	public void resetRatio()
-	{
-		size_ratio = random.nextInt(BUMP_IT_UP) + BUMP_IT_UP;
+
+	public void resetRatio() {
+		if (random.nextInt(2) == 1) {
+			size_ratio = 7.5f;
+		} else {
+			size_ratio = 15f;
+		}
+		// size_ratio = random.nextInt(BUMP_IT_UP) + BUMP_IT_UP;
 	}
 
 	// Overridden functions.
 	@Override
 	public void draw(Batch batch, float alpha) {
-		batch.draw(dot, getX(), getY(),
-				getCircleWidth(),
-				getCircleHeight());
+		// batch.draw(dot, getX(), getY(), getCircleWidth(), getCircleHeight(),
+		// 0,
+		// 0, dot.getWidth(), dot.getHeight(), false, false);
+		batch.draw(dot, getX(), getY(), getCircleWidth(), getCircleHeight());
 		// dot.draw(batch, getX(), getY(), getCircleWidth(), getCircleHeight());
 	}
 }

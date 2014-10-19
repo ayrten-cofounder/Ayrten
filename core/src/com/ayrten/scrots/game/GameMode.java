@@ -10,6 +10,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -29,7 +30,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 public class GameMode {
 	public static final int NORMAL_MODE = 1;
 	public static final int CHALLENGE_MODE = 2;
-	
+
 	protected SpriteBatch batch;
 	protected Stage stage;
 	protected Manager gm;
@@ -51,7 +52,7 @@ public class GameMode {
 
 	protected int w, h;
 	protected boolean should_clear_stage;
-	
+
 	protected Sound level_clear_sound;
 
 	public GameMode(ScrotsGame game, Stage stage, Manager gm, int width,
@@ -62,8 +63,13 @@ public class GameMode {
 		this.w = width;
 		this.h = height;
 		this.batch = (SpriteBatch) stage.getBatch();
+		this.batch.enableBlending();
+		this.batch.setBlendFunction(GL20.GL_LINEAR_MIPMAP_NEAREST,
+				GL20.GL_NEAREST);
+
 		should_clear_stage = true;
-		level_clear_sound = Gdx.audio.newSound(Gdx.files.internal("sounds/level_complete.wav")); 
+		level_clear_sound = Gdx.audio.newSound(Gdx.files
+				.internal("sounds/level_complete.wav"));
 
 		font_points = game.font_16;
 		font_time = game.font_16;
@@ -254,7 +260,7 @@ public class GameMode {
 		gm.plusOnePoint();
 
 		setStage();
-    level_clear_sound.play();
+		level_clear_sound.play();
 	}
 
 	public void setStage() {

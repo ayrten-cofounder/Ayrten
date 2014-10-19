@@ -11,8 +11,7 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 
 //import com.badlogic.gdx.graphics.Texture.TextureFilter;
 
-public class DotGenerator
-{
+public class DotGenerator {
 	private int dots = 3; // For the random generator: to
 							// get a random number between 0
 							// and 2. Because we have 3
@@ -33,12 +32,10 @@ public class DotGenerator
 
 	private Manager gm;
 
-	public DotGenerator(int width, int height, Manager gm)
-	{
+	public DotGenerator(int width, int height, Manager gm) {
 	}
 
-	public DotGenerator(int width, int height, Manager gm, Sound pop)
-	{
+	public DotGenerator(int width, int height, Manager gm, Sound pop) {
 
 		this.width = width;
 		this.height = height - (height / 5);
@@ -46,59 +43,42 @@ public class DotGenerator
 		this.pop = pop;
 
 		// Move these textures up to GameMode? - Tony
-//		redDot = new NinePatch(new Texture(Gdx.files.internal("data/red.9.png")));
-		redDot = new Texture(Gdx.files.internal("data/red_dot_big.png"));
-		// redDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-
-//		blueDot = new NinePatch(new Texture(Gdx.files.internal("data/blue.9.png")));
-		blueDot = new Texture(Gdx.files.internal("data/blue_dot_big.png"));
-		// blueDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-
-//		greenDot = new NinePatch(new Texture(Gdx.files.internal("data/green.9.png")));
-		greenDot = new Texture(Gdx.files.internal("data/green_dot_big.png"));
-		// greenDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-
-//		babyBlueDot = new NinePatch(new Texture(Gdx.files.internal("data/baby_blue.9.png")));
-		babyBlueDot = new Texture(Gdx.files.internal("data/baby_blue_dot_big.png"));
 		redDot = new Texture(Gdx.files.internal("data/red_dot.png"));
-		// redDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		redDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
 		blueDot = new Texture(Gdx.files.internal("data/blue_dot.png"));
-		// blueDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		blueDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
 		greenDot = new Texture(Gdx.files.internal("data/green_dot.png"));
-		// greenDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		greenDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
-		babyBlueDot = new Texture(Gdx.files.internal("data/baby_blue_dot.png"));
-		// babyBlueDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		babyBlueDot = new Texture(
+				Gdx.files.internal("data/baby_blue_dot.png"));
+		babyBlueDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
 		// pop = Gdx.audio.newSound(Gdx.files.internal("sounds/pop.mp3"));
 
 	}
 
-	public GreenDot genGreenDot()
-	{
+	public GreenDot genGreenDot() {
 		GreenDot gDot = new GreenDot(greenDot, gm, pop);
 		setRandPositions(gDot);
 		return gDot;
 	}
 
-	public RedDot genRedDot()
-	{
+	public RedDot genRedDot() {
 		RedDot rDot = new RedDot(redDot, gm, pop);
 		setRandPositions(rDot);
 		return rDot;
 	}
 
-	public BlueDot genBlueDot()
-	{
+	public BlueDot genBlueDot() {
 		BlueDot bDot = new BlueDot(blueDot, gm, pop);
 		setRandPositions(bDot);
 		return bDot;
 	}
 
-	public BabyBlueDot genBabyBlueDot()
-	{
+	public BabyBlueDot genBabyBlueDot() {
 		BabyBlueDot bbDot = new BabyBlueDot(babyBlueDot, gm, pop);
 		setRandPositions(bbDot);
 		return bbDot;
@@ -106,28 +86,26 @@ public class DotGenerator
 
 	// Gets random dot type
 	// Then gets random position
-	public Dot genRandDot()
-	{
+	public Dot genRandDot() {
 		Dot randomDot = null;
 
 		int dotType = random.nextInt(dots);
 
-		switch (dotType)
-		{
-			case 0:
-				randomDot = new GreenDot(greenDot, gm, pop);
-				break;
-			case 1:
-				randomDot = new BlueDot(blueDot, gm, pop);
-				break;
-			case 2:
-				randomDot = new RedDot(redDot, gm, pop);
-				break;
-			case 3:
-				randomDot = new BabyBlueDot(babyBlueDot, gm, pop);
-				break;
-			default:
-				break;
+		switch (dotType) {
+		case 0:
+			randomDot = new GreenDot(greenDot, gm, pop);
+			break;
+		case 1:
+			randomDot = new BlueDot(blueDot, gm, pop);
+			break;
+		case 2:
+			randomDot = new RedDot(redDot, gm, pop);
+			break;
+		case 3:
+			randomDot = new BabyBlueDot(babyBlueDot, gm, pop);
+			break;
+		default:
+			break;
 		}
 
 		// Gets a random position based on the width an height of the window
@@ -135,26 +113,19 @@ public class DotGenerator
 		return randomDot;
 	}
 
-	public void setRandPositions(Dot target)
-	{
+	public void setRandPositions(Dot target) {
 		int w = random.nextInt(width);
 		int h = random.nextInt(height);
 
-		if (w == 0)
-		{
+		if (w == 0) {
 			w += target.getTexture().getWidth();
-		}
-		else if (w + target.getTexture().getWidth() > width)
-		{
+		} else if (w + target.getTexture().getWidth() > width) {
 			w = (int) (width - target.getTexture().getWidth());
 		}
 
-		if (h == 0)
-		{
+		if (h == 0) {
 			h += target.getTexture().getWidth();
-		}
-		else if (h + target.getTexture().getHeight() > height)
-		{
+		} else if (h + target.getTexture().getHeight() > height) {
 			h = (int) (height - target.getTexture().getHeight());
 		}
 
