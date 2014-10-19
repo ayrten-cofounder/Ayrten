@@ -16,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 public class Dot extends Actor {
 	private static final int BUMP_IT_UP = 15; // min
-	private static final float MAX_SIZE_RATIO = 30; // No use really...
+	private static final float MAX_SIZE_RATIO = 15; // No use really...
 	private float size_ratio = MAX_SIZE_RATIO / 2; // arbituary
 													// buffer...jk
 
@@ -51,7 +51,7 @@ public class Dot extends Actor {
 				event.getTarget().remove();
 				
 				
-				dotChange();
+//				dotChange();
 			}
 		});
 	}
@@ -95,7 +95,7 @@ public class Dot extends Actor {
 	
 	public void resetRatio()
 	{
-		size_ratio = random.nextInt(BUMP_IT_UP) + size_ratio;
+		size_ratio = random.nextInt(BUMP_IT_UP) + BUMP_IT_UP;
 	}
 
 	// Overridden functions.
