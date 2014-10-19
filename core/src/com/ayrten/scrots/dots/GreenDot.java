@@ -9,6 +9,8 @@ public class GreenDot extends Dot
 	public GreenDot(Texture dot, Manager gm, Sound pop)
 	{
 		super(dot, gm, pop);
+		this.velocity_of_dot = 0;
+		this.speed_of_dot = 2f;
 	}
 
 	@Override

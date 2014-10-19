@@ -11,6 +11,8 @@ public class BlueDot extends Dot
 	public BlueDot(Texture dot, Manager gm, Sound pop)
 	{
 		super(dot, gm, pop);
+		this.velocity_of_dot = 2;
+		this.speed_of_dot = 2.5f;
 	}
 
 	@Override
@@ -21,6 +23,4 @@ public class BlueDot extends Dot
 		// Lose time
 		gm.addTime(TIME_OFF);
 	}
-	
-	
 }

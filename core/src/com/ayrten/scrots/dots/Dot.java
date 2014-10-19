@@ -5,6 +5,7 @@ import java.util.Random;
 import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -12,16 +13,22 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 
-public class Dot extends Actor {
+public class Dot extends Actor 
+{
+	protected int velocity_of_dot = 5; // How often it moves
+	protected float speed_of_dot = 1f; // How fast it moves
 	private static final float MAX_SIZE_RATIO = 15; // No use really...
-	private float size_ratio = MAX_SIZE_RATIO / 2; // arbituary
-													// buffer...jk
+	private static final float MIN_SIZE_RATIO = 7.5f;
+	private float size_ratio = MIN_SIZE_RATIO;
 
 	private Texture dot;
 	// private NinePatch dot;
 
 	public Manager gm;
 	private Random random;
+
+	private boolean isGoingRight;
+	private int velocity_count = 0;
 
 	public Sound pop;
 
@@ -30,6 +37,7 @@ public class Dot extends Actor {
 		this.gm = gm;
 		this.pop = pop;
 		random = new Random(System.nanoTime());
+		isGoingRight = random.nextBoolean();
 		setBounds(getX(), getY(), dot.getWidth(), dot.getHeight());
 		// An InputListener is a subclass of EventListener
 		addListener(new InputListener() {
@@ -43,11 +51,11 @@ public class Dot extends Actor {
 
 				// Gotta get touched by an angel ;
 				touchedByAnAngel();
-				
-				dotChange();
 
 				// Remove the actor from the stage.
 				event.getTarget().remove();
+
+				dotChange();
 			}
 		});
 	}
@@ -80,28 +88,47 @@ public class Dot extends Actor {
 		setY(y);
 	}
 
-	private void dotChange() {
+	public void changePosition() {
 		if (gm.get_game_mode() == GameMode.CHALLENGE_MODE) {
-			gm.changeDotSize();
+			if (velocity_count == velocity_of_dot) {
+				velocity_count = 0;
+			} else {
+				velocity_count++;
+				return;
+			}
+
+			float x = getX();
+			float maxX = Gdx.graphics.getWidth();
+
+			if (isGoingRight) {
+				if ((x + speed_of_dot + getWidth()) < maxX) {
+					setX(x + 1);
+				} else {
+					isGoingRight = !isGoingRight;
+				}
+			} else {
+				if (x - speed_of_dot > 0) {
+					setX(x - 1);
+				} else {
+					isGoingRight = !isGoingRight;
+				}
+			}
 		}
 	}
 
+	private void dotChange() {
+		gm.changeDotSize();
+	}
+
 	public void resetRatio() {
-		if (random.nextInt(2) == 1) {
-			size_ratio = 7.5f;
-		} else {
-			size_ratio = 15f;
-		}
-		// size_ratio = random.nextInt(BUMP_IT_UP) + BUMP_IT_UP;
+		size_ratio = random.nextBoolean() ? MAX_SIZE_RATIO : MIN_SIZE_RATIO;
 	}
 
 	// Overridden functions.
 	@Override
 	public void draw(Batch batch, float alpha) {
-		// batch.draw(dot, getX(), getY(), getCircleWidth(), getCircleHeight(),
-		// 0,
-		// 0, dot.getWidth(), dot.getHeight(), false, false);
+		changePosition();
+		setBounds(getX(), getY(), getCircleWidth(), getCircleHeight());
 		batch.draw(dot, getX(), getY(), getCircleWidth(), getCircleHeight());
-		// dot.draw(batch, getX(), getY(), getCircleWidth(), getCircleHeight());
 	}
 }
