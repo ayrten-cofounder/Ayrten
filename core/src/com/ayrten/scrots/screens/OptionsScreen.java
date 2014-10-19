@@ -29,7 +29,6 @@ public class OptionsScreen implements Screen
 	
 	private float label_pad_left = (float) 5.5; // Lower # = more left
 	
-	private String curr_mode = "Normal";
 	private boolean should_add_action;
 	
 	public OptionsScreen(ScrotsGame game)
@@ -41,7 +40,6 @@ public class OptionsScreen implements Screen
 		Table table = new Table();
 		table.setFillParent(true);
 		table.setSkin(game.skin);
-		
 		
 		LabelStyle style = new LabelStyle();
 		style.font = game.font_32;

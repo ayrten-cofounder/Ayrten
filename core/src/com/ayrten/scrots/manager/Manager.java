@@ -1,6 +1,7 @@
 /*
- *  This guy takes cares of everything data related of the game.
- *  Not everything.
+ *  The Manager is in charge of keeping track of the current state of the game.
+ *  (ie. current time, current points, etc.) It's also in charge of the current
+ *  state of the current level (ie. removing dots, adding/subtracting time, etc.)
  */
 
 package com.ayrten.scrots.manager;

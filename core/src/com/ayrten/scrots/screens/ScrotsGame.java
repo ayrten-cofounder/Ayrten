@@ -10,7 +10,6 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.PixmapPacker;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -18,8 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 // Game is an ApplicationListener just like initial setup of Scrots, but with more functionality.
 public class ScrotsGame extends Game 
 {
-	public SpriteBatch batch;
-    public Preferences prefs;
+	public Preferences prefs;
     public Sound pop;
     public Skin skin;
     public Music bg;
@@ -35,16 +33,11 @@ public class ScrotsGame extends Game
     // Note: if it takes up too much phone resources, we can always create them on the fly later
     public MainMenuScreen main_menu;
     
-    FreeTypeFontGenerator font_generator;
-    
-	// Different screens.
-    
-	@Override
+    @Override
 	public void create() 
 	{
 		
 		// Initialize variables
-		batch = new SpriteBatch();
 		prefs = Gdx.app.getPreferences("com.ayrten.scrots-preferences");
 		pop = Gdx.audio.newSound(Gdx.files.internal("sounds/pop.mp3"));
 		skin = new Skin(Gdx.files.internal("data/uiskin.json"));
@@ -99,7 +92,6 @@ public class ScrotsGame extends Game
 		pop.dispose();
 		skin.dispose();
 		bg.dispose();
-		batch.dispose();
 		font_64.dispose();
 		font_32.dispose();
 	}

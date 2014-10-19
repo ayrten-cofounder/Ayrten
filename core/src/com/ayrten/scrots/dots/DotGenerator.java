@@ -45,24 +45,19 @@ public class DotGenerator
 		this.gm = gm;
 		this.pop = pop;
 
-		// Move these textures up to GameMode? - Tony
-//		redDot = new NinePatch(new Texture(Gdx.files.internal("data/red.9.png")));
 		redDot = new Texture(Gdx.files.internal("data/red_dot.png"));
 		// redDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
-//		blueDot = new NinePatch(new Texture(Gdx.files.internal("data/blue.9.png")));
 		blueDot = new Texture(Gdx.files.internal("data/blue_dot.png"));
 		// blueDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
-//		greenDot = new NinePatch(new Texture(Gdx.files.internal("data/green.9.png")));
 		greenDot = new Texture(Gdx.files.internal("data/green_dot.png"));
 		// greenDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
-//		babyBlueDot = new NinePatch(new Texture(Gdx.files.internal("data/baby_blue.9.png")));
 		babyBlueDot = new Texture(Gdx.files.internal("data/baby_blue_dot.png"));
 		// babyBlueDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
-		pop = Gdx.audio.newSound(Gdx.files.internal("sounds/pop.mp3"));
+		// pop = Gdx.audio.newSound(Gdx.files.internal("sounds/pop.mp3"));
 
 	}
 

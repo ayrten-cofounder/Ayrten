@@ -31,7 +31,7 @@ public class GameMode
 	public static final int NORMAL_MODE = 1;
 	public static final int CHALLENGE_MODE = 2;
 	
-	protected SpriteBatch batch = new SpriteBatch();
+	protected SpriteBatch batch;
 	protected Stage stage;
 	protected Manager gm;
 
