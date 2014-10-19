@@ -46,6 +46,8 @@ public class Dot extends Actor {
 
 				// Gotta get touched by an angel ;
 				touchedByAnAngel();
+				
+				dotChange();
 
 				// Remove the actor from the stage.
 				event.getTarget().remove();
@@ -67,7 +69,6 @@ public class Dot extends Actor {
 				"sound_effs", true)) {
 			pop.play();
 		}
-		dotChange();
 	}
 
 	public void setTexture(Texture dot) {
