@@ -61,7 +61,7 @@ public class Dot extends Actor {
 	}
 
 	private float getCircleHeight() {
-		return (float) (gm.w / size_ratio);
+		return (float) ((getCircleWidth() * dot.getHeight()) / dot.getWidth());
 	}
 
 	// This class shall be overriddent by the blue, green, red dots
