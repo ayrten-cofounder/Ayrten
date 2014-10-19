@@ -10,6 +10,7 @@ public class RedDot extends Dot
 	public RedDot(Texture dot, Manager gm, Sound pop)
 	{
 		super(dot, gm, pop);
+		this.velocity_of_dot = 5;
 	}
 
 	@Override
