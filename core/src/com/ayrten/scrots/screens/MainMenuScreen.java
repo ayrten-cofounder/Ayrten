@@ -1,8 +1,12 @@
 package com.ayrten.scrots.screens;
 
+import com.ayrten.scrots.game.GameMode;
+import com.ayrten.scrots.game.MainMenuBackgroundGameMode;
 import com.ayrten.scrots.manager.Assets;
+import com.ayrten.scrots.manager.Manager;
 import com.ayrten.scrots.scoreboard.ChallengeScoreboard;
 import com.ayrten.scrots.scoreboard.NormalScoreboard;
+import com.ayrten.scrots.scoreboard.Scoreboard;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -14,160 +18,165 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
-public class MainMenuScreen implements Screen 
-{
+public class MainMenuScreen implements Screen {
 	private ScrotsGame game;
 	private TextButton start;
 	private TextButton options;
 	private TextButton high_score;
 	private TextButton tutorial;
 	private Stage stage;
-	
+
 	// For options and high scores screens
 	private OptionsScreen options_screen;
 	private HighScoresScreen high_score_screen;
 	public GameScreen game_screen;
-	
+
 	public NormalScoreboard nsb;
 	public ChallengeScoreboard csb;
-	
-	public MainMenuScreen(ScrotsGame game)
-	{	
+
+	public MainMenuScreen(ScrotsGame game) {
 		// Initialize variables
 		this.game = game;
 		stage = new Stage();
 		nsb = new NormalScoreboard();
 		csb = new ChallengeScoreboard();
-		
-		Table table = new Table(); 
+
+		Table table = new Table();
 		table.setSkin(Assets.skin);
-		table.setCenterPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/4);
-		
+		table.setCenterPosition(Gdx.graphics.getWidth() / 2,
+				Gdx.graphics.getHeight() / 4);
+
 		options_screen = new OptionsScreen();
 		high_score_screen = new HighScoresScreen();
-		// game_screen = new GameScreen((ScrotsGame) Gdx.app.getApplicationListener());
-		
+		// game_screen = new GameScreen((ScrotsGame)
+		// Gdx.app.getApplicationListener());
+
 		start = new TextButton("", Assets.skin);
 		LabelStyle style = new LabelStyle();
 		style.font = Assets.font_32;
 		start.add(new Label("Start", style));
-		start.setBounds(start.getX(), start.getY(), start.getWidth(), start.getHeight());
-		start.addListener(new InputListener()
-		{
+		// start.setBackground(Assets.transparent_box);
+		start.setBounds(start.getX(), start.getY(), start.getWidth(),
+				start.getHeight());
+		start.addListener(new InputListener() {
 			// Need this or else it won't recognize the touch down event.
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
-			{
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
 				return true;
 			}
-			
-			public void touchUp(InputEvent event, float x, float y,	int pointer, int button)
-			{
-				if(Assets.prefs.getBoolean("sound_effs", true))
-				  Assets.pop.play();
-				game_screen = new GameScreen();
-				((ScrotsGame) Gdx.app.getApplicationListener()).setScreen(game_screen);
-			}
-		});
-		
-		options = new TextButton("", Assets.skin);
-		// Based on what background it is, set the color of the font? white = > black? ugly?
-		options.add(new Label("Options", style));
-		options.setBounds(options.getX(), options.getY(), options.getWidth(), options.getHeight());
-		options.addListener(new InputListener()
-		{
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
-			{
-				return true;
-			}
-			
-			public void touchUp(InputEvent event, float x, float y,	int pointer, int button)
-			{
-				if(Assets.prefs.getBoolean("sound_effs", true))
+
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
+				if (Assets.prefs.getBoolean("sound_effs", true))
 					Assets.pop.play();
-				((ScrotsGame) Gdx.app.getApplicationListener()).setScreen(options_screen);
+				game_screen = new GameScreen();
+				((ScrotsGame) Gdx.app.getApplicationListener())
+						.setScreen(game_screen);
 			}
 		});
-		
+
+		options = new TextButton("", Assets.skin);
+		// Based on what background it is, set the color of the font? white = >
+		// black? ugly?
+		options.add(new Label("Options", style));
+		options.setBounds(options.getX(), options.getY(), options.getWidth(),
+				options.getHeight());
+		options.addListener(new InputListener() {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				return true;
+			}
+
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
+				if (Assets.prefs.getBoolean("sound_effs", true))
+					Assets.pop.play();
+				((ScrotsGame) Gdx.app.getApplicationListener())
+						.setScreen(options_screen);
+			}
+		});
+
 		high_score = new TextButton("", Assets.skin);
 		high_score.add(new Label("High Scores", style));
-		high_score.setBounds(high_score.getX(), high_score.getY(), high_score.getWidth(), high_score.getHeight());
-		high_score.addListener(new InputListener()
-		{
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
-			{
+		high_score.setBounds(high_score.getX(), high_score.getY(),
+				high_score.getWidth(), high_score.getHeight());
+		high_score.addListener(new InputListener() {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
 				return true;
 			}
-			
-			public void touchUp(InputEvent event, float x, float y,	int pointer, int button)
-			{
-				if(Assets.prefs.getBoolean("sound_effs", true))
-				  Assets.pop.play();
-				((ScrotsGame) Gdx.app.getApplicationListener()).setScreen(high_score_screen);
+
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
+				if (Assets.prefs.getBoolean("sound_effs", true))
+					Assets.pop.play();
+				((ScrotsGame) Gdx.app.getApplicationListener())
+						.setScreen(high_score_screen);
 			}
 		});
 
 		table.add(start);
 		table.row();
-		table.add("").height(Gdx.graphics.getHeight()/50);
+		table.add("").height(Gdx.graphics.getHeight() / 50);
 		table.row();
 		table.add(options);
 		table.row();
-		table.add("").height(Gdx.graphics.getHeight()/50);
+		table.add("").height(Gdx.graphics.getHeight() / 50);
 		table.row();
 		table.add(high_score);
+
+		Manager gm = new Manager(0, Gdx.graphics.getWidth(),
+				Gdx.graphics.getHeight());
+		gm.setMode(GameMode.MAIN_MENU_BACKGROUND_MODE);
+		gm.setScoreboard(new Scoreboard());
+		new MainMenuBackgroundGameMode(stage, gm, Gdx.graphics.getWidth(),
+				Gdx.graphics.getHeight()).gen_curr_level();
+		gm.changeDotSize();
 		
 		stage.addActor(table);
 	}
 
 	@Override
-	public void render(float delta) 
-	{
-		if(Assets.prefs.getString("bg_color").equals("Black"))
+	public void render(float delta) {
+		if (Assets.prefs.getString("bg_color").equals("Black"))
 			Gdx.gl.glClearColor(0, 0, 0, 0);
 		else
 			Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
+
 		stage.draw();
 	}
-	
-	public OptionsScreen get_options_screen()
-	{
+
+	public OptionsScreen get_options_screen() {
 		return options_screen;
 	}
 
 	@Override
-	public void dispose() 
-	{
+	public void dispose() {
 		// Remove all actors
 		stage.dispose();
 	}
-	
+
 	@Override
-	public void resize(int width, int height) 
-	{
+	public void resize(int width, int height) {
 
 	}
 
 	@Override
-	public void show() 
-	{
+	public void show() {
 		Gdx.input.setInputProcessor(stage);
 	}
 
 	@Override
-	public void hide()
-	{
+	public void hide() {
 	}
 
 	@Override
-	public void pause() 
-	{
-		
+	public void pause() {
+
 	}
 
 	@Override
-	public void resume() 
-	{
+	public void resume() {
 	}
 }
