@@ -8,6 +8,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class GameMode {
+	public static final int MAIN_MENU_BACKGROUND_MODE = -1;
 	public static final int NORMAL_MODE = 1;
 	public static final int CHALLENGE_MODE = 2;
 
@@ -28,6 +29,12 @@ public class GameMode {
 	}
 
 	protected void generate() {
+		if(gm.get_game_mode() == GameMode.MAIN_MENU_BACKGROUND_MODE)
+		{
+			all_levels.add(new Level(20, w, h, gm));
+			return;
+		}
+		
 		// Generate the first 20 levels.
 		for (int i = 1; i < 20; i++) {
 			Level lvl = new Level(i, w, h, gm);

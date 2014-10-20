@@ -32,7 +32,7 @@ public class Level
 		// Maybe should move this up to the GameMode level? - Tony
 		generator = new DotGenerator(width, height, gm);
 
-		generator = new DotGenerator(width, height, gm);
+//		generator = new DotGenerator(width, height, gm);
 				
 		greenDots = new ArrayList<GreenDot>();
 		redDots = new ArrayList<RedDot>();

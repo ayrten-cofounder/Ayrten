@@ -2,6 +2,7 @@ package com.ayrten.scrots.dots;
 
 import java.util.Random;
 
+import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 
@@ -13,12 +14,12 @@ public class DotGenerator {
 
 	private Random random = new Random();
 
-//	private Texture redDot;
-//	private Texture blueDot;
-//	private Texture greenDot;
-//	private Texture babyBlueDot;
+	// private Texture redDot;
+	// private Texture blueDot;
+	// private Texture greenDot;
+	// private Texture babyBlueDot;
 
-//	private Sound pop;
+	// private Sound pop;
 
 	// Width and height of the game window
 	private int height;
@@ -29,7 +30,11 @@ public class DotGenerator {
 	public DotGenerator(int width, int height, Manager gm) {
 
 		this.width = width;
-		this.height = height - (height / 5);
+		if (gm.get_game_mode() == GameMode.MAIN_MENU_BACKGROUND_MODE) {
+			this.height = height;
+		} else {
+			this.height = height - (height / 5);
+		}
 		this.gm = gm;
 	}
 
