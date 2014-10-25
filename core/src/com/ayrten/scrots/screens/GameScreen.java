@@ -161,8 +161,7 @@ public class GameScreen implements Screen
 
 		user_name = new TextField("", textStyle);
 		user_name.setMessageText("Enter your name");
-		user_name.getStyle().background = new NinePatchDrawable(new NinePatch(
-				new Texture(Gdx.files.internal("data/gray_box.9.png"))));
+		user_name.getStyle().background = Assets.gray_box;
 		user_name.getStyle().background
 				.setLeftWidth(user_name.getStyle().background.getLeftWidth()
 						+ textStyle.font.getBounds("w").width);
