@@ -62,7 +62,7 @@ public class Assets
 		level_clear = Gdx.audio.newSound(Gdx.files.internal("sounds/level_complete.wav"));
 		
 		// Music
-		bg = Gdx.audio.newMusic(Gdx.files.internal("bgm/Cycles.mp3"));
+		bg = Gdx.audio.newMusic(Gdx.files.internal("bgm/Transition.mp3"));
 		
 		// Skin
 		skin = new Skin(Gdx.files.internal("data/uiskin.json"));
