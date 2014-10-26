@@ -36,8 +36,8 @@ public class HighScoresScreen implements Screen {
 
 	private Table table;
 	private SelectBox<String> mode;
-	private TextButton back;
-	private TextButton clear;
+	private Label back;
+	private Label clear;
 	private Window confirm_clear;
 
 	LabelStyle style_big;
@@ -61,13 +61,8 @@ public class HighScoresScreen implements Screen {
 
 		switchFontColor();
 
-		LabelStyle style = new LabelStyle();
-		style.font = Assets.font_32;
-
-		back = new TextButton("", Assets.skin);
-		back.add(new Label("Back", style));
-		back.setBounds(back.getX(), back.getY(), back.getWidth(),
-				back.getHeight());
+		back = new Label("Back", style_small);
+		back.setBounds(back.getX(), back.getY(), back.getWidth(), back.getHeight());
 		back.setPosition(0, Gdx.graphics.getHeight() - back.getHeight());
 		back.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y,
@@ -91,11 +86,9 @@ public class HighScoresScreen implements Screen {
 				})));
 			}
 		});
-
-		clear = new TextButton("", Assets.skin);
-		clear.add(new Label("Clear", style));
-		clear.setBounds(clear.getX(), clear.getY(), clear.getWidth(),
-				clear.getHeight());
+		
+		clear = new Label("Clear", style_small);
+		clear.setBounds(clear.getX(), clear.getY(), clear.getWidth(), clear.getHeight());
 		clear.setPosition(0, Gdx.graphics.getHeight() - clear.getHeight());
 		clear.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y,
