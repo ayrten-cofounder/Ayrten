@@ -1,12 +1,10 @@
-package com.ayrten.scrots.dot_movement;
+package com.ayrten.scrots.dotGraphics;
 
 import com.ayrten.scrots.dots.Dot;
-import com.ayrten.scrots.manager.Assets;
-import com.badlogic.gdx.Gdx;
 
-public class DotMovement_NormalGameMode extends DotMovement {
+public class DotGraphics_NormalGameMode extends DotGraphics {
 
-	public DotMovement_NormalGameMode(Dot dot) {
+	public DotGraphics_NormalGameMode(Dot dot) {
 		super(dot);
 		
 		randSlopeV3();
@@ -22,13 +20,6 @@ public class DotMovement_NormalGameMode extends DotMovement {
 
 	@Override
 	public void move() {
-		if (velocity_count == velocity_of_dot) {
-			velocity_count = 0;
-		} else {
-			velocity_count++;
-			return;
-		}
-		
 		move_v3();
 //		if(dot.gm.get_player_score() >= 3 && dot.gm.get_player_score() < 6)
 //		{
