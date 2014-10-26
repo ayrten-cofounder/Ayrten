@@ -33,7 +33,7 @@ public class DotGenerator {
 		if (gm.get_game_mode() == GameMode.MAIN_MENU_BACKGROUND_MODE) {
 			this.height = height;
 		} else {
-			this.height = height - (height / 5);
+			this.height = Assets.game_height;
 		}
 		this.gm = gm;
 	}

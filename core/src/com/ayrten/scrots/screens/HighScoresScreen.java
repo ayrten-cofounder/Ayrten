@@ -213,7 +213,7 @@ public class HighScoresScreen implements Screen {
 		float center = (width / 2) - (font_width / 2);
 
 		table.add(back).top().left();
-		table.add(mode).top().right();
+//		table.add(mode).top().right();
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / 5);
 		table.row();

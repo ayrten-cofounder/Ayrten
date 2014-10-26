@@ -95,11 +95,11 @@ stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(1f), Actions.
 		table.add(back).left().top();
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight()/5 * 2);
-		table.row();
-		table.add(new Label("Game Mode: ", style)).left().padLeft((float) (Gdx.graphics.getWidth()/label_pad_left));
-		table.add(mode).center().padLeft(Gdx.graphics.getWidth()/6).height(style.font.getLineHeight());
-		table.row();
-		table.add("").height(Gdx.graphics.getHeight()/50);
+//		table.row();
+//		table.add(new Label("Game Mode: ", style)).left().padLeft((float) (Gdx.graphics.getWidth()/label_pad_left));
+//		table.add(mode).center().padLeft(Gdx.graphics.getWidth()/6).height(style.font.getLineHeight());
+//		table.row();
+//		table.add("").height(Gdx.graphics.getHeight()/50);
 		table.row();
 		table.add(new Label("Background: ", style)).left().padLeft((float) (Gdx.graphics.getWidth()/label_pad_left));
 		table.add(bg_color).center().padLeft(Gdx.graphics.getWidth()/6);
@@ -114,7 +114,7 @@ stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(1f), Actions.
 		// When user initially touch drop-down list, it shows a scroll instead of
 		// expanding fully. This expands the list beforehand so when user interacts
 		// with drop-down list for first time, it will expand fully.
-		mode.showList();
+//		mode.showList();
 	}
 	
 	@Override

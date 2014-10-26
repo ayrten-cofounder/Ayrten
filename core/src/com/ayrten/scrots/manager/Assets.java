@@ -18,6 +18,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class Assets {
+	// Height and Width
+	public static int game_height;
+
 	// Drawables
 	public static NinePatchDrawable gray_box;
 	public static NinePatchDrawable transparent_box;
@@ -51,6 +54,9 @@ public class Assets {
 	public static void load(ScrotsGame sg) {
 		int ref_width = 640;
 		float font_ratio = Gdx.graphics.getWidth() / ref_width;
+
+		// Height and Width
+		game_height = Gdx.graphics.getHeight() - (Gdx.graphics.getHeight() / 5);
 
 		// Drawable
 		gray_box = new NinePatchDrawable(new NinePatch(new Texture(
