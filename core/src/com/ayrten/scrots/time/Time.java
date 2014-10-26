@@ -1,6 +1,6 @@
 package com.ayrten.scrots.time;
 
-import com.ayrten.scrots.manager.Manager;
+import com.ayrten.scrots.screens.Manager;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 

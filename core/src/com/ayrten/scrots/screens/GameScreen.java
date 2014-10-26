@@ -7,7 +7,6 @@ import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.game.NormalGameMode;
 import com.ayrten.scrots.level.Level;
 import com.ayrten.scrots.manager.Assets;
-import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
@@ -208,9 +207,9 @@ public class GameScreen implements Screen {
 		pause.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				for(Actor actor : event.getStage().getActors()){
-					actor.setVisible(false);
-				}
+//				for(Actor actor : event.getStage().getActors()){
+//					actor.setVisible(false);
+//				}
 				pause_menu.setVisible(true);
 				gm.pauseGame();
 			}

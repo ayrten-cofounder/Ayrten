@@ -7,7 +7,7 @@
 package com.ayrten.scrots.game;
 
 import com.ayrten.scrots.level.Level;
-import com.ayrten.scrots.manager.Manager;
+import com.ayrten.scrots.screens.Manager;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 
