@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -64,7 +65,7 @@ public class GameScreen implements Screen
 	public boolean go_back = false;
 
 	public GameScreen()
-	{
+	{	
 		font_points = Assets.font_16;
 		font_time = Assets.font_16;
 		font_fps = Assets.font_16;
@@ -195,6 +196,9 @@ public class GameScreen implements Screen
 		pause.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				for(Actor actor : event.getStage().getActors()){
+					actor.setVisible(false);
+				}
 				pause_menu.setVisible(true);
 			}
 		});
@@ -226,7 +230,14 @@ public class GameScreen implements Screen
 		pause_cancel.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				for(Actor actor : event.getStage().getActors()) {
+					actor.setVisible(true);
+				}
 				pause_menu.setVisible(false);
+        confirm_quit.setVisible(false);
+        table.setVisible(false);
+        game_over.setVisible(false);
+        user_name.setVisible(false);
 			}
 		});
 		pause_menu.add(pause_cancel);
