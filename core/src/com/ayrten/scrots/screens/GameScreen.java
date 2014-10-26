@@ -13,9 +13,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -27,7 +25,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 // public class Scrots implements ApplicationListener
 public class GameScreen implements Screen {
@@ -36,21 +35,26 @@ public class GameScreen implements Screen {
 	protected Label game_over;
 	protected TextButton replay;
 	protected TextButton main_menu;
-
+	protected TextButton pause;
+	
+	protected Window pause_menu;
+	protected Window confirm_quit;
+	
 	protected BitmapFont font_points;
 	protected BitmapFont font_time;
 	protected BitmapFont font_fps;
 
 	protected CharSequence str = " points";
 	protected CharSequence time = "Time left: ";
-
-	private GameMode gamemode;
-	private Manager gm;
-	private Stage stage;
-
-	private int w;
-	private int h;
-
+	
+	protected GameMode gamemode;
+	protected Manager gm;
+	protected Stage stage;
+	protected Table table;
+	
+	protected int w;
+	protected int h;
+	
 	protected Level curr_level;
 	protected SpriteBatch batch;
 	protected boolean should_clear_stage;
@@ -157,6 +161,7 @@ public class GameScreen implements Screen {
 		game_over = new Label("Game Over!", overStyle);
 		game_over.setCenterPosition(Gdx.graphics.getWidth() / 2,
 				Gdx.graphics.getHeight() / 3 * 2);
+		game_over.setVisible(false);
 
 		user_name = new TextField("", textStyle);
 		user_name.setMessageText("Enter your name");
@@ -176,16 +181,98 @@ public class GameScreen implements Screen {
 				if (key == '\n' || Gdx.input.isKeyPressed(Keys.ENTER)) {
 					((ScrotsGame) Gdx.app.getApplicationListener()).main_menu.game_screen
 							.getManager().addHighScore(textField.getText());
-					((ScrotsGame) Gdx.app.getApplicationListener())
-							.setScreen(((ScrotsGame) Gdx.app
-									.getApplicationListener()).main_menu);
-					// ((GameScreen) ((ScrotsGame)
-					// Gdx.app.getApplicationListener()).getScreen()).go_back =
-					// true;
+					table.setVisible(true);
+					user_name.setVisible(false);
 				}
 			}
 		});
 
+		user_name.setVisible(false);
+		
+		pause = new TextButton("", Assets.skin);
+		pause.add(new Label("Menu", buttonStyle));
+		pause.setBounds(pause.getX(), pause.getY(), pause.getWidth(), pause.getHeight());
+		pause.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				pause_menu.setVisible(true);
+			}
+		});
+		pause.setWidth(buttonStyle.font.getBounds("  Menu").width);
+		pause.setHeight(buttonStyle.font.getLineHeight());
+		pause.setPosition(Gdx.graphics.getWidth() - pause.getWidth(), Gdx.graphics.getHeight() - buttonStyle.font.getLineHeight());
+		
+		pause_menu = new Window("Menu", Assets.skin);
+		pause_menu.setPosition(stage.getWidth()/2 - pause_menu.getWidth()/2, stage.getHeight()/2 - pause_menu.getHeight()/2);
+		pause_menu.setMovable(false);
+		pause_menu.setVisible(false);
+		
+		TextButton quit = new TextButton("", Assets.skin);
+		quit.add(new Label("Quit", buttonStyle));
+		quit.setBounds(quit.getX(), quit.getY(), quit.getWidth(), quit.getHeight());
+		quit.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				confirm_quit.setVisible(true);
+				pause_menu.setVisible(false);
+			}
+		});
+		pause_menu.add(quit);
+		pause_menu.row();
+		
+		TextButton pause_cancel = new TextButton("", Assets.skin);
+		pause_cancel.add(new Label("Cancel", buttonStyle));
+		pause_cancel.setBounds(pause_cancel.getX(), pause_cancel.getY(), pause_cancel.getWidth(), pause_cancel.getHeight());
+		pause_cancel.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				pause_menu.setVisible(false);
+			}
+		});
+		pause_menu.add(pause_cancel);
+		
+		TextButton proceed = new TextButton("", Assets.skin);
+		proceed.add(new Label("Proceed", buttonStyle));
+		proceed.setBounds(proceed.getX(), proceed.getY(), proceed.getWidth(), proceed.getHeight());
+		proceed.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Assets.game.main_menu.game_screen.dispose();
+				Assets.game.setScreen(Assets.game.main_menu);
+			}
+		});
+		
+		TextButton quit_cancel = new TextButton("", Assets.skin);
+		quit_cancel.add(new Label("Cancel", buttonStyle));
+		quit_cancel.setBounds(quit_cancel.getX(), quit_cancel.getY(), quit_cancel.getWidth(), quit_cancel.getHeight());
+		quit_cancel.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				confirm_quit.setVisible(false);
+				pause_menu.setVisible(true);
+			}
+		});
+		
+		confirm_quit = new Window("Back to main menu?", Assets.skin);
+		confirm_quit.add(proceed);
+		confirm_quit.row();
+		confirm_quit.add(quit_cancel);
+		confirm_quit.setVisible(false);
+		confirm_quit.setMovable(false);
+		confirm_quit.setPosition(stage.getWidth()/2 - confirm_quit.getWidth()/2, stage.getHeight()/2 - confirm_quit.getHeight()/2);
+		
+		table = new Table(Assets.skin);
+		table.setSkin(Assets.skin);
+		table.setCenterPosition(Gdx.graphics.getWidth() / 2,
+				Gdx.graphics.getHeight() / 2);
+		table.add(replay);
+		table.row();
+		table.add("").height(Gdx.graphics.getHeight() / 50);
+		table.row();
+		table.add(main_menu);
+		table.setVisible(false);
+		
+		addStageActors();
 		curr_level = gamemode.gen_curr_level();
 		gm.startGame();
 	}
@@ -247,29 +334,33 @@ public class GameScreen implements Screen {
 		if (should_clear_stage) {
 			stage.clear();
 			should_clear_stage = false;
-			stage.addActor(game_over);
+			addStageActors();
+			game_over.setVisible(true);
+			pause.setVisible(false);
 			if (gm.get_player_score() > gm.getScoreBoard().getLowestHighScore()) {
-				stage.addActor(user_name);
+				user_name.setVisible(true);
 			} else {
-				Table table = new Table();
-				table.setSkin(Assets.skin);
-				table.setCenterPosition(Gdx.graphics.getWidth() / 2,
-						Gdx.graphics.getHeight() / 2);
-				table.add(replay);
-				table.row();
-				table.add("").height(Gdx.graphics.getHeight() / 50);
-				table.row();
-				table.add(main_menu);
-				stage.addActor(table);
+				table.setVisible(true);
 			}
 		}
 
 		stage.draw();
 	}
+	
+	private void addStageActors()
+	{
+		stage.addActor(pause);
+		stage.addActor(pause_menu);
+		stage.addActor(confirm_quit);
+		stage.addActor(table);
+		stage.addActor(game_over);
+		stage.addActor(user_name);
+	}
 
 	public void levelClear() {
 		// One point for clearing a level
 		stage.clear();
+		addStageActors();
 		gm.plusOnePoint();
 
 		curr_level = gamemode.gen_curr_level();
