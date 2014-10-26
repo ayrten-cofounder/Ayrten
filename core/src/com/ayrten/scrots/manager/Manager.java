@@ -78,6 +78,11 @@ public class Manager
 		time.startTime();
 	}
 	
+	public void pauseGame()
+	{
+		time.pauseTime();
+	}
+	
 	public void changeDotSize()
 	{
 		for(Dot dot : curr_level.get_baby_blue_dots())
