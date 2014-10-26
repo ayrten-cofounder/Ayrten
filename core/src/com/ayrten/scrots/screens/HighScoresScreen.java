@@ -14,13 +14,17 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Text;
 
 public class HighScoresScreen implements Screen {
 	private float pad_left = (float) 5.5;
@@ -33,16 +37,17 @@ public class HighScoresScreen implements Screen {
 	private SelectBox<String> mode;
 	private TextButton back;
 	private TextButton clear;
+	private Window confirm_clear;
 
 	LabelStyle style_big;
 	LabelStyle style_small;
 
 	private boolean should_add_action;
-
+	
 	public HighScoresScreen() {
 		stage = new Stage();
 		should_add_action = true;
-
+		
 		table = new Table();
 		table.setFillParent(true);
 		table.setSkin(Assets.skin);
@@ -73,9 +78,9 @@ public class HighScoresScreen implements Screen {
 					int pointer, int button) {
 				if (Assets.prefs.getBoolean("sound_effs"))
 					Assets.pop.play();
-				
+
 				stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(1f), Actions.run(new Runnable() {
-					
+
 					@Override
 					public void run() {
 						((ScrotsGame) Gdx.app.getApplicationListener())
@@ -101,7 +106,10 @@ public class HighScoresScreen implements Screen {
 					int pointer, int button) {
 				if (Assets.prefs.getBoolean("sound_effs"))
 					Assets.pop.play();
-				clearScoreboard();
+
+				// event.getStage().addActor(confirm_clear);
+				confirm_clear.setVisible(true);
+				table.setTouchable(Touchable.disabled);
 			}
 		});
 
@@ -119,9 +127,41 @@ public class HighScoresScreen implements Screen {
 				switchHighScoreTable();
 			}
 		});
+		
+		TextButton proceed = new TextButton("Proceed", Assets.skin);
+		proceed.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				clearScoreboard();
+				confirm_clear.setVisible(false);
+				table.setTouchable(Touchable.enabled);
+			};
+		});
+
+		TextButton cancel  = new TextButton("Cancel", Assets.skin);
+		cancel.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				confirm_clear.setVisible(false);
+				table.setTouchable(Touchable.enabled);
+			};
+		});
+
+		confirm_clear = new Window("Clear scores?", Assets.skin);
+		confirm_clear.add(proceed);
+		confirm_clear.row();
+		confirm_clear.add("").height(Gdx.graphics.getHeight()/100);
+		confirm_clear.row();
+		confirm_clear.add(cancel);
+		confirm_clear.setPosition(stage.getWidth()/2 - confirm_clear.getWidth()/2, stage.getHeight()/2 - confirm_clear.getHeight()/2);
+		confirm_clear.pack();
+		confirm_clear.setMovable(false);
+		confirm_clear.setVisible(false);
+		// confirm_clear.getButtonTable().padTop(100);
 
 		setHighScoreTable(table);
 		stage.addActor(table);
+		stage.addActor(confirm_clear);
 	}
 
 	private void clearScoreboard() {
@@ -173,47 +213,47 @@ public class HighScoresScreen implements Screen {
 		table.add("").height(Gdx.graphics.getHeight() / 5);
 		table.row();
 		table.add(new Label("Highscore", style_big)).left().padLeft(center)
-				.fillX();
+		.fillX();
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / height);
 		table.row();
 		table.add(new Label(scores.first_name, style_small)).left()
-				.padLeft((float) (Gdx.graphics.getWidth() / pad_left));
+		.padLeft((float) (Gdx.graphics.getWidth() / pad_left));
 		table.add(new Label(String.valueOf(scores.first), style_small)).right()
-				.padRight(Gdx.graphics.getWidth() / pad_right)
-				.height(style_small.font.getLineHeight());
+		.padRight(Gdx.graphics.getWidth() / pad_right)
+		.height(style_small.font.getLineHeight());
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / height);
 		table.row();
 		table.add(new Label(scores.second_name, style_small)).left()
-				.padLeft((float) (Gdx.graphics.getWidth() / pad_left));
+		.padLeft((float) (Gdx.graphics.getWidth() / pad_left));
 		table.add(new Label(String.valueOf(scores.second), style_small))
-				.right().padRight(Gdx.graphics.getWidth() / pad_right)
-				.height(style_small.font.getLineHeight());
+		.right().padRight(Gdx.graphics.getWidth() / pad_right)
+		.height(style_small.font.getLineHeight());
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / height);
 		table.row();
 		table.add(new Label(scores.third_name, style_small)).left()
-				.padLeft((float) (Gdx.graphics.getWidth() / pad_left));
+		.padLeft((float) (Gdx.graphics.getWidth() / pad_left));
 		table.add(new Label(String.valueOf(scores.third), style_small)).right()
-				.padRight(Gdx.graphics.getWidth() / pad_right)
-				.height(style_small.font.getLineHeight());
+		.padRight(Gdx.graphics.getWidth() / pad_right)
+		.height(style_small.font.getLineHeight());
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / height);
 		table.row();
 		table.add(new Label(scores.fourth_name, style_small)).left()
-				.padLeft((float) (Gdx.graphics.getWidth() / pad_left));
+		.padLeft((float) (Gdx.graphics.getWidth() / pad_left));
 		table.add(new Label(String.valueOf(scores.fourth), style_small))
-				.right().padRight(Gdx.graphics.getWidth() / pad_right)
-				.height(style_small.font.getLineHeight());
+		.right().padRight(Gdx.graphics.getWidth() / pad_right)
+		.height(style_small.font.getLineHeight());
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / height);
 		table.row();
 		table.add(new Label(scores.fifth_name, style_small)).left()
-				.padLeft((float) (Gdx.graphics.getWidth() / pad_left));
+		.padLeft((float) (Gdx.graphics.getWidth() / pad_left));
 		table.add(new Label(String.valueOf(scores.fifth), style_small)).right()
-				.padRight(Gdx.graphics.getWidth() / pad_right)
-				.height(style_small.font.getLineHeight());
+		.padRight(Gdx.graphics.getWidth() / pad_right)
+		.height(style_small.font.getLineHeight());
 		table.row();
 		table.add(clear).expand();
 		table.row();
@@ -234,7 +274,7 @@ public class HighScoresScreen implements Screen {
 		{
 			should_add_action = false;
 			stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(1f), Actions.run(new Runnable() {
-				
+
 				@Override
 				public void run() {
 					((ScrotsGame) Gdx.app.getApplicationListener())

@@ -12,12 +12,10 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.PixmapPacker;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class Assets {
 	// Drawables
@@ -29,8 +27,6 @@ public class Assets {
 	public static BitmapFont font_64;
 	public static BitmapFont font_32;
 	public static BitmapFont font_16;
-
-	public static ScrotsGame game;
 
 	// Sounds
 	public static Sound pop;
@@ -50,10 +46,9 @@ public class Assets {
 
 	// Miscellaneous
 	public static Preferences prefs;
+	public static ScrotsGame game;
 
 	public static void load(ScrotsGame sg) {
-		game = sg;
-
 		int ref_width = 640;
 		float font_ratio = Gdx.graphics.getWidth() / ref_width;
 
@@ -95,6 +90,7 @@ public class Assets {
 
 		// Miscellaneous
 		prefs = Gdx.app.getPreferences("com.ayrten.scrots-preferences");
+		game = sg;
 	}
 
 	public static void dispose() {
