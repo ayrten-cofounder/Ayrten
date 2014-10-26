@@ -47,25 +47,39 @@ public class GameMode {
 		return all_levels;
 	}
 
-	public Level gen_curr_level() {
+	public Level gen_curr_level()
+	{
 		Level curr_level = all_levels.remove(0);
 		gm.setLevel(curr_level);
-		for (int i = 0; i < curr_level.get_blue_dots().size(); i++) {
-			stage.addActor(curr_level.get_blue_dots().get(i));
-		}
-
-		for (int i = 0; i < curr_level.get_red_dots().size(); i++) {
-			stage.addActor(curr_level.get_red_dots().get(i));
-		}
-
-		for (int i = 0; i < curr_level.get_grn_dots().size(); i++) {
-			stage.addActor(curr_level.get_grn_dots().get(i));
-		}
-
-		for (int i = 0; i < curr_level.get_baby_blue_dots().size(); i++) {
+		for(int i = 0; i < curr_level.get_baby_blue_dots().size(); i++)
+		{
 			stage.addActor(curr_level.get_baby_blue_dots().get(i));
 		}
-		for (int i = 0; i < curr_level.get_grn_dots().size(); i++) {
+		
+		for(int i = 0; i < curr_level.get_blue_dots().size(); i++)
+		{
+			stage.addActor(curr_level.get_blue_dots().get(i));
+		}
+		
+		int red_half_size = curr_level.get_red_dots().size()/2;
+		for(int i = 0; i < curr_level.get_red_dots().size()/2; i++)
+		{
+			stage.addActor(curr_level.get_red_dots().get(i));
+		}
+		
+		int grn_half_size = curr_level.get_grn_dots().size()/2;
+		for(int i = 0; i < curr_level.get_grn_dots().size()/2; i++)
+		{
+			stage.addActor(curr_level.get_grn_dots().get(i));
+		}
+		
+		for(int i = red_half_size; i < curr_level.get_red_dots().size(); i++)
+		{
+			stage.addActor(curr_level.get_red_dots().get(i));
+		}
+		
+		for(int i = grn_half_size; i < curr_level.get_grn_dots().size(); i++)
+		{
 			stage.addActor(curr_level.get_grn_dots().get(i));
 		}
 		

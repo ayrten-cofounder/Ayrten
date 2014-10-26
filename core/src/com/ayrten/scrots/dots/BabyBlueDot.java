@@ -11,8 +11,7 @@ public class BabyBlueDot extends Dot
 	public BabyBlueDot(Texture dot, Manager gm, Sound pop)
 	{
 		super(dot, gm, pop);
-		this.velocity_of_dot = 0;
-		this.speed_of_dot = 3f;
+		this.move.speed_of_dot = 3f;
 	}
 
 	@Override

@@ -102,14 +102,14 @@ public class GameScreen implements Screen
 		gm = new Manager(0, w, h); // Starts with 0 points
 		if(Assets.prefs.getString("mode").equals("Normal")) 
 		{
-			gamemode = new NormalGameMode(stage, gm, w, h);
 			gm.setMode(GameMode.NORMAL_MODE);
 			gm.setScoreboard(Assets.game.main_menu.nsb);
+			gamemode = new NormalGameMode(stage, gm, w, h);
 		}
 		else {
-			gamemode = new ChallengeGameMode(stage, gm, w, h);
 			gm.setMode(GameMode.CHALLENGE_MODE);
 			gm.setScoreboard(Assets.game.main_menu.csb);
+			gamemode = new ChallengeGameMode(stage, gm, w, h);
 		}
 		
 		replay = new TextButton("", Assets.skin);

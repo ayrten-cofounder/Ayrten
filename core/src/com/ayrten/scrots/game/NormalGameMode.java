@@ -10,5 +10,4 @@ public class NormalGameMode extends GameMode
 	{
 		super(stage, gm, width, height);
 	}
-
 }
