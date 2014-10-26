@@ -22,6 +22,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Text;
@@ -128,7 +129,8 @@ public class HighScoresScreen implements Screen {
 			}
 		});
 		
-		TextButton proceed = new TextButton("Proceed", Assets.skin);
+		TextButton proceed = new TextButton("", Assets.skin);
+		proceed.add(new Label("Proceed", new LabelStyle(Assets.font_16, Color.WHITE)));
 		proceed.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -138,7 +140,8 @@ public class HighScoresScreen implements Screen {
 			};
 		});
 
-		TextButton cancel  = new TextButton("Cancel", Assets.skin);
+		TextButton cancel  = new TextButton("", Assets.skin);
+		cancel.add(new Label("Cancel", new LabelStyle(Assets.font_16, Color.WHITE)));
 		cancel.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -148,6 +151,9 @@ public class HighScoresScreen implements Screen {
 		});
 
 		confirm_clear = new Window("Clear scores?", Assets.skin);
+		// confirm_clear.getStyle().background.
+		confirm_clear.setTitle("Clear scores?");
+		
 		confirm_clear.add(proceed);
 		confirm_clear.row();
 		confirm_clear.add("").height(Gdx.graphics.getHeight()/100);
@@ -157,8 +163,7 @@ public class HighScoresScreen implements Screen {
 		confirm_clear.pack();
 		confirm_clear.setMovable(false);
 		confirm_clear.setVisible(false);
-		// confirm_clear.getButtonTable().padTop(100);
-
+		
 		setHighScoreTable(table);
 		stage.addActor(table);
 		stage.addActor(confirm_clear);
