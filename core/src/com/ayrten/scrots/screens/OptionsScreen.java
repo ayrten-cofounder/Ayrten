@@ -42,7 +42,6 @@ public class OptionsScreen implements Screen
 		
 		LabelStyle style = new LabelStyle();
 		style.font = Assets.font_32;
-		
 		mode = new SelectBox<String>(Assets.skin);
 		mode.getStyle().font = Assets.font_32;
 		mode.getList().getStyle().font = Assets.font_32;
