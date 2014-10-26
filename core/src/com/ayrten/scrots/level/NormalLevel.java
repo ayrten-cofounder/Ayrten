@@ -1,6 +1,6 @@
 package com.ayrten.scrots.level;
 
-import com.ayrten.scrots.manager.Manager;
+import com.ayrten.scrots.screens.Manager;
 
 public class NormalLevel extends Level
 {

@@ -48,6 +48,14 @@ default-slider-knob
   orig: 9, 18
   offset: 0, 0
   index: -1
+default-trans
+  rotate: false
+  xy: 99, 9
+  size: 12, 20
+  split: 5, 5, 5, 4
+  orig: 12, 20
+  offset: 0, 0
+  index: -1
 default-round-down
   rotate: false
   xy: 99, 29

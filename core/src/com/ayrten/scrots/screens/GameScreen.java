@@ -7,7 +7,6 @@ import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.game.NormalGameMode;
 import com.ayrten.scrots.level.Level;
 import com.ayrten.scrots.manager.Assets;
-import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
@@ -197,10 +196,11 @@ public class GameScreen implements Screen {
 		pause.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				for(Actor actor : event.getStage().getActors()){
-					actor.setVisible(false);
-				}
+//				for(Actor actor : event.getStage().getActors()){
+//					actor.setVisible(false);
+//				}
 				pause_menu.setVisible(true);
+				gm.pauseGame();
 			}
 		});
 		pause.setWidth(buttonStyle.font.getBounds("  Menu").width);
@@ -231,10 +231,11 @@ public class GameScreen implements Screen {
 		pause_cancel.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				for(Actor actor : event.getStage().getActors()) {
-					actor.setVisible(true);
-				}
+//				for(Actor actor : event.getStage().getActors()) {
+//					actor.setVisible(true);
+//				}
 				pause_menu.setVisible(false);
+				gm.startGame();
         confirm_quit.setVisible(false);
         table.setVisible(false);
         game_over.setVisible(false);

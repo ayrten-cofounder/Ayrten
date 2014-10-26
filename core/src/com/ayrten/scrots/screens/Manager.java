@@ -4,7 +4,7 @@
  *  state of the current level (ie. removing dots, adding/subtracting time, etc.)
  */
 
-package com.ayrten.scrots.manager;
+package com.ayrten.scrots.screens;
 
 import com.ayrten.scrots.dots.Dot;
 import com.ayrten.scrots.level.Level;
@@ -76,11 +76,33 @@ public class Manager
 	public void startGame()
 	{
 		time.startTime();
+		changeDotVisibility(true);
 	}
 	
 	public void pauseGame()
 	{
 		time.pauseTime();
+		changeDotVisibility(false);
+	}
+	
+	public void changeDotVisibility(boolean visible)
+	{
+		for(Dot dot : curr_level.get_baby_blue_dots())
+		{
+			dot.setVisible(visible);
+		}
+		for(Dot dot : curr_level.get_blue_dots())
+		{
+			dot.setVisible(visible);
+		}
+		for(Dot dot : curr_level.get_red_dots())
+		{
+			dot.setVisible(visible);
+		}
+		for(Dot dot : curr_level.get_grn_dots())
+		{
+			dot.setVisible(visible);
+		}
 	}
 	
 	public void changeDotSize()

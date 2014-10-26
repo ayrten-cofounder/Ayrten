@@ -44,11 +44,11 @@ public class HighScoresScreen implements Screen {
 	LabelStyle style_small;
 
 	private boolean should_add_action;
-	
+
 	public HighScoresScreen() {
 		stage = new Stage();
 		should_add_action = true;
-		
+
 		table = new Table();
 		table.setFillParent(true);
 		table.setSkin(Assets.skin);
@@ -62,7 +62,8 @@ public class HighScoresScreen implements Screen {
 		switchFontColor();
 
 		back = new Label("Back", style_small);
-		back.setBounds(back.getX(), back.getY(), back.getWidth(), back.getHeight());
+		back.setBounds(back.getX(), back.getY(), back.getWidth(),
+				back.getHeight());
 		back.setPosition(0, Gdx.graphics.getHeight() - back.getHeight());
 		back.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y,
@@ -75,20 +76,21 @@ public class HighScoresScreen implements Screen {
 				if (Assets.prefs.getBoolean("sound_effs"))
 					Assets.pop.play();
 
-				stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(1f), Actions.run(new Runnable() {
+				stage.addAction(Actions.sequence(Actions.alpha(1),
+						Actions.fadeOut(0.35f), Actions.run(new Runnable() {
 
-					@Override
-					public void run() {
-						((ScrotsGame) Gdx.app.getApplicationListener())
-						.setScreen(((ScrotsGame) Gdx.app
-								.getApplicationListener()).main_menu);
-					}
-				})));
+							@Override
+							public void run() {
+								((ScrotsGame) Gdx.app.getApplicationListener()).setScreen(((ScrotsGame) Gdx.app
+										.getApplicationListener()).main_menu);
+							}
+						})));
 			}
 		});
-		
+
 		clear = new Label("Clear", style_small);
-		clear.setBounds(clear.getX(), clear.getY(), clear.getWidth(), clear.getHeight());
+		clear.setBounds(clear.getX(), clear.getY(), clear.getWidth(),
+				clear.getHeight());
 		clear.setPosition(0, Gdx.graphics.getHeight() - clear.getHeight());
 		clear.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y,
@@ -121,9 +123,10 @@ public class HighScoresScreen implements Screen {
 				switchHighScoreTable();
 			}
 		});
-		
+
 		TextButton proceed = new TextButton("", Assets.skin);
-		proceed.add(new Label("Proceed", new LabelStyle(Assets.font_16, Color.WHITE)));
+		proceed.add(new Label("Proceed", new LabelStyle(Assets.font_16,
+				Color.WHITE)));
 		proceed.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -133,8 +136,9 @@ public class HighScoresScreen implements Screen {
 			};
 		});
 
-		TextButton cancel  = new TextButton("", Assets.skin);
-		cancel.add(new Label("Cancel", new LabelStyle(Assets.font_16, Color.WHITE)));
+		TextButton cancel = new TextButton("", Assets.skin);
+		cancel.add(new Label("Cancel", new LabelStyle(Assets.font_16,
+				Color.WHITE)));
 		cancel.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -146,17 +150,19 @@ public class HighScoresScreen implements Screen {
 		confirm_clear = new Window("Clear scores?", Assets.skin);
 		// confirm_clear.getStyle().background.
 		confirm_clear.setTitle("Clear scores?");
-		
+
 		confirm_clear.add(proceed);
 		confirm_clear.row();
-		confirm_clear.add("").height(Gdx.graphics.getHeight()/100);
+		confirm_clear.add("").height(Gdx.graphics.getHeight() / 100);
 		confirm_clear.row();
 		confirm_clear.add(cancel);
-		confirm_clear.setPosition(stage.getWidth()/2 - confirm_clear.getWidth()/2, stage.getHeight()/2 - confirm_clear.getHeight()/2);
+		confirm_clear.setPosition(
+				stage.getWidth() / 2 - confirm_clear.getWidth() / 2,
+				stage.getHeight() / 2 - confirm_clear.getHeight() / 2);
 		confirm_clear.pack();
 		confirm_clear.setMovable(false);
 		confirm_clear.setVisible(false);
-		
+
 		setHighScoreTable(table);
 		stage.addActor(table);
 		stage.addActor(confirm_clear);
@@ -206,54 +212,55 @@ public class HighScoresScreen implements Screen {
 		float center = (width / 2) - (font_width / 2);
 
 		table.add(back).top().left();
-//		table.add(mode).top().right();
+		// table.add(mode).top().right();
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / 5);
 		table.row();
 		table.add(new Label("Highscore", style_big)).left().padLeft(center)
-		.fillX();
+				.fillX();
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / height);
 		table.row();
 		table.add(new Label(scores.first_name, style_small)).left()
-		.padLeft((float) (Gdx.graphics.getWidth() / pad_left));
+				.padLeft((float) (Gdx.graphics.getWidth() / pad_left));
 		table.add(new Label(String.valueOf(scores.first), style_small)).right()
-		.padRight(Gdx.graphics.getWidth() / pad_right)
-		.height(style_small.font.getLineHeight());
+				.padRight(Gdx.graphics.getWidth() / pad_right)
+				.height(style_small.font.getLineHeight());
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / height);
 		table.row();
 		table.add(new Label(scores.second_name, style_small)).left()
-		.padLeft((float) (Gdx.graphics.getWidth() / pad_left));
+				.padLeft((float) (Gdx.graphics.getWidth() / pad_left));
 		table.add(new Label(String.valueOf(scores.second), style_small))
-		.right().padRight(Gdx.graphics.getWidth() / pad_right)
-		.height(style_small.font.getLineHeight());
+				.right().padRight(Gdx.graphics.getWidth() / pad_right)
+				.height(style_small.font.getLineHeight());
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / height);
 		table.row();
 		table.add(new Label(scores.third_name, style_small)).left()
-		.padLeft((float) (Gdx.graphics.getWidth() / pad_left));
+				.padLeft((float) (Gdx.graphics.getWidth() / pad_left));
 		table.add(new Label(String.valueOf(scores.third), style_small)).right()
-		.padRight(Gdx.graphics.getWidth() / pad_right)
-		.height(style_small.font.getLineHeight());
+				.padRight(Gdx.graphics.getWidth() / pad_right)
+				.height(style_small.font.getLineHeight());
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / height);
 		table.row();
 		table.add(new Label(scores.fourth_name, style_small)).left()
-		.padLeft((float) (Gdx.graphics.getWidth() / pad_left));
+				.padLeft((float) (Gdx.graphics.getWidth() / pad_left));
 		table.add(new Label(String.valueOf(scores.fourth), style_small))
-		.right().padRight(Gdx.graphics.getWidth() / pad_right)
-		.height(style_small.font.getLineHeight());
+				.right().padRight(Gdx.graphics.getWidth() / pad_right)
+				.height(style_small.font.getLineHeight());
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / height);
 		table.row();
 		table.add(new Label(scores.fifth_name, style_small)).left()
-		.padLeft((float) (Gdx.graphics.getWidth() / pad_left));
+				.padLeft((float) (Gdx.graphics.getWidth() / pad_left));
 		table.add(new Label(String.valueOf(scores.fifth), style_small)).right()
-		.padRight(Gdx.graphics.getWidth() / pad_right)
-		.height(style_small.font.getLineHeight());
+				.padRight(Gdx.graphics.getWidth() / pad_right)
+				.height(style_small.font.getLineHeight());
 		table.row();
-		table.add(clear).expand();
+		table.add(clear).left()
+				.padLeft((float) (Gdx.graphics.getWidth() / pad_left)).expand();
 		table.row();
 	}
 
@@ -268,18 +275,17 @@ public class HighScoresScreen implements Screen {
 		stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
 		stage.draw();
 
-		if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE) && should_add_action)
-		{
+		if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE) && should_add_action) {
 			should_add_action = false;
-			stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(1f), Actions.run(new Runnable() {
+			stage.addAction(Actions.sequence(Actions.alpha(1),
+					Actions.fadeOut(0.5f), Actions.run(new Runnable() {
 
-				@Override
-				public void run() {
-					((ScrotsGame) Gdx.app.getApplicationListener())
-					.setScreen(((ScrotsGame) Gdx.app
-							.getApplicationListener()).main_menu);
-				}
-			})));
+						@Override
+						public void run() {
+							((ScrotsGame) Gdx.app.getApplicationListener()).setScreen(((ScrotsGame) Gdx.app
+									.getApplicationListener()).main_menu);
+						}
+					})));
 		}
 	}
 

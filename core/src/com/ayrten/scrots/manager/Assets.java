@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.g2d.PixmapPacker;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class Assets {
@@ -130,7 +131,7 @@ public class Assets {
 	private static BitmapFont generate_BitMapFont(int fontSize, float font_ratio) {
 		// FileHandle tff_file = Gdx.files
 		// .internal("fonts/kenvector_future_thin.ttf");
-//		FileHandle tff_file = Gdx.files.internal("fonts/code_bold.otf");
+		// FileHandle tff_file = Gdx.files.internal("fonts/code_bold.otf");
 		FileHandle tff_file = Gdx.files.internal("fonts/summer_of_love.ttf");
 		FreeTypeFontGenerator font_gen = new FreeTypeFontGenerator(tff_file);
 		FreeTypeFontParameter params = new FreeTypeFontParameter();

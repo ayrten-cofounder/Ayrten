@@ -7,7 +7,7 @@ import com.ayrten.scrots.dots.BlueDot;
 import com.ayrten.scrots.dots.DotGenerator;
 import com.ayrten.scrots.dots.GreenDot;
 import com.ayrten.scrots.dots.RedDot;
-import com.ayrten.scrots.manager.Manager;
+import com.ayrten.scrots.screens.Manager;
 
 public class Level
 {
