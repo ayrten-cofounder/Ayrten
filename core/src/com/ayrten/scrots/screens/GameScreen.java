@@ -30,41 +30,39 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 // public class Scrots implements ApplicationListener
-public class GameScreen implements Screen
-{
+public class GameScreen implements Screen {
 	// Widgets
 	protected TextField user_name;
 	protected Label game_over;
 	protected TextButton replay;
 	protected TextButton main_menu;
-	
+
 	protected BitmapFont font_points;
 	protected BitmapFont font_time;
 	protected BitmapFont font_fps;
-	
+
 	protected CharSequence str = " points";
 	protected CharSequence time = "Time left: ";
-	
+
 	private GameMode gamemode;
 	private Manager gm;
 	private Stage stage;
-	
+
 	private int w;
 	private int h;
-	
+
 	protected Level curr_level;
 	protected SpriteBatch batch;
 	protected boolean should_clear_stage;
 	protected ArrayList<Level> all_levels = new ArrayList<Level>();
-	
+
 	public boolean go_back = false;
 
-	public GameScreen()
-	{
+	public GameScreen() {
 		font_points = Assets.font_16;
 		font_time = Assets.font_16;
 		font_fps = Assets.font_16;
-		
+
 		w = Gdx.graphics.getWidth();
 		h = Gdx.graphics.getHeight();
 		should_clear_stage = true;
@@ -75,6 +73,9 @@ public class GameScreen implements Screen
 		this.batch.setBlendFunction(GL20.GL_LINEAR_MIPMAP_NEAREST,
 				GL20.GL_NEAREST);
 		
+//		this.batch.setBlendFunction(GL20.GL_LINEAR_MIPMAP_LINEAR,
+//				GL20.GL_LINEAR_MIPMAP_LINEAR);
+
 		Label.LabelStyle overStyle = new Label.LabelStyle();
 		overStyle.font = Assets.font_64;
 
@@ -98,20 +99,18 @@ public class GameScreen implements Screen
 			font_points.setColor(Color.WHITE);
 			font_time.setColor(Color.WHITE);
 		}
-		
+
 		gm = new Manager(0, w, h); // Starts with 0 points
-		if(Assets.prefs.getString("mode").equals("Normal")) 
-		{
+		if (Assets.prefs.getString("mode").equals("Normal")) {
 			gm.setMode(GameMode.NORMAL_MODE);
 			gm.setScoreboard(Assets.game.main_menu.nsb);
 			gamemode = new NormalGameMode(stage, gm, w, h);
-		}
-		else {
+		} else {
 			gm.setMode(GameMode.CHALLENGE_MODE);
 			gm.setScoreboard(Assets.game.main_menu.csb);
 			gamemode = new ChallengeGameMode(stage, gm, w, h);
 		}
-		
+
 		replay = new TextButton("", Assets.skin);
 		replay.add(new Label("Replay", buttonStyle));
 		replay.setBounds(replay.getX(), replay.getY(), replay.getWidth(),
@@ -186,27 +185,23 @@ public class GameScreen implements Screen
 				}
 			}
 		});
-		
-		
+
 		curr_level = gamemode.gen_curr_level();
 		gm.startGame();
 	}
-	
-	public Manager getManager()
-	{
+
+	public Manager getManager() {
 		return gm;
 	}
 
 	@Override
-	public void dispose()
-	{
-//		gamemode.dispose();
+	public void dispose() {
+		// gamemode.dispose();
 	}
 
 	@Override
-	public void render(float delta)
-	{
-		if(Assets.prefs.getString("bg_color").equals("Black"))
+	public void render(float delta) {
+		if (Assets.prefs.getString("bg_color").equals("Black"))
 			Gdx.gl.glClearColor(0, 0, 0, 0);
 		else
 			Gdx.gl.glClearColor(1, 1, 1, 1);
@@ -226,7 +221,7 @@ public class GameScreen implements Screen
 		// gamemode.render();
 
 	}
-	
+
 	public void point() {
 		batch.begin();
 		font_points.draw(batch, String.valueOf(gm.get_player_score()) + str,
@@ -282,30 +277,26 @@ public class GameScreen implements Screen
 	}
 
 	@Override
-	public void resize(int width, int height)
-	{
-		
+	public void resize(int width, int height) {
+
 	}
 
 	@Override
-	public void pause()
-	{
+	public void pause() {
 	}
 
 	@Override
-	public void resume()
-	{
-		
+	public void resume() {
+
 	}
 
 	@Override
-	public void show() 
-	{
+	public void show() {
 		Gdx.input.setInputProcessor(stage);
 	}
 
 	@Override
 	public void hide() {
-		
+
 	}
 }
