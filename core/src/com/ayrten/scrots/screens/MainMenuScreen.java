@@ -9,6 +9,7 @@ import com.ayrten.scrots.scoreboard.NormalScoreboard;
 import com.ayrten.scrots.scoreboard.Scoreboard;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -20,10 +21,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 public class MainMenuScreen implements Screen {
 	private ScrotsGame game;
-	private TextButton start;
-	private TextButton options;
-	private TextButton high_score;
-	private TextButton tutorial;
+	private Label start;
+	private Label options;
+	private Label highscore;
+	private Label tutorial;
 	private Stage stage;
 
 	// For options and high scores screens
@@ -51,11 +52,11 @@ public class MainMenuScreen implements Screen {
 		// game_screen = new GameScreen((ScrotsGame)
 		// Gdx.app.getApplicationListener());
 
-		start = new TextButton("", Assets.skin);
 		LabelStyle style = new LabelStyle();
 		style.font = Assets.font_32;
-		start.add(new Label("Start", style));
-		// start.setBackground(Assets.transparent_box);
+		style.fontColor = Color.valueOf("ff9f38");
+//		style.fontColor = Color.BLACK;
+		start = new Label("Start", style);
 		start.setBounds(start.getX(), start.getY(), start.getWidth(),
 				start.getHeight());
 		start.addListener(new InputListener() {
@@ -75,12 +76,8 @@ public class MainMenuScreen implements Screen {
 			}
 		});
 
-		options = new TextButton("", Assets.skin);
-		// Based on what background it is, set the color of the font? white = >
-		// black? ugly?
-		options.add(new Label("Options", style));
-		options.setBounds(options.getX(), options.getY(), options.getWidth(),
-				options.getHeight());
+		options = new Label("Options", style);
+		options.setBounds(options.getX(), options.getY(), options.getWidth(), options.getHeight());
 		options.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
@@ -96,11 +93,9 @@ public class MainMenuScreen implements Screen {
 			}
 		});
 
-		high_score = new TextButton("", Assets.skin);
-		high_score.add(new Label("High Scores", style));
-		high_score.setBounds(high_score.getX(), high_score.getY(),
-				high_score.getWidth(), high_score.getHeight());
-		high_score.addListener(new InputListener() {
+		highscore = new Label("High Scores", style);
+		highscore.setBounds(highscore.getX(), highscore.getY(), highscore.getWidth(), highscore.getHeight());
+		highscore.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
 				return true;
@@ -123,7 +118,7 @@ public class MainMenuScreen implements Screen {
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / 50);
 		table.row();
-		table.add(high_score);
+		table.add(highscore);
 
 		Manager gm = new Manager(0, Gdx.graphics.getWidth(),
 				Gdx.graphics.getHeight());
@@ -132,7 +127,16 @@ public class MainMenuScreen implements Screen {
 		new MainMenuBackgroundGameMode(stage, gm, Gdx.graphics.getWidth(),
 				Gdx.graphics.getHeight()).gen_curr_level();
 		gm.changeDotSize();
-		
+
+		LabelStyle title_style = new LabelStyle();
+		title_style.font = Assets.font_120;
+		title_style.fontColor = Color.valueOf("9f38ff");
+		// title_style.fontColor = Color.BLACK;
+		Label scrots = new Label("Scrots", title_style);
+		scrots.setCenterPosition(Gdx.graphics.getWidth() / 2,
+				Gdx.graphics.getHeight() / 3 * 2);
+
+		stage.addActor(scrots);
 		stage.addActor(table);
 	}
 

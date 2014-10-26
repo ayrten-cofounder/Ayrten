@@ -20,16 +20,10 @@ public class LoadingScreen implements Screen
 
 		Label.LabelStyle style = new Label.LabelStyle();
 		style.font = Assets.font_120;
-		Label scrots = new Label("SCROTS", style);
-		scrots.setCenterPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/3 * 2);
-		
-		style.font = Assets.font_32;
-		Label ayrten = new Label("by Ayrten", style);
-		ayrten.setCenterPosition(Gdx.graphics.getWidth()/2 + (Gdx.graphics.getWidth()/10), 
-				Gdx.graphics.getHeight()/3 * 2 - scrots.getHeight());
+		Label scrots = new Label("Ayrten", style);
+		scrots.setCenterPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
 		
 		stage.addActor(scrots);
-		stage.addActor(ayrten);
 	}
 
 	@Override
