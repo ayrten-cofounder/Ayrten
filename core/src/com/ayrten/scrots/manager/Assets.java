@@ -130,8 +130,8 @@ public class Assets {
 	private static BitmapFont generate_BitMapFont(int fontSize, float font_ratio) {
 		// FileHandle tff_file = Gdx.files
 		// .internal("fonts/kenvector_future_thin.ttf");
-		FileHandle tff_file = Gdx.files.internal("fonts/code_bold.otf");
-//		FileHandle tff_file = Gdx.files.internal("fonts/Lakmus.ttf");
+//		FileHandle tff_file = Gdx.files.internal("fonts/code_bold.otf");
+		FileHandle tff_file = Gdx.files.internal("fonts/summer_of_love.ttf");
 		FreeTypeFontGenerator font_gen = new FreeTypeFontGenerator(tff_file);
 		FreeTypeFontParameter params = new FreeTypeFontParameter();
 		PixmapPacker packer = new PixmapPacker(512, 512, Pixmap.Format.RGB888,
