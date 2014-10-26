@@ -12,10 +12,12 @@ public class Time
 	private float second = START_TIME;
 	
 	private Manager gm;
+	private Timer timer;
 
 	public Time(Manager gm)
 	{
 		this.gm = gm;
+		timer = new Timer();
 	}
 
 	private boolean timeOver()
@@ -40,7 +42,7 @@ public class Time
 	public void startTime()
 	{
 		// Schedules a task to do something in x seconds, where x is DELAY.
-		Timer.schedule(new Task()
+		timer.scheduleTask(new Task()
 		{
 			@Override
 			public void run()
@@ -59,5 +61,10 @@ public class Time
 				startTime();
 			}
 		}, DELAY);
+	}
+	
+	public void pauseTime()
+	{
+		timer.clear();
 	}
 }
