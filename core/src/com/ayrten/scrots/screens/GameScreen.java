@@ -81,7 +81,9 @@ public class GameScreen implements Screen {
 		points_title = new Label("YOUAREATLEVEL", Assets.style_font_64_red);
 		points_title.setPosition(1, h - (h / 20) - points_title.getHeight());
 
-		points = new Label("00", Assets.style_font_64_black);
+		points = new Label("00", Assets.prefs.getString("bg_color").equals(
+				"Black") ? Assets.style_font_64_white
+				: Assets.style_font_64_black);
 		points.setPosition(0 + points_title.getWidth(),
 				h - (h / 20) - points.getHeight());
 
@@ -89,7 +91,9 @@ public class GameScreen implements Screen {
 		time_title.setPosition(1 + points_title.getWidth() + points.getWidth(),
 				h - (h / 20) - time_title.getHeight());
 
-		time = new Label("60.0", Assets.style_font_64_black);
+		time = new Label("60.0", Assets.prefs.getString("bg_color").equals(
+				"Black") ? Assets.style_font_64_white
+				: Assets.style_font_64_black);
 		time.setPosition(1 + points_title.getWidth() + points.getWidth()
 				+ time_title.getWidth(), h - (h / 20) - time.getHeight());
 
