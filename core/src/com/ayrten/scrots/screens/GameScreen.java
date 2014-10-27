@@ -146,27 +146,16 @@ public class GameScreen implements Screen {
 		main_menu.add(new Label("Main Menu", buttonStyle));
 		main_menu.setBounds(main_menu.getX(), main_menu.getY(),
 				main_menu.getWidth(), main_menu.getHeight());
-		main_menu.addListener(new InputListener() {
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
-				return true;
-			}
-
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
-				((GameScreen) ((ScrotsGame) Gdx.app.getApplicationListener())
-						.getScreen()).dispose();
-				((ScrotsGame) Gdx.app.getApplicationListener())
-						.setScreen(((ScrotsGame) Gdx.app
-								.getApplicationListener()).main_menu);
-				// Can't seem to get this to work...
-//				stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(1f), Actions.run(new Runnable() {
-//					@Override
-//					public void run() {
-//						Assets.game.main_menu.game_screen.dispose();
-//						Assets.game.setScreen(Assets.game.main_menu);
-//					}
-//				})));
+		main_menu.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(1f), Actions.run(new Runnable() {
+				@Override
+				public void run() {
+					Assets.game.main_menu.game_screen.dispose();
+					Assets.game.setScreen(Assets.game.main_menu);
+				}
+			})));
 			}
 		});
 
@@ -372,6 +361,7 @@ public class GameScreen implements Screen {
 		else
 			Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		stage.act(Gdx.graphics.getDeltaTime());
 
 		if (gm.isGameOver()) {
 			gameOver();
@@ -379,7 +369,6 @@ public class GameScreen implements Screen {
 			point();
 			time();
 
-			stage.act(Gdx.graphics.getDeltaTime());
 			stage.draw();
 			if (curr_level.level_clear()) {
 				levelClear();

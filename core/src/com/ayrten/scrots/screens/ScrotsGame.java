@@ -20,8 +20,8 @@ public class ScrotsGame extends Game
 		Assets.load(this);
 		
 		// Screens
-		main_menu = new MainMenuScreen(this);		
-		LoadingScreen loading_screen = new LoadingScreen(this);
+		main_menu = new MainMenuScreen();		
+		LoadingScreen loading_screen = new LoadingScreen();
 		
 		Assets.bg.setLooping(true);
 		Assets.bg.play();
