@@ -6,6 +6,7 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
@@ -14,8 +15,8 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.PixmapPacker;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class Assets {
@@ -31,6 +32,10 @@ public class Assets {
 	public static BitmapFont font_64;
 	public static BitmapFont font_32;
 	public static BitmapFont font_16;
+
+	// Style
+	public static LabelStyle style_font_64_black;
+	public static LabelStyle style_font_64_red;
 
 	// Sounds
 	public static Sound pop;
@@ -70,6 +75,15 @@ public class Assets {
 		font_64 = generate_BitMapFont(64, font_ratio);
 		font_32 = generate_BitMapFont(32, font_ratio);
 		font_16 = generate_BitMapFont(16, font_ratio);
+
+		// Style
+		style_font_64_black = new LabelStyle();
+		style_font_64_black.font = font_64;
+		style_font_64_black.fontColor = Color.BLACK;
+		
+		style_font_64_red = new LabelStyle();
+		style_font_64_red.font = font_64;
+		style_font_64_red.fontColor = Color.RED;
 
 		// Sounds
 		pop = Gdx.audio.newSound(Gdx.files.internal("sounds/pop.mp3"));
