@@ -36,6 +36,7 @@ public class Assets {
 	// Style
 	public static LabelStyle style_font_64_black;
 	public static LabelStyle style_font_64_red;
+	public static LabelStyle style_font_32_red;
 
 	// Sounds
 	public static Sound pop;
@@ -79,11 +80,15 @@ public class Assets {
 		// Style
 		style_font_64_black = new LabelStyle();
 		style_font_64_black.font = font_64;
-		style_font_64_black.fontColor = Color.BLACK;
-		
+		style_font_64_black.fontColor = Color.valueOf("1c1c1c");
+
 		style_font_64_red = new LabelStyle();
 		style_font_64_red.font = font_64;
-		style_font_64_red.fontColor = Color.RED;
+		style_font_64_red.fontColor = Color.valueOf("d3414a");
+
+		style_font_32_red = new LabelStyle();
+		style_font_32_red.font = font_32;
+		style_font_32_red.fontColor = Color.valueOf("d3414a");
 
 		// Sounds
 		pop = Gdx.audio.newSound(Gdx.files.internal("sounds/pop.mp3"));

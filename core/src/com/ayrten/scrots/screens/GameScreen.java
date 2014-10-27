@@ -43,7 +43,9 @@ public class GameScreen implements Screen {
 
 	protected Label points_title;
 	protected Label points;
+	protected Label time_title;
 	protected Label time;
+	protected Label time_end;
 
 	protected GameMode gamemode;
 	protected Manager gm;
@@ -76,23 +78,31 @@ public class GameScreen implements Screen {
 		// this.batch.setBlendFunction(GL20.GL_LINEAR_MIPMAP_LINEAR,
 		// GL20.GL_LINEAR_MIPMAP_LINEAR);
 
-		points_title = new Label("Lvl:", Assets.style_font_64_red);
-		points_title.setPosition(w / 20,
-				h - (h / 20) - points_title.getHeight());
+		points_title = new Label("YOUAREATLEVEL", Assets.style_font_64_red);
+		points_title.setPosition(1, h - (h / 20) - points_title.getHeight());
 
-		points = new Label("0", Assets.style_font_64_red);
-		points.setPosition(w / 20 + points_title.getWidth(), h - (h / 20)
-				- points.getHeight());
+		points = new Label("00", Assets.style_font_64_black);
+		points.setPosition(0 + points_title.getWidth(),
+				h - (h / 20) - points.getHeight());
 
-		time = new Label("60.0", Assets.style_font_64_red);
-		time.setPosition((w / 2) - (time.getWidth() / 2),
-				h - (h / 20) - time.getHeight());
+		time_title = new Label("WITH", Assets.style_font_64_red);
+		time_title.setPosition(1 + points_title.getWidth() + points.getWidth(),
+				h - (h / 20) - time_title.getHeight());
+
+		time = new Label("60.0", Assets.style_font_64_black);
+		time.setPosition(1 + points_title.getWidth() + points.getWidth()
+				+ time_title.getWidth(), h - (h / 20) - time.getHeight());
+
+		time_end = new Label("SECONDSLEFT", Assets.style_font_64_red);
+		time_end.setPosition(1 + points_title.getWidth() + points.getWidth()
+				+ time_title.getWidth() + time.getWidth(), h - (h / 20)
+				- time_title.getHeight());
 
 		Label.LabelStyle overStyle = new Label.LabelStyle();
-		overStyle.font = Assets.font_64;
+		overStyle.font = Assets.font_120;
 
 		TextFieldStyle textStyle = new TextFieldStyle();
-		textStyle.font = Assets.font_32;
+		textStyle.font = Assets.font_64;
 
 		LabelStyle buttonStyle = new LabelStyle();
 		buttonStyle.font = Assets.font_32;
@@ -207,10 +217,10 @@ public class GameScreen implements Screen {
 		});
 		pause.setWidth(buttonStyle.font.getBounds("  Menu").width);
 		pause.setHeight(buttonStyle.font.getLineHeight());
-		pause.setPosition(Gdx.graphics.getWidth() - pause.getWidth(),
-				Gdx.graphics.getHeight() - buttonStyle.font.getLineHeight());
+		pause.setPosition(w - pause.getWidth(), h - pause.getHeight());
 
 		pause_menu = new Window("Menu", Assets.skin);
+		pause_menu.getStyle().titleFont = Assets.font_64;
 		pause_menu.setPosition(-pause_menu.getWidth(), stage.getHeight() / 2
 				- pause_menu.getHeight() / 2);
 		pause_menu.addAction(Actions.moveTo(
@@ -401,7 +411,12 @@ public class GameScreen implements Screen {
 	}
 
 	public void point() {
-		points.setText(String.valueOf(gm.get_player_score()));
+		String score = String.valueOf(gm.get_player_score());
+
+		if (gm.get_player_score() < 10) {
+			score = "0" + score;
+		}
+		points.setText(score);
 	}
 
 	public void time() {
@@ -435,6 +450,8 @@ public class GameScreen implements Screen {
 		stage.addActor(points_title);
 		stage.addActor(points);
 		stage.addActor(time);
+		stage.addActor(time_title);
+		stage.addActor(time_end);
 	}
 
 	public void levelClear() {
