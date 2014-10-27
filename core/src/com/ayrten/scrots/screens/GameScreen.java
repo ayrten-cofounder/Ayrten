@@ -12,12 +12,13 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -27,18 +28,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Pool;
 
-// public class Scrots implements ApplicationListener
 public class GameScreen implements Screen {
 	// Widgets
 	protected TextField user_name;
 	protected Label game_over;
-	protected Label r;
-	protected Label m;
-	protected Label p;
-	// protected TextButton replay;
-	// protected TextButton main_menu;
-	// protected TextButton pause;
+	protected Label replay;
+	protected Label main_menu;
+	protected Label pause;
 
 	protected Window pause_menu;
 	protected Window confirm_quit;
@@ -60,25 +58,11 @@ public class GameScreen implements Screen {
 	protected boolean should_clear_stage;
 	protected ArrayList<Level> all_levels = new ArrayList<Level>();
 
+	protected Pool<MoveToAction> pool;
+
 	public boolean go_back = false;
 
 	public GameScreen() {
-		points_title = new Label("Lvl:", Assets.style_font_64_red);
-		points_title.setPosition(Gdx.graphics.getWidth() / 20,
-				Gdx.graphics.getHeight() - (Gdx.graphics.getHeight() / 20)
-						- points_title.getHeight());
-
-		points = new Label("0", Assets.style_font_64_red);
-		points.setPosition(
-				Gdx.graphics.getWidth() / 20 + points_title.getWidth(),
-				Gdx.graphics.getHeight() - (Gdx.graphics.getHeight() / 20)
-						- points.getHeight());
-
-		time = new Label("60.0", Assets.style_font_64_red);
-		time.setPosition((Gdx.graphics.getWidth() / 2) - (time.getWidth() / 2),
-				Gdx.graphics.getHeight() - (Gdx.graphics.getHeight() / 20)
-						- time.getHeight());
-
 		w = Gdx.graphics.getWidth();
 		h = Gdx.graphics.getHeight();
 		should_clear_stage = true;
@@ -91,6 +75,18 @@ public class GameScreen implements Screen {
 
 		// this.batch.setBlendFunction(GL20.GL_LINEAR_MIPMAP_LINEAR,
 		// GL20.GL_LINEAR_MIPMAP_LINEAR);
+
+		points_title = new Label("Lvl:", Assets.style_font_64_red);
+		points_title.setPosition(w / 20,
+				h - (h / 20) - points_title.getHeight());
+
+		points = new Label("0", Assets.style_font_64_red);
+		points.setPosition(w / 20 + points_title.getWidth(), h - (h / 20)
+				- points.getHeight());
+
+		time = new Label("60.0", Assets.style_font_64_red);
+		time.setPosition((w / 2) - (time.getWidth() / 2),
+				h - (h / 20) - time.getHeight());
 
 		Label.LabelStyle overStyle = new Label.LabelStyle();
 		overStyle.font = Assets.font_64;
@@ -123,10 +119,11 @@ public class GameScreen implements Screen {
 			gamemode = new ChallengeGameMode(stage, gm, w, h);
 		}
 
-		r = new Label("Replay", buttonStyle);
-		r.setBounds(r.getX(), r.getY(), r.getWidth(), r.getHeight());
-		r.setPosition(0, Gdx.graphics.getHeight() - r.getHeight());
-		r.addListener(new InputListener() {
+		replay = new Label("Replay", buttonStyle);
+		replay.setBounds(replay.getX(), replay.getY(), replay.getWidth(),
+				replay.getHeight());
+		replay.setPosition(0, Gdx.graphics.getHeight() - replay.getHeight());
+		replay.addListener(new InputListener() {
 			// Need this or else it won't recognize the touch down event.
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
@@ -144,33 +141,10 @@ public class GameScreen implements Screen {
 			}
 		});
 
-		// replay = new TextButton("", Assets.skin);
-		// replay.add(new Label("Replay", buttonStyle));
-		// replay.setBounds(replay.getX(), replay.getY(), replay.getWidth(),
-		// replay.getHeight());
-		// replay.addListener(new InputListener() {
-		// // Need this or else it won't recognize the touch down event.
-		// public boolean touchDown(InputEvent event, float x, float y,
-		// int pointer, int button) {
-		// return true;
-		// }
-		//
-		// public void touchUp(InputEvent event, float x, float y,
-		// int pointer, int button) {
-		// GameScreen new_game = new GameScreen();
-		// ((ScrotsGame) Gdx.app.getApplicationListener()).main_menu.game_screen
-		// .dispose();
-		// ((ScrotsGame) Gdx.app.getApplicationListener()).main_menu.game_screen
-		// = new_game;
-		// ((ScrotsGame)
-		// Gdx.app.getApplicationListener()).setScreen(((ScrotsGame) Gdx.app
-		// .getApplicationListener()).main_menu.game_screen);
-		// }
-		// });
-
-		m = new Label("Main Menu", buttonStyle);
-		m.setBounds(m.getX(), m.getY(), m.getWidth(), m.getHeight());
-		m.addListener(new InputListener() {
+		main_menu = new Label("Main Menu", buttonStyle);
+		main_menu.setBounds(main_menu.getX(), main_menu.getY(),
+				main_menu.getWidth(), main_menu.getHeight());
+		main_menu.addListener(new InputListener() {
 			// Need this or else it won't recognize the touch down event.
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
@@ -179,34 +153,16 @@ public class GameScreen implements Screen {
 
 			public void touchUp(InputEvent event, float x, float y,
 					int pointer, int button) {
-				((GameScreen) ((ScrotsGame) Gdx.app.getApplicationListener())
-						.getScreen()).dispose();
-				((ScrotsGame) Gdx.app.getApplicationListener())
-						.setScreen(((ScrotsGame) Gdx.app
-								.getApplicationListener()).main_menu);
+				stage.addAction(Actions.sequence(Actions.alpha(1),
+						Actions.fadeOut(1f), Actions.run(new Runnable() {
+							@Override
+							public void run() {
+								Assets.game.main_menu.game_screen.dispose();
+								Assets.game.setScreen(Assets.game.main_menu);
+							}
+						})));
 			}
 		});
-
-		// main_menu = new TextButton("", Assets.skin);
-		// main_menu.add(new Label("Main Menu", buttonStyle));
-		// main_menu.setBounds(main_menu.getX(), main_menu.getY(),
-		// main_menu.getWidth(), main_menu.getHeight());
-		// main_menu.addListener(new InputListener() {
-		// // Need this or else it won't recognize the touch down event.
-		// public boolean touchDown(InputEvent event, float x, float y,
-		// int pointer, int button) {
-		// return true;
-		// }
-		//
-		// public void touchUp(InputEvent event, float x, float y,
-		// int pointer, int button) {
-		// ((GameScreen) ((ScrotsGame) Gdx.app.getApplicationListener())
-		// .getScreen()).dispose();
-		// ((ScrotsGame) Gdx.app.getApplicationListener())
-		// .setScreen(((ScrotsGame) Gdx.app
-		// .getApplicationListener()).main_menu);
-		// }
-		// });
 
 		game_over = new Label("Game Over!", overStyle);
 		game_over.setCenterPosition(Gdx.graphics.getWidth() / 2,
@@ -239,61 +195,56 @@ public class GameScreen implements Screen {
 
 		user_name.setVisible(false);
 
-		p = new Label("Menu", buttonStyle);
-		p.setBounds(p.getX(), p.getY(), p.getWidth(), p.getHeight());
-		p.addListener(new ClickListener() {
+		pause = new Label("Menu", buttonStyle);
+		pause.setBounds(pause.getX(), pause.getY(), pause.getWidth(),
+				pause.getHeight());
+		pause.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				// for(Actor actor : event.getStage().getActors()){
-				// actor.setVisible(false);
-				// }
 				pause_menu.setVisible(true);
 				gm.pauseGame();
 			}
 		});
-		p.setWidth(buttonStyle.font.getBounds("  Menu").width);
-		p.setHeight(buttonStyle.font.getLineHeight());
-		p.setPosition(Gdx.graphics.getWidth() - p.getWidth(),
+		pause.setWidth(buttonStyle.font.getBounds("  Menu").width);
+		pause.setHeight(buttonStyle.font.getLineHeight());
+		pause.setPosition(Gdx.graphics.getWidth() - pause.getWidth(),
 				Gdx.graphics.getHeight() - buttonStyle.font.getLineHeight());
 
-		// pause = new TextButton("", Assets.skin);
-		// pause.add(new Label("Menu", buttonStyle));
-		// pause.setBounds(pause.getX(), pause.getY(), pause.getWidth(),
-		// pause.getHeight());
-		// pause.addListener(new ClickListener() {
-		// @Override
-		// public void clicked(InputEvent event, float x, float y) {
-		// // for(Actor actor : event.getStage().getActors()){
-		// // actor.setVisible(false);
-		// // }
-		// pause_menu.setVisible(true);
-		// gm.pauseGame();
-		// }
-		// });
-		// pause.setWidth(buttonStyle.font.getBounds("  Menu").width);
-		// pause.setHeight(buttonStyle.font.getLineHeight());
-		// pause.setPosition(Gdx.graphics.getWidth() - pause.getWidth(),
-		// Gdx.graphics.getHeight() - buttonStyle.font.getLineHeight());
-
 		pause_menu = new Window("Menu", Assets.skin);
-		pause_menu.setPosition(
+		pause_menu.setPosition(-pause_menu.getWidth(), stage.getHeight() / 2
+				- pause_menu.getHeight() / 2);
+		pause_menu.addAction(Actions.moveTo(
 				stage.getWidth() / 2 - pause_menu.getWidth() / 2,
-				stage.getHeight() / 2 - pause_menu.getHeight() / 2);
+				stage.getHeight() / 2 - pause_menu.getHeight() / 2, 1f));
 		pause_menu.setMovable(false);
 		pause_menu.setVisible(false);
 
-		TextButton quit = new TextButton("", Assets.skin);
-		quit.add(new Label("Quit", buttonStyle));
-		quit.setBounds(quit.getX(), quit.getY(), quit.getWidth(),
-				quit.getHeight());
-		quit.addListener(new ClickListener() {
+		TextButton pause_quit = new TextButton("", Assets.skin);
+		pause_quit.add(new Label("Quit", buttonStyle));
+		pause_quit.setBounds(pause_quit.getX(), pause_quit.getY(),
+				pause_quit.getWidth(), pause_quit.getHeight());
+		pause_quit.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				confirm_quit.setVisible(true);
-				pause_menu.setVisible(false);
+				pause_menu.addAction(Actions.sequence(Actions.alpha(1),
+						Actions.fadeOut(0.25f), Actions.run(new Runnable() {
+							@Override
+							public void run() {
+								pause_menu.setVisible(false);
+								confirm_quit.addAction(Actions.parallel(Actions
+										.run(new Runnable() {
+
+											@Override
+											public void run() {
+												confirm_quit.setVisible(true);
+											}
+										}), Actions.sequence(Actions.alpha(0),
+										Actions.fadeIn(0.25f))));
+							}
+						})));
 			}
 		});
-		pause_menu.add(quit);
+		pause_menu.add(pause_quit);
 		pause_menu.row();
 
 		TextButton pause_cancel = new TextButton("", Assets.skin);
@@ -303,15 +254,36 @@ public class GameScreen implements Screen {
 		pause_cancel.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				// for(Actor actor : event.getStage().getActors()) {
-				// actor.setVisible(true);
-				// }
-				pause_menu.setVisible(false);
-				gm.startGame();
-				confirm_quit.setVisible(false);
-				table.setVisible(false);
-				game_over.setVisible(false);
-				user_name.setVisible(false);
+				pause_menu.addAction(Actions.sequence(
+						Actions.moveTo(
+								stage.getWidth() - pause_menu.getWidth(),
+								stage.getHeight() / 2 - pause_menu.getHeight()
+										/ 2, 1f), Actions.run(new Runnable() {
+							@Override
+							public void run() {
+								for (Actor actor : stage.getActors()) {
+									actor.setVisible(true);
+								}
+
+								pause_menu.setVisible(false);
+								confirm_quit.setVisible(false);
+								table.setVisible(false);
+								game_over.setVisible(false);
+								user_name.setVisible(false);
+								gm.startGame();
+
+								pause_menu.setPosition(
+										-pause_menu.getWidth(),
+										stage.getHeight() / 2
+												- pause_menu.getHeight() / 2);
+								pause_menu.addAction(Actions.moveTo(
+										stage.getWidth() / 2
+												- pause_menu.getWidth() / 2,
+										stage.getHeight() / 2
+												- pause_menu.getHeight() / 2,
+										1f));
+							}
+						})));
 			}
 		});
 		pause_menu.add(pause_cancel);
@@ -323,8 +295,14 @@ public class GameScreen implements Screen {
 		proceed.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Assets.game.main_menu.game_screen.dispose();
-				Assets.game.setScreen(Assets.game.main_menu);
+				stage.addAction(Actions.sequence(Actions.alpha(1),
+						Actions.fadeOut(1f), Actions.run(new Runnable() {
+							@Override
+							public void run() {
+								Assets.game.main_menu.game_screen.dispose();
+								Assets.game.setScreen(Assets.game.main_menu);
+							}
+						})));
 			}
 		});
 
@@ -335,8 +313,25 @@ public class GameScreen implements Screen {
 		quit_cancel.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				confirm_quit.setVisible(false);
-				pause_menu.setVisible(true);
+				// confirm_quit.setVisible(false);
+				// pause_menu.setVisible(true);
+				confirm_quit.addAction(Actions.sequence(Actions.alpha(1),
+						Actions.fadeOut(0.25f), Actions.run(new Runnable() {
+							@Override
+							public void run() {
+								confirm_quit.setVisible(false);
+								pause_menu.setVisible(true);
+								pause_menu.addAction(Actions.sequence(
+										Actions.alpha(0),
+										Actions.fadeIn(0.25f),
+										Actions.run(new Runnable() {
+											@Override
+											public void run() {
+												pause_menu.setVisible(true);
+											}
+										})));
+							}
+						})));
 			}
 		});
 
@@ -353,12 +348,20 @@ public class GameScreen implements Screen {
 		table.setSkin(Assets.skin);
 		table.setCenterPosition(Gdx.graphics.getWidth() / 2,
 				Gdx.graphics.getHeight() / 2);
-		table.add(r);
+		table.add(replay);
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / 50);
 		table.row();
-		table.add(m);
+		table.add(main_menu);
 		table.setVisible(false);
+
+		pool = new Pool<MoveToAction>() {
+			@Override
+			protected MoveToAction newObject() {
+				// TODO Auto-generated method stub
+				return new MoveToAction();
+			}
+		};
 
 		addStageActors();
 		curr_level = gamemode.gen_curr_level();
@@ -381,6 +384,7 @@ public class GameScreen implements Screen {
 		else
 			Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		stage.act(Gdx.graphics.getDeltaTime());
 
 		if (gm.isGameOver()) {
 			gameOver();
@@ -393,7 +397,6 @@ public class GameScreen implements Screen {
 				levelClear();
 			}
 		}
-		// gamemode.render();
 
 	}
 
@@ -411,7 +414,7 @@ public class GameScreen implements Screen {
 			should_clear_stage = false;
 			addStageActors();
 			game_over.setVisible(true);
-			p.setVisible(false);
+			pause.setVisible(false);
 			if (gm.get_player_score() > gm.getScoreBoard().getLowestHighScore()) {
 				user_name.setVisible(true);
 			} else {
@@ -423,7 +426,7 @@ public class GameScreen implements Screen {
 	}
 
 	private void addStageActors() {
-		stage.addActor(p);
+		stage.addActor(pause);
 		stage.addActor(pause_menu);
 		stage.addActor(confirm_quit);
 		stage.addActor(table);

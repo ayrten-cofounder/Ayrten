@@ -5,18 +5,18 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 public class LoadingScreen implements Screen 
 {
-	private ScrotsGame game;
 	private Stage stage;
+	private boolean can_transition;
 	
-	public LoadingScreen(ScrotsGame game)
+	public LoadingScreen()
 	{
-		this.game = game;
-
 		stage = new Stage();
+		can_transition = false;
 
 		Label.LabelStyle style = new Label.LabelStyle();
 		style.font = Assets.font_120;
@@ -32,12 +32,20 @@ public class LoadingScreen implements Screen
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
 
-		if(Gdx.input.isTouched())
+		if(can_transition && Gdx.input.isTouched())
 		{
-			game.setScreen(game.main_menu);
-			this.dispose();
+			can_transition = false;
+			stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(1f), Actions.run(new Runnable() {
+				@Override
+				public void run() {
+					// Should get loading screen.dispose but how...
+					stage.dispose();
+					Assets.game.setScreen(Assets.game.main_menu);	
+				}
+			})));
 		}
 	}
 	
@@ -55,7 +63,12 @@ public class LoadingScreen implements Screen
 	@Override
 	public void show() 
 	{
-		
+		stage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(1f), Actions.run(new Runnable() {
+			@Override
+			public void run() {
+				can_transition = true;
+			}
+		})));
 	}
 
 	@Override

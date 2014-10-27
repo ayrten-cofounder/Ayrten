@@ -13,13 +13,12 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 public class MainMenuScreen implements Screen {
-	private ScrotsGame game;
 	private Label start;
 	private Label options;
 	private Label highscore;
@@ -34,9 +33,8 @@ public class MainMenuScreen implements Screen {
 	public NormalScoreboard nsb;
 	public ChallengeScoreboard csb;
 
-	public MainMenuScreen(ScrotsGame game) {
+	public MainMenuScreen() {
 		// Initialize variables
-		this.game = game;
 		stage = new Stage();
 		nsb = new NormalScoreboard();
 		csb = new ChallengeScoreboard();
@@ -87,8 +85,8 @@ public class MainMenuScreen implements Screen {
 					int pointer, int button) {
 				if (Assets.prefs.getBoolean("sound_effs", true))
 					Assets.pop.play();
-				((ScrotsGame) Gdx.app.getApplicationListener())
-						.setScreen(options_screen);
+				Assets.game.setScreen(options_screen);
+
 			}
 		});
 
@@ -130,13 +128,17 @@ public class MainMenuScreen implements Screen {
 		LabelStyle title_style = new LabelStyle();
 		title_style.font = Assets.font_120;
 		title_style.fontColor = Color.valueOf("9f38ff");
-		// title_style.fontColor = Color.BLACK;
 		Label scrots = new Label("Scrots", title_style);
 		scrots.setCenterPosition(Gdx.graphics.getWidth() / 2,
 				Gdx.graphics.getHeight() / 3 * 2);
 
 		stage.addActor(scrots);
 		stage.addActor(table);
+	}
+	
+	public Stage getStage()
+	{
+		return stage;
 	}
 
 	@Override
@@ -147,6 +149,7 @@ public class MainMenuScreen implements Screen {
 			Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
 	}
 
@@ -156,7 +159,6 @@ public class MainMenuScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		// Remove all actors
 		stage.dispose();
 	}
 
@@ -168,6 +170,7 @@ public class MainMenuScreen implements Screen {
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
+		stage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(1f)));
 	}
 
 	@Override
