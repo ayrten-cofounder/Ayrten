@@ -79,28 +79,26 @@ public class GameScreen implements Screen {
 		// GL20.GL_LINEAR_MIPMAP_LINEAR);
 
 		points_title = new Label("YOUAREATLEVEL", Assets.style_font_64_red);
-		points_title.setPosition(1, h - (h / 20) - points_title.getHeight());
+		points_title.setPosition(1, Assets.game_height);
 
 		points = new Label("00", Assets.prefs.getString("bg_color").equals(
 				"Black") ? Assets.style_font_64_white
 				: Assets.style_font_64_black);
-		points.setPosition(0 + points_title.getWidth(),
-				h - (h / 20) - points.getHeight());
+		points.setPosition(0 + points_title.getWidth(), Assets.game_height);
 
 		time_title = new Label("WITH", Assets.style_font_64_red);
 		time_title.setPosition(1 + points_title.getWidth() + points.getWidth(),
-				h - (h / 20) - time_title.getHeight());
+				Assets.game_height);
 
 		time = new Label("60.0", Assets.prefs.getString("bg_color").equals(
 				"Black") ? Assets.style_font_64_white
 				: Assets.style_font_64_black);
 		time.setPosition(1 + points_title.getWidth() + points.getWidth()
-				+ time_title.getWidth(), h - (h / 20) - time.getHeight());
+				+ time_title.getWidth(), Assets.game_height);
 
 		time_end = new Label("SECONDSLEFT", Assets.style_font_64_red);
 		time_end.setPosition(1 + points_title.getWidth() + points.getWidth()
-				+ time_title.getWidth() + time.getWidth(), h - (h / 20)
-				- time_title.getHeight());
+				+ time_title.getWidth() + time.getWidth(), Assets.game_height);
 
 		Label.LabelStyle overStyle = new Label.LabelStyle();
 		overStyle.font = Assets.font_120;
@@ -109,7 +107,7 @@ public class GameScreen implements Screen {
 		textStyle.font = Assets.font_64;
 
 		LabelStyle buttonStyle = new LabelStyle();
-		buttonStyle.font = Assets.font_32;
+		buttonStyle.font = Assets.font_64;
 
 		if (Assets.prefs.getString("bg_color", "").equals("")
 				|| Assets.prefs.getString("bg_color", "").equals("White")) {
@@ -220,8 +218,9 @@ public class GameScreen implements Screen {
 			}
 		});
 		pause.setWidth(buttonStyle.font.getBounds("  Menu").width);
-		pause.setHeight(buttonStyle.font.getLineHeight());
-		pause.setPosition(w - pause.getWidth(), h - pause.getHeight());
+		// pause.setHeight(buttonStyle.font.getLineHeight());
+		pause.setPosition(w - pause.getWidth(),
+				Assets.game_height + pause.getStyle().font.getLineHeight() / 1.4f);
 
 		pause_menu = new Window("Menu", Assets.skin);
 		pause_menu.getStyle().titleFont = Assets.font_64;
