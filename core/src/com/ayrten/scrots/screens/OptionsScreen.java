@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -25,7 +26,8 @@ public class OptionsScreen implements Screen {
 	private SelectBox<String> mode;
 	private SelectBox<String> bg_color;
 	private CheckBox sound_effs;
-
+	private Label back;
+	
 	private float label_pad_left = (float) 5.5; // Lower # = more left
 
 	private boolean should_add_action;
@@ -71,7 +73,7 @@ public class OptionsScreen implements Screen {
 		if (!Assets.prefs.getString("bg_color", "").equals(""))
 			bg_color.setSelected(Assets.prefs.getString("bg_color"));
 
-		Label back = new Label("Back", style);
+		back = new Label("Back", style);
 		back.setBounds(back.getX(), back.getY(), back.getWidth(),
 				back.getHeight());
 		back.setPosition(0, Gdx.graphics.getHeight() - back.getHeight());
@@ -86,13 +88,13 @@ public class OptionsScreen implements Screen {
 				if (((ScrotsGame) Gdx.app.getApplicationListener()).main_menu
 						.get_options_screen().sound_effs.isChecked())
 					Assets.pop.play();
+				event.getListenerActor().setTouchable(Touchable.disabled);
 				stage.addAction(Actions.sequence(Actions.alpha(1),
 						Actions.fadeOut(0.35f), Actions.run(new Runnable() {
 
 							@Override
 							public void run() {
-								((ScrotsGame) Gdx.app.getApplicationListener()).setScreen(((ScrotsGame) Gdx.app
-										.getApplicationListener()).main_menu);
+								Assets.game.setScreen(Assets.game.main_menu);
 							}
 						})));
 			}
@@ -163,6 +165,7 @@ public class OptionsScreen implements Screen {
 		Gdx.input.setInputProcessor(stage);
 		stage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(1f)));
 		should_add_action = true;
+		back.setTouchable(Touchable.enabled);
 	}
 
 	@Override

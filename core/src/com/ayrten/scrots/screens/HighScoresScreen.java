@@ -22,10 +22,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
-import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Text;
 
 public class HighScoresScreen implements Screen {
 	private float pad_left = (float) 5.5;
@@ -75,14 +73,12 @@ public class HighScoresScreen implements Screen {
 					int pointer, int button) {
 				if (Assets.prefs.getBoolean("sound_effs"))
 					Assets.pop.play();
-
+				event.getListenerActor().setTouchable(Touchable.disabled);
 				stage.addAction(Actions.sequence(Actions.alpha(1),
 						Actions.fadeOut(0.35f), Actions.run(new Runnable() {
-
 							@Override
 							public void run() {
-								((ScrotsGame) Gdx.app.getApplicationListener()).setScreen(((ScrotsGame) Gdx.app
-										.getApplicationListener()).main_menu);
+								Assets.game.setScreen(Assets.game.main_menu);
 							}
 						})));
 			}
@@ -306,6 +302,7 @@ public class HighScoresScreen implements Screen {
 		switchFontColor();
 		switchHighScoreTable();
 		should_add_action = true;
+		back.setTouchable(Touchable.enabled);
 	}
 
 	@Override

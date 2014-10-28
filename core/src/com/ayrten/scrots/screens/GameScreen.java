@@ -241,15 +241,15 @@ public class GameScreen implements Screen {
 							@Override
 							public void run() {
 								pause_menu.setVisible(false);
-								confirm_quit.addAction(Actions.parallel(Actions
-										.run(new Runnable() {
-
+								confirm_quit.addAction(Actions.parallel(
+										Actions.run(new Runnable() {
 											@Override
 											public void run() {
 												confirm_quit.setVisible(true);
 											}
-										}), Actions.sequence(Actions.alpha(0),
-										Actions.fadeIn(0.25f))));
+										}), 
+										Actions.sequence(Actions.alpha(0),
+												Actions.fadeIn(0.25f))));
 							}
 						})));
 			}
@@ -323,8 +323,6 @@ public class GameScreen implements Screen {
 		quit_cancel.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				// confirm_quit.setVisible(false);
-				// pause_menu.setVisible(true);
 				confirm_quit.addAction(Actions.sequence(Actions.alpha(1),
 						Actions.fadeOut(0.25f), Actions.run(new Runnable() {
 							@Override
