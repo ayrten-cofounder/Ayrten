@@ -50,7 +50,7 @@ public class MainMenuScreen implements Screen {
 		// Gdx.app.getApplicationListener());
 
 		LabelStyle style = new LabelStyle();
-		style.font = Assets.font_32;
+		style.font = Assets.font_64;
 		style.fontColor = Color.valueOf("ff9f38");
 //		style.fontColor = Color.BLACK;
 		start = new Label("Start", style);

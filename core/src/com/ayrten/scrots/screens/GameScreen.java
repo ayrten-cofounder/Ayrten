@@ -84,15 +84,17 @@ public class GameScreen implements Screen {
 		points = new Label("00", Assets.prefs.getString("bg_color").equals(
 				"Black") ? Assets.style_font_64_white
 				: Assets.style_font_64_black);
+//		points = new Label("00", Assets.style_font_64_blue);
 		points.setPosition(0 + points_title.getWidth(), Assets.game_height);
 
 		time_title = new Label("WITH", Assets.style_font_64_red);
 		time_title.setPosition(1 + points_title.getWidth() + points.getWidth(),
 				Assets.game_height);
 
-		time = new Label("60.0", Assets.prefs.getString("bg_color").equals(
-				"Black") ? Assets.style_font_64_white
-				: Assets.style_font_64_black);
+		 time = new Label("60.0", Assets.prefs.getString("bg_color").equals(
+		 "Black") ? Assets.style_font_64_white
+		 : Assets.style_font_64_black);
+//		time = new Label("60.0", Assets.style_font_64_blue);
 		time.setPosition(1 + points_title.getWidth() + points.getWidth()
 				+ time_title.getWidth(), Assets.game_height);
 
@@ -220,7 +222,8 @@ public class GameScreen implements Screen {
 		pause.setWidth(buttonStyle.font.getBounds("  Menu").width);
 		// pause.setHeight(buttonStyle.font.getLineHeight());
 		pause.setPosition(w - pause.getWidth(),
-				Assets.game_height + pause.getStyle().font.getLineHeight() / 1.4f);
+				Assets.game_height + pause.getStyle().font.getLineHeight()
+						/ 1.4f);
 
 		pause_menu = new Window("Menu", Assets.skin);
 		pause_menu.getStyle().titleFont = Assets.font_64;
