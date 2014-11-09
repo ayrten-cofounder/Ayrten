@@ -7,12 +7,12 @@ import com.ayrten.scrots.screens.ScrotsGame;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
-public class AndroidLauncher extends AndroidApplication implements AdCallback {
+public class AndroidLauncher extends AdLauncher {
 	@Override
 	public void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		initialize(new ScrotsGame(this), config);
+//		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+//		initialize(new ScrotsGame(this), config);
 	}
 
 	@Override

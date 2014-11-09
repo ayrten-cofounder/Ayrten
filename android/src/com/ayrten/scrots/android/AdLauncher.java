@@ -62,12 +62,11 @@ public class AdLauncher extends AndroidApplication  implements AdCallback {
         
         LayoutInflater inflater = LayoutInflater.from(layout.getContext());
         View inflatedLayout= inflater.inflate(R.layout.fragment_ad, null, false);
-        layout.addView(inflatedLayout);
         
-        adView = (AdView) layout.findViewById(R.id.adView); // Put in your secret key here
+        adView = (AdView) inflatedLayout.findViewById(R.id.adView); // Put in your secret key here
         
         AdRequest adRequest = new AdRequest.Builder()
-        .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+        .addTestDevice("ABCDEF012345")
         .build();
         
         adView.loadAd(adRequest);
@@ -82,10 +81,11 @@ public class AdLauncher extends AndroidApplication  implements AdCallback {
         adParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         adParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 
-        layout.addView(adView, adParams);
+        layout.addView(inflatedLayout, adParams);
 
         // Hook it all up
         setContentView(layout);
+//        showAds(false);
     }
 
     public void showAds(boolean show) {

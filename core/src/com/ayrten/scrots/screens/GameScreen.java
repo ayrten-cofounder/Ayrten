@@ -436,6 +436,7 @@ public class GameScreen implements Screen {
 			stage.clear();
 			should_clear_stage = false;
 			addStageActors();
+			Assets.game.ad.showAds(true);
 			game_over.setVisible(true);
 			pause.setVisible(false);
 			if (gm.get_player_score() > gm.getScoreBoard().getLowestHighScore()) {
