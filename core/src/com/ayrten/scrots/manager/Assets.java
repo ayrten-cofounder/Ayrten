@@ -35,7 +35,10 @@ public class Assets {
 
 	// Style
 	public static LabelStyle style_font_64_black;
+	public static LabelStyle style_font_64_blue;
 	public static LabelStyle style_font_64_red;
+	public static LabelStyle style_font_64_orange;
+	public static LabelStyle style_font_64_white;
 	public static LabelStyle style_font_32_red;
 
 	// Sounds
@@ -81,14 +84,26 @@ public class Assets {
 		style_font_64_black = new LabelStyle();
 		style_font_64_black.font = font_64;
 		style_font_64_black.fontColor = Color.valueOf("1c1c1c");
+		
+		style_font_64_blue = new LabelStyle();
+		style_font_64_blue.font = font_64;
+		style_font_64_blue.fontColor = Color.valueOf("7A80E0");
+		
+		style_font_64_orange = new LabelStyle();
+		style_font_64_orange.font = font_64;
+		style_font_64_orange.fontColor = Color.valueOf("ffcd55");
 
 		style_font_64_red = new LabelStyle();
 		style_font_64_red.font = font_64;
-		style_font_64_red.fontColor = Color.valueOf("d3414a");
+		style_font_64_red.fontColor = Color.valueOf("e07a80");
+
+		style_font_64_white = new LabelStyle();
+		style_font_64_white.font = font_64;
+		style_font_64_white.fontColor = Color.WHITE;
 
 		style_font_32_red = new LabelStyle();
 		style_font_32_red.font = font_32;
-		style_font_32_red.fontColor = Color.valueOf("d3414a");
+		style_font_32_red.fontColor = Color.valueOf("e07a80");
 
 		// Sounds
 		pop = Gdx.audio.newSound(Gdx.files.internal("sounds/pop.mp3"));

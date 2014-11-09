@@ -54,9 +54,9 @@ public class HighScoresScreen implements Screen {
 
 		style_big = new LabelStyle();
 		style_big.font = Assets.font_64;
-
+		
 		style_small = new LabelStyle();
-		style_small.font = Assets.font_32;
+		style_small.font = Assets.font_64;
 
 		switchFontColor();
 		
@@ -210,7 +210,7 @@ public class HighScoresScreen implements Screen {
 		table.add(back).top().left();
 		// table.add(mode).top().right();
 		table.row();
-		table.add("").height(Gdx.graphics.getHeight() / 5);
+		table.add("").height(Gdx.graphics.getHeight() / 20);
 		table.row();
 		table.add(new Label("Highscore", style_big)).left().padLeft(center)
 				.fillX();
