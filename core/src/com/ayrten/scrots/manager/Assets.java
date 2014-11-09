@@ -37,6 +37,7 @@ public class Assets {
 	public static LabelStyle style_font_64_black;
 	public static LabelStyle style_font_64_blue;
 	public static LabelStyle style_font_64_red;
+	public static LabelStyle style_font_64_orange;
 	public static LabelStyle style_font_64_white;
 	public static LabelStyle style_font_32_red;
 
@@ -87,6 +88,10 @@ public class Assets {
 		style_font_64_blue = new LabelStyle();
 		style_font_64_blue.font = font_64;
 		style_font_64_blue.fontColor = Color.valueOf("7A80E0");
+		
+		style_font_64_orange = new LabelStyle();
+		style_font_64_orange.font = font_64;
+		style_font_64_orange.fontColor = Color.valueOf("ffcd55");
 
 		style_font_64_red = new LabelStyle();
 		style_font_64_red.font = font_64;

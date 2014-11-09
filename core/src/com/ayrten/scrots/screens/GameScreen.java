@@ -41,6 +41,7 @@ public class GameScreen implements Screen {
 	protected Window pause_menu;
 	protected Window confirm_quit;
 
+	protected Label can_you_label;
 	protected Label points_title;
 	protected Label points;
 	protected Label time_title;
@@ -101,6 +102,9 @@ public class GameScreen implements Screen {
 		time_end = new Label("SECONDSLEFT", Assets.style_font_64_red);
 		time_end.setPosition(1 + points_title.getWidth() + points.getWidth()
 				+ time_title.getWidth() + time.getWidth(), Assets.game_height);
+		
+		can_you_label = new Label("CANYOUGETTOLEVEL20?YOU CANT.", Assets.style_font_64_orange);
+		can_you_label.setPosition(1, Assets.game_height + (points.getStyle().font.getLineHeight() / 1.4f));
 
 		Label.LabelStyle overStyle = new Label.LabelStyle();
 		overStyle.font = Assets.font_120;
@@ -453,6 +457,7 @@ public class GameScreen implements Screen {
 		stage.addActor(table);
 		stage.addActor(game_over);
 		stage.addActor(user_name);
+		stage.addActor(can_you_label);
 		stage.addActor(points_title);
 		stage.addActor(points);
 		stage.addActor(time);
