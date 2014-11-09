@@ -25,6 +25,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+
 public class HighScoresScreen implements Screen {
 	private float pad_left = (float) 5.5;
 	private float pad_right = (float) 5.5;
@@ -58,7 +59,7 @@ public class HighScoresScreen implements Screen {
 		style_small.font = Assets.font_32;
 
 		switchFontColor();
-
+		
 		back = new Label("Back", style_small);
 		back.setBounds(back.getX(), back.getY(), back.getWidth(),
 				back.getHeight());
@@ -73,7 +74,7 @@ public class HighScoresScreen implements Screen {
 					int pointer, int button) {
 				if (Assets.prefs.getBoolean("sound_effs"))
 					Assets.pop.play();
-				event.getListenerActor().setTouchable(Touchable.disabled);
+				setTouchable(Touchable.disabled);
 				stage.addAction(Actions.sequence(Actions.alpha(1),
 						Actions.fadeOut(0.35f), Actions.run(new Runnable() {
 							@Override
@@ -144,7 +145,6 @@ public class HighScoresScreen implements Screen {
 		});
 
 		confirm_clear = new Window("Clear scores?", Assets.skin);
-		// confirm_clear.getStyle().background.
 		confirm_clear.setTitle("Clear scores?");
 
 		confirm_clear.add(proceed);
@@ -284,6 +284,12 @@ public class HighScoresScreen implements Screen {
 					})));
 		}
 	}
+	
+	public void setTouchable(Touchable touchable)
+	{
+		back.setTouchable(touchable);
+		clear.setTouchable(touchable);
+	}
 
 	@Override
 	public void dispose() {
@@ -302,7 +308,7 @@ public class HighScoresScreen implements Screen {
 		switchFontColor();
 		switchHighScoreTable();
 		should_add_action = true;
-		back.setTouchable(Touchable.enabled);
+		setTouchable(Touchable.enabled);
 	}
 
 	@Override

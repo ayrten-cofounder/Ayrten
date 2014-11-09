@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">scrots</string>
+    <string name="app_name">Scrots</string>
+    <string name="banner_ad_unit_id">ca-app-pub-2141607462246949/4097784510</string>
 
 </resources>

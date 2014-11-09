@@ -2,15 +2,14 @@ package com.ayrten.scrots.android;
 
 import android.os.Bundle;
 
-import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.ayrten.scrots.screens.ScrotsGame;
 
-public class AndroidLauncher extends AndroidApplication {
+public class AndroidLauncher extends AdLauncher {
 	@Override
-	protected void onCreate (Bundle savedInstanceState) {
+	public void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		initialize(new ScrotsGame(), config);
+		initialize(new ScrotsGame(this), config);
 	}
 }
