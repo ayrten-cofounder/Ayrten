@@ -3,6 +3,7 @@ package com.ayrten.scrots.android;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -11,6 +12,7 @@ import android.widget.RelativeLayout;
 import com.ayrten.scrots.screens.AdCallback;
 import com.ayrten.scrots.screens.ScrotsGame;
 import com.badlogic.gdx.backends.android.AndroidApplication;
+import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 public class AdLauncher extends AndroidApplication  implements AdCallback {
@@ -55,8 +57,19 @@ public class AdLauncher extends AndroidApplication  implements AdCallback {
         View gameView = initializeForView(new ScrotsGame(this));
 
         // Create and setup the AdMob view
-        adView = new AdView(this); // Put in your secret key here
-        adView.loadAd(new AdRequest());
+//        adView = new AdView(this); // Put in your secret key here
+//        adView.loadAd(new AdRequest(null));
+        
+        LayoutInflater inflater = LayoutInflater.from(layout.getContext());
+        View inflatedLayout= inflater.inflate(R.layout.fragment_ad, null, false);
+        
+        adView = (AdView) inflatedLayout.findViewById(R.id.adView); // Put in your secret key here
+        
+        AdRequest adRequest = new AdRequest.Builder()
+        .addTestDevice("ABCDEF012345")
+        .build();
+        
+        adView.loadAd(adRequest);
 
         // Add the libgdx view
         layout.addView(gameView);
@@ -68,10 +81,11 @@ public class AdLauncher extends AndroidApplication  implements AdCallback {
         adParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         adParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 
-        layout.addView(adView, adParams);
+        layout.addView(inflatedLayout, adParams);
 
         // Hook it all up
         setContentView(layout);
+//        showAds(false);
     }
 
     public void showAds(boolean show) {

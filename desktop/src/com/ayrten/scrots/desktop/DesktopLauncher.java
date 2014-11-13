@@ -22,7 +22,5 @@ public class DesktopLauncher implements AdCallback{
 	@Override
 	public void showAds(boolean show) {
 		// TODO Auto-generated method stub
-		System.out.println("show my fucking adds");
-		
 	}
 }
