@@ -7,7 +7,9 @@ import com.ayrten.scrots.scoreboard.Scoreboard;
 import com.ayrten.scrots.scoreboard.Scoreboard.Scores;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -26,7 +28,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 
-public class HighScoresScreen implements Screen {
+public class HighScoresScreen implements Screen 
+{
 	private float pad_left = (float) 5.5;
 	private float pad_right = (float) 5.5;
 	private int height = 75;
@@ -43,8 +46,9 @@ public class HighScoresScreen implements Screen {
 	LabelStyle style_small;
 
 	private boolean should_add_action;
-
-	public HighScoresScreen() {
+	
+	public HighScoresScreen() 
+	{
 		stage = new Stage();
 		should_add_action = true;
 
@@ -268,7 +272,7 @@ public class HighScoresScreen implements Screen {
 			Gdx.gl.glClearColor(1, 1, 1, 1);
 
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
 
 		if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE) && should_add_action) {

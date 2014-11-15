@@ -28,13 +28,16 @@ public class OptionsScreen implements Screen {
 	private CheckBox sound_effs;
 	private Label back;
 	
+	protected Screen backScreen;
+	
 	private float label_pad_left = (float) 5.5; // Lower # = more left
 
 	private boolean should_add_action;
 
-	public OptionsScreen() {
+	public OptionsScreen(Screen bscreen) {
 		stage = new Stage();
 		should_add_action = true;
+		backScreen = bscreen;
 
 		Table table = new Table();
 		table.setFillParent(true);
@@ -85,8 +88,7 @@ public class OptionsScreen implements Screen {
 
 			public void touchUp(InputEvent event, float x, float y,
 					int pointer, int button) {
-				if (((ScrotsGame) Gdx.app.getApplicationListener()).main_menu
-						.get_options_screen().sound_effs.isChecked())
+				if(Assets.prefs.getBoolean("sound_effs", true))
 					Assets.pop.play();
 				event.getListenerActor().setTouchable(Touchable.disabled);
 				stage.addAction(Actions.sequence(Actions.alpha(1),
@@ -94,7 +96,7 @@ public class OptionsScreen implements Screen {
 
 							@Override
 							public void run() {
-								Assets.game.setScreen(Assets.game.main_menu);
+								Assets.game.setScreen(backScreen);
 							}
 						})));
 			}

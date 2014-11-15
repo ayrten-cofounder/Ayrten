@@ -60,6 +60,7 @@ public class Assets {
 	// Miscellaneous
 	public static Preferences prefs;
 	public static ScrotsGame game;
+	public static final Color ORANGE = Color.valueOf("ff9f38");
 
 	public static void load(ScrotsGame sg) {
 		int ref_width = 640;

@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -20,14 +21,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class MainMenuScreen implements Screen {
 	private Label start;
-	private Label options;
+	private Label others;
 	private Label highscore;
-	private Label tutorial;
 	private Stage stage;
 
 	// For options and high scores screens
-	private OptionsScreen options_screen;
-	private HighScoresScreen high_score_screen;
+	public OthersScreen others_screen;
+	public HighScoresScreen high_score_screen;
 	public GameScreen game_screen;
 
 	public NormalScoreboard nsb;
@@ -44,15 +44,13 @@ public class MainMenuScreen implements Screen {
 		table.setCenterPosition(Gdx.graphics.getWidth() / 2,
 				Gdx.graphics.getHeight() / 4);
 
-		options_screen = new OptionsScreen();
+		others_screen = new OthersScreen();
 		high_score_screen = new HighScoresScreen();
 		// game_screen = new GameScreen((ScrotsGame)
-		// Gdx.app.getApplicationListener());
-
+		
 		LabelStyle style = new LabelStyle();
 		style.font = Assets.font_64;
-		style.fontColor = Color.valueOf("ff9f38");
-//		style.fontColor = Color.BLACK;
+		style.fontColor = Assets.ORANGE;
 		start = new Label("Start", style);
 		start.setBounds(start.getX(), start.getY(), start.getWidth(),
 				start.getHeight());
@@ -65,7 +63,7 @@ public class MainMenuScreen implements Screen {
 
 			public void touchUp(InputEvent event, float x, float y,
 					int pointer, int button) {
-				if (Assets.prefs.getBoolean("sound_effs", true))
+				if(Assets.prefs.getBoolean("sound_effs", true))
 					Assets.pop.play();
 				game_screen = new GameScreen();
 				((ScrotsGame) Gdx.app.getApplicationListener())
@@ -73,9 +71,9 @@ public class MainMenuScreen implements Screen {
 			}
 		});
 
-		options = new Label("Options", style);
-		options.setBounds(options.getX(), options.getY(), options.getWidth(), options.getHeight());
-		options.addListener(new InputListener() {
+		others = new Label("Others", style);
+		others.setBounds(others.getX(), others.getY(), others.getWidth(), others.getHeight());
+		others.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
 				return true;
@@ -85,7 +83,7 @@ public class MainMenuScreen implements Screen {
 					int pointer, int button) {
 				if (Assets.prefs.getBoolean("sound_effs", true))
 					Assets.pop.play();
-				Assets.game.setScreen(options_screen);
+				Assets.game.setScreen(others_screen);
 
 			}
 		});
@@ -111,11 +109,11 @@ public class MainMenuScreen implements Screen {
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / 50);
 		table.row();
-		table.add(options);
+		table.add(highscore);
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / 50);
 		table.row();
-		table.add(highscore);
+		table.add(others);
 
 		Manager gm = new Manager(0, Gdx.graphics.getWidth(),
 				Gdx.graphics.getHeight());
@@ -134,6 +132,8 @@ public class MainMenuScreen implements Screen {
 
 		stage.addActor(scrots);
 		stage.addActor(table);
+		
+		setTouchable(Touchable.disabled);
 	}
 	
 	public Stage getStage()
@@ -153,8 +153,11 @@ public class MainMenuScreen implements Screen {
 		stage.draw();
 	}
 
-	public OptionsScreen get_options_screen() {
-		return options_screen;
+	public void setTouchable(Touchable touchable)
+	{
+		start.setTouchable(touchable);
+		highscore.setTouchable(touchable);
+		others.setTouchable(touchable);
 	}
 
 	@Override
@@ -169,8 +172,12 @@ public class MainMenuScreen implements Screen {
 
 	@Override
 	public void show() {
-		Gdx.input.setInputProcessor(stage);
-		stage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(1f)));
+		stage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(1f), Actions.run(new Runnable() {
+			public void run() {
+				setTouchable(Touchable.enabled);
+				Gdx.input.setInputProcessor(stage);
+			}
+		})));
 	}
 
 	@Override
