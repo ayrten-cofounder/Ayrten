@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
@@ -59,20 +58,11 @@ public class HighScoresScreen extends ScrotsScreen
 		clear.setBounds(clear.getX(), clear.getY(), clear.getWidth(),
 				clear.getHeight());
 		clear.setPosition(0, Gdx.graphics.getHeight() - clear.getHeight());
-		clear.addListener(new InputListener() {
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
-				return true;
-			}
-
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
+		clear.addListener(new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
 				if (Assets.prefs.getBoolean("sound_effs"))
 					Assets.pop.play();
-
-				// event.getStage().addActor(confirm_clear);
 				confirm_clear.setVisible(true);
-				table.setTouchable(Touchable.disabled);
 			}
 		});
 
@@ -99,7 +89,6 @@ public class HighScoresScreen extends ScrotsScreen
 			public void clicked(InputEvent event, float x, float y) {
 				clearScoreboard();
 				confirm_clear.setVisible(false);
-				table.setTouchable(Touchable.enabled);
 			};
 		});
 
@@ -110,7 +99,6 @@ public class HighScoresScreen extends ScrotsScreen
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				confirm_clear.setVisible(false);
-				table.setTouchable(Touchable.enabled);
 			};
 		});
 
@@ -233,6 +221,7 @@ public class HighScoresScreen extends ScrotsScreen
 	
 	public void addActors() 
 	{
+		super.addActors();
 		actors.add(clear);
 	}
 	

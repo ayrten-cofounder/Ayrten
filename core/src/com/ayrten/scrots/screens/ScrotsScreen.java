@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.ayrten.scrots.manager.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -31,8 +32,29 @@ public class ScrotsScreen implements Screen {
 	{
 		backScreen = bscreen;
 		actors = new ArrayList<Actor>();
-		stage = new Stage();
 		this.createBack = createBack;
+		stage = new Stage() {
+			public boolean keyDown(int keyCode) {
+				if(keyCode == Keys.BACK)
+				{
+					if(backScreen != null)
+					{
+						if(Assets.prefs.getBoolean("sound_effs"))
+							Assets.pop.play();
+						stage.addAction(Actions.parallel(Actions.run(new Runnable() {
+							public void run() {
+								setTouchable(Touchable.disabled);
+							}
+						}), Actions.sequence(Actions.alpha(1), Actions.fadeOut(0.35f), Actions.run(new Runnable() {
+							public void run() {
+								Assets.game.setScreen(backScreen);
+							}
+						}))));
+					}
+				}
+				return super.keyDown(keyCode);
+			}
+		};
 	}
 	
 	// This must be called near the end of the constructor.
@@ -118,7 +140,7 @@ public class ScrotsScreen implements Screen {
 
 	@Override
 	public void hide() {
-		
+		setTouchable(Touchable.disabled);
 	}
 
 	@Override

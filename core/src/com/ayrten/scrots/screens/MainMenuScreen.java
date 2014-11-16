@@ -9,10 +9,10 @@ import com.ayrten.scrots.scoreboard.Scoreboard;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class MainMenuScreen extends ScrotsScreen {
 	private Label start;
@@ -49,55 +49,35 @@ public class MainMenuScreen extends ScrotsScreen {
 		start = new Label("Start", style);
 		start.setBounds(start.getX(), start.getY(), start.getWidth(),
 				start.getHeight());
-		start.addListener(new InputListener() {
-			// Need this or else it won't recognize the touch down event.
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
-				return true;
-			}
-
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
+		start.addListener(new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
 				if(Assets.prefs.getBoolean("sound_effs", true))
 					Assets.pop.play();
 				game_screen = new GameScreen();
 				((ScrotsGame) Gdx.app.getApplicationListener())
-						.setScreen(game_screen);
-			}
+				.setScreen(game_screen);
+			}			
 		});
 
 		others = new Label("Others", style);
 		others.setBounds(others.getX(), others.getY(), others.getWidth(), others.getHeight());
-		others.addListener(new InputListener() {
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
-				return true;
-			}
-
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
+		others.addListener(new ClickListener(){
+			public void clicked(InputEvent event, float x, float y) {
 				if (Assets.prefs.getBoolean("sound_effs", true))
 					Assets.pop.play();
 				Assets.game.setScreen(others_screen);
-
-			}
+			}			
 		});
 
 		highscore = new Label("High Scores", style);
 		highscore.setBounds(highscore.getX(), highscore.getY(), highscore.getWidth(), highscore.getHeight());
-		highscore.addListener(new InputListener() {
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
-				return true;
-			}
-
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
+		highscore.addListener(new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
 				if (Assets.prefs.getBoolean("sound_effs", true))
 					Assets.pop.play();
 				((ScrotsGame) Gdx.app.getApplicationListener())
-						.setScreen(high_score_screen);
-			}
+				.setScreen(high_score_screen);
+			}			
 		});
 
 		table.add(start);
