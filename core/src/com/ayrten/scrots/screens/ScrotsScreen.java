@@ -1,0 +1,138 @@
+package com.ayrten.scrots.screens;
+
+import java.util.ArrayList;
+
+import com.ayrten.scrots.manager.Assets;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+
+public class ScrotsScreen implements Screen {
+	
+	protected Stage stage;
+	protected Screen backScreen;
+	protected ArrayList<Actor> actors;
+	
+	// Widgets
+	protected Label back;
+	
+	protected boolean createBack;
+	
+	public ScrotsScreen(Screen bscreen, boolean createBack) 
+	{
+		backScreen = bscreen;
+		actors = new ArrayList<Actor>();
+		stage = new Stage();
+		this.createBack = createBack;
+	}
+	
+	// This must be called near the end of the constructor.
+	public void setupStage()
+	{
+		if(createBack)
+		{
+			LabelStyle labelStyle = new LabelStyle();
+			labelStyle.font = Assets.font_64;
+			labelStyle.fontColor = Assets.ORANGE;
+			
+			back = new Label("Back", labelStyle);
+			back.setBounds(back.getX(), back.getY(), back.getWidth(), back.getHeight());
+			back.addListener(new ClickListener() {
+				public void clicked(InputEvent event, float x, float y) {
+					if(Assets.prefs.getBoolean("sound_effs"))
+						Assets.pop.play();
+					stage.addAction(Actions.parallel(Actions.run(new Runnable() {
+						public void run() {
+							setTouchable(Touchable.disabled);
+						}
+					}), Actions.sequence(Actions.alpha(1), Actions.fadeOut(0.35f), Actions.run(new Runnable() {
+						public void run() {
+							Assets.game.setScreen(backScreen);
+						}
+					}))));
+				}
+			});
+			back.setPosition(0 + back.getWidth()/5, Gdx.graphics.getHeight() - back.getHeight());
+			stage.addActor(back);
+		}
+		
+		addActors();
+		setTouchable(Touchable.disabled);
+	}
+	
+	public void addActors()
+	{
+		if(back != null)
+			actors.add(back);
+	}
+	
+	public void setTouchable(Touchable touchable)
+	{
+		for(Actor actor : actors)
+			actor.setTouchable(touchable);
+	}
+	
+	public void setActorsColor(Color color) {}
+
+	@Override
+	public void render(float delta) {
+		if (Assets.prefs.getString("bg_color").equals("Black")) {
+			setActorsColor(Color.WHITE);
+			Gdx.gl.glClearColor(0, 0, 0, 0);
+		} else {
+			setActorsColor(Color.BLACK);
+			Gdx.gl.glClearColor(1, 1, 1, 1);
+		}
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		stage.act(Gdx.graphics.getDeltaTime());
+		stage.draw();
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		
+	}
+
+	@Override
+	public void show() {
+		stage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(1f), Actions.run(new Runnable() {
+			public void run() {
+				otherShowOptions();
+				setTouchable(Touchable.enabled);
+				Gdx.input.setInputProcessor(stage);
+			}
+		})));
+	}
+	
+	public void otherShowOptions() {}
+
+	@Override
+	public void hide() {
+		
+	}
+
+	@Override
+	public void pause() {
+		
+	}
+
+	@Override
+	public void resume() {
+		
+	}
+
+	@Override
+	public void dispose() {
+		stage.dispose();
+	}
+}

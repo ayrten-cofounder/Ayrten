@@ -6,18 +6,12 @@ import com.ayrten.scrots.scoreboard.NormalScoreboard;
 import com.ayrten.scrots.scoreboard.Scoreboard;
 import com.ayrten.scrots.scoreboard.Scoreboard.Scores;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
@@ -27,30 +21,27 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-
-public class HighScoresScreen implements Screen 
+public class HighScoresScreen extends ScrotsScreen
 {
 	private float pad_left = (float) 5.5;
 	private float pad_right = (float) 5.5;
 	private int height = 75;
 
-	private Stage stage;
-
 	private Table table;
 	private SelectBox<String> mode;
-	private Label back;
 	private Label clear;
 	private Window confirm_clear;
 
 	LabelStyle style_big;
 	LabelStyle style_small;
 
-	private boolean should_add_action;
+//	private boolean should_add_action;
 	
-	public HighScoresScreen() 
+	public HighScoresScreen(Screen bscreen) 
 	{
-		stage = new Stage();
-		should_add_action = true;
+		super(bscreen, true);
+		
+//		should_add_action = true;
 
 		table = new Table();
 		table.setFillParent(true);
@@ -64,31 +55,6 @@ public class HighScoresScreen implements Screen
 
 		switchFontColor();
 		
-		back = new Label("Back", style_small);
-		back.setBounds(back.getX(), back.getY(), back.getWidth(),
-				back.getHeight());
-		back.setPosition(0, Gdx.graphics.getHeight() - back.getHeight());
-		back.addListener(new InputListener() {
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
-				return true;
-			}
-
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
-				if (Assets.prefs.getBoolean("sound_effs"))
-					Assets.pop.play();
-				setTouchable(Touchable.disabled);
-				stage.addAction(Actions.sequence(Actions.alpha(1),
-						Actions.fadeOut(0.35f), Actions.run(new Runnable() {
-							@Override
-							public void run() {
-								Assets.game.setScreen(Assets.game.main_menu);
-							}
-						})));
-			}
-		});
-
 		clear = new Label("Clear", style_small);
 		clear.setBounds(clear.getX(), clear.getY(), clear.getWidth(),
 				clear.getHeight());
@@ -164,6 +130,7 @@ public class HighScoresScreen implements Screen
 		confirm_clear.setVisible(false);
 
 		setHighScoreTable(table);
+		setupStage();
 		stage.addActor(table);
 		stage.addActor(confirm_clear);
 	}
@@ -211,7 +178,7 @@ public class HighScoresScreen implements Screen
 		float font_width = style_big.font.getMultiLineBounds("Highscore").width;
 		float center = (width / 2) - (font_width / 2);
 
-		table.add(back).top().left();
+		// table.add(back).top().left();
 		// table.add(mode).top().right();
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / 20);
@@ -263,70 +230,15 @@ public class HighScoresScreen implements Screen
 				.padLeft((float) (Gdx.graphics.getWidth() / pad_left)).expand();
 		table.row();
 	}
-
-	@Override
-	public void render(float delta) {
-		if (Assets.prefs.getString("bg_color").equals("Black"))
-			Gdx.gl.glClearColor(0, 0, 0, 0);
-		else
-			Gdx.gl.glClearColor(1, 1, 1, 1);
-
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		stage.act(Gdx.graphics.getDeltaTime());
-		stage.draw();
-
-		if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE) && should_add_action) {
-			should_add_action = false;
-			stage.addAction(Actions.sequence(Actions.alpha(1),
-					Actions.fadeOut(0.5f), Actions.run(new Runnable() {
-
-						@Override
-						public void run() {
-							((ScrotsGame) Gdx.app.getApplicationListener()).setScreen(((ScrotsGame) Gdx.app
-									.getApplicationListener()).main_menu);
-						}
-					})));
-		}
+	
+	public void addActors() 
+	{
+		actors.add(clear);
 	}
 	
-	public void setTouchable(Touchable touchable)
-	{
-		back.setTouchable(touchable);
-		clear.setTouchable(touchable);
-	}
-
-	@Override
-	public void dispose() {
-		stage.dispose();
-	}
-
-	@Override
-	public void resize(int width, int height) {
-
-	}
-
-	@Override
-	public void show() {
-		Gdx.input.setInputProcessor(stage);
-		stage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(1f)));
+	public void otherShowOptions() {
 		switchFontColor();
 		switchHighScoreTable();
-		should_add_action = true;
-		setTouchable(Touchable.enabled);
-	}
-
-	@Override
-	public void hide() {
-
-	}
-
-	@Override
-	public void pause() {
-
-	}
-
-	@Override
-	public void resume() {
-
+//		should_add_action = true;
 	}
 }
