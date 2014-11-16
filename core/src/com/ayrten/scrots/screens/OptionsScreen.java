@@ -2,13 +2,10 @@ package com.ayrten.scrots.screens;
 
 import com.ayrten.scrots.manager.Assets;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -23,12 +20,8 @@ public class OptionsScreen extends ScrotsScreen {
 	
 	private float label_pad_left = (float) 5.5; // Lower # = more left
 
-	private boolean should_add_action;
-
 	public OptionsScreen(Screen bscreen) {
 		super(bscreen, true);
-		
-		should_add_action = true;
 		
 		Table table = new Table();
 		table.setFillParent(true);
@@ -59,15 +52,9 @@ public class OptionsScreen extends ScrotsScreen {
 
 		bg_color = new SelectBox<String>(Assets.skin);
 		bg_color.setItems("White", "Black");
-//		bg_color.getStyle().background = Assets.gray_box;
-		// bg_color.setBounds(bg_color.getX(), bg_color.getY(),
-		// bg_color.getWidth(), bg_color.getHeight());
-		// bg_color.setPosition(0, Gdx.graphics.getHeight() -
-		// bg_color.getHeight());
 		if (!Assets.prefs.getString("bg_color", "").equals(""))
 			bg_color.setSelected(Assets.prefs.getString("bg_color"));
 
-		// table.add(back).left().top();
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / 5 * 2);
 		// table.row();
@@ -98,11 +85,6 @@ public class OptionsScreen extends ScrotsScreen {
 		// with drop-down list for first time, it will expand fully.
 		// mode.showList();
 	}
-	
-	public void addActors()
-	{
-		actors.add(back);
-	}
 
 	@Override
 	public void render(float delta) {
@@ -119,28 +101,10 @@ public class OptionsScreen extends ScrotsScreen {
 		stage.draw();
 
 		Assets.prefs.putBoolean("sound_effs", sound_effs.isChecked());
-
-		if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE) && should_add_action) {
-			should_add_action = false;
-			stage.addAction(Actions.sequence(Actions.alpha(1),
-					Actions.fadeOut(0.5f), Actions.run(new Runnable() {
-
-						@Override
-						public void run() {
-							((ScrotsGame) Gdx.app.getApplicationListener()).setScreen(((ScrotsGame) Gdx.app
-									.getApplicationListener()).main_menu);
-						}
-					})));
-		}
-	}
-
-	@Override
-	public void show() {
-		super.show();
-		back.setTouchable(Touchable.enabled);
 	}
 
 	public void hide() {
+		super.hide();
 		Assets.prefs.putString("mode", mode.getSelected());
 		Assets.prefs.putString("bg_color", bg_color.getSelected());
 		Assets.prefs.putBoolean("sound_effs", sound_effs.isChecked());

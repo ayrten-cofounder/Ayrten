@@ -10,7 +10,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
@@ -33,15 +34,11 @@ public class HighScoresScreen extends ScrotsScreen
 
 	LabelStyle style_big;
 	LabelStyle style_small;
-
-//	private boolean should_add_action;
 	
 	public HighScoresScreen(Screen bscreen) 
 	{
 		super(bscreen, true);
 		
-//		should_add_action = true;
-
 		table = new Table();
 		table.setFillParent(true);
 		table.setSkin(Assets.skin);
@@ -57,7 +54,7 @@ public class HighScoresScreen extends ScrotsScreen
 		clear = new Label("Clear", style_small);
 		clear.setBounds(clear.getX(), clear.getY(), clear.getWidth(),
 				clear.getHeight());
-		clear.setPosition(0, Gdx.graphics.getHeight() - clear.getHeight());
+		// clear.setPosition(0, Gdx.graphics.getHeight() - clear.getHeight());
 		clear.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				if (Assets.prefs.getBoolean("sound_effs"))
@@ -162,61 +159,35 @@ public class HighScoresScreen extends ScrotsScreen
 	private void fillInHighScore(Scoreboard scoreboard, Table table) {
 		Scores scores = scoreboard.getAllScores();
 
-		float width = Gdx.graphics.getWidth();
-		float font_width = style_big.font.getMultiLineBounds("Highscore").width;
-		float center = (width / 2) - (font_width / 2);
-
-		// table.add(back).top().left();
 		// table.add(mode).top().right();
+		// table.row();
+		// table.add("").height(Gdx.graphics.getHeight() / 20);
+		// table.row();
+		table.add(new Label("Highscore", style_big)).center();
 		table.row();
-		table.add("").height(Gdx.graphics.getHeight() / 20);
+		
+		Table innerTable = new Table(Assets.skin);		
+		innerTable.add("").height(Gdx.graphics.getHeight() / height);
+		innerTable.row();
+		innerTable.add(new Label(scores.first_name, style_small)).left().padRight((float) (Gdx.graphics.getWidth() / pad_left));
+		innerTable.add(new Label(String.valueOf(scores.first), style_small)).right().padLeft(Gdx.graphics.getWidth() / pad_right).height(style_small.font.getLineHeight());
+		innerTable.row();
+		innerTable.add(new Label(scores.second_name, style_small)).left().padRight((float) (Gdx.graphics.getWidth() / pad_left));
+		innerTable.add(new Label(String.valueOf(scores.second), style_small)).right().padLeft(Gdx.graphics.getWidth() / pad_right).height(style_small.font.getLineHeight());
+		innerTable.row();
+		innerTable.add(new Label(scores.third_name, style_small)).left().padRight((float) (Gdx.graphics.getWidth() / pad_left));
+		innerTable.add(new Label(String.valueOf(scores.third), style_small)).right().padLeft(Gdx.graphics.getWidth() / pad_right).height(style_small.font.getLineHeight());
+		innerTable.row();
+		innerTable.add(new Label(scores.fourth_name, style_small)).left().padRight((float) (Gdx.graphics.getWidth() / pad_left));
+		innerTable.add(new Label(String.valueOf(scores.fourth), style_small)).right().padLeft(Gdx.graphics.getWidth() / pad_right).height(style_small.font.getLineHeight());
+		innerTable.row();
+		innerTable.add(new Label(scores.fifth_name, style_small)).left().padRight((float) (Gdx.graphics.getWidth() / pad_left));
+		innerTable.add(new Label(String.valueOf(scores.fifth), style_small)).right().padLeft(Gdx.graphics.getWidth() / pad_right).height(style_small.font.getLineHeight());
+		innerTable.row();
+		
+		table.add(innerTable);
 		table.row();
-		table.add(new Label("Highscore", style_big)).left().padLeft(center)
-				.fillX();
-		table.row();
-		table.add("").height(Gdx.graphics.getHeight() / height);
-		table.row();
-		table.add(new Label(scores.first_name, style_small)).left()
-				.padLeft((float) (Gdx.graphics.getWidth() / pad_left));
-		table.add(new Label(String.valueOf(scores.first), style_small)).right()
-				.padRight(Gdx.graphics.getWidth() / pad_right)
-				.height(style_small.font.getLineHeight());
-		table.row();
-		table.add("").height(Gdx.graphics.getHeight() / height);
-		table.row();
-		table.add(new Label(scores.second_name, style_small)).left()
-				.padLeft((float) (Gdx.graphics.getWidth() / pad_left));
-		table.add(new Label(String.valueOf(scores.second), style_small))
-				.right().padRight(Gdx.graphics.getWidth() / pad_right)
-				.height(style_small.font.getLineHeight());
-		table.row();
-		table.add("").height(Gdx.graphics.getHeight() / height);
-		table.row();
-		table.add(new Label(scores.third_name, style_small)).left()
-				.padLeft((float) (Gdx.graphics.getWidth() / pad_left));
-		table.add(new Label(String.valueOf(scores.third), style_small)).right()
-				.padRight(Gdx.graphics.getWidth() / pad_right)
-				.height(style_small.font.getLineHeight());
-		table.row();
-		table.add("").height(Gdx.graphics.getHeight() / height);
-		table.row();
-		table.add(new Label(scores.fourth_name, style_small)).left()
-				.padLeft((float) (Gdx.graphics.getWidth() / pad_left));
-		table.add(new Label(String.valueOf(scores.fourth), style_small))
-				.right().padRight(Gdx.graphics.getWidth() / pad_right)
-				.height(style_small.font.getLineHeight());
-		table.row();
-		table.add("").height(Gdx.graphics.getHeight() / height);
-		table.row();
-		table.add(new Label(scores.fifth_name, style_small)).left()
-				.padLeft((float) (Gdx.graphics.getWidth() / pad_left));
-		table.add(new Label(String.valueOf(scores.fifth), style_small)).right()
-				.padRight(Gdx.graphics.getWidth() / pad_right)
-				.height(style_small.font.getLineHeight());
-		table.row();
-		table.add(clear).left()
-				.padLeft((float) (Gdx.graphics.getWidth() / pad_left)).expand();
-		table.row();
+		table.add(clear).center();
 	}
 	
 	public void addActors() 
@@ -224,10 +195,22 @@ public class HighScoresScreen extends ScrotsScreen
 		super.addActors();
 		actors.add(clear);
 	}
+	@Override
+	public void show() {
+		stage.addAction(Actions.parallel(Actions.run(new Runnable() {
+			public void run() {
+				otherShowOptions();
+			}
+		}), Actions.sequence(Actions.alpha(0), Actions.fadeIn(1f), Actions.run(new Runnable() {
+			public void run() {
+				setTouchable(Touchable.enabled);
+				Gdx.input.setInputProcessor(stage);
+			}
+		}))));
+	}
 	
 	public void otherShowOptions() {
 		switchFontColor();
 		switchHighScoreTable();
-//		should_add_action = true;
 	}
 }

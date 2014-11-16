@@ -54,8 +54,7 @@ public class MainMenuScreen extends ScrotsScreen {
 				if(Assets.prefs.getBoolean("sound_effs", true))
 					Assets.pop.play();
 				game_screen = new GameScreen();
-				((ScrotsGame) Gdx.app.getApplicationListener())
-				.setScreen(game_screen);
+				Assets.game.setScreen(game_screen);
 			}			
 		});
 
@@ -75,8 +74,7 @@ public class MainMenuScreen extends ScrotsScreen {
 			public void clicked(InputEvent event, float x, float y) {
 				if (Assets.prefs.getBoolean("sound_effs", true))
 					Assets.pop.play();
-				((ScrotsGame) Gdx.app.getApplicationListener())
-				.setScreen(high_score_screen);
+				Assets.game.setScreen(high_score_screen);
 			}			
 		});
 
