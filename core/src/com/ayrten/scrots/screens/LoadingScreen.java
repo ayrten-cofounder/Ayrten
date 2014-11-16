@@ -7,22 +7,37 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.Timer.Task;
 
 public class LoadingScreen implements Screen 
 {
 	private Stage stage;
-	private boolean can_transition;
-	
+	private Timer timer;
+
 	public LoadingScreen()
 	{
 		stage = new Stage();
-		can_transition = false;
+		
+		timer = new Timer();
+		timer.scheduleTask(new Task() {
+			public void run() {
+				stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(1f), Actions.run(new Runnable() {
+					@Override
+					public void run() {
+						stage.dispose();
+						Assets.game.setScreen(Assets.game.main_menu);	
+					}
+				})));
+			}
+		}, 2.5f);
 
 		Label.LabelStyle style = new Label.LabelStyle();
 		style.font = Assets.font_120;
+		style.fontColor = Assets.ORANGE;
 		Label scrots = new Label("Ayrten", style);
 		scrots.setCenterPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
-		
+
 		stage.addActor(scrots);
 	}
 
@@ -34,21 +49,8 @@ public class LoadingScreen implements Screen
 
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
-
-		if(can_transition && Gdx.input.isTouched())
-		{
-			can_transition = false;
-			stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(1f), Actions.run(new Runnable() {
-				@Override
-				public void run() {
-					// Should get loading screen.dispose but how...
-					stage.dispose();
-					Assets.game.setScreen(Assets.game.main_menu);	
-				}
-			})));
-		}
 	}
-	
+
 	@Override
 	public void dispose() 
 	{
@@ -66,7 +68,7 @@ public class LoadingScreen implements Screen
 		stage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(1f), Actions.run(new Runnable() {
 			@Override
 			public void run() {
-				can_transition = true;
+				timer.start();
 			}
 		})));
 	}
