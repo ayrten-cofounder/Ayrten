@@ -80,7 +80,7 @@ public class HighScoresScreen extends ScrotsScreen
 		});
 
 		TextButton proceed = new TextButton("", Assets.skin);
-		proceed.add(new Label("Proceed", new LabelStyle(Assets.font_16,
+		proceed.add(new Label("Proceed", new LabelStyle(Assets.font_32,
 				Color.WHITE)));
 		proceed.addListener(new ClickListener() {
 			@Override
@@ -91,7 +91,7 @@ public class HighScoresScreen extends ScrotsScreen
 		});
 
 		TextButton cancel = new TextButton("", Assets.skin);
-		cancel.add(new Label("Cancel", new LabelStyle(Assets.font_16,
+		cancel.add(new Label("Cancel", new LabelStyle(Assets.font_32,
 				Color.WHITE)));
 		cancel.addListener(new ClickListener() {
 			@Override
@@ -101,7 +101,7 @@ public class HighScoresScreen extends ScrotsScreen
 		});
 
 		confirm_clear = new Window("Clear scores?", Assets.skin);
-		confirm_clear.setTitle("Clear scores?");
+		confirm_clear.getStyle().titleFont = Assets.font_64;
 
 		confirm_clear.add(proceed);
 		confirm_clear.row();
@@ -111,7 +111,7 @@ public class HighScoresScreen extends ScrotsScreen
 		confirm_clear.setPosition(
 				stage.getWidth() / 2 - confirm_clear.getWidth() / 2,
 				stage.getHeight() / 2 - confirm_clear.getHeight() / 2);
-		confirm_clear.pack();
+		// confirm_clear.pack();
 		confirm_clear.setMovable(false);
 		confirm_clear.setVisible(false);
 

@@ -18,58 +18,28 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class ScrotsScreen implements Screen {
-	
+
 	protected Stage stage;
 	protected Screen backScreen;
 	protected ArrayList<Actor> actors;
-	
+
 	// Widgets
 	protected Label back;
-	
+
 	protected boolean createBack;
-	
+	protected boolean backStage;
+
 	public ScrotsScreen(Screen bscreen, boolean createBack) 
 	{
 		backScreen = bscreen;
 		actors = new ArrayList<Actor>();
 		this.createBack = createBack;
+		backStage = true;
 		stage = new Stage() {
 			public boolean keyDown(int keyCode) {
-				if(keyCode == Keys.BACK)
+				if(keyCode == Keys.BACK && backStage && backScreen != null)
 				{
-					if(backScreen != null)
-					{
-						if(Assets.prefs.getBoolean("sound_effs"))
-							Assets.pop.play();
-						stage.addAction(Actions.parallel(Actions.run(new Runnable() {
-							public void run() {
-								setTouchable(Touchable.disabled);
-							}
-						}), Actions.sequence(Actions.alpha(1), Actions.fadeOut(0.35f), Actions.run(new Runnable() {
-							public void run() {
-								Assets.game.setScreen(backScreen);
-							}
-						}))));
-					}
-				}
-				return super.keyDown(keyCode);
-			}
-		};
-	}
-	
-	// This must be called near the end of the constructor.
-	public void setupStage()
-	{
-		if(createBack)
-		{
-			LabelStyle labelStyle = new LabelStyle();
-			labelStyle.font = Assets.font_64;
-			labelStyle.fontColor = Assets.ORANGE;
-			
-			back = new Label("Back", labelStyle);
-			back.setBounds(back.getX(), back.getY(), back.getWidth(), back.getHeight());
-			back.addListener(new ClickListener() {
-				public void clicked(InputEvent event, float x, float y) {
+					backStage = false;
 					if(Assets.prefs.getBoolean("sound_effs"))
 						Assets.pop.play();
 					stage.addAction(Actions.parallel(Actions.run(new Runnable() {
@@ -82,27 +52,62 @@ public class ScrotsScreen implements Screen {
 						}
 					}))));
 				}
-			});
+				return super.keyDown(keyCode);
+			}
+		};
+	}
+	
+	public void createBackLabel()
+	{
+		LabelStyle labelStyle = new LabelStyle();
+		labelStyle.font = Assets.font_64;
+		labelStyle.fontColor = Assets.ORANGE;
+
+		back = new Label("Back", labelStyle);
+		back.setBounds(back.getX(), back.getY(), back.getWidth(), back.getHeight());
+		back.addListener(new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
+				if(Assets.prefs.getBoolean("sound_effs"))
+					Assets.pop.play();
+				stage.addAction(Actions.parallel(Actions.run(new Runnable() {
+					public void run() {
+						setTouchable(Touchable.disabled);
+					}
+				}), Actions.sequence(Actions.alpha(1), Actions.fadeOut(0.35f), Actions.run(new Runnable() {
+					public void run() {
+						Assets.game.setScreen(backScreen);
+					}
+				}))));
+			}
+		});
+	}
+
+	// This must be called near the end of the constructor.
+	public void setupStage()
+	{
+		if(createBack)
+		{
+			createBackLabel();
 			back.setPosition(0 + back.getWidth()/5, Gdx.graphics.getHeight() - back.getHeight());
 			stage.addActor(back);
 		}
-		
+
 		addActors();
 		setTouchable(Touchable.disabled);
 	}
-	
+
 	public void addActors()
 	{
 		if(back != null)
 			actors.add(back);
 	}
-	
+
 	public void setTouchable(Touchable touchable)
 	{
 		for(Actor actor : actors)
 			actor.setTouchable(touchable);
 	}
-	
+
 	public void setActorsColor(Color color) {}
 
 	@Override
@@ -122,7 +127,7 @@ public class ScrotsScreen implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		
+
 	}
 
 	@Override
@@ -130,12 +135,13 @@ public class ScrotsScreen implements Screen {
 		stage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(1f), Actions.run(new Runnable() {
 			public void run() {
 				otherShowOptions();
+				backStage = true;
 				setTouchable(Touchable.enabled);
 				Gdx.input.setInputProcessor(stage);
 			}
 		})));
 	}
-	
+
 	public void otherShowOptions() {}
 
 	@Override
@@ -145,12 +151,12 @@ public class ScrotsScreen implements Screen {
 
 	@Override
 	public void pause() {
-		
+
 	}
 
 	@Override
 	public void resume() {
-		
+
 	}
 
 	@Override
