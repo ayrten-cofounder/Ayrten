@@ -2,10 +2,6 @@ package com.ayrten.scrots.android;
 
 import android.os.Bundle;
 
-import com.ayrten.scrots.screens.AdCallback;
-import com.ayrten.scrots.screens.ScrotsGame;
-import com.badlogic.gdx.backends.android.AndroidApplication;
-import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
 public class AndroidLauncher extends AdLauncher {
 	@Override
