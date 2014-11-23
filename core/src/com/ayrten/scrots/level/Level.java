@@ -24,6 +24,8 @@ public class Level
 
 	private int level;
 	private DotGenerator generator;
+	
+	private int number_of_green_dots;
 
 	public Level(int level, int width, int height, Manager gm)
 	{
@@ -43,11 +45,18 @@ public class Level
 		gen_red_dots();
 		gen_blue_dots();
 		gen_baby_blue_dots();
+		
+		number_of_green_dots = greenDots.size();
 	}
 
 	public boolean level_clear()
 	{
-		return greenDots.isEmpty();
+		return number_of_green_dots <= 0 ? true : false;
+	}
+	
+	public void minusGreenDot()
+	{
+		number_of_green_dots--;
 	}
 
 	public ArrayList<GreenDot> get_grn_dots()
