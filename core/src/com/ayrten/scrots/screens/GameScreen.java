@@ -15,7 +15,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
@@ -141,36 +140,20 @@ public class GameScreen implements Screen {
 		replay.setBounds(replay.getX(), replay.getY(), replay.getWidth(),
 				replay.getHeight());
 		replay.setPosition(0, Gdx.graphics.getHeight() - replay.getHeight());
-		replay.addListener(new InputListener() {
-			// Need this or else it won't recognize the touch down event.
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
-				return true;
-			}
-
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
+		replay.addListener(new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
 				GameScreen new_game = new GameScreen();
-				((ScrotsGame) Gdx.app.getApplicationListener()).main_menu.game_screen
-						.dispose();
-				((ScrotsGame) Gdx.app.getApplicationListener()).main_menu.game_screen = new_game;
-				((ScrotsGame) Gdx.app.getApplicationListener()).setScreen(((ScrotsGame) Gdx.app
-						.getApplicationListener()).main_menu.game_screen);
+				Assets.game.main_menu.game_screen.dispose();
+				Assets.game.main_menu.game_screen = new_game;
+				Assets.game.setScreen(Assets.game.main_menu.game_screen);
 			}
 		});
 
 		main_menu = new Label("Main Menu", buttonStyle);
 		main_menu.setBounds(main_menu.getX(), main_menu.getY(),
 				main_menu.getWidth(), main_menu.getHeight());
-		main_menu.addListener(new InputListener() {
-			// Need this or else it won't recognize the touch down event.
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
-				return true;
-			}
-
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
+		main_menu.addListener(new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
 				stage.addAction(Actions.sequence(Actions.alpha(1),
 						Actions.fadeOut(1f), Actions.run(new Runnable() {
 							@Override
@@ -179,7 +162,7 @@ public class GameScreen implements Screen {
 								Assets.game.setScreen(Assets.game.main_menu);
 							}
 						})));
-			}
+			}			
 		});
 
 		game_over = new Label("Game Over!", overStyle);
@@ -210,7 +193,6 @@ public class GameScreen implements Screen {
 				}
 			}
 		});
-
 		user_name.setVisible(false);
 
 		pause = new Label("Menu", buttonStyle);
@@ -357,7 +339,10 @@ public class GameScreen implements Screen {
 			}
 		});
 
+
 		confirm_quit = new Window("Back to main menu?", Assets.skin_window);
+		confirm_quit.getStyle().background = Assets.transparent_box;
+		confirm_quit.setSize(200, 200);
 		confirm_quit.add(proceed);
 		confirm_quit.row();
 		confirm_quit.add(quit_cancel);

@@ -45,16 +45,17 @@ public class HighScoresScreen extends ScrotsScreen
 
 		style_big = new LabelStyle();
 		style_big.font = Assets.font_64;
+		style_big.fontColor = Assets.ORANGE;
 		
 		style_small = new LabelStyle();
 		style_small.font = Assets.font_64;
+		style_small.fontColor = Assets.ORANGE;
 
-		switchFontColor();
+		// switchFontColor();
 		
 		clear = new Label("Clear", style_small);
 		clear.setBounds(clear.getX(), clear.getY(), clear.getWidth(),
 				clear.getHeight());
-		// clear.setPosition(0, Gdx.graphics.getHeight() - clear.getHeight());
 		clear.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				if (Assets.prefs.getBoolean("sound_effs"))
@@ -79,7 +80,7 @@ public class HighScoresScreen extends ScrotsScreen
 		});
 
 		TextButton proceed = new TextButton("", Assets.skin);
-		proceed.add(new Label("Proceed", new LabelStyle(Assets.font_16,
+		proceed.add(new Label("Proceed", new LabelStyle(Assets.font_32,
 				Color.WHITE)));
 		proceed.addListener(new ClickListener() {
 			@Override
@@ -90,7 +91,7 @@ public class HighScoresScreen extends ScrotsScreen
 		});
 
 		TextButton cancel = new TextButton("", Assets.skin);
-		cancel.add(new Label("Cancel", new LabelStyle(Assets.font_16,
+		cancel.add(new Label("Cancel", new LabelStyle(Assets.font_32,
 				Color.WHITE)));
 		cancel.addListener(new ClickListener() {
 			@Override
@@ -100,7 +101,7 @@ public class HighScoresScreen extends ScrotsScreen
 		});
 
 		confirm_clear = new Window("Clear scores?", Assets.skin);
-		confirm_clear.setTitle("Clear scores?");
+		confirm_clear.getStyle().titleFont = Assets.font_64;
 
 		confirm_clear.add(proceed);
 		confirm_clear.row();
@@ -110,7 +111,7 @@ public class HighScoresScreen extends ScrotsScreen
 		confirm_clear.setPosition(
 				stage.getWidth() / 2 - confirm_clear.getWidth() / 2,
 				stage.getHeight() / 2 - confirm_clear.getHeight() / 2);
-		confirm_clear.pack();
+		// confirm_clear.pack();
 		confirm_clear.setMovable(false);
 		confirm_clear.setVisible(false);
 
@@ -131,15 +132,15 @@ public class HighScoresScreen extends ScrotsScreen
 		switchHighScoreTable();
 	}
 
-	private void switchFontColor() {
-		if (Assets.prefs.getString("bg_color").equals("Black")) {
-			style_big.fontColor = Color.WHITE;
-			style_small.fontColor = Color.WHITE;
-		} else {
-			style_big.fontColor = Color.BLACK;
-			style_small.fontColor = Color.BLACK;
-		}
-	}
+//	private void switchFontColor() {
+//		if (Assets.prefs.getString("bg_color").equals("Black")) {
+//			style_big.fontColor = Color.WHITE;
+//			style_small.fontColor = Color.WHITE;
+//		} else {
+//			style_big.fontColor = Color.BLACK;
+//			style_small.fontColor = Color.BLACK;
+//		}
+//	}
 
 	private void switchHighScoreTable() {
 		table.clear();
@@ -210,7 +211,7 @@ public class HighScoresScreen extends ScrotsScreen
 	}
 	
 	public void otherShowOptions() {
-		switchFontColor();
+		// switchFontColor();
 		switchHighScoreTable();
 	}
 }

@@ -15,23 +15,25 @@ public class OthersScreen extends ScrotsScreen
 	// Labels
 	protected Label options;
 	protected Label tutorial;
+	protected Label contact_us;
 	protected Label credits;
 	
 	// Screens
 	protected OptionsScreen 	options_screen;
 	protected TutorialScreen 	tutorial_screen;
+	protected ContactScreen		contact_screen;
 	protected CreditsScreen		credits_screen;
 	
 	public OthersScreen(Screen bscreen)
 	{
 		super(bscreen, true);
 		
-		table = new Table();
-		table.setSkin(Assets.skin);
+		table = new Table(Assets.skin);
 		table.setFillParent(true);
 		
 		options_screen  = new OptionsScreen(this);
 		tutorial_screen = new TutorialScreen(this);
+		contact_screen = new ContactScreen(this);
 		credits_screen  = new CreditsScreen(this);
 		
 		LabelStyle labelStyle = new LabelStyle();
@@ -56,6 +58,15 @@ public class OthersScreen extends ScrotsScreen
 			}
 		});
 		
+		contact_us = new Label("Contact Us", labelStyle);
+		contact_us.setBounds(contact_us.getX(), contact_us.getY(), contact_us.getWidth(), contact_us.getHeight());
+		contact_us.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Assets.game.setScreen(contact_screen);
+			}
+		});
+		
 		credits = new Label("Credits", labelStyle);
 		credits.setBounds(credits.getX(), credits.getY(), credits.getWidth(), credits.getHeight());
 		credits.addListener(new ClickListener() {
@@ -68,6 +79,8 @@ public class OthersScreen extends ScrotsScreen
 		table.add(options);
 		table.row();
 		table.add(tutorial);
+		table.row();
+		table.add(contact_us);
 		table.row();
 		table.add(credits);
 		
