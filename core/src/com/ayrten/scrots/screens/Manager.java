@@ -127,10 +127,7 @@ public class Manager
 
 	public void minusGreenDot()
 	{
-		if (!curr_level.get_grn_dots().isEmpty())
-		{
-			curr_level.get_grn_dots().remove(0);
-		}
+		curr_level.minusGreenDot();
 	}
 
 	public void gameOver()

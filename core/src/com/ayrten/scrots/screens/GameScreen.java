@@ -213,7 +213,7 @@ public class GameScreen implements Screen {
 				Assets.game_height + pause.getStyle().font.getLineHeight()
 						/ 1.4f);
 
-		pause_menu = new Window("Menu", Assets.skin);
+		pause_menu = new Window("Menu", Assets.skin_window);
 		pause_menu.getStyle().titleFont = Assets.font_64;
 		pause_menu.setPosition(-pause_menu.getWidth(), stage.getHeight() / 2
 				- pause_menu.getHeight() / 2);
@@ -292,6 +292,10 @@ public class GameScreen implements Screen {
 			}
 		});
 		pause_menu.add(pause_cancel);
+		float height = Assets.font_64.getLineHeight() * 4;
+		float width = Assets.font_64.getBounds("MenuPause").width;
+		
+		pause_menu.setSize(width, height);
 
 		TextButton proceed = new TextButton("", Assets.skin);
 		proceed.add(new Label("Proceed", buttonStyle));
@@ -338,7 +342,8 @@ public class GameScreen implements Screen {
 			}
 		});
 
-		confirm_quit = new Window("Back to main menu?", Assets.skin);
+
+		confirm_quit = new Window("Back to main menu?", Assets.skin_window);
 		confirm_quit.getStyle().background = Assets.transparent_box;
 		confirm_quit.setSize(200, 200);
 		confirm_quit.add(proceed);
@@ -348,6 +353,7 @@ public class GameScreen implements Screen {
 		confirm_quit.setMovable(false);
 		confirm_quit.setPosition(stage.getWidth() / 2 - confirm_quit.getWidth()
 				/ 2, stage.getHeight() / 2 - confirm_quit.getHeight() / 2);
+		confirm_quit.setSize(width, height);
 
 		table = new Table(Assets.skin);
 		table.setSkin(Assets.skin);

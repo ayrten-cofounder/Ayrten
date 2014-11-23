@@ -50,6 +50,7 @@ public class Assets {
 
 	// Skin
 	public static Skin skin;
+	public static Skin skin_window;
 
 	// Textures
 	public static Texture redDot;
@@ -116,6 +117,7 @@ public class Assets {
 
 		// Skin
 		skin = new Skin(Gdx.files.internal("data/uiskin.json"));
+		skin_window = new Skin(Gdx.files.internal("data/uiskin2.json"));
 
 		// Textures
 		redDot = new Texture(Gdx.files.internal("data/red_dot.png"));
