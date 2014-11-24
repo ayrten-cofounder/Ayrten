@@ -102,7 +102,7 @@ public class GameScreen implements Screen {
 		time_end.setPosition(1 + points_title.getWidth() + points.getWidth()
 				+ time_title.getWidth() + time.getWidth(), Assets.game_height);
 		
-		can_you_label = new Label("CANYOUGETTOLEVEL20?YOU CANT.", Assets.style_font_64_orange);
+		can_you_label = new Label("POPALLGREENDOTS", Assets.style_font_64_orange);
 		can_you_label.setPosition(1, Assets.game_height + (points.getStyle().font.getLineHeight() / 1.4f));
 
 		Label.LabelStyle overStyle = new Label.LabelStyle();
@@ -240,7 +240,7 @@ public class GameScreen implements Screen {
 										Actions.run(new Runnable() {
 											@Override
 											public void run() {
-												confirm_quit.setVisible(true);
+												confirm_quit.setVisible(false);
 											}
 										}), 
 										Actions.sequence(Actions.alpha(0),
@@ -309,7 +309,7 @@ public class GameScreen implements Screen {
 						Actions.fadeOut(1f), Actions.run(new Runnable() {
 							@Override
 							public void run() {
-								Assets.game.ad.showAds(true);
+								Assets.game.ad.showAds(false);
 								Assets.game.main_menu.game_screen.dispose();
 								Assets.game.setScreen(Assets.game.main_menu);
 							}
