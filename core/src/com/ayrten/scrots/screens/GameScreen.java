@@ -238,7 +238,7 @@ public class GameScreen implements Screen {
 										Actions.run(new Runnable() {
 											@Override
 											public void run() {
-												confirm_quit.setVisible(true);
+												confirm_quit.setVisible(false);
 											}
 										}), 
 										Actions.sequence(Actions.alpha(0),
@@ -268,7 +268,7 @@ public class GameScreen implements Screen {
 									actor.setVisible(true);
 								}
 
-								Assets.game.ad.showAds(true);
+								Assets.game.ad.showAds(false);
 								pause_menu.setVisible(false);
 								confirm_quit.setVisible(false);
 								table.setVisible(false);
@@ -307,7 +307,7 @@ public class GameScreen implements Screen {
 						Actions.fadeOut(1f), Actions.run(new Runnable() {
 							@Override
 							public void run() {
-								Assets.game.ad.showAds(true);
+								Assets.game.ad.showAds(false);
 								Assets.game.main_menu.game_screen.dispose();
 								Assets.game.setScreen(Assets.game.main_menu);
 							}
