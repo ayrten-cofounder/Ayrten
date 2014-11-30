@@ -240,7 +240,7 @@ public class GameScreen implements Screen {
 										Actions.run(new Runnable() {
 											@Override
 											public void run() {
-												confirm_quit.setVisible(false);
+												confirm_quit.setVisible(true);
 											}
 										}), 
 										Actions.sequence(Actions.alpha(0),

@@ -27,10 +27,12 @@ public class AdLauncher extends AndroidApplication implements AdCallback {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case SHOW_ADS: {
+				adView.resume();
 				adView.setVisibility(View.VISIBLE);
 				break;
 			}
 			case HIDE_ADS: {
+				adView.pause();
 				adView.setVisibility(View.GONE);
 				break;
 			}
@@ -87,7 +89,7 @@ public class AdLauncher extends AndroidApplication implements AdCallback {
 
 		// Hook it all up
 		setContentView(layout);
-		// showAds(false);
+		showAds(false);
 	}
 
 	public void showAds(boolean show) {

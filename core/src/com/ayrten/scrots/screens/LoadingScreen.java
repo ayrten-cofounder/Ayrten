@@ -39,8 +39,6 @@ public class LoadingScreen implements Screen
 		scrots.setCenterPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
 
 		stage.addActor(scrots);
-		Assets.game.ad.showAds(true);
-		Assets.game.ad.showAds(false);
 	}
 
 	@Override
