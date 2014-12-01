@@ -40,6 +40,8 @@ public class Assets {
 	public static LabelStyle style_font_64_orange;
 	public static LabelStyle style_font_64_white;
 	public static LabelStyle style_font_32_red;
+	public static LabelStyle style_font_32_orange;
+	public static LabelStyle style_font_32_blue;
 
 	// Sounds
 	public static Sound pop;
@@ -106,6 +108,14 @@ public class Assets {
 		style_font_32_red = new LabelStyle();
 		style_font_32_red.font = font_32;
 		style_font_32_red.fontColor = Color.valueOf("e07a80");
+		
+		style_font_32_orange = new LabelStyle();
+		style_font_32_orange.font = font_32;
+		style_font_32_orange.fontColor = ORANGE;
+		
+		style_font_32_blue = new LabelStyle();
+		style_font_32_blue.font = font_32;
+		style_font_32_blue.fontColor = Color.valueOf("7A80E0");
 
 		// Sounds
 		pop = Gdx.audio.newSound(Gdx.files.internal("sounds/pop.mp3"));

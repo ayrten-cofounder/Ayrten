@@ -26,13 +26,9 @@ public class Manager
 	// The score, time, etc. of the game
 	private int score;
 	
-	public int w, h;
-
 	public Manager(int score, int w, int h)
 	{
 		this.score = score;
-		this.w = w;
-		this.h = h;
 		
 		time = new Time(this);
 		sb = new Scoreboard();

@@ -99,7 +99,7 @@ public class DotGraphics {
 	}
 
 	private float getCircleWidth() {
-		return (float) (dot.gm.w / size_ratio);
+		return (float) (Gdx.graphics.getWidth() / size_ratio);
 	}
 
 	private float getCircleHeight() {
