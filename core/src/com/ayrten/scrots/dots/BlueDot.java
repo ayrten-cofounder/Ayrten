@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class BlueDot extends Dot
 {
-	private static final float TIME_OFF = (float) -10.0;
+	private static final float TIME_OFF = (float) -5.0;
 	
 	public BlueDot(Texture dot, Manager gm, Sound pop)
 	{
