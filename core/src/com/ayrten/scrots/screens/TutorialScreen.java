@@ -5,6 +5,7 @@ import com.ayrten.scrots.manager.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -28,15 +29,20 @@ public class TutorialScreen extends ScrotsScreen
 				+ " the difficulty level increases. If time runs out or you popped a red"
 				+ " dot, then GAME OVER! Below are the type of dots you'll be encountering:");
 		
-		Dot greenDot = new Dot(Assets.greenDot) {
-			@Override
-			public void draw(Batch batch, float alpha) {
-				batch.draw(this.dot, getX(), getY(), getWidth(), getHeight());
-			}
-		};
-		Dot redDot = new Dot(Assets.redDot);
-		Dot blueDot = new Dot(Assets.blueDot);
-		Dot babyBlueDot = new Dot(Assets.babyBlueDot);
+//		Dot greenDot = new Dot(Assets.greenDot) {
+//			@Override
+//			public void draw(Batch batch, float alpha) {
+//				batch.draw(this.dot, getX(), getY(), getWidth(), getHeight());
+//			}
+//		};
+//		Dot redDot = new Dot(Assets.redDot);
+//		Dot blueDot = new Dot(Assets.blueDot);
+//		Dot babyBlueDot = new Dot(Assets.babyBlueDot);
+		
+		Image greenDot = new Image(Assets.greenDot);
+		Image redDot = new Image(Assets.redDot);
+		Image blueDot = new Image(Assets.blueDot);
+		Image babyBlueDot = new Image(Assets.babyBlueDot);
 		
 		Label greenDesc = new Label("", Assets.style_font_32_orange);
 		greenDesc.setWrap(true);
