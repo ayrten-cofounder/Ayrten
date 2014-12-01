@@ -43,9 +43,17 @@ public class CreditsScreen extends ScrotsScreen
 		misc.setWrap(true);
 		misc.setText("Assets are used according to terms described in the Creative Commons 3.0 Attribution"
 				+ " License. Giving credit and thanks to the following:");
+		misc.setBounds(misc.getX(), misc.getY(), misc.getWidth(), misc.getHeight());
+		misc.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Gdx.net.openURI("http://audionautix.com");
+			}
+		});
 		
 		Label miscMem0 = new Label("http://audionautix.com", Assets.style_font_32_blue);
 		miscMem0.setWrap(true);
+		miscMem0.setBounds(miscMem0.getX(), miscMem0.getY(), miscMem0.getWidth(), miscMem0.getHeight());
 		miscMem0.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -87,12 +95,5 @@ public class CreditsScreen extends ScrotsScreen
 			
 		setupStage();
 		stage.addActor(table);
-	}
-	
-	@Override
-	public void render(float delta) {
-		// TODO Auto-generated method stub
-		super.render(delta);
-		Table.drawDebug(stage);
 	}
 }
