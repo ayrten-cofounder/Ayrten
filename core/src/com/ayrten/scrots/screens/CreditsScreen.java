@@ -58,6 +58,7 @@ public class CreditsScreen extends ScrotsScreen
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				Gdx.net.openURI("http://audionautix.com");
+//				System.out.println("touched");
 			}
 		});
 		
