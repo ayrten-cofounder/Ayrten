@@ -89,7 +89,7 @@ public class AdLauncher extends AndroidApplication implements AdCallback {
 
 		// Hook it all up
 		setContentView(layout);
-		showAds(false);
+//		showAds(false);
 	}
 
 	public void showAds(boolean show) {
