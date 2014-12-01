@@ -3,9 +3,12 @@ package com.ayrten.scrots.screens;
 import com.ayrten.scrots.manager.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class ContactScreen extends ScrotsScreen
 {
@@ -27,18 +30,59 @@ public class ContactScreen extends ScrotsScreen
 		msg.setWrap(true);
 		
 		Label general = new Label("", Assets.style_font_32_orange);
-		general.setText("Please send all inquiries/comments to android.ayrten@gmail.com");
+		general.setText("Please send all inquiries/comments to ");
 		general.setWrap(true);
+		general.setWidth(general.getStyle().font.getBounds("Please send all inquiries/comments to ").width);
 		
-		Label facebook = new Label("", Assets.style_font_32_orange);
-		facebook.setText("Facebook: https://www.facebook.com/AyrtenMobile");
+		Label generalURL = new Label("android.ayrten@gmail.com", Assets.style_font_32_blue);
+		generalURL.setWrap(true);
+		generalURL.setBounds(generalURL.getX(), generalURL.getY(), generalURL.getWidth(), generalURL.getHeight());
+		generalURL.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Gdx.net.openURI("android.ayrten@gmail.com");
+			}
+		});
+		
+		Table generalTable = new Table(Assets.skin);
+		generalTable.add(general).width(general.getWidth());
+		generalTable.add(generalURL).width(generalURL.getWidth());
+		
+		Label facebook = new Label("Facebook: ", Assets.style_font_32_orange);
 		facebook.setWrap(true);
 		
-		Label twitter = new Label("", Assets.style_font_32_orange);
-		twitter.setText("Twitter: https://twitter.com/AyrtenMobile");
+		Label facebookURL = new Label("https://www.facebook.com/AyrtenMobile", Assets.style_font_32_blue);
+		facebookURL.setBounds(facebookURL.getX(), facebookURL.getY(), facebookURL.getWidth(), facebookURL.getHeight());
+		facebookURL.setWrap(true);
+		facebookURL.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Gdx.net.openURI("https://www.facebook.com/AyrtenMobile");
+			}
+		});
+		
+		Table facebookTable = new Table(Assets.skin);
+		facebookTable.add(facebook).width(facebook.getWidth());
+		facebookTable.add(facebookURL).width(facebookURL.getWidth());
+		
+		Label twitter = new Label("Twitter: ", Assets.style_font_32_orange);
 		twitter.setWrap(true);
 		
-		table.add(back).top().left();
+		Label twitterURL = new Label("https://twitter.com/AyrtenMobile", Assets.style_font_32_blue);
+		twitterURL.setWrap(true);
+		twitterURL.setBounds(twitterURL.getX(), twitterURL.getY(), twitterURL.getWidth(), twitterURL.getHeight());
+		twitterURL.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Gdx.net.openURI("https://twitter.com/AyrtenMobile");
+			}
+		});
+		
+		Table twitterTable = new Table(Assets.skin);
+		twitterTable.add(twitter).width(twitter.getWidth());
+		twitterTable.add(twitterURL).width(twitterURL.getWidth());
+		
+		table.add(back).left();
 		table.row();
 		table.add("").height(back.getStyle().font.getLineHeight()/2);
 		table.row();
@@ -46,15 +90,15 @@ public class ContactScreen extends ScrotsScreen
 		table.row();
 		table.add("").height(back.getStyle().font.getLineHeight()/2);
 		table.row();
-		table.add(general).width(Gdx.graphics.getWidth() - back.getWidth()/5);
+		table.add(generalTable).width(Gdx.graphics.getWidth() - back.getWidth()/5);
 		table.row();
 		table.add("").height(back.getStyle().font.getLineHeight()/2);
 		table.row();
-		table.add(facebook).width(Gdx.graphics.getWidth() - back.getWidth()/5);
+		table.add(facebookTable).left().width(Gdx.graphics.getWidth() - back.getWidth()/5);
 		table.row();
 		table.add("").height(back.getStyle().font.getLineHeight()/2);
 		table.row();
-		table.add(twitter).width(Gdx.graphics.getWidth() - back.getWidth()/5);
+		table.add(twitterTable).left().width(Gdx.graphics.getWidth() - back.getWidth()/5);
 		
 		scroll_view = new ScrollPane(table);
 		scroll_view.setFillParent(true);
