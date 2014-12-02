@@ -15,6 +15,12 @@ public class Level
 	private static final int RED_DOT_START = 1;
 	private static final int BLUE_DOT_START = 2;
 	private static final int BABY_BLUE_DOT_START = 5;
+	
+	// Modifiers for generating dots
+	protected static final float GREEN_DOT_MOD = 1.5f;
+	protected static final float RED_DOT_MOD = 1.3f;
+	protected static final float BLUE_DOT_MOD = 1.2f;
+	protected static final float BABY_BLUE_DOT_MOD = 1.25f;
 
 	// Stores all the dots for that level.
 	private ArrayList<GreenDot> greenDots;
@@ -82,7 +88,7 @@ public class Level
 	private void gen_grn_dots()
 	{
 		greenDots.clear();
-		int num = (int) Math.floor((level - GREEN_DOT_START) * 1.5);
+		int num = (int) Math.floor((level - GREEN_DOT_START) * GREEN_DOT_MOD);
 		for (int i = 0; i < num; i++)
 		{
 			GreenDot dot = generator.genGreenDot();
@@ -93,7 +99,7 @@ public class Level
 	private void gen_red_dots()
 	{
 		redDots.clear();
-		int num = (int) Math.floor((level - RED_DOT_START) * 1.3);
+		int num = (int) Math.floor((level - RED_DOT_START) * RED_DOT_MOD);
 		for (int i = 0; i < num; i++)
 		{
 			RedDot dot = generator.genRedDot();
@@ -104,7 +110,7 @@ public class Level
 	private void gen_blue_dots()
 	{
 		blueDots.clear();
-		int num = (int) Math.floor((level - BLUE_DOT_START) * 1.2);
+		int num = (int) Math.floor((level - BLUE_DOT_START) * BLUE_DOT_MOD);
 		for (int i = 0; i < num; i++)
 		{
 			BlueDot dot = generator.genBlueDot();
@@ -115,7 +121,7 @@ public class Level
 	private void gen_baby_blue_dots()
 	{
 		babyBlueDots.clear();
-		int num = (int) Math.floor((level - BABY_BLUE_DOT_START) * 1.1);
+		int num = (int) Math.floor((level - BABY_BLUE_DOT_START) * BABY_BLUE_DOT_MOD);
 		for (int i = 0; i < num; i++)
 		{
 			BabyBlueDot dot = generator.genBabyBlueDot();
