@@ -93,7 +93,7 @@ public class Level
 	private void gen_red_dots()
 	{
 		redDots.clear();
-		int num = (int) Math.floor((level - RED_DOT_START) * 1.5);
+		int num = (int) Math.floor((level - RED_DOT_START) * 1.3);
 		for (int i = 0; i < num; i++)
 		{
 			RedDot dot = generator.genRedDot();
@@ -104,7 +104,7 @@ public class Level
 	private void gen_blue_dots()
 	{
 		blueDots.clear();
-		int num = (int) Math.floor((level - BLUE_DOT_START) * 1.5);
+		int num = (int) Math.floor((level - BLUE_DOT_START) * 1.2);
 		for (int i = 0; i < num; i++)
 		{
 			BlueDot dot = generator.genBlueDot();
@@ -115,7 +115,7 @@ public class Level
 	private void gen_baby_blue_dots()
 	{
 		babyBlueDots.clear();
-		int num = (int) Math.floor((level - BABY_BLUE_DOT_START) * 1.5);
+		int num = (int) Math.floor((level - BABY_BLUE_DOT_START) * 1.1);
 		for (int i = 0; i < num; i++)
 		{
 			BabyBlueDot dot = generator.genBabyBlueDot();
