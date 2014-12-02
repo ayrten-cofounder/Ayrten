@@ -24,13 +24,6 @@ public class Dot extends Actor {
 
 	public Sound pop;
 	
-	public Dot(Texture dot)
-	{
-		this.dot = dot;
-		random = new Random(System.nanoTime());
-		graphics = new DotGraphics_NormalGameMode(this);
-	}
-
 	public Dot(Texture dot, Manager gm, Sound pop) {
 		this.dot = dot;
 		this.gm = gm;

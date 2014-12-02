@@ -1,10 +1,8 @@
 package com.ayrten.scrots.screens;
 
-import com.ayrten.scrots.dots.Dot;
 import com.ayrten.scrots.manager.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
@@ -18,8 +16,6 @@ public class TutorialScreen extends ScrotsScreen
 		createBackLabel();
 		
 		Table table = new Table(Assets.skin);
-		table.setFillParent(true);
-		table.left().top();
 		table.padLeft(back.getWidth()/5).padRight(back.getWidth()/5);
 		
 		Label intent = new Label("", Assets.style_font_32_orange);
@@ -28,20 +24,11 @@ public class TutorialScreen extends ScrotsScreen
 				+ " as possible! When all green dots are popped, you gain a point and"
 				+ " the difficulty level increases. If time runs out or you popped a red"
 				+ " dot, then GAME OVER! Below are the type of dots you'll be encountering:");
-		
-//		Dot greenDot = new Dot(Assets.greenDot) {
-//			@Override
-//			public void draw(Batch batch, float alpha) {
-//				batch.draw(this.dot, getX(), getY(), getWidth(), getHeight());
-//			}
-//		};
-//		Dot redDot = new Dot(Assets.redDot);
-//		Dot blueDot = new Dot(Assets.blueDot);
-//		Dot babyBlueDot = new Dot(Assets.babyBlueDot);
-		
+				
 		Image greenDot = new Image(Assets.greenDot);
 		Image redDot = new Image(Assets.redDot);
 		Image blueDot = new Image(Assets.blueDot);
+		
 		Image babyBlueDot = new Image(Assets.babyBlueDot);
 		
 		Label greenDesc = new Label("", Assets.style_font_32_orange);
@@ -62,25 +49,33 @@ public class TutorialScreen extends ScrotsScreen
 		
 		Table innerTable = new Table(Assets.skin);
 		innerTable.left().top();
-		innerTable.add(greenDot);
-		innerTable.add(greenDesc).width(Gdx.graphics.getWidth()/2 - back.getWidth()/5);
+		innerTable.add(greenDot).width(greenDot.getWidth()).height(greenDot.getHeight());
+		innerTable.add(greenDesc).width(Gdx.graphics.getWidth()/2 - back.getWidth()/5 * 2).padLeft(back.getWidth()/5);
 		innerTable.row();
-		innerTable.add(redDot);
-		innerTable.add(redDesc).width(Gdx.graphics.getWidth()/2 - back.getWidth()/5);
+		innerTable.add("").height(back.getStyle().font.getLineHeight());
 		innerTable.row();
-		innerTable.add(blueDot);
-		innerTable.add(blueDesc).width(Gdx.graphics.getWidth()/2 - back.getWidth()/5);
+		innerTable.add(redDot).width(redDot.getWidth()).height(redDot.getHeight());
+		innerTable.add(redDesc).width(Gdx.graphics.getWidth()/2 - back.getWidth()/5 * 2).padLeft(back.getWidth()/5);
 		innerTable.row();
-		innerTable.add(babyBlueDot);
-		innerTable.add(babyBlueDesc).width(Gdx.graphics.getWidth()/2 - back.getWidth()/5);
+		innerTable.add("").height(back.getStyle().font.getLineHeight());
+		innerTable.row();
+		innerTable.add(blueDot).width(blueDot.getWidth()).height(blueDot.getHeight());
+		innerTable.add(blueDesc).width(Gdx.graphics.getWidth()/2 - back.getWidth()/5 * 2).padLeft(back.getWidth()/5);
+		innerTable.row();
+		innerTable.add("").height(back.getStyle().font.getLineHeight());
+		innerTable.row();
+		innerTable.add(babyBlueDot).width(babyBlueDot.getWidth()).height(babyBlueDot.getHeight());
+		innerTable.add(babyBlueDesc).width(Gdx.graphics.getWidth()/2 - back.getWidth()/5 * 2).padLeft(back.getWidth()/5);
 		
 		table.add(back).left();
 		table.row();
 		table.add(intent).width(Gdx.graphics.getWidth() - back.getWidth()/5);
 		table.row();
-		table.add("whatever").height(back.getStyle().font.getLineHeight());
+		table.add("").height(back.getStyle().font.getLineHeight());
 		table.row();
 		table.add(innerTable);
+		table.row();
+		table.add("").height(intent.getStyle().font.getLineHeight());
 		
 		ScrollPane scroll_view = new ScrollPane(table);
 		scroll_view.setFillParent(true);
