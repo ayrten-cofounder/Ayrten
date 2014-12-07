@@ -12,8 +12,8 @@ public class AndroidLauncher extends AdLauncher {
 	}
 
 	@Override
-	public void showAds(boolean show) {
+	public void shouldShowAd(boolean show) {
 		// TODO Auto-generated method stub
-		super.showAds(show);
+		super.shouldShowAd(show);
 	}
 }
