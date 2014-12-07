@@ -1,5 +1,6 @@
 package com.ayrten.scrots.android;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -8,32 +9,37 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.ayrten.scrots.screens.AdCallback;
 import com.ayrten.scrots.screens.ScrotsGame;
 import com.badlogic.gdx.backends.android.AndroidApplication;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+@SuppressLint("HandlerLeak")
 public class AdLauncher extends AndroidApplication implements AdCallback {
 
 	protected AdView adView;
+	private AdRequest adRequest;
+	private RelativeLayout layout;
 
-	private final int SHOW_ADS = 1;
-	private final int HIDE_ADS = 0;
+	private final static int SHOW_ADS = 1;
+	private final static int HIDE_ADS = 0;
 
 	protected Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
+			System.out.println("handler");
+
 			switch (msg.what) {
 			case SHOW_ADS: {
-				adView.resume();
-				adView.setVisibility(View.VISIBLE);
+				show();
 				break;
 			}
 			case HIDE_ADS: {
-				adView.pause();
-				adView.setVisibility(View.GONE);
+				hide();
 				break;
 			}
 			}
@@ -45,7 +51,7 @@ public class AdLauncher extends AndroidApplication implements AdCallback {
 		super.onCreate(savedInstanceState);
 
 		// Create the layout
-		RelativeLayout layout = new RelativeLayout(this);
+		layout = new RelativeLayout(this);
 
 		// Do the stuff that initialize() would do for you
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -57,11 +63,7 @@ public class AdLauncher extends AndroidApplication implements AdCallback {
 		// Create the libgdx View
 		View gameView = initializeForView(new ScrotsGame(this));
 
-		// Create and setup the AdMob view
-		// adView = new AdView(this); // Put in your secret key here
-		// adView.loadAd(new AdRequest(null));
-
-		LayoutInflater inflater = LayoutInflater.from(layout.getContext());
+		LayoutInflater inflater = LayoutInflater.from(this);
 		View inflatedLayout = inflater.inflate(R.layout.fragment_ad, null,
 				false);
 
@@ -70,10 +72,8 @@ public class AdLauncher extends AndroidApplication implements AdCallback {
 																	// secret
 																	// key here
 
-		AdRequest adRequest = new AdRequest.Builder().addTestDevice(
-				"ABCDEF012345").build();
-
-		adView.loadAd(adRequest);
+		adRequest = new AdRequest.Builder().addTestDevice("ABCDEF012345")
+				.build();
 
 		// Add the libgdx view
 		layout.addView(gameView);
@@ -87,12 +87,26 @@ public class AdLauncher extends AndroidApplication implements AdCallback {
 
 		layout.addView(inflatedLayout, adParams);
 
+		adView.loadAd(adRequest);
+
 		// Hook it all up
 		setContentView(layout);
-//		showAds(false);
+		showAds(false);
+	}
+
+	private void show() {
+		adView.resume();
+		adView.loadAd(adRequest);
+		adView.setVisibility(View.VISIBLE);
+	}
+
+	private void hide() {
+		adView.pause();
+		adView.setVisibility(View.GONE);
 	}
 
 	public void showAds(boolean show) {
+		System.out.println(handler);
 		handler.sendEmptyMessage(show ? SHOW_ADS : HIDE_ADS);
 	}
 }
