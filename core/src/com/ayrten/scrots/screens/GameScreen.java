@@ -159,7 +159,7 @@ public class GameScreen implements Screen {
 						Actions.fadeOut(1f), Actions.run(new Runnable() {
 							@Override
 							public void run() {
-								Assets.game.ad.shouldShowAd(false);
+								Assets.game.apk_intf.shouldShowAd(false);
 								Assets.game.main_menu.game_screen.dispose();
 								Assets.game.setScreen(Assets.game.main_menu);
 							}
@@ -214,16 +214,6 @@ public class GameScreen implements Screen {
 				Assets.game_height + pause.getStyle().font.getLineHeight()
 						/ 1.4f);
 
-		pause_menu = new Window("Menu", Assets.skin_window);
-		pause_menu.getStyle().titleFont = Assets.font_64;
-		pause_menu.setPosition(-pause_menu.getWidth(), stage.getHeight() / 2
-				- pause_menu.getHeight() / 2);
-		pause_menu.addAction(Actions.moveTo(
-				stage.getWidth() / 2 - pause_menu.getWidth() / 2,
-				stage.getHeight() / 2 - pause_menu.getHeight() / 2, 1f));
-		pause_menu.setMovable(false);
-		pause_menu.setVisible(false);
-
 		TextButton pause_quit = new TextButton("", Assets.skin);
 		pause_quit.add(new Label("Quit", buttonStyle));
 		pause_quit.setBounds(pause_quit.getX(), pause_quit.getY(),
@@ -249,8 +239,6 @@ public class GameScreen implements Screen {
 						})));
 			}
 		});
-		pause_menu.add(pause_quit);
-		pause_menu.row();
 
 		TextButton pause_cancel = new TextButton("", Assets.skin);
 		pause_cancel.add(new Label("Cancel", buttonStyle));
@@ -292,11 +280,6 @@ public class GameScreen implements Screen {
 						})));
 			}
 		});
-		pause_menu.add(pause_cancel);
-		float height = Assets.font_64.getLineHeight() * 4;
-		float width = Assets.font_64.getBounds("MenuPause").width;
-		
-		pause_menu.setSize(width, height);
 
 		TextButton proceed = new TextButton("", Assets.skin);
 		proceed.add(new Label("Proceed", buttonStyle));
@@ -343,19 +326,39 @@ public class GameScreen implements Screen {
 						})));
 			}
 		});
+		
+		float height = Assets.font_64.getLineHeight() * 4;
+		float width = Assets.font_64.getBounds("MenuPause").width;
+		
+		pause_menu = new Window("Menu", Assets.skin_window);
+		pause_menu.getStyle().titleFont = Assets.font_64;
+		pause_menu.setSize(width, height);
+		pause_menu.add(pause_quit);
+		pause_menu.row();
+		pause_menu.add(pause_cancel);
+		pause_menu.setVisible(false);
+		pause_menu.setMovable(false);
+		
+		pause_menu.setPosition(stage.getWidth() / 2 - pause_menu.getWidth()
+				/ 2, stage.getHeight() / 2 - pause_menu.getHeight() / 2);
+//		pause_menu.setPosition(-pause_menu.getWidth(), stage.getHeight() / 2
+//				- pause_menu.getHeight() / 2);
+//		pause_menu.addAction(Actions.moveTo(
+//				stage.getWidth() / 2 - pause_menu.getWidth() / 2,
+//				stage.getHeight() / 2 - pause_menu.getHeight() / 2, 1f));
 
 
 		confirm_quit = new Window("Back to main menu?", Assets.skin_window);
 		confirm_quit.getStyle().background = Assets.transparent_box;
-		confirm_quit.setSize(200, 200);
+		confirm_quit.setSize(width, height);
 		confirm_quit.add(proceed);
 		confirm_quit.row();
 		confirm_quit.add(quit_cancel);
 		confirm_quit.setVisible(false);
 		confirm_quit.setMovable(false);
+		
 		confirm_quit.setPosition(stage.getWidth() / 2 - confirm_quit.getWidth()
 				/ 2, stage.getHeight() / 2 - confirm_quit.getHeight() / 2);
-		confirm_quit.setSize(width, height);
 
 		table = new Table(Assets.skin);
 		table.setSkin(Assets.skin);
