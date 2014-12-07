@@ -1,11 +1,11 @@
 package com.ayrten.scrots.desktop;
 
-import com.ayrten.scrots.screens.AdCallback;
+import com.ayrten.scrots.screens.AndroidInterface;
 import com.ayrten.scrots.screens.ScrotsGame;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
-public class DesktopLauncher implements AdCallback{
+public class DesktopLauncher implements AndroidInterface{
 	
 	private static DesktopLauncher app;
 	
@@ -22,5 +22,11 @@ public class DesktopLauncher implements AdCallback{
 	@Override
 	public void showAds(boolean show) {
 		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void showToast(String msg) {
+		// TODO Auto-generated method stub
+		
 	}
 }
