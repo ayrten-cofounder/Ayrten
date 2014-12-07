@@ -20,7 +20,7 @@ public class DesktopLauncher implements AndroidInterface{
 	}
 
 	@Override
-	public void showAds(boolean show) {
+	public void shouldShowAd(boolean show) {
 		// TODO Auto-generated method stub
 	}
 

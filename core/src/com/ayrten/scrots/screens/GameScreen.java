@@ -145,7 +145,7 @@ public class GameScreen implements Screen {
 				GameScreen new_game = new GameScreen();
 				Assets.game.main_menu.game_screen.dispose();
 				Assets.game.main_menu.game_screen = new_game;
-				Assets.game.apk_intf.showAds(false);
+				Assets.game.apk_intf.shouldShowAd(false);
 				Assets.game.setScreen(Assets.game.main_menu.game_screen);
 			}
 		});
@@ -202,10 +202,9 @@ public class GameScreen implements Screen {
 		pause.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Assets.game.apk_intf.showAds(true);
+				Assets.game.apk_intf.shouldShowAd(true);
 				pause_menu.setVisible(true);
 				gm.pauseGame();
-				Assets.game.apk_intf.showAds(true);
 			}
 		});
 		pause.setWidth(buttonStyle.font.getBounds("  Menu").width);
@@ -270,7 +269,7 @@ public class GameScreen implements Screen {
 									actor.setVisible(true);
 								}
 
-								Assets.game.apk_intf.showAds(false);
+								Assets.game.apk_intf.shouldShowAd(false);
 								pause_menu.setVisible(false);
 								confirm_quit.setVisible(false);
 								table.setVisible(false);
@@ -309,7 +308,7 @@ public class GameScreen implements Screen {
 						Actions.fadeOut(1f), Actions.run(new Runnable() {
 							@Override
 							public void run() {
-								Assets.game.apk_intf.showAds(false);
+								Assets.game.apk_intf.shouldShowAd(false);
 								Assets.game.main_menu.game_screen.dispose();
 								Assets.game.setScreen(Assets.game.main_menu);
 							}
@@ -430,7 +429,7 @@ public class GameScreen implements Screen {
 			stage.clear();
 			should_clear_stage = false;
 			addStageActors();
-			Assets.game.apk_intf.showAds(true);
+			Assets.game.apk_intf.shouldShowAd(true);
 			game_over.setVisible(true);
 			pause.setVisible(false);
 			if (gm.get_player_score() > gm.getScoreBoard().getLowestHighScore()) {
