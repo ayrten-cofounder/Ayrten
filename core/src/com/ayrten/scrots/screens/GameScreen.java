@@ -159,6 +159,7 @@ public class GameScreen implements Screen {
 						Actions.fadeOut(1f), Actions.run(new Runnable() {
 							@Override
 							public void run() {
+								Assets.game.ad.shouldShowAd(false);
 								Assets.game.main_menu.game_screen.dispose();
 								Assets.game.setScreen(Assets.game.main_menu);
 							}

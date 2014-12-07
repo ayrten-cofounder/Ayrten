@@ -11,10 +11,9 @@ default
   index: -1
 default-window
   rotate: false
-  xy: 190, 0
-  size: 190, 49
-  split: 55, 55, 10, 20
-  orig: 190, 49
+  xy: 190, 250
+  size: 5, 5
+  orig: 5, 5
   offset: 0, 0
   index: -1
 default-select

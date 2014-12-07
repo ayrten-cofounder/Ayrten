@@ -27,6 +27,7 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface
 
 	private final static int SHOW_ADS = 1;
 	private final static int HIDE_ADS = 0;
+	private final static int SHOW_TOAST = 2;
 
 	protected Handler handler = new Handler() {
 		@Override
