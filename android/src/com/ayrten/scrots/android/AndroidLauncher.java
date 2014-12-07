@@ -10,10 +10,4 @@ public class AndroidLauncher extends AdLauncher {
 //		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 //		initialize(new ScrotsGame(this), config);
 	}
-
-	@Override
-	public void showAds(boolean show) {
-		// TODO Auto-generated method stub
-		
-	}
 }

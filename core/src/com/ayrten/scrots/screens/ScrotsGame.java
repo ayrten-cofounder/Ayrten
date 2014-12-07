@@ -13,10 +13,10 @@ public class ScrotsGame extends Game
     // on the fly, compared to the loading screen.
     // Note: if it takes up too much phone resources, we can always create them on the fly later
     public MainMenuScreen main_menu;
-    public AdCallback ad;
+    public AndroidInterface apk_intf;
     
-    public ScrotsGame(AdCallback ad) {
-    	this.ad = ad;
+    public ScrotsGame(AndroidInterface apk_intf) {
+    	this.apk_intf = apk_intf;
 	}
     
 	@Override

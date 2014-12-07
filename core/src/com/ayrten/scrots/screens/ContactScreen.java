@@ -39,7 +39,8 @@ public class ContactScreen extends ScrotsScreen
 		generalURL.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Gdx.net.openURI("android.ayrten@gmail.com");
+				Gdx.app.log("AYRTEN", "SHOWING TOAST");
+				Assets.game.apk_intf.showToast("Copied to android.ayrten@gmail.com to clipboard!");
 			}
 		});
 		

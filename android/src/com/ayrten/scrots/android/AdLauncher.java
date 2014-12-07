@@ -8,14 +8,15 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
-import com.ayrten.scrots.screens.AdCallback;
+import com.ayrten.scrots.screens.AndroidInterface;
 import com.ayrten.scrots.screens.ScrotsGame;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
-public class AdLauncher extends AndroidApplication implements AdCallback {
+public class AdLauncher extends AndroidApplication implements AndroidInterface {
 
 	protected AdView adView;
 
@@ -94,5 +95,11 @@ public class AdLauncher extends AndroidApplication implements AdCallback {
 
 	public void showAds(boolean show) {
 		handler.sendEmptyMessage(show ? SHOW_ADS : HIDE_ADS);
+	}
+
+	@Override
+	public void showToast(String msg) {
+		Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+		System.out.println("blah");
 	}
 }
