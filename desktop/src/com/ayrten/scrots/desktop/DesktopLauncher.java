@@ -29,4 +29,10 @@ public class DesktopLauncher implements AndroidInterface{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void copyTextToClipboard(String text) {
+		// TODO Auto-generated method stub
+		
+	}
 }
