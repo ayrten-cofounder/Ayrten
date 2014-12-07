@@ -52,9 +52,18 @@ public class OptionsScreen extends ScrotsScreen {
 
 		bg_color = new SelectBox<String>(Assets.skin);
 		bg_color.setItems("White", "Black");
-		if (!Assets.prefs.getString("bg_color", "").equals(""))
-			bg_color.setSelected(Assets.prefs.getString("bg_color"));
-
+		bg_color.getStyle().fontColor = Assets.ORANGE;
+		bg_color.getStyle().listStyle.fontColorSelected = Assets.ORANGE;
+		bg_color.getStyle().listStyle.fontColorUnselected = Assets.ORANGE;
+		if(Assets.prefs.getString("bg_color", "White").equals("Black")) {
+			Gdx.gl.glClearColor(0, 0, 0, 0);
+			bg_color.setSelected("Black");
+		} else {
+			Gdx.gl.glClearColor(1, 1, 1, 1);
+			bg_color.setSelected("White");
+		}
+			
+		
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / 5 * 2);
 		// table.row();
@@ -64,13 +73,13 @@ public class OptionsScreen extends ScrotsScreen {
 		// table.row();
 		// table.add("").height(Gdx.graphics.getHeight()/50);
 		table.row();
-		table.add(new Label("Background: ", style)).left()
+		table.add(new Label("Background: ", Assets.style_font_32_orange)).left()
 				.padLeft((float) (Gdx.graphics.getWidth() / label_pad_left));
 		table.add(bg_color).center().padLeft(Gdx.graphics.getWidth() / 6);
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / 50);
 		table.row();
-		table.add(new Label("Sound Effects: ", style)).left()
+		table.add(new Label("Sound Effects: ", Assets.style_font_32_orange)).left()
 				.padLeft((float) (Gdx.graphics.getWidth() / label_pad_left));
 		table.add(sound_effs).center().padLeft(Gdx.graphics.getWidth() / 6);
 
@@ -89,10 +98,8 @@ public class OptionsScreen extends ScrotsScreen {
 	@Override
 	public void render(float delta) {
 		if (bg_color.getSelected().equals("White")) {
-			setActorsColor(Color.BLACK);
 			Gdx.gl.glClearColor(1, 1, 1, 1);
 		} else {
-			setActorsColor(Color.WHITE);
 			Gdx.gl.glClearColor(0, 0, 0, 0);
 		}
 
