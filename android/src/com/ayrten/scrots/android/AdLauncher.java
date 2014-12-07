@@ -1,6 +1,7 @@
 package com.ayrten.scrots.android;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,6 +18,7 @@ import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+@SuppressLint("NewApi")
 public class AdLauncher extends AndroidApplication implements AndroidInterface 
 {
 	protected AdView adView;
@@ -29,8 +31,6 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface
 	protected Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
-			System.out.println("handler");
-
 			switch (msg.what) {
 			case SHOW_ADS: {
 				show();
@@ -109,8 +109,31 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface
 	}
 
 	@Override
-	public void showToast(String msg) {
-		Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
-		System.out.println("blah");
+	public void showToast(final String msg) {
+		handler.post(new Runnable() {
+			@Override
+			public void run() {
+				Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+			}
+		});
+	}
+
+	@SuppressWarnings("deprecation")
+	@SuppressLint("NewApi")
+	public void copyTextToClipboard(final String text) {
+		handler.post(new Runnable() {
+			@Override
+			public void run() {
+				int sdk = android.os.Build.VERSION.SDK_INT;
+				if(sdk < android.os.Build.VERSION_CODES.HONEYCOMB) {
+				    android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+				    clipboard.setText("text to clip");
+				} else {
+				    android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE); 
+				    android.content.ClipData clip = android.content.ClipData.newPlainText(text, text);
+				    clipboard.setPrimaryClip(clip);
+				}
+			}
+		});
 	}
 }

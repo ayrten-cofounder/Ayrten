@@ -5,5 +5,7 @@ public interface AndroidInterface
 	public void showAds(boolean show);
 	
 	public void showToast(String msg);
+	
+	public void copyTextToClipboard(String text);
 }
 

@@ -39,8 +39,8 @@ public class ContactScreen extends ScrotsScreen
 		generalURL.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Gdx.app.log("AYRTEN", "SHOWING TOAST");
 				Assets.game.apk_intf.showToast("Copied to android.ayrten@gmail.com to clipboard!");
+				Assets.game.apk_intf.copyTextToClipboard("android.ayrten@gmail.com");
 			}
 		});
 		
