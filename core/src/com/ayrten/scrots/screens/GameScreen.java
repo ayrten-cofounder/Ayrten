@@ -84,26 +84,28 @@ public class GameScreen implements Screen {
 		points = new Label("00", Assets.prefs.getString("bg_color").equals(
 				"Black") ? Assets.style_font_64_white
 				: Assets.style_font_64_black);
-//		points = new Label("00", Assets.style_font_64_blue);
+		// points = new Label("00", Assets.style_font_64_blue);
 		points.setPosition(0 + points_title.getWidth(), Assets.game_height);
 
 		time_title = new Label("WITH", Assets.style_font_64_red);
 		time_title.setPosition(1 + points_title.getWidth() + points.getWidth(),
 				Assets.game_height);
 
-		 time = new Label("60.0", Assets.prefs.getString("bg_color").equals(
-		 "Black") ? Assets.style_font_64_white
-		 : Assets.style_font_64_black);
-//		time = new Label("60.0", Assets.style_font_64_blue);
+		time = new Label("60.0", Assets.prefs.getString("bg_color").equals(
+				"Black") ? Assets.style_font_64_white
+				: Assets.style_font_64_black);
+		// time = new Label("60.0", Assets.style_font_64_blue);
 		time.setPosition(1 + points_title.getWidth() + points.getWidth()
 				+ time_title.getWidth(), Assets.game_height);
 
 		time_end = new Label("SECONDSLEFT", Assets.style_font_64_red);
 		time_end.setPosition(1 + points_title.getWidth() + points.getWidth()
 				+ time_title.getWidth() + time.getWidth(), Assets.game_height);
-		
-		can_you_label = new Label("POPALLGREENDOTS", Assets.style_font_64_orange);
-		can_you_label.setPosition(1, Assets.game_height + (points.getStyle().font.getLineHeight() / 1.4f));
+
+		can_you_label = new Label("POPALLGREENDOTS",
+				Assets.style_font_64_orange);
+		can_you_label.setPosition(1, Assets.game_height
+				+ (points.getStyle().font.getLineHeight() / 1.4f));
 
 		Label.LabelStyle overStyle = new Label.LabelStyle();
 		overStyle.font = Assets.font_120;
@@ -164,7 +166,7 @@ public class GameScreen implements Screen {
 								Assets.game.setScreen(Assets.game.main_menu);
 							}
 						})));
-			}			
+			}
 		});
 
 		game_over = new Label("Game Over!", overStyle);
@@ -204,6 +206,13 @@ public class GameScreen implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				Assets.game.apk_intf.shouldShowAd(true);
+
+				pause_menu.setPosition(
+						stage.getWidth() / 2 - pause_menu.getWidth() / 2,
+						0 - pause_menu.getHeight());
+
+				pause_menu.addAction(Actions.moveTo(pause_menu.getX(),
+						stage.getHeight() / 4, 0.5f));
 				pause_menu.setVisible(true);
 				gm.pauseGame();
 			}
@@ -226,15 +235,14 @@ public class GameScreen implements Screen {
 							@Override
 							public void run() {
 								pause_menu.setVisible(false);
-								confirm_quit.addAction(Actions.parallel(
-										Actions.run(new Runnable() {
+								confirm_quit.addAction(Actions.parallel(Actions
+										.run(new Runnable() {
 											@Override
 											public void run() {
 												confirm_quit.setVisible(true);
 											}
-										}), 
-										Actions.sequence(Actions.alpha(0),
-												Actions.fadeIn(0.25f))));
+										}), Actions.sequence(Actions.alpha(0),
+										Actions.fadeIn(0.25f))));
 							}
 						})));
 			}
@@ -248,10 +256,9 @@ public class GameScreen implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				pause_menu.addAction(Actions.sequence(
-						Actions.moveTo(
-								stage.getWidth() - pause_menu.getWidth(),
-								stage.getHeight() / 2 - pause_menu.getHeight()
-										/ 2, 1f), Actions.run(new Runnable() {
+						Actions.moveTo(pause_menu.getX(),
+								0 - pause_menu.getHeight(), 0.5f),
+						Actions.run(new Runnable() {
 							@Override
 							public void run() {
 								for (Actor actor : stage.getActors()) {
@@ -266,16 +273,13 @@ public class GameScreen implements Screen {
 								user_name.setVisible(false);
 								gm.startGame();
 
-								pause_menu.setPosition(
-										-pause_menu.getWidth(),
-										stage.getHeight() / 2
-												- pause_menu.getHeight() / 2);
+								pause_menu.setPosition(stage.getWidth() / 2
+										- pause_menu.getWidth() / 2,
+										0 - pause_menu.getHeight());
+
 								pause_menu.addAction(Actions.moveTo(
-										stage.getWidth() / 2
-												- pause_menu.getWidth() / 2,
-										stage.getHeight() / 2
-												- pause_menu.getHeight() / 2,
-										1f));
+										pause_menu.getX(),
+										stage.getHeight() / 4, 0.5f));
 							}
 						})));
 			}
@@ -326,10 +330,10 @@ public class GameScreen implements Screen {
 						})));
 			}
 		});
-		
+
 		float height = Assets.font_64.getLineHeight() * 4;
 		float width = Assets.font_64.getBounds("MenuPause").width;
-		
+
 		pause_menu = new Window("Menu", Assets.skin_window);
 		pause_menu.getStyle().titleFont = Assets.font_64;
 		pause_menu.setSize(width, height);
@@ -338,15 +342,24 @@ public class GameScreen implements Screen {
 		pause_menu.add(pause_cancel);
 		pause_menu.setVisible(false);
 		pause_menu.setMovable(false);
-		
-		pause_menu.setPosition(stage.getWidth() / 2 - pause_menu.getWidth()
-				/ 2, stage.getHeight() / 2 - pause_menu.getHeight() / 2);
-//		pause_menu.setPosition(-pause_menu.getWidth(), stage.getHeight() / 2
-//				- pause_menu.getHeight() / 2);
-//		pause_menu.addAction(Actions.moveTo(
-//				stage.getWidth() / 2 - pause_menu.getWidth() / 2,
-//				stage.getHeight() / 2 - pause_menu.getHeight() / 2, 1f));
 
+		pause_menu.setPosition(
+				stage.getWidth() / 2 - pause_menu.getWidth() / 2,
+				stage.getHeight() / 2 - pause_menu.getHeight() / 2);
+
+		pause_menu = new Window("Menu", Assets.skin_window);
+		pause_menu.getStyle().titleFont = Assets.font_64;
+		pause_menu.setSize(width, height);
+		pause_menu.add(pause_quit);
+		pause_menu.row();
+		pause_menu.add(pause_cancel);
+		pause_menu.setVisible(false);
+		pause_menu.setMovable(false);
+		pause_menu.setKeepWithinStage(false);
+
+		pause_menu.setPosition(
+				stage.getWidth() / 2 - pause_menu.getWidth() / 2,
+				0 - pause_menu.getHeight());
 
 		confirm_quit = new Window("Back to main menu?", Assets.skin_window);
 		confirm_quit.getStyle().background = Assets.transparent_box;
@@ -356,9 +369,18 @@ public class GameScreen implements Screen {
 		confirm_quit.add(quit_cancel);
 		confirm_quit.setVisible(false);
 		confirm_quit.setMovable(false);
-		
+
 		confirm_quit.setPosition(stage.getWidth() / 2 - confirm_quit.getWidth()
-				/ 2, stage.getHeight() / 2 - confirm_quit.getHeight() / 2);
+				/ 2, stage.getHeight() / 4);
+
+		if (Assets.prefs.getString("bg_color", "").equals("")
+				|| Assets.prefs.getString("bg_color", "").equals("White")) {
+			pause_menu.getStyle().titleFontColor = Color.BLACK;
+			confirm_quit.getStyle().titleFontColor = Color.BLACK;
+		} else {
+			pause_menu.getStyle().titleFontColor = Color.WHITE;
+			confirm_quit.getStyle().titleFontColor = Color.WHITE;
+		}
 
 		table = new Table(Assets.skin);
 		table.setSkin(Assets.skin);
