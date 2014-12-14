@@ -1,6 +1,7 @@
 package com.ayrten.scrots.screens;
 
 // import com.ayrten.scrots.BitmapFontWriter;
+import com.ayrten.scrots.manager.AndroidInterface;
 import com.ayrten.scrots.manager.Assets;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;

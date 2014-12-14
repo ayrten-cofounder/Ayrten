@@ -1,4 +1,4 @@
-package com.ayrten.scrots.screens;
+package com.ayrten.scrots.manager;
 
 public interface AndroidInterface 
 {
@@ -7,5 +7,7 @@ public interface AndroidInterface
 	public void showToast(String msg);
 	
 	public void copyTextToClipboard(String text);
+	
+	public void makeYesNoWindow(String title, final ButtonInterface yes_interface, final ButtonInterface no_interface);
 }
 

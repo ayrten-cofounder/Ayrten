@@ -12,15 +12,16 @@ import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.ayrten.scrots.screens.AndroidInterface;
+import com.ayrten.scrots.manager.AndroidInterface;
+import com.ayrten.scrots.manager.ButtonInterface;
+import com.ayrten.scrots.screens.HighScoresScreen;
 import com.ayrten.scrots.screens.ScrotsGame;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 @SuppressLint("NewApi")
-public class AdLauncher extends AndroidApplication implements AndroidInterface 
-{
+public class AdLauncher extends AndroidApplication implements AndroidInterface {
 	protected AdView adView;
 	private AdRequest adRequest;
 	private RelativeLayout layout;
@@ -49,6 +50,8 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		FontsOverride.setDefaultFont(this, "MONOSPACE", "fonts/summer_of_love.ttf");
+		
 		// Create the layout
 		layout = new RelativeLayout(this);
 
@@ -114,7 +117,8 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface
 		handler.post(new Runnable() {
 			@Override
 			public void run() {
-				Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT)
+						.show();
 			}
 		});
 	}
@@ -126,14 +130,27 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface
 			@Override
 			public void run() {
 				int sdk = android.os.Build.VERSION.SDK_INT;
-				if(sdk < android.os.Build.VERSION_CODES.HONEYCOMB) {
-				    android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-				    clipboard.setText("text to clip");
+				if (sdk < android.os.Build.VERSION_CODES.HONEYCOMB) {
+					android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+					clipboard.setText("text to clip");
 				} else {
-				    android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE); 
-				    android.content.ClipData clip = android.content.ClipData.newPlainText(text, text);
-				    clipboard.setPrimaryClip(clip);
+					android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+					android.content.ClipData clip = android.content.ClipData
+							.newPlainText(text, text);
+					clipboard.setPrimaryClip(clip);
 				}
+			}
+		});
+	}
+
+	@Override
+	public void makeYesNoWindow(final String title, final ButtonInterface yes_interface, final ButtonInterface no_interface) {
+		handler.post(new Runnable() {
+			@Override
+			public void run() {
+				YesNoDialog dialog = new YesNoDialog(AdLauncher.this);
+				dialog.setDialog(title, yes_interface, no_interface);
+				dialog.show();
 			}
 		});
 	}
