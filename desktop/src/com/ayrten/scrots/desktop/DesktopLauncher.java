@@ -1,6 +1,6 @@
 package com.ayrten.scrots.desktop;
 
-import com.ayrten.scrots.screens.AndroidInterface;
+import com.ayrten.scrots.manager.AndroidInterface;
 import com.ayrten.scrots.screens.ScrotsGame;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
