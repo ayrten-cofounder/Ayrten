@@ -44,11 +44,17 @@ public class Assets {
 	public static LabelStyle style_font_32_blue;
 
 	// Sounds
-	public static Sound pop;
+	public static Sound button_pop;
+	public static Sound grn_pop;
+	public static Sound blue_pop;
+	public static Sound red_pop;
+	public static Sound baby_blue_pop;
 	public static Sound level_clear;
 
 	// Music
-	public static Music bg;
+	public static Music menu_bgm_black;
+	public static Music menu_bgm_white;
+	public static Music game_bgm;
 
 	// Skin
 	public static Skin skin;
@@ -118,12 +124,16 @@ public class Assets {
 		style_font_32_blue.fontColor = Color.valueOf("7A80E0");
 
 		// Sounds
-		pop = Gdx.audio.newSound(Gdx.files.internal("sounds/pop.mp3"));
-		level_clear = Gdx.audio.newSound(Gdx.files
-				.internal("sounds/level_complete.wav"));
+		button_pop = Gdx.audio.newSound(Gdx.files.internal("sounds/button_pop.mp3"));
+		grn_pop = Gdx.audio.newSound(Gdx.files.internal("sounds/dot_pop1.wav"));
+		blue_pop = Gdx.audio.newSound(Gdx.files.internal("sounds/dot_pop2.wav"));
+		baby_blue_pop = Gdx.audio.newSound(Gdx.files.internal("sounds/dot_pop3.wav"));
+		level_clear = Gdx.audio.newSound(Gdx.files.internal("sounds/level_clear.wav"));
 
 		// Music
-		bg = Gdx.audio.newMusic(Gdx.files.internal("bgm/Transition.mp3"));
+		game_bgm = Gdx.audio.newMusic(Gdx.files.internal("bgm/bgm1.mp3"));
+		menu_bgm_black = Gdx.audio.newMusic(Gdx.files.internal("bgm/bgm2.mp3"));
+		menu_bgm_white = Gdx.audio.newMusic(Gdx.files.internal("bgm/bgm3.mp3"));
 
 		// Skin
 		skin = new Skin(Gdx.files.internal("data/uiskin.json"));
@@ -146,6 +156,31 @@ public class Assets {
 		prefs = Gdx.app.getPreferences("com.ayrten.scrots-preferences");
 		game = sg;
 	}
+	
+	public static void playGameBGM()
+	{
+		if(menu_bgm_black.isPlaying())
+			menu_bgm_black.stop();
+		else
+			menu_bgm_white.stop();
+		game_bgm.play();
+	}
+	
+	public static void playMenuBGM()
+	{
+		if(game_bgm.isPlaying())
+		  game_bgm.stop();
+		if(prefs.getString("bg_color", "White").equals("White")) {
+			menu_bgm_white.play();
+			if(menu_bgm_black.isPlaying())
+				menu_bgm_black.stop();
+		}
+		else {
+			menu_bgm_black.play();
+			if(menu_bgm_white.isPlaying())
+				menu_bgm_white.stop();
+		}
+	}
 
 	public static void dispose() {
 		// Fonts
@@ -155,11 +190,17 @@ public class Assets {
 		font_16.dispose();
 
 		// Sounds
-		pop.dispose();
+		button_pop.dispose();
+		grn_pop.dispose();
+		// red_pop.dispose();
+		blue_pop.dispose();
+		baby_blue_pop.dispose();
 
 		// Music
-		bg.dispose();
-
+		menu_bgm_black.dispose();
+		menu_bgm_white.dispose();
+		game_bgm.dispose();
+		
 		// Skin
 		skin.dispose();
 

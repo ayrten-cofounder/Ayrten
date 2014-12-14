@@ -29,6 +29,11 @@ public class CreditsScreen extends ScrotsScreen
 		thanks.setText("Special thanks to");
 		thanks.setWidth(Assets.style_font_32_orange.font.getBounds("Special thanks to").width);
 		
+		Label thanksName = new Label("", Assets.style_font_32_orange);
+		thanksName.setWrap(true);
+		thanksName.setText("Family and friends who supported us");
+		thanksName.setWidth(Assets.style_font_32_orange.font.getBounds("Family and friends who supported us").width);
+		
 		Label publish = new Label("", Assets.style_font_32_orange);
 		publish.setWrap(true);
 		publish.setText("Published by");
@@ -63,16 +68,17 @@ public class CreditsScreen extends ScrotsScreen
 		Table upperTable = new Table(Assets.skin);
 		upperTable.add(back).left();
 		upperTable.row();
-		upperTable.add(created).left().padLeft(Gdx.graphics.getWidth()/2 - created.getWidth()).width(created.getWidth());
-		upperTable.add(createdNames).left().padLeft(back.getWidth()/5);
+		upperTable.add(created).left().top().padLeft(Gdx.graphics.getWidth()/2 - created.getWidth()).width(created.getWidth());
+		upperTable.add(createdNames).left().padLeft(back.getWidth()/5).width(Gdx.graphics.getWidth()/2 - back.getWidth()/5 * 2);
 		upperTable.row();
 		upperTable.add("").height(back.getStyle().font.getLineHeight());
 		upperTable.row();
-		upperTable.add(thanks).left().padLeft(Gdx.graphics.getWidth()/2 - thanks.getWidth());
+		upperTable.add(thanks).left().top().padLeft(Gdx.graphics.getWidth()/2 - thanks.getWidth());
+		upperTable.add(thanksName).left().padLeft(back.getWidth()/5).width(Gdx.graphics.getWidth()/2 - back.getWidth()/5 * 2);
 		upperTable.row();
 		upperTable.add("").height(back.getStyle().font.getLineHeight());
 		upperTable.row();
-		upperTable.add(publish).left().padLeft(Gdx.graphics.getWidth()/2 - publish.getWidth());
+		upperTable.add(publish).left().top().padLeft(Gdx.graphics.getWidth()/2 - publish.getWidth());
 		upperTable.add(publishName).left().padLeft(back.getWidth()/5).width(Gdx.graphics.getWidth()/2 - back.getWidth()/5);
 		
 		Table bottomTable = new Table(Assets.skin);
@@ -86,7 +92,7 @@ public class CreditsScreen extends ScrotsScreen
 		table.add("").height(back.getStyle().font.getLineHeight());
 		table.row();
 		table.add(bottomTable);
-			
+		
 		setupStage();
 		stage.addActor(table);
 	}

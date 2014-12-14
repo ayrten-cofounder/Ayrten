@@ -28,8 +28,7 @@ public class ScrotsGame extends Game
 		main_menu = new MainMenuScreen();		
 		LoadingScreen loading_screen = new LoadingScreen();
 		
-		Assets.bg.setLooping(true);
-		Assets.bg.play();
+		Assets.playMenuBGM();
 		setScreen(loading_screen);
 		
 		// Catches when the user presses the back button. Has no effects on desktop.

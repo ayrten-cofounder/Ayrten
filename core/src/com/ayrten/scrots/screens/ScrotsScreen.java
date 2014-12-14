@@ -41,10 +41,10 @@ public class ScrotsScreen implements Screen {
 				{
 					backStage = false;
 					if(Assets.prefs.getBoolean("sound_effs"))
-						Assets.pop.play();
+						Assets.button_pop.play();
 					stage.addAction(Actions.parallel(Actions.run(new Runnable() {
 						public void run() {
-							setTouchable(Touchable.disabled);
+							setActorsTouchable(Touchable.disabled);
 						}
 					}), Actions.sequence(Actions.alpha(1), Actions.fadeOut(0.35f), Actions.run(new Runnable() {
 						public void run() {
@@ -68,10 +68,10 @@ public class ScrotsScreen implements Screen {
 		back.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				if(Assets.prefs.getBoolean("sound_effs"))
-					Assets.pop.play();
+					Assets.button_pop.play();
 				stage.addAction(Actions.parallel(Actions.run(new Runnable() {
 					public void run() {
-						setTouchable(Touchable.disabled);
+						setActorsTouchable(Touchable.disabled);
 					}
 				}), Actions.sequence(Actions.alpha(1), Actions.fadeOut(0.35f), Actions.run(new Runnable() {
 					public void run() {
@@ -93,7 +93,7 @@ public class ScrotsScreen implements Screen {
 		}
 
 		addActors();
-		setTouchable(Touchable.disabled);
+		setActorsTouchable(Touchable.disabled);
 	}
 
 	public void addActors()
@@ -102,7 +102,7 @@ public class ScrotsScreen implements Screen {
 			actors.add(back);
 	}
 
-	public void setTouchable(Touchable touchable)
+	public void setActorsTouchable(Touchable touchable)
 	{
 		for(Actor actor : actors)
 			actor.setTouchable(touchable);
@@ -136,7 +136,7 @@ public class ScrotsScreen implements Screen {
 			public void run() {
 				otherShowOptions();
 				backStage = true;
-				setTouchable(Touchable.enabled);
+				setActorsTouchable(Touchable.enabled);
 				Gdx.input.setInputProcessor(stage);
 			}
 		})));
@@ -146,7 +146,7 @@ public class ScrotsScreen implements Screen {
 
 	@Override
 	public void hide() {
-		setTouchable(Touchable.disabled);
+		setActorsTouchable(Touchable.disabled);
 	}
 
 	@Override

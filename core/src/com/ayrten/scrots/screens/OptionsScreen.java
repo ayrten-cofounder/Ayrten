@@ -116,6 +116,7 @@ public class OptionsScreen extends ScrotsScreen {
 		Assets.prefs.putString("bg_color", bg_color.getSelected());
 		Assets.prefs.putBoolean("sound_effs", sound_effs.isChecked());
 		Assets.prefs.flush();
+		Assets.playMenuBGM();
 	}
 
 	@Override
