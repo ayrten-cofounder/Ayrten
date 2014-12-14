@@ -52,8 +52,9 @@ public class MainMenuScreen extends ScrotsScreen {
 		start.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				if(Assets.prefs.getBoolean("sound_effs", true))
-					Assets.pop.play();
+					Assets.button_pop.play();
 				game_screen = new GameScreen();
+				Assets.playGameBGM();
 				Assets.game.setScreen(game_screen);
 			}			
 		});
@@ -63,7 +64,7 @@ public class MainMenuScreen extends ScrotsScreen {
 		others.addListener(new ClickListener(){
 			public void clicked(InputEvent event, float x, float y) {
 				if (Assets.prefs.getBoolean("sound_effs", true))
-					Assets.pop.play();
+					Assets.button_pop.play();
 				Assets.game.setScreen(others_screen);
 			}			
 		});
@@ -73,7 +74,7 @@ public class MainMenuScreen extends ScrotsScreen {
 		highscore.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				if (Assets.prefs.getBoolean("sound_effs", true))
-					Assets.pop.play();
+					Assets.button_pop.play();
 				Assets.game.setScreen(high_score_screen);
 			}			
 		});

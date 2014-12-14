@@ -58,9 +58,8 @@ public class HighScoresScreen extends ScrotsScreen {
 		clear.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				if (Assets.prefs.getBoolean("sound_effs"))
-					Assets.pop.play();
-				// confirm_clear.setVisible(true);
-				Assets.game.apk_intf.makeYesNoWindow("Clear Highscores?",
+					Assets.button_pop.play();
+					Assets.game.apk_intf.makeYesNoWindow("Clear Highscores?",
 						new ButtonInterface() {
 
 							@Override
@@ -229,7 +228,7 @@ public class HighScoresScreen extends ScrotsScreen {
 				Actions.sequence(Actions.alpha(0), Actions.fadeIn(1f),
 						Actions.run(new Runnable() {
 							public void run() {
-								setTouchable(Touchable.enabled);
+								setActorsTouchable(Touchable.enabled);
 								Gdx.input.setInputProcessor(stage);
 							}
 						}))));

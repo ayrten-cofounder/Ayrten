@@ -3,6 +3,7 @@ package com.ayrten.scrots.screens;
 import com.ayrten.scrots.manager.Assets;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -45,6 +46,7 @@ public class OthersScreen extends ScrotsScreen
 		options.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				setActorsTouchable(Touchable.disabled);
 				Assets.game.setScreen(options_screen);
 			}
 		});
@@ -54,6 +56,7 @@ public class OthersScreen extends ScrotsScreen
 		tutorial.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				setActorsTouchable(Touchable.disabled);
 				Assets.game.setScreen(tutorial_screen);
 			}
 		});
@@ -63,6 +66,7 @@ public class OthersScreen extends ScrotsScreen
 		contact_us.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				setActorsTouchable(Touchable.disabled);
 				Assets.game.setScreen(contact_screen);
 			}
 		});
@@ -72,6 +76,7 @@ public class OthersScreen extends ScrotsScreen
 		credits.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				setActorsTouchable(Touchable.disabled);
 				Assets.game.setScreen(credits_screen);
 			}
 		});
@@ -86,5 +91,14 @@ public class OthersScreen extends ScrotsScreen
 		
 		setupStage();
 		stage.addActor(table);
+	}
+	
+	@Override
+	public void addActors() {
+		actors.add(options);
+		actors.add(tutorial);
+		actors.add(credits);
+		actors.add(contact_us);
+		super.addActors();
 	}
 }

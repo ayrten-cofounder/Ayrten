@@ -21,6 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
@@ -45,7 +46,6 @@ public class GameScreen implements Screen {
 	protected GameMode gamemode;
 	protected Manager gm;
 	protected Stage stage;
-	protected Table table;
 
 	protected int w;
 	protected int h;
@@ -133,6 +133,11 @@ public class GameScreen implements Screen {
 			gamemode = new ChallengeGameMode(stage, gm, w, h);
 		}
 
+		game_over = new Label("Game Over!", overStyle);
+		game_over.setCenterPosition(Gdx.graphics.getWidth() / 2,
+				Gdx.graphics.getHeight() / 3 * 2);
+		game_over.setVisible(false);
+
 		replay = new Label("Replay", buttonStyle);
 		replay.setBounds(replay.getX(), replay.getY(), replay.getWidth(),
 				replay.getHeight());
@@ -146,6 +151,12 @@ public class GameScreen implements Screen {
 				Assets.game.setScreen(Assets.game.main_menu.game_screen);
 			}
 		});
+		replay.setCenterPosition(
+				Gdx.graphics.getWidth() / 2,
+				game_over.getCenterY()
+						- game_over.getStyle().font.getLineHeight() / 2
+						- game_over.getStyle().font.getLineHeight() / 2);
+		replay.setVisible(false);
 
 		main_menu = new Label("Main Menu", buttonStyle);
 		main_menu.setBounds(main_menu.getX(), main_menu.getY(),
@@ -158,16 +169,16 @@ public class GameScreen implements Screen {
 							public void run() {
 								Assets.game.apk_intf.shouldShowAd(false);
 								Assets.game.main_menu.game_screen.dispose();
+								Assets.playMenuBGM();
 								Assets.game.setScreen(Assets.game.main_menu);
 							}
 						})));
 			}
 		});
-
-		game_over = new Label("Game Over!", overStyle);
-		game_over.setCenterPosition(Gdx.graphics.getWidth() / 2,
-				Gdx.graphics.getHeight() / 3 * 2);
-		game_over.setVisible(false);
+		main_menu.setVisible(false);
+		main_menu.setCenterPosition(Gdx.graphics.getWidth() / 2,
+				replay.getCenterY() - replay.getStyle().font.getLineHeight()
+						/ 2 - game_over.getStyle().font.getLineHeight() / 2);
 
 		user_name = new TextField("", textStyle);
 		user_name.setMessageText("Enter your name");
@@ -187,7 +198,8 @@ public class GameScreen implements Screen {
 				if (key == '\n' || Gdx.input.isKeyPressed(Keys.ENTER)) {
 					((ScrotsGame) Gdx.app.getApplicationListener()).main_menu.game_screen
 							.getManager().addHighScore(textField.getText());
-					table.setVisible(true);
+					main_menu.setVisible(true);
+					replay.setVisible(true);
 					user_name.setVisible(false);
 				}
 			}
@@ -221,16 +233,10 @@ public class GameScreen implements Screen {
 				Assets.game_height + pause.getStyle().font.getLineHeight()
 						/ 1.4f);
 
-		table = new Table(Assets.skin);
-		table.setSkin(Assets.skin);
-		table.setCenterPosition(Gdx.graphics.getWidth() / 2,
-				Gdx.graphics.getHeight() / 2);
-		table.add(replay);
-		table.row();
-		table.add("").height(Gdx.graphics.getHeight() / 50);
-		table.row();
-		table.add(main_menu);
-		table.setVisible(false);
+		TextButton pause_quit = new TextButton("", Assets.skin);
+		pause_quit.add(new Label("Quit", buttonStyle));
+		pause_quit.setBounds(pause_quit.getX(), pause_quit.getY(),
+				pause_quit.getWidth(), pause_quit.getHeight());
 
 		pool = new Pool<MoveToAction>() {
 			@Override
@@ -337,7 +343,9 @@ public class GameScreen implements Screen {
 			if (gm.get_player_score() > gm.getScoreBoard().getLowestHighScore()) {
 				user_name.setVisible(true);
 			} else {
-				table.setVisible(true);
+				// table.setVisible(true);
+				main_menu.setVisible(true);
+				replay.setVisible(true);
 			}
 		}
 
@@ -346,7 +354,8 @@ public class GameScreen implements Screen {
 
 	private void addStageActors() {
 		stage.addActor(pause);
-		stage.addActor(table);
+		stage.addActor(main_menu);
+		stage.addActor(replay);
 		stage.addActor(game_over);
 		stage.addActor(user_name);
 		stage.addActor(can_you_label);

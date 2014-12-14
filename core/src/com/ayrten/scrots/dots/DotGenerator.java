@@ -39,25 +39,25 @@ public class DotGenerator {
 	}
 
 	public GreenDot genGreenDot() {
-		GreenDot gDot = new GreenDot(Assets.greenDot, gm, Assets.pop);
+		GreenDot gDot = new GreenDot(Assets.greenDot, gm, Assets.grn_pop);
 		setRandPositions(gDot);
 		return gDot;
 	}
 
 	public RedDot genRedDot() {
-		RedDot rDot = new RedDot(Assets.redDot, gm, Assets.pop);
+		RedDot rDot = new RedDot(Assets.redDot, gm, Assets.button_pop);
 		setRandPositions(rDot);
 		return rDot;
 	}
 
 	public BlueDot genBlueDot() {
-		BlueDot bDot = new BlueDot(Assets.blueDot, gm, Assets.pop);
+		BlueDot bDot = new BlueDot(Assets.blueDot, gm, Assets.blue_pop);
 		setRandPositions(bDot);
 		return bDot;
 	}
 
 	public BabyBlueDot genBabyBlueDot() {
-		BabyBlueDot bbDot = new BabyBlueDot(Assets.babyBlueDot, gm, Assets.pop);
+		BabyBlueDot bbDot = new BabyBlueDot(Assets.babyBlueDot, gm, Assets.baby_blue_pop);
 		setRandPositions(bbDot);
 		return bbDot;
 	}
@@ -71,16 +71,16 @@ public class DotGenerator {
 
 		switch (dotType) {
 		case 0:
-			randomDot = new GreenDot(Assets.greenDot, gm, Assets.pop);
+			randomDot = new GreenDot(Assets.greenDot, gm, Assets.grn_pop);
 			break;
 		case 1:
-			randomDot = new BlueDot(Assets.blueDot, gm, Assets.pop);
+			randomDot = new BlueDot(Assets.blueDot, gm, Assets.blue_pop);
 			break;
 		case 2:
-			randomDot = new RedDot(Assets.redDot, gm, Assets.pop);
+			randomDot = new RedDot(Assets.redDot, gm, Assets.button_pop);
 			break;
 		case 3:
-			randomDot = new BabyBlueDot(Assets.babyBlueDot, gm, Assets.pop);
+			randomDot = new BabyBlueDot(Assets.babyBlueDot, gm, Assets.baby_blue_pop);
 			break;
 		default:
 			break;
