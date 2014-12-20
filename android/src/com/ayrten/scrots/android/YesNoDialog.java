@@ -27,6 +27,8 @@ public class YesNoDialog extends Dialog {
 
 		yes.setText("Yes");
 		no.setText("No");
+		this.setCancelable(false);
+		this.setCanceledOnTouchOutside(false);
 	}
 
 	@Override
@@ -36,8 +38,6 @@ public class YesNoDialog extends Dialog {
 
 	public void setDialog(String title, final ButtonInterface yes_interface,
 			final ButtonInterface no_interface) {
-
-		System.out.println(this.title);
 		this.title.setText(title);
 
 		yes.setOnClickListener(new View.OnClickListener() {
@@ -63,4 +63,33 @@ public class YesNoDialog extends Dialog {
 		});
 	}
 
+	public void setDialogWithButtonNames(String title, String yes_button, String no_button,
+			final ButtonInterface yes_interface, final ButtonInterface no_interface)
+	{
+		this.title.setText(title);
+		this.yes.setText(yes_button);
+		this.no.setText(no_button);
+
+		yes.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				if (yes_interface != null) {
+					yes_interface.buttonPressed();
+				}
+				dismiss();
+			}
+		});
+
+		no.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				if (no_interface != null) {
+					no_interface.buttonPressed();
+				}
+				dismiss();
+			}
+		});
+	}
 }

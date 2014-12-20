@@ -51,17 +51,18 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		FontsOverride.setDefaultFont(this, "MONOSPACE", "fonts/summer_of_love.ttf");
-		
+		FontsOverride.setDefaultFont(this, "MONOSPACE",
+				"fonts/summer_of_love.ttf");
+
 		// Create the layout
 		layout = new RelativeLayout(this);
 
 		// Do the stuff that initialize() would do for you
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		getWindow().clearFlags(
-				WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+//		requestWindowFeature(Window.FEATURE_NO_TITLE);
+//		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//		getWindow().clearFlags(
+//				WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
 		
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		config.useAccelerometer = false;
@@ -151,12 +152,28 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface {
 	}
 
 	@Override
-	public void makeYesNoWindow(final String title, final ButtonInterface yes_interface, final ButtonInterface no_interface) {
+	public void makeYesNoWindow(final String title,
+			final ButtonInterface yes_interface,
+			final ButtonInterface no_interface) {
 		handler.post(new Runnable() {
 			@Override
 			public void run() {
 				YesNoDialog dialog = new YesNoDialog(AdLauncher.this);
 				dialog.setDialog(title, yes_interface, no_interface);
+				dialog.show();
+			}
+		});
+	}
+
+	public void makeWindow(final String title, final String yes_button,
+			final String no_button, final ButtonInterface yes_interface,
+			final ButtonInterface no_interface) {
+		handler.post(new Runnable() {
+			@Override
+			public void run() {
+				YesNoDialog dialog = new YesNoDialog(AdLauncher.this);
+				dialog.setDialogWithButtonNames(title, yes_button, no_button,
+						yes_interface, no_interface);
 				dialog.show();
 			}
 		});

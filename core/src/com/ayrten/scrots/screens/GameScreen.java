@@ -7,24 +7,23 @@ import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.game.NormalGameMode;
 import com.ayrten.scrots.level.Level;
 import com.ayrten.scrots.manager.Assets;
+import com.ayrten.scrots.manager.ButtonInterface;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Pool;
 
@@ -35,9 +34,6 @@ public class GameScreen implements Screen {
 	protected Label replay;
 	protected Label main_menu;
 	protected Label pause;
-
-	protected Window pause_menu;
-	protected Window confirm_quit;
 
 	protected Label can_you_label;
 	protected Label points_title;
@@ -140,7 +136,7 @@ public class GameScreen implements Screen {
 		game_over.setCenterPosition(Gdx.graphics.getWidth() / 2,
 				Gdx.graphics.getHeight() / 3 * 2);
 		game_over.setVisible(false);
-		
+
 		replay = new Label("Replay", buttonStyle);
 		replay.setBounds(replay.getX(), replay.getY(), replay.getWidth(),
 				replay.getHeight());
@@ -154,8 +150,11 @@ public class GameScreen implements Screen {
 				Assets.game.setScreen(Assets.game.main_menu.game_screen);
 			}
 		});
-		replay.setCenterPosition(Gdx.graphics.getWidth()/2, 
-				game_over.getCenterY() - game_over.getStyle().font.getLineHeight()/2 - game_over.getStyle().font.getLineHeight()/2);
+		replay.setCenterPosition(
+				Gdx.graphics.getWidth() / 2,
+				game_over.getCenterY()
+						- game_over.getStyle().font.getLineHeight() / 2
+						- game_over.getStyle().font.getLineHeight() / 2);
 		replay.setVisible(false);
 
 		main_menu = new Label("Main Menu", buttonStyle);
@@ -176,8 +175,9 @@ public class GameScreen implements Screen {
 			}
 		});
 		main_menu.setVisible(false);
-		main_menu.setCenterPosition(Gdx.graphics.getWidth()/2, 
-				replay.getCenterY() - replay.getStyle().font.getLineHeight()/2 - game_over.getStyle().font.getLineHeight()/2);
+		main_menu.setCenterPosition(Gdx.graphics.getWidth() / 2,
+				replay.getCenterY() - replay.getStyle().font.getLineHeight()
+						/ 2 - game_over.getStyle().font.getLineHeight() / 2);
 
 		user_name = new TextField("", textStyle);
 		user_name.setMessageText("Enter your name");
@@ -213,13 +213,16 @@ public class GameScreen implements Screen {
 			public void clicked(InputEvent event, float x, float y) {
 				Assets.game.apk_intf.shouldShowAd(true);
 
-				pause_menu.setPosition(
-						stage.getWidth() / 2 - pause_menu.getWidth() / 2,
-						0 - pause_menu.getHeight());
+				// pause_menu.setPosition(
+				// stage.getWidth() / 2 - pause_menu.getWidth() / 2,
+				// 0 - pause_menu.getHeight());
+				//
+				// pause_menu.addAction(Actions.moveTo(pause_menu.getX(),
+				// stage.getHeight() / 4, 0.5f));
+				// pause_menu.setVisible(true);
 
-				pause_menu.addAction(Actions.moveTo(pause_menu.getX(),
-						stage.getHeight() / 4, 0.5f));
-				pause_menu.setVisible(true);
+				showMenu();
+
 				gm.pauseGame();
 			}
 		});
@@ -231,162 +234,6 @@ public class GameScreen implements Screen {
 		pause_quit.add(new Label("Quit", buttonStyle));
 		pause_quit.setBounds(pause_quit.getX(), pause_quit.getY(),
 				pause_quit.getWidth(), pause_quit.getHeight());
-		pause_quit.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				pause_menu.addAction(Actions.sequence(Actions.alpha(1),
-						Actions.fadeOut(0.25f), Actions.run(new Runnable() {
-							@Override
-							public void run() {
-								pause_menu.setVisible(false);
-								confirm_quit.addAction(Actions.parallel(Actions
-										.run(new Runnable() {
-											@Override
-											public void run() {
-												confirm_quit.setVisible(true);
-											}
-										}), Actions.sequence(Actions.alpha(0),
-										Actions.fadeIn(0.25f))));
-							}
-						})));
-			}
-		});
-
-		TextButton pause_cancel = new TextButton("", Assets.skin);
-		pause_cancel.add(new Label("Cancel", buttonStyle));
-		pause_cancel.setBounds(pause_cancel.getX(), pause_cancel.getY(),
-				pause_cancel.getWidth(), pause_cancel.getHeight());
-		pause_cancel.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				pause_menu.addAction(Actions.sequence(
-						Actions.moveTo(pause_menu.getX(),
-								0 - pause_menu.getHeight(), 0.5f),
-						Actions.run(new Runnable() {
-							@Override
-							public void run() {
-								for (Actor actor : stage.getActors()) {
-									actor.setVisible(true);
-								}
-
-								Assets.game.apk_intf.shouldShowAd(false);
-								pause_menu.setVisible(false);
-								confirm_quit.setVisible(false);
-								main_menu.setVisible(false);
-								replay.setVisible(false);
-								game_over.setVisible(false);
-								user_name.setVisible(false);
-								gm.startGame();
-
-								pause_menu.setPosition(stage.getWidth() / 2
-										- pause_menu.getWidth() / 2,
-										0 - pause_menu.getHeight());
-
-								pause_menu.addAction(Actions.moveTo(
-										pause_menu.getX(),
-										stage.getHeight() / 4, 0.5f));
-							}
-						})));
-			}
-		});
-
-		TextButton proceed = new TextButton("", Assets.skin);
-		proceed.add(new Label("Proceed", buttonStyle));
-		proceed.setBounds(proceed.getX(), proceed.getY(), proceed.getWidth(),
-				proceed.getHeight());
-		proceed.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				stage.addAction(Actions.sequence(Actions.alpha(1),
-						Actions.fadeOut(1f), Actions.run(new Runnable() {
-							@Override
-							public void run() {
-								Assets.game.apk_intf.shouldShowAd(false);
-								Assets.game.main_menu.game_screen.dispose();
-								Assets.playMenuBGM();
-								Assets.game.setScreen(Assets.game.main_menu);
-							}
-						})));
-			}
-		});
-
-		TextButton quit_cancel = new TextButton("", Assets.skin);
-		quit_cancel.add(new Label("Cancel", buttonStyle));
-		quit_cancel.setBounds(quit_cancel.getX(), quit_cancel.getY(),
-				quit_cancel.getWidth(), quit_cancel.getHeight());
-		quit_cancel.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				confirm_quit.addAction(Actions.sequence(Actions.alpha(1),
-						Actions.fadeOut(0.25f), Actions.run(new Runnable() {
-							@Override
-							public void run() {
-								confirm_quit.setVisible(false);
-								pause_menu.setVisible(true);
-								pause_menu.addAction(Actions.sequence(
-										Actions.alpha(0),
-										Actions.fadeIn(0.25f),
-										Actions.run(new Runnable() {
-											@Override
-											public void run() {
-												pause_menu.setVisible(true);
-											}
-										})));
-							}
-						})));
-			}
-		});
-
-		float height = Assets.font_50.getLineHeight() * 4;
-		float width = Assets.font_50.getBounds("MenuPause").width;
-
-		pause_menu = new Window("Menu", Assets.skin_window);
-		pause_menu.getStyle().titleFont = Assets.font_50;
-		pause_menu.setSize(width, height);
-		pause_menu.add(pause_quit);
-		pause_menu.row();
-		pause_menu.add(pause_cancel);
-		pause_menu.setVisible(false);
-		pause_menu.setMovable(false);
-
-		pause_menu.setPosition(
-				stage.getWidth() / 2 - pause_menu.getWidth() / 2,
-				stage.getHeight() / 2 - pause_menu.getHeight() / 2);
-
-		pause_menu = new Window("Menu", Assets.skin_window);
-		pause_menu.getStyle().titleFont = Assets.font_50;
-		pause_menu.setSize(width, height);
-		pause_menu.add(pause_quit);
-		pause_menu.row();
-		pause_menu.add(pause_cancel);
-		pause_menu.setVisible(false);
-		pause_menu.setMovable(false);
-		pause_menu.setKeepWithinStage(false);
-
-		pause_menu.setPosition(
-				stage.getWidth() / 2 - pause_menu.getWidth() / 2,
-				0 - pause_menu.getHeight());
-
-		confirm_quit = new Window("Back to main menu?", Assets.skin_window);
-		confirm_quit.getStyle().background = Assets.transparent_box;
-		confirm_quit.setSize(width, height);
-		confirm_quit.add(proceed);
-		confirm_quit.row();
-		confirm_quit.add(quit_cancel);
-		confirm_quit.setVisible(false);
-		confirm_quit.setMovable(false);
-
-		confirm_quit.setPosition(stage.getWidth() / 2 - confirm_quit.getWidth()
-				/ 2, stage.getHeight() / 4);
-
-		if (Assets.prefs.getString("bg_color", "").equals("")
-				|| Assets.prefs.getString("bg_color", "").equals("White")) {
-			pause_menu.getStyle().titleFontColor = Color.BLACK;
-			confirm_quit.getStyle().titleFontColor = Color.BLACK;
-		} else {
-			pause_menu.getStyle().titleFontColor = Color.WHITE;
-			confirm_quit.getStyle().titleFontColor = Color.WHITE;
-		}
 
 		pool = new Pool<MoveToAction>() {
 			@Override
@@ -402,6 +249,59 @@ public class GameScreen implements Screen {
 
 	public Manager getManager() {
 		return gm;
+	}
+	
+	public void showQuitHighScoreMenu() {
+		Assets.game.apk_intf.makeWindow("Are you sure you don't want to enter your highscore?", "Yes", "Cancel",
+				new ButtonInterface() {
+
+					@Override
+					public void buttonPressed() {
+						showQuitConfirm();
+					}
+				}, new ButtonInterface() {
+
+					@Override
+					public void buttonPressed() {
+					}
+				});
+	}
+
+	public void showMenu() {
+		Assets.game.apk_intf.makeWindow("Menu", "Quit", "Cancel",
+				new ButtonInterface() {
+
+					@Override
+					public void buttonPressed() {
+						showQuitConfirm();
+					}
+				}, new ButtonInterface() {
+
+					@Override
+					public void buttonPressed() {
+						Assets.game.apk_intf.shouldShowAd(false);
+						gm.startGame();
+					}
+				});
+	}
+
+	public void showQuitConfirm() {
+		Assets.game.apk_intf.makeWindow("Quit?", "Yes", "No",
+				new ButtonInterface() {
+
+					@Override
+					public void buttonPressed() {
+						Assets.game.apk_intf.shouldShowAd(false);
+						Assets.game.main_menu.game_screen.dispose();
+						Assets.game.setScreen(Assets.game.main_menu);
+					}
+				}, new ButtonInterface() {
+
+					@Override
+					public void buttonPressed() {
+						showMenu();
+					}
+				});
 	}
 
 	@Override
@@ -467,9 +367,6 @@ public class GameScreen implements Screen {
 
 	private void addStageActors() {
 		stage.addActor(pause);
-		stage.addActor(pause_menu);
-		stage.addActor(confirm_quit);
-		// stage.addActor(table);
 		stage.addActor(main_menu);
 		stage.addActor(replay);
 		stage.addActor(game_over);
