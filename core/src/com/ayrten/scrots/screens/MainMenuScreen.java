@@ -44,7 +44,7 @@ public class MainMenuScreen extends ScrotsScreen {
 		// game_screen = new GameScreen((ScrotsGame)
 		
 		LabelStyle style = new LabelStyle();
-		style.font = Assets.font_64;
+		style.font = Assets.font_50;
 		style.fontColor = Assets.ORANGE;
 		start = new Label("Start", style);
 		start.setBounds(start.getX(), start.getY(), start.getWidth(),
@@ -98,7 +98,7 @@ public class MainMenuScreen extends ScrotsScreen {
 		gm.changeDotSize();
 
 		LabelStyle title_style = new LabelStyle();
-		title_style.font = Assets.font_120;
+		title_style.font = Assets.font_100;
 		title_style.fontColor = Color.valueOf("9f38ff");
 		Label scrots = new Label("Scrots", title_style);
 		scrots.setCenterPosition(Gdx.graphics.getWidth() / 2,

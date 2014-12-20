@@ -19,7 +19,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -107,13 +106,13 @@ public class GameScreen implements Screen {
 				+ (points.getStyle().font.getLineHeight() / 1.4f));
 
 		Label.LabelStyle overStyle = new Label.LabelStyle();
-		overStyle.font = Assets.font_120;
+		overStyle.font = Assets.font_100;
 
 		TextFieldStyle textStyle = new TextFieldStyle();
-		textStyle.font = Assets.font_64;
+		textStyle.font = Assets.font_50;
 
 		LabelStyle buttonStyle = new LabelStyle();
-		buttonStyle.font = Assets.font_64;
+		buttonStyle.font = Assets.font_50;
 
 		if (Assets.prefs.getString("bg_color", "").equals("")
 				|| Assets.prefs.getString("bg_color", "").equals("White")) {
@@ -226,9 +225,7 @@ public class GameScreen implements Screen {
 		});
 		pause.setWidth(buttonStyle.font.getBounds("  Menu").width);
 		// pause.setHeight(buttonStyle.font.getLineHeight());
-		pause.setPosition(w - pause.getWidth(),
-				Assets.game_height + pause.getStyle().font.getLineHeight()
-						/ 1.4f);
+		pause.setPosition(w - pause.getWidth(), Assets.game_height - pause.getStyle().font.getLineHeight());
 
 		TextButton pause_quit = new TextButton("", Assets.skin);
 		pause_quit.add(new Label("Quit", buttonStyle));
@@ -340,11 +337,11 @@ public class GameScreen implements Screen {
 			}
 		});
 
-		float height = Assets.font_64.getLineHeight() * 4;
-		float width = Assets.font_64.getBounds("MenuPause").width;
+		float height = Assets.font_50.getLineHeight() * 4;
+		float width = Assets.font_50.getBounds("MenuPause").width;
 
 		pause_menu = new Window("Menu", Assets.skin_window);
-		pause_menu.getStyle().titleFont = Assets.font_64;
+		pause_menu.getStyle().titleFont = Assets.font_50;
 		pause_menu.setSize(width, height);
 		pause_menu.add(pause_quit);
 		pause_menu.row();
@@ -357,7 +354,7 @@ public class GameScreen implements Screen {
 				stage.getHeight() / 2 - pause_menu.getHeight() / 2);
 
 		pause_menu = new Window("Menu", Assets.skin_window);
-		pause_menu.getStyle().titleFont = Assets.font_64;
+		pause_menu.getStyle().titleFont = Assets.font_50;
 		pause_menu.setSize(width, height);
 		pause_menu.add(pause_quit);
 		pause_menu.row();

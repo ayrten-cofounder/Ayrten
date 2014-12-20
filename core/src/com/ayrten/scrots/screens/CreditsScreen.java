@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
@@ -60,8 +61,27 @@ public class CreditsScreen extends ScrotsScreen
 			}
 		});
 		
+		Label miscMem1 = new Label("http://www.bensound.com", Assets.style_font_32_blue);
+		miscMem1.setWrap(true);
+		miscMem1.setBounds(miscMem1.getX(), miscMem1.getY(), miscMem1.getWidth(), miscMem1.getHeight());
+		miscMem1.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Gdx.net.openURI("http://www.bensound.com");
+			}
+		});
+		
+		Label miscMem2 = new Label("https://www.freesound.org", Assets.style_font_32_blue);
+		miscMem2.setWrap(true);
+		miscMem2.setBounds(miscMem2.getX(), miscMem2.getY(), miscMem2.getWidth(), miscMem2.getHeight());
+		miscMem2.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Gdx.net.openURI("https://www.freesound.org");
+			}
+		});
+		
 		Table table = new Table(Assets.skin);
-		table.setFillParent(true);
 		table.left().top();
 		table.padLeft(back.getWidth()/5).padRight(back.getWidth()/5);
 		
@@ -85,7 +105,14 @@ public class CreditsScreen extends ScrotsScreen
 		bottomTable.left().top();
 		bottomTable.add(misc).left().width(Gdx.graphics.getWidth() - back.getWidth()/5);
 		bottomTable.row();
-		bottomTable.add(miscMem0).left().width(miscMem0.getWidth());
+		bottomTable.add(miscMem0).left().width(Gdx.graphics.getWidth() - back.getWidth()/5 * 2);
+		bottomTable.row();
+		bottomTable.add(miscMem1).left().width(Gdx.graphics.getWidth() - back.getWidth()/5 * 2);
+		bottomTable.row();
+		bottomTable.add(miscMem2).left().width(Gdx.graphics.getWidth() - back.getWidth()/5 * 2);
+		bottomTable.row();
+		bottomTable.add("").height(back.getStyle().font.getLineHeight());
+		
 		
 		table.add(upperTable);
 		table.row();
@@ -93,7 +120,12 @@ public class CreditsScreen extends ScrotsScreen
 		table.row();
 		table.add(bottomTable);
 		
+		ScrollPane scroll_view = new ScrollPane(table);
+		scroll_view.setFillParent(true);
+		scroll_view.setFlickScroll(true);
+		scroll_view.updateVisualScroll();
+		
 		setupStage();
-		stage.addActor(table);
+		stage.addActor(scroll_view);
 	}
 }

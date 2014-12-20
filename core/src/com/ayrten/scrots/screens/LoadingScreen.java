@@ -33,7 +33,7 @@ public class LoadingScreen implements Screen
 		}, 2.5f);
 
 		Label.LabelStyle style = new Label.LabelStyle();
-		style.font = Assets.font_120;
+		style.font = Assets.font_100;
 		style.fontColor = Assets.ORANGE;
 		Label scrots = new Label("Ayrten", style);
 		scrots.setCenterPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);

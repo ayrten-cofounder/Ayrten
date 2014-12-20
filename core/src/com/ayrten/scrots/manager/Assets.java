@@ -28,8 +28,8 @@ public class Assets {
 	public static NinePatchDrawable transparent_box;
 
 	// Fonts
-	public static BitmapFont font_120;
-	public static BitmapFont font_64;
+	public static BitmapFont font_100;
+	public static BitmapFont font_50;
 	public static BitmapFont font_32;
 	public static BitmapFont font_16;
 
@@ -85,30 +85,30 @@ public class Assets {
 				Gdx.files.internal("data/transparent_box.9.png"))));
 
 		// Fonts
-		font_120 = generate_BitMapFont(120, font_ratio);
-		font_64 = generate_BitMapFont(64, font_ratio);
+		font_100 = generate_BitMapFont(100, font_ratio);
+		font_50 = generate_BitMapFont(50, font_ratio);
 		font_32 = generate_BitMapFont(32, font_ratio);
 		font_16 = generate_BitMapFont(16, font_ratio);
 
 		// Style
 		style_font_64_black = new LabelStyle();
-		style_font_64_black.font = font_64;
+		style_font_64_black.font = font_50;
 		style_font_64_black.fontColor = Color.valueOf("1c1c1c");
 		
 		style_font_64_blue = new LabelStyle();
-		style_font_64_blue.font = font_64;
+		style_font_64_blue.font = font_50;
 		style_font_64_blue.fontColor = Color.valueOf("7A80E0");
 		
 		style_font_64_orange = new LabelStyle();
-		style_font_64_orange.font = font_64;
+		style_font_64_orange.font = font_50;
 		style_font_64_orange.fontColor = Color.valueOf("ffcd55");
 
 		style_font_64_red = new LabelStyle();
-		style_font_64_red.font = font_64;
+		style_font_64_red.font = font_50;
 		style_font_64_red.fontColor = Color.valueOf("e07a80");
 
 		style_font_64_white = new LabelStyle();
-		style_font_64_white.font = font_64;
+		style_font_64_white.font = font_50;
 		style_font_64_white.fontColor = Color.WHITE;
 
 		style_font_32_red = new LabelStyle();
@@ -132,8 +132,11 @@ public class Assets {
 
 		// Music
 		game_bgm = Gdx.audio.newMusic(Gdx.files.internal("bgm/bgm1.mp3"));
+		game_bgm.setLooping(true);
 		menu_bgm_black = Gdx.audio.newMusic(Gdx.files.internal("bgm/bgm2.mp3"));
+		menu_bgm_black.setLooping(true);
 		menu_bgm_white = Gdx.audio.newMusic(Gdx.files.internal("bgm/bgm3.mp3"));
+		menu_bgm_white.setLooping(true);
 
 		// Skin
 		skin = new Skin(Gdx.files.internal("data/uiskin.json"));
@@ -184,8 +187,8 @@ public class Assets {
 
 	public static void dispose() {
 		// Fonts
-		font_120.dispose();
-		font_64.dispose();
+		font_100.dispose();
+		font_50.dispose();
 		font_32.dispose();
 		font_16.dispose();
 

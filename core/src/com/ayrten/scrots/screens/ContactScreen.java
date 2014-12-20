@@ -19,7 +19,6 @@ public class ContactScreen extends ScrotsScreen
 		createBackLabel();
 		
 		Table table = new Table(Assets.skin);
-		table.setFillParent(true);
 		table.left().top();
 		table.padLeft(back.getWidth()/5).padRight(back.getWidth()/5);
 

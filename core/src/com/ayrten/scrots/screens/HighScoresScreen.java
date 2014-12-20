@@ -43,11 +43,11 @@ public class HighScoresScreen extends ScrotsScreen {
 		table.setSkin(Assets.skin);
 
 		style_big = new LabelStyle();
-		style_big.font = Assets.font_64;
+		style_big.font = Assets.font_50;
 		style_big.fontColor = Assets.ORANGE;
 
 		style_small = new LabelStyle();
-		style_small.font = Assets.font_64;
+		style_small.font = Assets.font_50;
 		style_small.fontColor = Assets.ORANGE;
 
 		// switchFontColor();
@@ -107,7 +107,7 @@ public class HighScoresScreen extends ScrotsScreen {
 		});
 
 		confirm_clear = new Window("Clear scores?", Assets.skin);
-		confirm_clear.getStyle().titleFont = Assets.font_64;
+		confirm_clear.getStyle().titleFont = Assets.font_50;
 
 		confirm_clear.add(proceed);
 		confirm_clear.row();
