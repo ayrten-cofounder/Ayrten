@@ -72,7 +72,7 @@ public class Assets {
 	public static final Color ORANGE = Color.valueOf("ff9f38");
 
 	public static void load(ScrotsGame sg) {
-		int ref_width = 640;
+		int ref_width = 800;
 		float font_ratio = Gdx.graphics.getWidth() / ref_width;
 
 		// Height and Width

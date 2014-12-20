@@ -6,6 +6,7 @@ import com.ayrten.scrots.level.Level;
 import com.ayrten.scrots.screens.Manager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Timer.Task;
 
 public class GameMode {
 	public static final int MAIN_MENU_BACKGROUND_MODE = -1;
@@ -16,6 +17,8 @@ public class GameMode {
 	protected Manager gm;
 	protected ArrayList<Level> all_levels = new ArrayList<Level>();
 	protected int w, h;
+	
+	private int levels_generated = 20;
 
 	public GameMode(Stage stage, Manager gm, int width,
 			int height) {
@@ -36,10 +39,24 @@ public class GameMode {
 		}
 		
 		// Generate the first 20 levels.
-		for (int i = 1; i < 20; i++) {
+		for (int i = 1; i <= 20; i++) {
 			Level lvl = new Level(i, w, h, gm);
 			all_levels.add(lvl);
 		}
+	}
+	
+	protected void generate(final int level)
+	{
+		new Thread(new Runnable()
+		{
+			   @Override
+			   public void run()
+			   {
+				   Level lvl = new Level(level, w, h, gm);
+				   all_levels.add(lvl);
+				   GameMode.this.levels_generated++;
+			   }
+			}).start();
 	}
 	
 	public ArrayList<Level> get_all_levels()
@@ -49,6 +66,11 @@ public class GameMode {
 
 	public Level gen_curr_level()
 	{
+		if(all_levels.size() < 10)
+		{
+			generate(levels_generated);
+		}
+		
 		Level curr_level = all_levels.remove(0);
 		gm.setLevel(curr_level);
 		for(int i = 0; i < curr_level.get_baby_blue_dots().size(); i++)

@@ -17,6 +17,7 @@ import com.ayrten.scrots.manager.ButtonInterface;
 import com.ayrten.scrots.screens.HighScoresScreen;
 import com.ayrten.scrots.screens.ScrotsGame;
 import com.badlogic.gdx.backends.android.AndroidApplication;
+import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
@@ -57,14 +58,20 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface {
 		layout = new RelativeLayout(this);
 
 		// Do the stuff that initialize() would do for you
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		getWindow().clearFlags(
-				WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+//		requestWindowFeature(Window.FEATURE_NO_TITLE);
+//		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//		getWindow().clearFlags(
+//				WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+		
+		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+		config.useAccelerometer = false;
+		config.useCompass = false;
+		config.useImmersiveMode = true;
+		config.hideStatusBar = true;
 
 		// Create the libgdx View
-		View gameView = initializeForView(new ScrotsGame(this));
+		View gameView = initializeForView(new ScrotsGame(this), config);
 
 		LayoutInflater inflater = LayoutInflater.from(this);
 		View inflatedLayout = inflater.inflate(R.layout.fragment_ad, null,
