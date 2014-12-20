@@ -253,6 +253,22 @@ public class GameScreen implements Screen {
 	public Manager getManager() {
 		return gm;
 	}
+	
+	public void showQuitHighScoreMenu() {
+		Assets.game.apk_intf.makeWindow("Are you sure you don't want to enter your highscore?", "Yes", "Cancel",
+				new ButtonInterface() {
+
+					@Override
+					public void buttonPressed() {
+						showQuitConfirm();
+					}
+				}, new ButtonInterface() {
+
+					@Override
+					public void buttonPressed() {
+					}
+				});
+	}
 
 	public void showMenu() {
 		Assets.game.apk_intf.makeWindow("Menu", "Quit", "Cancel",
