@@ -74,7 +74,7 @@ public class Assets {
 	public static void load(ScrotsGame sg) {
 		int ref_width = 800;
 		float font_ratio = Gdx.graphics.getWidth() / ref_width;
-
+		
 		// Height and Width
 		game_height = Gdx.graphics.getHeight() - (Gdx.graphics.getHeight() / 5);
 
@@ -223,13 +223,10 @@ public class Assets {
 		FileHandle tff_file = Gdx.files.internal("fonts/summer_of_love.ttf");
 		FreeTypeFontGenerator font_gen = new FreeTypeFontGenerator(tff_file);
 		FreeTypeFontParameter params = new FreeTypeFontParameter();
-		PixmapPacker packer = new PixmapPacker(512, 512, Pixmap.Format.RGB888,
-				2, false);
 		int adj_size = (int) (fontSize * font_ratio);
 		params.size = adj_size;
 		BitmapFont font = font_gen.generateFont(params);
 		font_gen.dispose();
-		packer.dispose();
 		return (font);
 	}
 }
