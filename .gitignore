@@ -23,6 +23,8 @@ android/libs/armeabi-v7a/
 android/libs/x86/
 android/gen/
 android/project.properties
+android/proguard/
+android/proguard-project.txt
 .idea/
 *.ipr
 *.iws
