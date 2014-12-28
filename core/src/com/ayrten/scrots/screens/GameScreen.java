@@ -9,20 +9,16 @@ import com.ayrten.scrots.level.Level;
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.ButtonInterface;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Pool;
@@ -31,10 +27,6 @@ import com.badlogic.gdx.utils.Timer;
 
 public class GameScreen implements Screen {
 	// Widgets
-	protected TextField user_name;
-	protected Label game_over;
-	protected Label replay;
-	protected Label main_menu;
 	protected Label pause;
 
 	protected Label points_title;
@@ -74,31 +66,42 @@ public class GameScreen implements Screen {
 		// GL20.GL_LINEAR_MIPMAP_LINEAR);
 
 		points_title = new Label("LEVEL", Assets.style_font_32_red);
-		points_title.setWidth(points_title.getStyle().font.getBounds("LEVEL").width);
-		points_title.setCenterPosition(1 + points_title.getWidth()/2, Gdx.graphics.getHeight() - Assets.style_font_64_white.font.getLineHeight()/2);
+		points_title
+				.setWidth(points_title.getStyle().font.getBounds("LEVEL").width);
+		points_title.setCenterPosition(
+				1 + points_title.getWidth() / 2,
+				Gdx.graphics.getHeight()
+						- Assets.style_font_64_white.font.getLineHeight() / 2);
 
 		points = new Label("00", Assets.prefs.getString("bg_color").equals(
 				"Black") ? Assets.style_font_64_white
 				: Assets.style_font_64_black);
 		// points = new Label("00", Assets.style_font_64_blue);
-		points.setPosition(0 + points_title.getWidth(), Gdx.graphics.getHeight() - points.getStyle().font.getLineHeight());
+		points.setPosition(
+				0 + points_title.getWidth(),
+				Gdx.graphics.getHeight()
+						- points.getStyle().font.getLineHeight());
 
 		time_title = new Label("WITH", Assets.style_font_32_red);
 		time_title.setWidth(time_title.getStyle().font.getBounds("WITH").width);
-		time_title.setCenterPosition(1 + points_title.getWidth() + points.getWidth() + time_title.getWidth()/2,
-				points.getCenterY());
+		time_title.setCenterPosition(
+				1 + points_title.getWidth() + points.getWidth()
+						+ time_title.getWidth() / 2, points.getCenterY());
 
 		time = new Label("60.0", Assets.prefs.getString("bg_color").equals(
 				"Black") ? Assets.style_font_64_white
 				: Assets.style_font_64_black);
 		// time = new Label("60.0", Assets.style_font_64_blue);
 		time.setPosition(1 + points_title.getWidth() + points.getWidth()
-				+ time_title.getWidth(), Gdx.graphics.getHeight() - time.getStyle().font.getLineHeight());
+				+ time_title.getWidth(),
+				Gdx.graphics.getHeight() - time.getStyle().font.getLineHeight());
 
 		time_end = new Label("SECONDSLEFT", Assets.style_font_32_red);
 		time_end.setWidth(time_end.getStyle().font.getBounds("SECONDSLEFT").width);
-		time_end.setCenterPosition(1 + points_title.getWidth() + points.getWidth()
-				+ time_title.getWidth() + time.getWidth() + time_end.getWidth()/2, time.getCenterY());
+		time_end.setCenterPosition(
+				1 + points_title.getWidth() + points.getWidth()
+						+ time_title.getWidth() + time.getWidth()
+						+ time_end.getWidth() / 2, time.getCenterY());
 
 		Label.LabelStyle overStyle = new Label.LabelStyle();
 		overStyle.font = Assets.font_120;
@@ -131,79 +134,6 @@ public class GameScreen implements Screen {
 			gamemode = new ChallengeGameMode(stage, gm, w, h);
 		}
 
-		game_over = new Label("Game Over!", overStyle);
-		game_over.setCenterPosition(Gdx.graphics.getWidth() / 2,
-				Gdx.graphics.getHeight() / 3 * 2);
-		game_over.setVisible(false);
-
-		replay = new Label("Replay", buttonStyle);
-		replay.setBounds(replay.getX(), replay.getY(), replay.getWidth(),
-				replay.getHeight());
-		replay.setPosition(0, Gdx.graphics.getHeight() - replay.getHeight());
-		replay.addListener(new ClickListener() {
-			public void clicked(InputEvent event, float x, float y) {
-				GameScreen new_game = new GameScreen();
-				Assets.game.main_menu.game_screen.dispose();
-				Assets.game.main_menu.game_screen = new_game;
-				Assets.game.apk_intf.shouldShowAd(false);
-				Assets.game.setScreen(Assets.game.main_menu.game_screen);
-			}
-		});
-		replay.setCenterPosition(
-				Gdx.graphics.getWidth() / 2,
-				game_over.getCenterY()
-						- game_over.getStyle().font.getLineHeight() / 2
-						- game_over.getStyle().font.getLineHeight() / 2);
-		replay.setVisible(false);
-
-		main_menu = new Label("Main Menu", buttonStyle);
-		main_menu.setBounds(main_menu.getX(), main_menu.getY(),
-				main_menu.getWidth(), main_menu.getHeight());
-		main_menu.addListener(new ClickListener() {
-			public void clicked(InputEvent event, float x, float y) {
-				stage.addAction(Actions.sequence(Actions.alpha(1),
-						Actions.fadeOut(1f), Actions.run(new Runnable() {
-							@Override
-							public void run() {
-								Assets.game.apk_intf.shouldShowAd(false);
-								Assets.game.main_menu.game_screen.dispose();
-								Assets.playMenuBGM();
-								Assets.game.setScreen(Assets.game.main_menu);
-							}
-						})));
-			}
-		});
-		main_menu.setVisible(false);
-		main_menu.setCenterPosition(Gdx.graphics.getWidth() / 2,
-				replay.getCenterY() - replay.getStyle().font.getLineHeight()
-						/ 2 - game_over.getStyle().font.getLineHeight() / 2);
-
-		user_name = new TextField("", textStyle);
-		user_name.setMessageText("Enter your name");
-		user_name.getStyle().background = Assets.gray_box;
-		user_name.getStyle().background
-				.setLeftWidth(user_name.getStyle().background.getLeftWidth()
-						+ textStyle.font.getBounds("w").width);
-		user_name.setMaxLength(10);
-		user_name
-				.setWidth(textStyle.font.getBounds("01234567890123456789").width);
-		user_name.setCenterPosition(
-				Gdx.graphics.getWidth() / 2,
-				Gdx.graphics.getHeight() / 3 * 2
-						- overStyle.font.getLineHeight());
-		user_name.setTextFieldListener(new TextFieldListener() {
-			public void keyTyped(TextField textField, char key) {
-				if (key == '\n' || Gdx.input.isKeyPressed(Keys.ENTER)) {
-					((ScrotsGame) Gdx.app.getApplicationListener()).main_menu.game_screen
-							.getManager().addHighScore(textField.getText());
-					main_menu.setVisible(true);
-					replay.setVisible(true);
-					user_name.setVisible(false);
-				}
-			}
-		});
-		user_name.setVisible(false);
-
 		pause = new Label("Menu", buttonStyle);
 		pause.setBounds(pause.getX(), pause.getY(), pause.getWidth(),
 				pause.getHeight());
@@ -217,7 +147,8 @@ public class GameScreen implements Screen {
 		});
 		pause.setWidth(buttonStyle.font.getBounds("  Menu").width);
 		// pause.setHeight(buttonStyle.font.getLineHeight());
-		pause.setPosition(w - pause.getWidth(), Gdx.graphics.getHeight() - pause.getStyle().font.getLineHeight());
+		pause.setPosition(w - pause.getWidth(), Gdx.graphics.getHeight()
+				- pause.getStyle().font.getLineHeight());
 
 		TextButton pause_quit = new TextButton("", Assets.skin);
 		pause_quit.add(new Label("Quit", buttonStyle));
@@ -251,6 +182,12 @@ public class GameScreen implements Screen {
 				Assets.game.setScreen(Assets.game.main_menu.game_screen);
 			}
 		}, 0.5f);
+	}
+
+	private void main_menu() {
+		Assets.game.main_menu.game_screen.dispose();
+		Assets.playMenuBGM();
+		Assets.game.setScreen(Assets.game.main_menu);
 	}
 
 	public void setHighScoreName(String name) {
@@ -300,10 +237,7 @@ public class GameScreen implements Screen {
 
 					@Override
 					public void buttonPressed() {
-						Assets.game.main_menu.game_screen.dispose();
-						Assets.playMenuBGM();
-						Assets.game.setScreen(Assets.game.main_menu);
-						
+						main_menu();
 					}
 				}, new ButtonInterface() {
 
@@ -325,8 +259,7 @@ public class GameScreen implements Screen {
 
 			@Override
 			public void buttonPressed() {
-				Assets.game.main_menu.game_screen.dispose();
-				Assets.game.setScreen(Assets.game.main_menu);
+				main_menu();
 			}
 		});
 	}
@@ -343,8 +276,7 @@ public class GameScreen implements Screen {
 
 					@Override
 					public void buttonPressed() {
-						Assets.game.main_menu.game_screen.dispose();
-						Assets.game.setScreen(Assets.game.main_menu);
+						main_menu();
 					}
 				});
 	}
@@ -407,10 +339,6 @@ public class GameScreen implements Screen {
 
 	private void addStageActors() {
 		stage.addActor(pause);
-		stage.addActor(main_menu);
-		stage.addActor(replay);
-		stage.addActor(game_over);
-		stage.addActor(user_name);
 		stage.addActor(points_title);
 		stage.addActor(points);
 		stage.addActor(time);
