@@ -124,15 +124,15 @@ public class GameScreen implements Screen {
 		}
 
 		gm = new Manager(0, w, h); // Starts with 0 points
-		if (Assets.prefs.getString("mode").equals("Normal")) {
+//		if (Assets.prefs.getString("mode").equals("Normal")) {
 			gm.setMode(GameMode.NORMAL_MODE);
 			gm.setScoreboard(Assets.game.main_menu.nsb);
 			gamemode = new NormalGameMode(stage, gm, w, h);
-		} else {
-			gm.setMode(GameMode.CHALLENGE_MODE);
-			gm.setScoreboard(Assets.game.main_menu.csb);
-			gamemode = new ChallengeGameMode(stage, gm, w, h);
-		}
+//		} else {
+//			gm.setMode(GameMode.CHALLENGE_MODE);
+//			gm.setScoreboard(Assets.game.main_menu.csb);
+//			gamemode = new ChallengeGameMode(stage, gm, w, h);
+//		}
 
 		pause = new Label("Menu", buttonStyle);
 		pause.setBounds(pause.getX(), pause.getY(), pause.getWidth(),

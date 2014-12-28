@@ -130,13 +130,13 @@ public class HighScoresScreen extends ScrotsScreen {
 	}
 
 	public void clearScoreboard() {
-		if (mode.getSelected().equals("Normal")) {
+//		if (mode.getSelected().equals("Normal")) {
 			NormalScoreboard scoreboard = new NormalScoreboard();
 			scoreboard.clearScoreboard();
-		} else {
-			ChallengeScoreboard scoreboard = new ChallengeScoreboard();
-			scoreboard.clearScoreboard();
-		}
+//		} else {
+//			ChallengeScoreboard scoreboard = new ChallengeScoreboard();
+//			scoreboard.clearScoreboard();
+//		}
 		switchHighScoreTable();
 	}
 
@@ -156,13 +156,13 @@ public class HighScoresScreen extends ScrotsScreen {
 	}
 
 	private void setHighScoreTable(Table table) {
-		if (mode.getSelected().equals("Normal")) {
+//		if (mode.getSelected().equals("Normal")) {
 			NormalScoreboard scoreboard = new NormalScoreboard();
 			fillInHighScore(scoreboard, table);
-		} else {
-			ChallengeScoreboard scoreboard = new ChallengeScoreboard();
-			fillInHighScore(scoreboard, table);
-		}
+//		} else {
+//			ChallengeScoreboard scoreboard = new ChallengeScoreboard();
+//			fillInHighScore(scoreboard, table);
+//		}
 	}
 
 	private void fillInHighScore(Scoreboard scoreboard, Table table) {

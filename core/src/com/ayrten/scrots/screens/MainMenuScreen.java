@@ -27,14 +27,14 @@ public class MainMenuScreen extends ScrotsScreen {
 	protected GameScreen game_screen;
 
 	public NormalScoreboard nsb;
-	public ChallengeScoreboard csb;
+//	public ChallengeScoreboard csb;
 
 	public MainMenuScreen() {
 		super(null, false);
 
 		// Initialize variables
 		nsb = new NormalScoreboard();
-		csb = new ChallengeScoreboard();
+//		csb = new ChallengeScoreboard();
 
 		others_screen = new OthersScreen(this);
 		high_score_screen = new HighScoresScreen(this);

@@ -94,8 +94,8 @@ public class GameOverDialog extends Dialog {
 					KeyEvent event) {
 
 				if (actionId == EditorInfo.IME_ACTION_DONE) {
-					v.clearComposingText();
-					v.clearFocus();
+//					v.clearComposingText();
+//					v.clearFocus();
 
 					gameScreen.setHighScoreName(name.getText().toString());
 
