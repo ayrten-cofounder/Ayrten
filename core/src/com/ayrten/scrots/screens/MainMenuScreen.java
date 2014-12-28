@@ -70,7 +70,7 @@ public class MainMenuScreen extends ScrotsScreen {
 							Assets.playGameBGM();
 							Assets.game.setScreen(game_screen);
 						}
-					});
+					}, Assets.prefs.getString("bg_color").equals("Black") ? 0 : 1);
 				} else {
 					game_screen = new GameScreen();
 					Assets.playGameBGM();
