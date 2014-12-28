@@ -94,4 +94,10 @@ public class TutorialScreen extends ScrotsScreen
 		setupStage();
 		stage.addActor(scroll_view);
 	}
+	
+	@Override
+	public void hide() {
+		super.hide();
+		Assets.prefs.flush();
+	}
 }
