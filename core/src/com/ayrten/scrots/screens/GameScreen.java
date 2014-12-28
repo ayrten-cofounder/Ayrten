@@ -211,7 +211,7 @@ public class GameScreen implements Screen {
 					@Override
 					public void buttonPressed() {
 					}
-				});
+				}, Assets.prefs.getString("bg_color").equals("Black") ? 0 : 1);
 	}
 
 	public void showMenu() {
@@ -228,7 +228,7 @@ public class GameScreen implements Screen {
 					public void buttonPressed() {
 						gm.startGame();
 					}
-				});
+				}, Assets.prefs.getString("bg_color").equals("Black") ? 0 : 1);
 	}
 
 	public void showQuitConfirm() {
@@ -245,7 +245,7 @@ public class GameScreen implements Screen {
 					public void buttonPressed() {
 						showMenu();
 					}
-				});
+				}, Assets.prefs.getString("bg_color").equals("Black") ? 0 : 1);
 	}
 
 	public void showGameOver() {
@@ -261,7 +261,7 @@ public class GameScreen implements Screen {
 			public void buttonPressed() {
 				main_menu();
 			}
-		});
+		}, Assets.prefs.getString("bg_color").equals("Black") ? 0 : 1);
 	}
 
 	public void showGameOverWithHighScore() {
@@ -278,7 +278,7 @@ public class GameScreen implements Screen {
 					public void buttonPressed() {
 						main_menu();
 					}
-				});
+				}, Assets.prefs.getString("bg_color").equals("Black") ? 0 : 1);
 	}
 
 	@Override

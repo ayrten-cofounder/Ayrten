@@ -33,6 +33,9 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface {
 	private final static int HIDE_ADS = 0;
 	private final static int SHOW_TOAST = 2;
 
+	private final static int BLACK = 1;
+	private final static int WHITE = 0;
+
 	protected Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -160,22 +163,37 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface {
 	@Override
 	public void makeYesNoWindow(final String title,
 			final ButtonInterface yes_interface,
-			final ButtonInterface no_interface) {
+			final ButtonInterface no_interface, final int color) {
 		handler.post(new Runnable() {
 			@Override
 			public void run() {
+				if (color == BLACK) {
+					dialog.getWindow().setBackgroundDrawableResource(
+							android.R.color.black);
+				} else {
+					dialog.getWindow().setBackgroundDrawableResource(
+							android.R.color.white);
+				}
 				dialog.setDialog(title, yes_interface, no_interface);
 				dialog.show();
 			}
 		});
 	}
 
+	@Override
 	public void makeWindow(final String title, final String yes_button,
 			final String no_button, final ButtonInterface yes_interface,
-			final ButtonInterface no_interface) {
+			final ButtonInterface no_interface, final int color) {
 		handler.post(new Runnable() {
 			@Override
 			public void run() {
+				if (color == BLACK) {
+					dialog.getWindow().setBackgroundDrawableResource(
+							android.R.color.black);
+				} else {
+					dialog.getWindow().setBackgroundDrawableResource(
+							android.R.color.white);
+				}
 				dialog.setDialogWithButtonNames(title, yes_button, no_button,
 						yes_interface, no_interface);
 				dialog.show();
@@ -183,11 +201,19 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface {
 		});
 	}
 
+	@Override
 	public void makeGameOverDialog(final ButtonInterface yes_interface,
-			final ButtonInterface no_interface) {
+			final ButtonInterface no_interface, final int color) {
 		handler.post(new Runnable() {
 			@Override
 			public void run() {
+				if (color == BLACK) {
+					gameOverDialog.getWindow().setBackgroundDrawableResource(
+							android.R.color.black);
+				} else {
+					gameOverDialog.getWindow().setBackgroundDrawableResource(
+							android.R.color.white);
+				}
 				gameOverDialog.setDialog(yes_interface, no_interface);
 				gameOverDialog.show();
 			}
@@ -197,10 +223,17 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface {
 	@Override
 	public void makeGameOverDialogHighScore(final GameScreen gameScreen,
 			final ButtonInterface yes_interface,
-			final ButtonInterface no_interface) {
+			final ButtonInterface no_interface, final int color) {
 		handler.post(new Runnable() {
 			@Override
 			public void run() {
+				if (color == BLACK) {
+					gameOverDialog.getWindow().setBackgroundDrawableResource(
+							android.R.color.black);
+				} else {
+					gameOverDialog.getWindow().setBackgroundDrawableResource(
+							android.R.color.white);
+				}
 				gameOverDialog.setHighScoreDialog(gameScreen, yes_interface,
 						no_interface);
 				gameOverDialog.show();

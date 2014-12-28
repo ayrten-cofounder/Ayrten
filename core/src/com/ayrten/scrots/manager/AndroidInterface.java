@@ -10,14 +10,14 @@ public interface AndroidInterface {
 	public void copyTextToClipboard(String text);
 
 	public void makeYesNoWindow(String title, ButtonInterface yes_interface,
-			ButtonInterface no_interface);
+			ButtonInterface no_interface, int color);
 
 	public void makeWindow(String title, String yes_button, String no_button,
-			ButtonInterface yes_interface, ButtonInterface no_interface);
+			ButtonInterface yes_interface, ButtonInterface no_interface, int color);
 
 	public void makeGameOverDialog(ButtonInterface yes_interface,
-			ButtonInterface no_interface);
+			ButtonInterface no_interface, int color);
 	
 	public void makeGameOverDialogHighScore(GameScreen gameScreen, ButtonInterface yes_interface,
-			ButtonInterface no_interface);
+			ButtonInterface no_interface, int color);
 }

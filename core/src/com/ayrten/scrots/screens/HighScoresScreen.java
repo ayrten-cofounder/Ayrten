@@ -59,14 +59,16 @@ public class HighScoresScreen extends ScrotsScreen {
 			public void clicked(InputEvent event, float x, float y) {
 				if (Assets.prefs.getBoolean("sound_effs"))
 					Assets.button_pop.play();
-					Assets.game.apk_intf.makeYesNoWindow("Clear Highscores?",
+				Assets.game.apk_intf.makeYesNoWindow("Clear Highscores?",
 						new ButtonInterface() {
 
 							@Override
 							public void buttonPressed() {
 								clearScoreboard();
 							}
-						}, null);
+						}, null,
+						Assets.prefs.getString("bg_color").equals("Black") ? 0
+								: 1);
 			}
 		});
 
