@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class MainMenuScreen extends ScrotsScreen {
@@ -33,11 +32,6 @@ public class MainMenuScreen extends ScrotsScreen {
 		// Initialize variables
 		nsb = new NormalScoreboard();
 		csb = new ChallengeScoreboard();
-
-//		Table table = new Table();
-//		table.setSkin(Assets.skin);
-//		table.setCenterPosition(Gdx.graphics.getWidth() / 2,
-//				Gdx.graphics.getHeight() / 4);
 
 		others_screen = new OthersScreen(this);
 		high_score_screen = new HighScoresScreen(this);
@@ -90,18 +84,6 @@ public class MainMenuScreen extends ScrotsScreen {
 		});
 		others.setCenterPosition(Gdx.graphics.getWidth()/2, highscore.getY() - others.getStyle().font.getLineHeight()/2);
 
-
-
-//		table.add(start);
-//		table.row();
-//		table.add("").height(Gdx.graphics.getHeight() / 50);
-//		table.row();
-//		table.add(highscore);
-//		table.row();
-//		table.add("").height(Gdx.graphics.getHeight() / 50);
-//		table.row();
-//		table.add(others);
-
 		Manager gm = new Manager(0, Gdx.graphics.getWidth(),
 				Gdx.graphics.getHeight());
 		gm.setMode(GameMode.MAIN_MENU_BACKGROUND_MODE);
@@ -115,7 +97,6 @@ public class MainMenuScreen extends ScrotsScreen {
 		stage.addActor(start);
 		stage.addActor(highscore);
 		stage.addActor(others);
-//		stage.addActor(table);
 	}
 	
 	public void addActors()

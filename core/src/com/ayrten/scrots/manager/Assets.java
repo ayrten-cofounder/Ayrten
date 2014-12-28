@@ -124,7 +124,7 @@ public class Assets {
 
 		// Sounds
 		button_pop = Gdx.audio.newSound(Gdx.files.internal("sounds/button_pop.mp3"));
-		grn_pop = Gdx.audio.newSound(Gdx.files.internal("sounds/dot_pop1.wav"));
+		grn_pop = Gdx.audio.newSound(Gdx.files.internal("sounds/dot_pop1.mp3"));
 		blue_pop = Gdx.audio.newSound(Gdx.files.internal("sounds/dot_pop2.wav"));
 		baby_blue_pop = Gdx.audio.newSound(Gdx.files.internal("sounds/dot_pop3.wav"));
 		level_clear = Gdx.audio.newSound(Gdx.files.internal("sounds/level_clear.wav"));
@@ -134,7 +134,7 @@ public class Assets {
 		game_bgm.setLooping(true);
 		menu_bgm_black = Gdx.audio.newMusic(Gdx.files.internal("bgm/bgm2.mp3"));
 		menu_bgm_black.setLooping(true);
-		menu_bgm_white = Gdx.audio.newMusic(Gdx.files.internal("bgm/bgm3.mp3"));
+		menu_bgm_white = Gdx.audio.newMusic(Gdx.files.internal("bgm/bgm3.wav"));
 		menu_bgm_white.setLooping(true);
 
 		// Skin
