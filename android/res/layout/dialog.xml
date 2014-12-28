@@ -26,7 +26,7 @@
         android:gravity="center"
         android:padding="10dp"
         android:textColor="#7A80E0"
-        android:textSize="25sp" />
+        android:textSize="20sp" />
 
     <View
         android:layout_width="match_parent"
