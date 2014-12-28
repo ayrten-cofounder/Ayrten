@@ -47,6 +47,8 @@ public class OthersScreen extends ScrotsScreen
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				setActorsTouchable(Touchable.disabled);
+				if(Assets.prefs.getBoolean("sound_effs", true))
+					Assets.button_pop.play();
 				Assets.game.setScreen(options_screen);
 			}
 		});
@@ -57,6 +59,8 @@ public class OthersScreen extends ScrotsScreen
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				setActorsTouchable(Touchable.disabled);
+				if(Assets.prefs.getBoolean("sound_effs", true))
+					Assets.button_pop.play();
 				Assets.game.setScreen(tutorial_screen);
 			}
 		});
@@ -67,6 +71,8 @@ public class OthersScreen extends ScrotsScreen
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				setActorsTouchable(Touchable.disabled);
+				if(Assets.prefs.getBoolean("sound_effs", true))
+					Assets.button_pop.play();
 				Assets.game.setScreen(contact_screen);
 			}
 		});
@@ -77,6 +83,8 @@ public class OthersScreen extends ScrotsScreen
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				setActorsTouchable(Touchable.disabled);
+				if(Assets.prefs.getBoolean("sound_effs", true))
+					Assets.button_pop.play();
 				Assets.game.setScreen(credits_screen);
 			}
 		});

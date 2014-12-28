@@ -66,6 +66,7 @@ public class Assets {
 	public static Texture blueDot;
 	public static Texture greenDot;
 	public static Texture babyBlueDot;
+	public static Texture question_mark;
 
 	// Miscellaneous
 	public static Preferences prefs;
@@ -75,7 +76,7 @@ public class Assets {
 	public static void load(ScrotsGame sg) {
 		int ref_width = 800;
 		float font_ratio = Gdx.graphics.getWidth() / ref_width;
-
+		
 		// Height and Width
 		game_height = Gdx.graphics.getHeight() - (Gdx.graphics.getHeight() / 5);
 		height = Gdx.graphics.getHeight();
@@ -127,20 +128,19 @@ public class Assets {
 		style_font_32_blue.fontColor = Color.valueOf("7A80E0");
 
 		// Sounds
-		button_pop = Gdx.audio.newSound(Gdx.files
-				.internal("sounds/button_pop.mp3"));
-		grn_pop = Gdx.audio.newSound(Gdx.files.internal("sounds/dot_pop1.wav"));
-		blue_pop = Gdx.audio
-				.newSound(Gdx.files.internal("sounds/dot_pop2.wav"));
-		baby_blue_pop = Gdx.audio.newSound(Gdx.files
-				.internal("sounds/dot_pop3.wav"));
-		level_clear = Gdx.audio.newSound(Gdx.files
-				.internal("sounds/level_clear.wav"));
+		button_pop = Gdx.audio.newSound(Gdx.files.internal("sounds/button_pop.mp3"));
+		grn_pop = Gdx.audio.newSound(Gdx.files.internal("sounds/dot_pop1.mp3"));
+		blue_pop = Gdx.audio.newSound(Gdx.files.internal("sounds/dot_pop2.wav"));
+		baby_blue_pop = Gdx.audio.newSound(Gdx.files.internal("sounds/dot_pop3.wav"));
+		level_clear = Gdx.audio.newSound(Gdx.files.internal("sounds/level_clear.wav"));
 
 		// Music
 		game_bgm = Gdx.audio.newMusic(Gdx.files.internal("bgm/bgm1.mp3"));
+		game_bgm.setLooping(true);
 		menu_bgm_black = Gdx.audio.newMusic(Gdx.files.internal("bgm/bgm2.mp3"));
-		menu_bgm_white = Gdx.audio.newMusic(Gdx.files.internal("bgm/bgm3.mp3"));
+		menu_bgm_black.setLooping(true);
+		menu_bgm_white = Gdx.audio.newMusic(Gdx.files.internal("bgm/bgm3.wav"));
+		menu_bgm_white.setLooping(true);
 
 		game_bgm.setLooping(true);
 		menu_bgm_black.setLooping(true);
@@ -162,6 +162,8 @@ public class Assets {
 
 		babyBlueDot = new Texture(Gdx.files.internal("data/baby_blue_dot.png"));
 		babyBlueDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		
+		question_mark = new Texture(Gdx.files.internal("data/question_dot.png"));
 
 		// Miscellaneous
 		prefs = Gdx.app.getPreferences("com.ayrten.scrots-preferences");
@@ -217,6 +219,7 @@ public class Assets {
 		blueDot.dispose();
 		greenDot.dispose();
 		babyBlueDot.dispose();
+		question_mark.dispose();
 
 		// Miscellaneous
 		// Make the changes persist. (ie. saves an XML file for Windows in

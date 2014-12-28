@@ -28,8 +28,8 @@ public class TutorialScreen extends ScrotsScreen
 		Image greenDot = new Image(Assets.greenDot);
 		Image redDot = new Image(Assets.redDot);
 		Image blueDot = new Image(Assets.blueDot);
-		
 		Image babyBlueDot = new Image(Assets.babyBlueDot);
+		Image questionDot = new Image(Assets.question_mark);
 		
 		Label greenDesc = new Label("", Assets.style_font_32_orange);
 		greenDesc.setWrap(true);
@@ -46,6 +46,10 @@ public class TutorialScreen extends ScrotsScreen
 		Label babyBlueDesc = new Label("", Assets.style_font_32_orange);
 		babyBlueDesc.setWrap(true);
 		babyBlueDesc.setText("Increased time limit by 1 second");
+		
+		Label questionDesc = new Label("", Assets.style_font_32_orange);
+		questionDesc.setWrap(true);
+		questionDesc.setText("More to come!");
 		
 		Table innerTable = new Table(Assets.skin);
 		innerTable.left().top();
@@ -66,6 +70,11 @@ public class TutorialScreen extends ScrotsScreen
 		innerTable.row();
 		innerTable.add(babyBlueDot).width(babyBlueDot.getWidth()).height(babyBlueDot.getHeight());
 		innerTable.add(babyBlueDesc).width(Gdx.graphics.getWidth()/2 - back.getWidth()/5 * 2).padLeft(back.getWidth()/5);
+		innerTable.row();
+		innerTable.add("").height(back.getStyle().font.getLineHeight());
+		innerTable.row();
+		innerTable.add(questionDot).width(questionDot.getWidth()).height(questionDot.getHeight());
+		innerTable.add(questionDesc).width(Gdx.graphics.getWidth()/2 - back.getWidth()/5 * 2).padLeft(back.getWidth()/5);
 		
 		table.add(back).left();
 		table.row();

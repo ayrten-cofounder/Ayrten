@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class MainMenuScreen extends ScrotsScreen {
@@ -34,14 +33,16 @@ public class MainMenuScreen extends ScrotsScreen {
 		nsb = new NormalScoreboard();
 		csb = new ChallengeScoreboard();
 
-		Table table = new Table();
-		table.setSkin(Assets.skin);
-		table.setCenterPosition(Gdx.graphics.getWidth() / 2,
-				Gdx.graphics.getHeight() / 4);
-
 		others_screen = new OthersScreen(this);
 		high_score_screen = new HighScoresScreen(this);
 		// game_screen = new GameScreen((ScrotsGame)
+		
+		LabelStyle title_style = new LabelStyle();
+		title_style.font = Assets.font_120;
+		title_style.fontColor = Color.valueOf("9f38ff");
+		Label scrots = new Label("Scrots", title_style);
+		scrots.setCenterPosition(Gdx.graphics.getWidth() / 2,
+				Gdx.graphics.getHeight() / 3 * 2);
 		
 		LabelStyle style = new LabelStyle();
 		style.font = Assets.font_64;
@@ -58,16 +59,7 @@ public class MainMenuScreen extends ScrotsScreen {
 				Assets.game.setScreen(game_screen);
 			}			
 		});
-
-		others = new Label("Others", style);
-		others.setBounds(others.getX(), others.getY(), others.getWidth(), others.getHeight());
-		others.addListener(new ClickListener(){
-			public void clicked(InputEvent event, float x, float y) {
-				if (Assets.prefs.getBoolean("sound_effs", true))
-					Assets.button_pop.play();
-				Assets.game.setScreen(others_screen);
-			}			
-		});
+		start.setCenterPosition(Gdx.graphics.getWidth()/2, scrots.getY() - scrots.getStyle().font.getLineHeight()/2);
 
 		highscore = new Label("High Scores", style);
 		highscore.setBounds(highscore.getX(), highscore.getY(), highscore.getWidth(), highscore.getHeight());
@@ -78,16 +70,19 @@ public class MainMenuScreen extends ScrotsScreen {
 				Assets.game.setScreen(high_score_screen);
 			}			
 		});
-
-		table.add(start);
-		table.row();
-		table.add("").height(Gdx.graphics.getHeight() / 50);
-		table.row();
-		table.add(highscore);
-		table.row();
-		table.add("").height(Gdx.graphics.getHeight() / 50);
-		table.row();
-		table.add(others);
+		
+		highscore.setCenterPosition(Gdx.graphics.getWidth()/2, start.getY() - highscore.getStyle().font.getLineHeight()/2);
+		
+		others = new Label("Others", style);
+		others.setBounds(others.getX(), others.getY(), others.getWidth(), others.getHeight());
+		others.addListener(new ClickListener(){
+			public void clicked(InputEvent event, float x, float y) {
+				if (Assets.prefs.getBoolean("sound_effs", true))
+					Assets.button_pop.play();
+				Assets.game.setScreen(others_screen);
+			}			
+		});
+		others.setCenterPosition(Gdx.graphics.getWidth()/2, highscore.getY() - others.getStyle().font.getLineHeight()/2);
 
 		Manager gm = new Manager(0, Gdx.graphics.getWidth(),
 				Gdx.graphics.getHeight());
@@ -97,16 +92,11 @@ public class MainMenuScreen extends ScrotsScreen {
 				Gdx.graphics.getHeight()).gen_curr_level();
 		gm.changeDotSize();
 
-		LabelStyle title_style = new LabelStyle();
-		title_style.font = Assets.font_120;
-		title_style.fontColor = Color.valueOf("9f38ff");
-		Label scrots = new Label("Scrots", title_style);
-		scrots.setCenterPosition(Gdx.graphics.getWidth() / 2,
-				Gdx.graphics.getHeight() / 3 * 2);
-
 		setupStage();
 		stage.addActor(scrots);
-		stage.addActor(table);
+		stage.addActor(start);
+		stage.addActor(highscore);
+		stage.addActor(others);
 	}
 	
 	public void addActors()

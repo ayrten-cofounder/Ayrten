@@ -37,7 +37,6 @@ public class GameScreen implements Screen {
 	protected Label main_menu;
 	protected Label pause;
 
-	protected Label can_you_label;
 	protected Label points_title;
 	protected Label points;
 	protected Label time_title;
@@ -74,34 +73,32 @@ public class GameScreen implements Screen {
 		// this.batch.setBlendFunction(GL20.GL_LINEAR_MIPMAP_LINEAR,
 		// GL20.GL_LINEAR_MIPMAP_LINEAR);
 
-		points_title = new Label("YOUAREATLEVEL", Assets.style_font_64_red);
-		points_title.setPosition(1, Assets.game_height);
+		points_title = new Label("LEVEL", Assets.style_font_32_red);
+		points_title.setWidth(points_title.getStyle().font.getBounds("LEVEL").width);
+		points_title.setCenterPosition(1 + points_title.getWidth()/2, Gdx.graphics.getHeight() - Assets.style_font_64_white.font.getLineHeight()/2);
 
 		points = new Label("00", Assets.prefs.getString("bg_color").equals(
 				"Black") ? Assets.style_font_64_white
 				: Assets.style_font_64_black);
 		// points = new Label("00", Assets.style_font_64_blue);
-		points.setPosition(0 + points_title.getWidth(), Assets.game_height);
+		points.setPosition(0 + points_title.getWidth(), Gdx.graphics.getHeight() - points.getStyle().font.getLineHeight());
 
-		time_title = new Label("WITH", Assets.style_font_64_red);
-		time_title.setPosition(1 + points_title.getWidth() + points.getWidth(),
-				Assets.game_height);
+		time_title = new Label("WITH", Assets.style_font_32_red);
+		time_title.setWidth(time_title.getStyle().font.getBounds("WITH").width);
+		time_title.setCenterPosition(1 + points_title.getWidth() + points.getWidth() + time_title.getWidth()/2,
+				points.getCenterY());
 
 		time = new Label("60.0", Assets.prefs.getString("bg_color").equals(
 				"Black") ? Assets.style_font_64_white
 				: Assets.style_font_64_black);
 		// time = new Label("60.0", Assets.style_font_64_blue);
 		time.setPosition(1 + points_title.getWidth() + points.getWidth()
-				+ time_title.getWidth(), Assets.game_height);
+				+ time_title.getWidth(), Gdx.graphics.getHeight() - time.getStyle().font.getLineHeight());
 
-		time_end = new Label("SECONDSLEFT", Assets.style_font_64_red);
-		time_end.setPosition(1 + points_title.getWidth() + points.getWidth()
-				+ time_title.getWidth() + time.getWidth(), Assets.game_height);
-
-		can_you_label = new Label("POPALLGREENDOTS",
-				Assets.style_font_64_orange);
-		can_you_label.setPosition(1, Assets.game_height
-				+ (points.getStyle().font.getLineHeight() / 1.4f));
+		time_end = new Label("SECONDSLEFT", Assets.style_font_32_red);
+		time_end.setWidth(time_end.getStyle().font.getBounds("SECONDSLEFT").width);
+		time_end.setCenterPosition(1 + points_title.getWidth() + points.getWidth()
+				+ time_title.getWidth() + time.getWidth() + time_end.getWidth()/2, time.getCenterY());
 
 		Label.LabelStyle overStyle = new Label.LabelStyle();
 		overStyle.font = Assets.font_120;
@@ -220,9 +217,7 @@ public class GameScreen implements Screen {
 		});
 		pause.setWidth(buttonStyle.font.getBounds("  Menu").width);
 		// pause.setHeight(buttonStyle.font.getLineHeight());
-		pause.setPosition(w - pause.getWidth(),
-				Assets.game_height + pause.getStyle().font.getLineHeight()
-						/ 1.4f);
+		pause.setPosition(w - pause.getWidth(), Gdx.graphics.getHeight() - pause.getStyle().font.getLineHeight());
 
 		TextButton pause_quit = new TextButton("", Assets.skin);
 		pause_quit.add(new Label("Quit", buttonStyle));
@@ -306,7 +301,9 @@ public class GameScreen implements Screen {
 					@Override
 					public void buttonPressed() {
 						Assets.game.main_menu.game_screen.dispose();
+						Assets.playMenuBGM();
 						Assets.game.setScreen(Assets.game.main_menu);
+						
 					}
 				}, new ButtonInterface() {
 
@@ -414,7 +411,6 @@ public class GameScreen implements Screen {
 		stage.addActor(replay);
 		stage.addActor(game_over);
 		stage.addActor(user_name);
-		stage.addActor(can_you_label);
 		stage.addActor(points_title);
 		stage.addActor(points);
 		stage.addActor(time);
