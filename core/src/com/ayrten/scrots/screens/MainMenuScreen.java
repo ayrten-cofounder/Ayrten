@@ -66,15 +66,14 @@ public class MainMenuScreen extends ScrotsScreen {
 					}, new ButtonInterface() {
 						@Override
 						public void buttonPressed() {
-							Assets.prefs.putBoolean("first_time", false);
-							Assets.prefs.flush();
 							Timer timer = new Timer();
 							timer.scheduleTask(new Task() {
 								@Override
 								public void run() {
-									GameScreen new_game = new GameScreen();
-									Assets.game.main_menu.game_screen.dispose();
-									Assets.game.main_menu.game_screen = new_game;
+									Assets.prefs.putBoolean("first_time", false);
+									Assets.prefs.flush();
+									game_screen = new GameScreen();
+									Assets.playGameBGM();
 									Assets.game.setScreen(Assets.game.main_menu.game_screen);
 								}
 							}, 0.5f);
