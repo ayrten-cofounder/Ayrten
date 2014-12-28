@@ -15,6 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
+        android:layout_gravity="center"
         ads:adSize="BANNER"
         ads:adUnitId="@string/banner_ad_unit_id" >
     </com.google.android.gms.ads.AdView>
@@ -23,10 +24,11 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:singleLine="false"
         android:gravity="center"
         android:padding="10dp"
         android:textColor="#7A80E0"
-        android:textSize="20sp" />
+        android:textSize="25sp" />
 
     <View
         android:layout_width="match_parent"
