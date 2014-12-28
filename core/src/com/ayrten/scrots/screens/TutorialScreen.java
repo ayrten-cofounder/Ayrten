@@ -98,6 +98,9 @@ public class TutorialScreen extends ScrotsScreen
 	@Override
 	public void hide() {
 		super.hide();
-		Assets.prefs.flush();
+		if(Assets.prefs.getBoolean("first_time", true)) {
+			Assets.prefs.putBoolean("first_time", false);
+			Assets.prefs.flush();
+		}
 	}
 }

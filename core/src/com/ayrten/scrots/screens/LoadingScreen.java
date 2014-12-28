@@ -26,6 +26,7 @@ public class LoadingScreen implements Screen
 					@Override
 					public void run() {
 						stage.dispose();
+						Assets.game.apk_intf.shouldShowAd(true);
 						Assets.game.setScreen(Assets.game.main_menu);	
 					}
 				})));

@@ -13,6 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.Timer.Task;
 
 public class MainMenuScreen extends ScrotsScreen {
 	private Label start;
@@ -64,11 +66,18 @@ public class MainMenuScreen extends ScrotsScreen {
 					}, new ButtonInterface() {
 						@Override
 						public void buttonPressed() {
-							Assets.prefs.putBoolean("first_time", true);
+							Assets.prefs.putBoolean("first_time", false);
 							Assets.prefs.flush();
-							game_screen = new GameScreen();
-							Assets.playGameBGM();
-							Assets.game.setScreen(game_screen);
+							Timer timer = new Timer();
+							timer.scheduleTask(new Task() {
+								@Override
+								public void run() {
+									GameScreen new_game = new GameScreen();
+									Assets.game.main_menu.game_screen.dispose();
+									Assets.game.main_menu.game_screen = new_game;
+									Assets.game.setScreen(Assets.game.main_menu.game_screen);
+								}
+							}, 0.5f);
 						}
 					}, Assets.prefs.getString("bg_color").equals("Black") ? 0 : 1);
 				} else {
@@ -123,5 +132,17 @@ public class MainMenuScreen extends ScrotsScreen {
 		actors.add(start);
 		actors.add(highscore);
 		actors.add(others);
+	}
+	
+	@Override
+	public void show() {
+		super.show();
+		Assets.game.apk_intf.shouldShowAd(true);
+	}
+	
+	@Override
+	public void hide() {
+		super.hide();
+		Assets.game.apk_intf.shouldShowAd(false);
 	}
 }
