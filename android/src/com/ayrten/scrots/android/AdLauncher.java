@@ -89,8 +89,7 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface {
 																	// secret
 																	// key here
 
-		adRequest = new AdRequest.Builder().addTestDevice("ABCDEF012345")
-				.build();
+		adRequest = new AdRequest.Builder().build();
 
 		// Add the libgdx view
 		layout.addView(gameView);
