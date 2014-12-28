@@ -2,19 +2,18 @@ package com.ayrten.scrots.android;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.ayrten.scrots.manager.AndroidInterface;
 import com.ayrten.scrots.manager.ButtonInterface;
-import com.ayrten.scrots.screens.HighScoresScreen;
+import com.ayrten.scrots.screens.GameScreen;
 import com.ayrten.scrots.screens.ScrotsGame;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
@@ -26,6 +25,9 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface {
 	protected AdView adView;
 	private AdRequest adRequest;
 	private RelativeLayout layout;
+	private YesNoDialog dialog;
+	private GameOverDialog gameOverDialog;
+	private RelativeLayout.LayoutParams adParams;
 
 	private final static int SHOW_ADS = 1;
 	private final static int HIDE_ADS = 0;
@@ -57,18 +59,20 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface {
 		// Create the layout
 		layout = new RelativeLayout(this);
 
-		// Do the stuff that initialize() would do for you
-//		requestWindowFeature(Window.FEATURE_NO_TITLE);
-//		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//				WindowManager.LayoutParams.FLAG_FULLSCREEN);
-//		getWindow().clearFlags(
-//				WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
-		
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		config.useAccelerometer = false;
 		config.useCompass = false;
 		config.useImmersiveMode = true;
 		config.hideStatusBar = true;
+
+		// Dialog
+		dialog = new YesNoDialog(this);
+		AdView dialog_adView = (AdView) dialog.findViewById(R.id.adView);
+
+		// Game Over Dialog
+		gameOverDialog = new GameOverDialog(this);
+		AdView gameOver_dialog_adView = (AdView) gameOverDialog
+				.findViewById(R.id.adView);
 
 		// Create the libgdx View
 		View gameView = initializeForView(new ScrotsGame(this), config);
@@ -89,7 +93,7 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface {
 		layout.addView(gameView);
 
 		// Add the AdMob view
-		RelativeLayout.LayoutParams adParams = new RelativeLayout.LayoutParams(
+		adParams = new RelativeLayout.LayoutParams(
 				RelativeLayout.LayoutParams.WRAP_CONTENT,
 				RelativeLayout.LayoutParams.WRAP_CONTENT);
 		adParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
@@ -98,6 +102,8 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface {
 		layout.addView(inflatedLayout, adParams);
 
 		adView.loadAd(adRequest);
+		dialog_adView.loadAd(adRequest);
+		gameOver_dialog_adView.loadAd(adRequest);
 
 		// Hook it all up
 		setContentView(layout);
@@ -158,7 +164,6 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface {
 		handler.post(new Runnable() {
 			@Override
 			public void run() {
-				YesNoDialog dialog = new YesNoDialog(AdLauncher.this);
 				dialog.setDialog(title, yes_interface, no_interface);
 				dialog.show();
 			}
@@ -171,10 +176,34 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface {
 		handler.post(new Runnable() {
 			@Override
 			public void run() {
-				YesNoDialog dialog = new YesNoDialog(AdLauncher.this);
 				dialog.setDialogWithButtonNames(title, yes_button, no_button,
 						yes_interface, no_interface);
 				dialog.show();
+			}
+		});
+	}
+
+	public void makeGameOverDialog(final ButtonInterface yes_interface,
+			final ButtonInterface no_interface) {
+		handler.post(new Runnable() {
+			@Override
+			public void run() {
+				gameOverDialog.setDialog(yes_interface, no_interface);
+				gameOverDialog.show();
+			}
+		});
+	}
+
+	@Override
+	public void makeGameOverDialogHighScore(final GameScreen gameScreen,
+			final ButtonInterface yes_interface,
+			final ButtonInterface no_interface) {
+		handler.post(new Runnable() {
+			@Override
+			public void run() {
+				gameOverDialog.setHighScoreDialog(gameScreen, yes_interface,
+						no_interface);
+				gameOverDialog.show();
 			}
 		});
 	}

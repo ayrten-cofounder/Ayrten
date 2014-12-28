@@ -39,6 +39,8 @@ public class YesNoDialog extends Dialog {
 	public void setDialog(String title, final ButtonInterface yes_interface,
 			final ButtonInterface no_interface) {
 		this.title.setText(title);
+		yes.setText("Yes");
+		no.setText("No");
 
 		yes.setOnClickListener(new View.OnClickListener() {
 
@@ -63,9 +65,9 @@ public class YesNoDialog extends Dialog {
 		});
 	}
 
-	public void setDialogWithButtonNames(String title, String yes_button, String no_button,
-			final ButtonInterface yes_interface, final ButtonInterface no_interface)
-	{
+	public void setDialogWithButtonNames(String title, String yes_button,
+			String no_button, final ButtonInterface yes_interface,
+			final ButtonInterface no_interface) {
 		this.title.setText(title);
 		this.yes.setText(yes_button);
 		this.no.setText(no_button);

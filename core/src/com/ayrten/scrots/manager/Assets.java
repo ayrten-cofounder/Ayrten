@@ -4,15 +4,14 @@ import com.ayrten.scrots.screens.ScrotsGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Music.OnCompletionListener;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.g2d.PixmapPacker;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -22,6 +21,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 public class Assets {
 	// Height and Width
 	public static int game_height;
+	public static int height;
+	public static int width;
 
 	// Drawables
 	public static NinePatchDrawable gray_box;
@@ -77,6 +78,8 @@ public class Assets {
 
 		// Height and Width
 		game_height = Gdx.graphics.getHeight() - (Gdx.graphics.getHeight() / 5);
+		height = Gdx.graphics.getHeight();
+		width = Gdx.graphics.getWidth();
 
 		// Drawable
 		gray_box = new NinePatchDrawable(new NinePatch(new Texture(
@@ -94,11 +97,11 @@ public class Assets {
 		style_font_64_black = new LabelStyle();
 		style_font_64_black.font = font_64;
 		style_font_64_black.fontColor = Color.valueOf("1c1c1c");
-		
+
 		style_font_64_blue = new LabelStyle();
 		style_font_64_blue.font = font_64;
 		style_font_64_blue.fontColor = Color.valueOf("7A80E0");
-		
+
 		style_font_64_orange = new LabelStyle();
 		style_font_64_orange.font = font_64;
 		style_font_64_orange.fontColor = Color.valueOf("ffcd55");
@@ -114,26 +117,34 @@ public class Assets {
 		style_font_32_red = new LabelStyle();
 		style_font_32_red.font = font_32;
 		style_font_32_red.fontColor = Color.valueOf("e07a80");
-		
+
 		style_font_32_orange = new LabelStyle();
 		style_font_32_orange.font = font_32;
 		style_font_32_orange.fontColor = ORANGE;
-		
+
 		style_font_32_blue = new LabelStyle();
 		style_font_32_blue.font = font_32;
 		style_font_32_blue.fontColor = Color.valueOf("7A80E0");
 
 		// Sounds
-		button_pop = Gdx.audio.newSound(Gdx.files.internal("sounds/button_pop.mp3"));
+		button_pop = Gdx.audio.newSound(Gdx.files
+				.internal("sounds/button_pop.mp3"));
 		grn_pop = Gdx.audio.newSound(Gdx.files.internal("sounds/dot_pop1.wav"));
-		blue_pop = Gdx.audio.newSound(Gdx.files.internal("sounds/dot_pop2.wav"));
-		baby_blue_pop = Gdx.audio.newSound(Gdx.files.internal("sounds/dot_pop3.wav"));
-		level_clear = Gdx.audio.newSound(Gdx.files.internal("sounds/level_clear.wav"));
+		blue_pop = Gdx.audio
+				.newSound(Gdx.files.internal("sounds/dot_pop2.wav"));
+		baby_blue_pop = Gdx.audio.newSound(Gdx.files
+				.internal("sounds/dot_pop3.wav"));
+		level_clear = Gdx.audio.newSound(Gdx.files
+				.internal("sounds/level_clear.wav"));
 
 		// Music
 		game_bgm = Gdx.audio.newMusic(Gdx.files.internal("bgm/bgm1.mp3"));
 		menu_bgm_black = Gdx.audio.newMusic(Gdx.files.internal("bgm/bgm2.mp3"));
 		menu_bgm_white = Gdx.audio.newMusic(Gdx.files.internal("bgm/bgm3.mp3"));
+
+		game_bgm.setLooping(true);
+		menu_bgm_black.setLooping(true);
+		menu_bgm_white.setLooping(true);
 
 		// Skin
 		skin = new Skin(Gdx.files.internal("data/uiskin.json"));
@@ -156,28 +167,25 @@ public class Assets {
 		prefs = Gdx.app.getPreferences("com.ayrten.scrots-preferences");
 		game = sg;
 	}
-	
-	public static void playGameBGM()
-	{
-		if(menu_bgm_black.isPlaying())
+
+	public static void playGameBGM() {
+		if (menu_bgm_black.isPlaying())
 			menu_bgm_black.stop();
 		else
 			menu_bgm_white.stop();
 		game_bgm.play();
 	}
-	
-	public static void playMenuBGM()
-	{
-		if(game_bgm.isPlaying())
-		  game_bgm.stop();
-		if(prefs.getString("bg_color", "White").equals("White")) {
+
+	public static void playMenuBGM() {
+		if (game_bgm.isPlaying())
+			game_bgm.stop();
+		if (prefs.getString("bg_color", "White").equals("White")) {
 			menu_bgm_white.play();
-			if(menu_bgm_black.isPlaying())
+			if (menu_bgm_black.isPlaying())
 				menu_bgm_black.stop();
-		}
-		else {
+		} else {
 			menu_bgm_black.play();
-			if(menu_bgm_white.isPlaying())
+			if (menu_bgm_white.isPlaying())
 				menu_bgm_white.stop();
 		}
 	}
@@ -200,7 +208,7 @@ public class Assets {
 		menu_bgm_black.dispose();
 		menu_bgm_white.dispose();
 		game_bgm.dispose();
-		
+
 		// Skin
 		skin.dispose();
 
@@ -223,13 +231,10 @@ public class Assets {
 		FileHandle tff_file = Gdx.files.internal("fonts/summer_of_love.ttf");
 		FreeTypeFontGenerator font_gen = new FreeTypeFontGenerator(tff_file);
 		FreeTypeFontParameter params = new FreeTypeFontParameter();
-		PixmapPacker packer = new PixmapPacker(512, 512, Pixmap.Format.RGB888,
-				2, false);
 		int adj_size = (int) (fontSize * font_ratio);
 		params.size = adj_size;
 		BitmapFont font = font_gen.generateFont(params);
 		font_gen.dispose();
-		packer.dispose();
 		return (font);
 	}
 }

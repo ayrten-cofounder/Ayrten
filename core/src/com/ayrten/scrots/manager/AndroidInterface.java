@@ -1,5 +1,7 @@
 package com.ayrten.scrots.manager;
 
+import com.ayrten.scrots.screens.GameScreen;
+
 public interface AndroidInterface {
 	public void shouldShowAd(boolean show);
 
@@ -12,4 +14,10 @@ public interface AndroidInterface {
 
 	public void makeWindow(String title, String yes_button, String no_button,
 			ButtonInterface yes_interface, ButtonInterface no_interface);
+
+	public void makeGameOverDialog(ButtonInterface yes_interface,
+			ButtonInterface no_interface);
+	
+	public void makeGameOverDialogHighScore(GameScreen gameScreen, ButtonInterface yes_interface,
+			ButtonInterface no_interface);
 }

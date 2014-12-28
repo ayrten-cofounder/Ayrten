@@ -20,13 +20,14 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Pool;
+import com.badlogic.gdx.utils.Timer.Task;
+import com.badlogic.gdx.utils.Timer;
 
 public class GameScreen implements Screen {
 	// Widgets
@@ -212,16 +213,6 @@ public class GameScreen implements Screen {
 		pause.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Assets.game.apk_intf.shouldShowAd(true);
-
-				// pause_menu.setPosition(
-				// stage.getWidth() / 2 - pause_menu.getWidth() / 2,
-				// 0 - pause_menu.getHeight());
-				//
-				// pause_menu.addAction(Actions.moveTo(pause_menu.getX(),
-				// stage.getHeight() / 4, 0.5f));
-				// pause_menu.setVisible(true);
-
 				showMenu();
 
 				gm.pauseGame();
@@ -253,10 +244,31 @@ public class GameScreen implements Screen {
 	public Manager getManager() {
 		return gm;
 	}
-	
+
+	private void replay() {
+		Timer timer = new Timer();
+		timer.scheduleTask(new Task() {
+			@Override
+			public void run() {
+				GameScreen new_game = new GameScreen();
+				Assets.game.main_menu.game_screen.dispose();
+				Assets.game.main_menu.game_screen = new_game;
+				Assets.game.setScreen(Assets.game.main_menu.game_screen);
+			}
+		}, 0.5f);
+	}
+
+	public void setHighScoreName(String name) {
+		// Gdx.input.setOnscreenKeyboardVisible(false);
+
+		((ScrotsGame) Gdx.app.getApplicationListener()).main_menu.game_screen
+				.getManager().addHighScore(name);
+	}
+
 	public void showQuitHighScoreMenu() {
-		Assets.game.apk_intf.makeWindow("Are you sure you don't want to enter your highscore?", "Yes", "Cancel",
-				new ButtonInterface() {
+		Assets.game.apk_intf.makeWindow(
+				"Are you sure you don't want to enter your highscore?", "Yes",
+				"Cancel", new ButtonInterface() {
 
 					@Override
 					public void buttonPressed() {
@@ -271,7 +283,7 @@ public class GameScreen implements Screen {
 	}
 
 	public void showMenu() {
-		Assets.game.apk_intf.makeWindow("Menu", "Quit", "Cancel",
+		Assets.game.apk_intf.makeWindow("Menu", "Quit", "Resume",
 				new ButtonInterface() {
 
 					@Override
@@ -282,7 +294,6 @@ public class GameScreen implements Screen {
 
 					@Override
 					public void buttonPressed() {
-						Assets.game.apk_intf.shouldShowAd(false);
 						gm.startGame();
 					}
 				});
@@ -294,7 +305,6 @@ public class GameScreen implements Screen {
 
 					@Override
 					public void buttonPressed() {
-						Assets.game.apk_intf.shouldShowAd(false);
 						Assets.game.main_menu.game_screen.dispose();
 						Assets.game.setScreen(Assets.game.main_menu);
 					}
@@ -303,6 +313,41 @@ public class GameScreen implements Screen {
 					@Override
 					public void buttonPressed() {
 						showMenu();
+					}
+				});
+	}
+
+	public void showGameOver() {
+		Assets.game.apk_intf.makeGameOverDialog(new ButtonInterface() {
+
+			@Override
+			public void buttonPressed() {
+				replay();
+			}
+		}, new ButtonInterface() {
+
+			@Override
+			public void buttonPressed() {
+				Assets.game.main_menu.game_screen.dispose();
+				Assets.game.setScreen(Assets.game.main_menu);
+			}
+		});
+	}
+
+	public void showGameOverWithHighScore() {
+		Assets.game.apk_intf.makeGameOverDialogHighScore(this,
+				new ButtonInterface() {
+
+					@Override
+					public void buttonPressed() {
+						replay();
+					}
+				}, new ButtonInterface() {
+
+					@Override
+					public void buttonPressed() {
+						Assets.game.main_menu.game_screen.dispose();
+						Assets.game.setScreen(Assets.game.main_menu);
 					}
 				});
 	}
@@ -353,15 +398,10 @@ public class GameScreen implements Screen {
 			stage.clear();
 			should_clear_stage = false;
 			addStageActors();
-			Assets.game.apk_intf.shouldShowAd(true);
-			game_over.setVisible(true);
-			pause.setVisible(false);
 			if (gm.get_player_score() > gm.getScoreBoard().getLowestHighScore()) {
-				user_name.setVisible(true);
+				showGameOverWithHighScore();
 			} else {
-				// table.setVisible(true);
-				main_menu.setVisible(true);
-				replay.setVisible(true);
+				showGameOver();
 			}
 		}
 
