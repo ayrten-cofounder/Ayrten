@@ -7,12 +7,10 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.g2d.PixmapPacker;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -28,8 +26,8 @@ public class Assets {
 	public static NinePatchDrawable transparent_box;
 
 	// Fonts
-	public static BitmapFont font_100;
-	public static BitmapFont font_50;
+	public static BitmapFont font_120;
+	public static BitmapFont font_64;
 	public static BitmapFont font_32;
 	public static BitmapFont font_16;
 
@@ -65,6 +63,7 @@ public class Assets {
 	public static Texture blueDot;
 	public static Texture greenDot;
 	public static Texture babyBlueDot;
+	public static Texture question_mark;
 
 	// Miscellaneous
 	public static Preferences prefs;
@@ -85,30 +84,30 @@ public class Assets {
 				Gdx.files.internal("data/transparent_box.9.png"))));
 
 		// Fonts
-		font_100 = generate_BitMapFont(100, font_ratio);
-		font_50 = generate_BitMapFont(50, font_ratio);
+		font_120 = generate_BitMapFont(120, font_ratio);
+		font_64 = generate_BitMapFont(64, font_ratio);
 		font_32 = generate_BitMapFont(32, font_ratio);
 		font_16 = generate_BitMapFont(16, font_ratio);
 
 		// Style
 		style_font_64_black = new LabelStyle();
-		style_font_64_black.font = font_50;
+		style_font_64_black.font = font_64;
 		style_font_64_black.fontColor = Color.valueOf("1c1c1c");
 		
 		style_font_64_blue = new LabelStyle();
-		style_font_64_blue.font = font_50;
+		style_font_64_blue.font = font_64;
 		style_font_64_blue.fontColor = Color.valueOf("7A80E0");
 		
 		style_font_64_orange = new LabelStyle();
-		style_font_64_orange.font = font_50;
+		style_font_64_orange.font = font_64;
 		style_font_64_orange.fontColor = Color.valueOf("ffcd55");
 
 		style_font_64_red = new LabelStyle();
-		style_font_64_red.font = font_50;
+		style_font_64_red.font = font_64;
 		style_font_64_red.fontColor = Color.valueOf("e07a80");
 
 		style_font_64_white = new LabelStyle();
-		style_font_64_white.font = font_50;
+		style_font_64_white.font = font_64;
 		style_font_64_white.fontColor = Color.WHITE;
 
 		style_font_32_red = new LabelStyle();
@@ -154,6 +153,8 @@ public class Assets {
 
 		babyBlueDot = new Texture(Gdx.files.internal("data/baby_blue_dot.png"));
 		babyBlueDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		
+		question_mark = new Texture(Gdx.files.internal("data/question_dot.png"));
 
 		// Miscellaneous
 		prefs = Gdx.app.getPreferences("com.ayrten.scrots-preferences");
@@ -187,8 +188,8 @@ public class Assets {
 
 	public static void dispose() {
 		// Fonts
-		font_100.dispose();
-		font_50.dispose();
+		font_120.dispose();
+		font_64.dispose();
 		font_32.dispose();
 		font_16.dispose();
 
@@ -212,6 +213,7 @@ public class Assets {
 		blueDot.dispose();
 		greenDot.dispose();
 		babyBlueDot.dispose();
+		question_mark.dispose();
 
 		// Miscellaneous
 		// Make the changes persist. (ie. saves an XML file for Windows in
@@ -226,13 +228,12 @@ public class Assets {
 		FileHandle tff_file = Gdx.files.internal("fonts/summer_of_love.ttf");
 		FreeTypeFontGenerator font_gen = new FreeTypeFontGenerator(tff_file);
 		FreeTypeFontParameter params = new FreeTypeFontParameter();
-		PixmapPacker packer = new PixmapPacker(512, 512, Pixmap.Format.RGB888,
-				2, false);
+		// PixmapPacker packer = new PixmapPacker(512, 512, Pixmap.Format.RGB888, 2, false);
 		int adj_size = (int) (fontSize * font_ratio);
 		params.size = adj_size;
 		BitmapFont font = font_gen.generateFont(params);
 		font_gen.dispose();
-		packer.dispose();
+		// packer.dispose();
 		return (font);
 	}
 }

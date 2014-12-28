@@ -38,7 +38,7 @@ public class OthersScreen extends ScrotsScreen
 		credits_screen  = new CreditsScreen(this);
 		
 		LabelStyle labelStyle = new LabelStyle();
-		labelStyle.font = Assets.font_50;
+		labelStyle.font = Assets.font_64;
 		labelStyle.fontColor = Assets.ORANGE;
 		
 		options = new Label("Options", labelStyle);

@@ -60,7 +60,7 @@ public class ScrotsScreen implements Screen {
 	public void createBackLabel()
 	{
 		LabelStyle labelStyle = new LabelStyle();
-		labelStyle.font = Assets.font_50;
+		labelStyle.font = Assets.font_64;
 		labelStyle.fontColor = Assets.ORANGE;
 
 		back = new Label("Back", labelStyle);
