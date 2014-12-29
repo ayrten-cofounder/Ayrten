@@ -84,10 +84,7 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface {
 		View inflatedLayout = inflater.inflate(R.layout.fragment_ad, null,
 				false);
 
-		adView = (AdView) inflatedLayout.findViewById(R.id.adView); // Put in
-																	// your
-																	// secret
-																	// key here
+		adView = (AdView) inflatedLayout.findViewById(R.id.adView);
 
 		adRequest = new AdRequest.Builder().build();
 

@@ -61,6 +61,8 @@ public class MainMenuScreen extends ScrotsScreen {
 					Assets.game.apk_intf.makeYesNoWindow("This is your first time playing. Do you want to view the tutorial?", new ButtonInterface() {
 						@Override
 						public void buttonPressed() {
+							Assets.prefs.putBoolean("first_time", true);
+							Assets.prefs.flush();
 							Assets.game.setScreen(Assets.game.main_menu.others_screen.tutorial_screen);
 						}
 					}, new ButtonInterface() {
