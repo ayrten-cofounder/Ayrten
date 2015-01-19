@@ -189,19 +189,19 @@ public class Assets {
 	public static void loadDotTextures()
 	{
 		// Textures
-		if(prefs.getBoolean("color_blind", false))
+		if(!prefs.getBoolean("color_blind", false))
 			penDot_1 = new Texture(Gdx.files.internal("data/red_dot.png"));
 		penDot_1.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
-		if(prefs.getBoolean("color_blind", false))
+		if(!prefs.getBoolean("color_blind", false))
 			penDot_2 = new Texture(Gdx.files.internal("data/blue_dot.png"));
 		penDot_2.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
-		if(prefs.getBoolean("color_blind", false))
+		if(!prefs.getBoolean("color_blind", false))
 			regDot_1 = new Texture(Gdx.files.internal("data/green_dot.png"));
 		regDot_1.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
-		if(prefs.getBoolean("color_blind", false))
+		if(!prefs.getBoolean("color_blind", false))
 			regDot_2 = new Texture(Gdx.files.internal("data/baby_blue_dot.png"));
 		regDot_2.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 	}

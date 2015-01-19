@@ -47,7 +47,7 @@ public class DotGenerator
 	}
 
 	public PenDot2 genPenDot2() {
-		PenDot2 penDot = new PenDot2(Assets.penDot_2, gm, Assets.pen_pop_1);
+		PenDot2 penDot = new PenDot2(Assets.penDot_2, gm, Assets.pen_pop_2);
 		setRandPositions(penDot);
 		return penDot;
 	}
