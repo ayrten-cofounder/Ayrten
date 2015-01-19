@@ -48,12 +48,12 @@ public class Assets {
 	public static Sound level_clear;
 
 	// Regular dots
-	public static Sound reg_pop_1; 			// Regular dot (ie. green)
-	public static Sound reg_pop_2;			// Regular dot (ie. babay blue)
+	public static Sound reg_pop_1; // Regular dot (ie. green)
+	public static Sound reg_pop_2; // Regular dot (ie. babay blue)
 
 	// Penalty dots
-	public static Sound pen_pop_1;			// Penalty dot (ie. red)
-	public static Sound pen_pop_2;			// Penalty dot (ie. blue)
+	public static Sound pen_pop_1; // Penalty dot (ie. red)
+	public static Sound pen_pop_2; // Penalty dot (ie. blue)
 
 	// Music
 	public static Music menu_bgm_black;
@@ -65,7 +65,7 @@ public class Assets {
 	public static Skin skin_window;
 
 	// Textures
-	public static Texture penDot_1; 			
+	public static Texture penDot_1;
 	public static Texture penDot_2;
 	public static Texture regDot_1;
 	public static Texture regDot_2;
@@ -131,11 +131,16 @@ public class Assets {
 		style_font_32_blue.fontColor = Color.valueOf("7A80E0");
 
 		// Sounds
-		button_pop = Gdx.audio.newSound(Gdx.files.internal("sounds/button_pop.mp3"));
-		reg_pop_1 = Gdx.audio.newSound(Gdx.files.internal("sounds/dot_pop1.mp3"));
-		pen_pop_2 = Gdx.audio.newSound(Gdx.files.internal("sounds/dot_pop2.wav"));
-		reg_pop_2 = Gdx.audio.newSound(Gdx.files.internal("sounds/dot_pop3.wav"));
-		level_clear = Gdx.audio.newSound(Gdx.files.internal("sounds/level_clear.wav"));
+		button_pop = Gdx.audio.newSound(Gdx.files
+				.internal("sounds/button_pop.mp3"));
+		reg_pop_1 = Gdx.audio.newSound(Gdx.files
+				.internal("sounds/dot_pop1.mp3"));
+		pen_pop_2 = Gdx.audio.newSound(Gdx.files
+				.internal("sounds/dot_pop2.wav"));
+		reg_pop_2 = Gdx.audio.newSound(Gdx.files
+				.internal("sounds/dot_pop3.wav"));
+		level_clear = Gdx.audio.newSound(Gdx.files
+				.internal("sounds/level_clear.wav"));
 
 		// Music
 		game_bgm = Gdx.audio.newMusic(Gdx.files.internal("bgm/bgm1.mp3"));
@@ -152,6 +157,8 @@ public class Assets {
 		// Skin
 		skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 		skin_window = new Skin(Gdx.files.internal("data/uiskin2.json"));
+
+		question_mark = new Texture(Gdx.files.internal("data/question_dot.png"));
 
 		// Miscellaneous
 		prefs = Gdx.app.getPreferences("com.ayrten.scrots-preferences");
@@ -174,35 +181,43 @@ public class Assets {
 		if (game_bgm.isPlaying())
 			game_bgm.stop();
 		if (prefs.getString("bg_color", "White").equals("White")) {
-			if(!menu_bgm_white.isPlaying())
+			if (!menu_bgm_white.isPlaying())
 				menu_bgm_white.play();
 			if (menu_bgm_black.isPlaying())
 				menu_bgm_black.stop();
 		} else {
-			if(!menu_bgm_black.isPlaying())
+			if (!menu_bgm_black.isPlaying())
 				menu_bgm_black.play();
 			if (menu_bgm_white.isPlaying())
 				menu_bgm_white.stop();
 		}
 	}
 
-	public static void loadDotTextures()
-	{
+	public static void loadDotTextures() {
 		// Textures
-		if(!prefs.getBoolean("color_blind", false))
+s		if(!prefs.getBoolean("color_blind", false))
 			penDot_1 = new Texture(Gdx.files.internal("data/red_dot.png"));
+		else
+			penDot_1 = new Texture(Gdx.files.internal("data/dots/red_dot_cb.png"));
 		penDot_1.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
 		if(!prefs.getBoolean("color_blind", false))
-			penDot_2 = new Texture(Gdx.files.internal("data/blue_dot.png"));
+			penDot_2 = new Texture(Gdx.files.internal("data/dots/purple_dot.png"));
+		else
+			penDot_2 = new Texture(Gdx.files.internal("data/dots/purple_dot_cb.png"));
+
 		penDot_2.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
 		if(!prefs.getBoolean("color_blind", false))
 			regDot_1 = new Texture(Gdx.files.internal("data/green_dot.png"));
+		else
+			regDot_1 = new Texture(Gdx.files.internal("data/dots/green_dot_cb.png"));
 		regDot_1.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
 		if(!prefs.getBoolean("color_blind", false))
 			regDot_2 = new Texture(Gdx.files.internal("data/baby_blue_dot.png"));
+		else
+			regDot_2 = new Texture(Gdx.files.internal("data/dots/baby_blue_dot_cb.png"));
 		regDot_2.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 	}
 
