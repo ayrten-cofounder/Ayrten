@@ -2,7 +2,6 @@ package com.ayrten.scrots.screens;
 
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.ButtonInterface;
-import com.ayrten.scrots.scoreboard.ChallengeScoreboard;
 import com.ayrten.scrots.scoreboard.NormalScoreboard;
 import com.ayrten.scrots.scoreboard.Scoreboard;
 import com.ayrten.scrots.scoreboard.Scoreboard.Scores;

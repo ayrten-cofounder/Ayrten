@@ -4,11 +4,9 @@ import com.ayrten.scrots.screens.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
-public class BlueDot extends Dot
+public class RegDot1 extends Dot
 {
-	private static final float TIME_OFF = (float) -5.0;
-	
-	public BlueDot(Texture dot, Manager gm, Sound pop)
+	public RegDot1(Texture dot, Manager gm, Sound pop)
 	{
 		super(dot, gm, pop);
 	}
@@ -18,7 +16,7 @@ public class BlueDot extends Dot
 	{
 		super.touchedByAnAngel();
 		
-		// Lose time
-		gm.addTime(TIME_OFF);
+		// Removes a green dot from the array
+		gm.minusGreenDot();
 	}
 }

@@ -2,11 +2,11 @@ package com.ayrten.scrots.level;
 
 import java.util.ArrayList;
 
-import com.ayrten.scrots.dots.BabyBlueDot;
-import com.ayrten.scrots.dots.BlueDot;
+import com.ayrten.scrots.dots.RegDot2;
+import com.ayrten.scrots.dots.PenDot2;
 import com.ayrten.scrots.dots.DotGenerator;
-import com.ayrten.scrots.dots.GreenDot;
-import com.ayrten.scrots.dots.RedDot;
+import com.ayrten.scrots.dots.RegDot1;
+import com.ayrten.scrots.dots.PenDot1;
 import com.ayrten.scrots.screens.Manager;
 
 public class Level
@@ -23,10 +23,10 @@ public class Level
 	protected static final float BABY_BLUE_DOT_MOD = 1.25f;
 
 	// Stores all the dots for that level.
-	private ArrayList<GreenDot> greenDots;
-	private ArrayList<RedDot> redDots;
-	private ArrayList<BlueDot> blueDots;
-	private ArrayList<BabyBlueDot> babyBlueDots;
+	private ArrayList<RegDot1> greenDots;
+	private ArrayList<PenDot1> redDots;
+	private ArrayList<PenDot2> blueDots;
+	private ArrayList<RegDot2> babyBlueDots;
 
 	private int level;
 	private DotGenerator generator;
@@ -42,10 +42,10 @@ public class Level
 
 //		generator = new DotGenerator(width, height, gm);
 				
-		greenDots = new ArrayList<GreenDot>();
-		redDots = new ArrayList<RedDot>();
-		blueDots = new ArrayList<BlueDot>();
-		babyBlueDots = new ArrayList<BabyBlueDot>();
+		greenDots = new ArrayList<RegDot1>();
+		redDots = new ArrayList<PenDot1>();
+		blueDots = new ArrayList<PenDot2>();
+		babyBlueDots = new ArrayList<RegDot2>();
 
 		gen_grn_dots();
 		gen_red_dots();
@@ -65,22 +65,22 @@ public class Level
 		number_of_green_dots--;
 	}
 
-	public ArrayList<GreenDot> get_grn_dots()
+	public ArrayList<RegDot1> get_grn_dots()
 	{
 		return greenDots;
 	}
 
-	public ArrayList<RedDot> get_red_dots()
+	public ArrayList<PenDot1> get_red_dots()
 	{
 		return redDots;
 	}
 
-	public ArrayList<BlueDot> get_blue_dots()
+	public ArrayList<PenDot2> get_blue_dots()
 	{
 		return blueDots;
 	}
 
-	public ArrayList<BabyBlueDot> get_baby_blue_dots()
+	public ArrayList<RegDot2> get_baby_blue_dots()
 	{
 		return babyBlueDots;
 	}
@@ -91,7 +91,7 @@ public class Level
 		int num = (int) Math.floor((level - GREEN_DOT_START) * GREEN_DOT_MOD);
 		for (int i = 0; i < num; i++)
 		{
-			GreenDot dot = generator.genGreenDot();
+			RegDot1 dot = generator.genRegDot1();
 			greenDots.add(dot);
 		}
 	}
@@ -102,7 +102,7 @@ public class Level
 		int num = (int) Math.floor((level - RED_DOT_START) * RED_DOT_MOD);
 		for (int i = 0; i < num; i++)
 		{
-			RedDot dot = generator.genRedDot();
+			PenDot1 dot = generator.genPenDot1();
 			redDots.add(dot);
 		}
 	}
@@ -113,7 +113,7 @@ public class Level
 		int num = (int) Math.floor((level - BLUE_DOT_START) * BLUE_DOT_MOD);
 		for (int i = 0; i < num; i++)
 		{
-			BlueDot dot = generator.genBlueDot();
+			PenDot2 dot = generator.genPenDot2();
 			blueDots.add(dot);
 		}
 	}
@@ -124,7 +124,7 @@ public class Level
 		int num = (int) Math.floor((level - BABY_BLUE_DOT_START) * BABY_BLUE_DOT_MOD);
 		for (int i = 0; i < num; i++)
 		{
-			BabyBlueDot dot = generator.genBabyBlueDot();
+			RegDot2 dot = generator.genRegDot2();
 			babyBlueDots.add(dot);
 		}
 	}
