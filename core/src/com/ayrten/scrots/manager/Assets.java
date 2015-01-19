@@ -150,17 +150,29 @@ public class Assets {
 		skin_window = new Skin(Gdx.files.internal("data/uiskin2.json"));
 
 		// Textures
-		redDot = new Texture(Gdx.files.internal("data/red_dot.png"));
+		redDot = new Texture(Gdx.files.internal("data/dots/red_dot.png"));
 		redDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
-		blueDot = new Texture(Gdx.files.internal("data/blue_dot.png"));
+		blueDot = new Texture(Gdx.files.internal("data/dots/purple_dot.png"));
 		blueDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
-		greenDot = new Texture(Gdx.files.internal("data/green_dot.png"));
+		greenDot = new Texture(Gdx.files.internal("data/dots/green_dot.png"));
 		greenDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
-		babyBlueDot = new Texture(Gdx.files.internal("data/baby_blue_dot.png"));
+		babyBlueDot = new Texture(Gdx.files.internal("data/dots/baby_blue_dot.png"));
 		babyBlueDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		
+//		redDot = new Texture(Gdx.files.internal("data/dots/red_dot_cb.png"));
+//		redDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+//
+//		blueDot = new Texture(Gdx.files.internal("data/dots/purple_dot_cb.png"));
+//		blueDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+//
+//		greenDot = new Texture(Gdx.files.internal("data/dots/green_dot_cb.png"));
+//		greenDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+//
+//		babyBlueDot = new Texture(Gdx.files.internal("data/dots/baby_blue_dot_cb.png"));
+//		babyBlueDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
 		question_mark = new Texture(Gdx.files.internal("data/question_dot.png"));
 
