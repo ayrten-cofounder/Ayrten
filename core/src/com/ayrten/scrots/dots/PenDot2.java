@@ -4,11 +4,11 @@ import com.ayrten.scrots.screens.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
-public class BabyBlueDot extends Dot
+public class PenDot2 extends Dot
 {
-	private static final float TIME_ADD = (float) 1.1; // seconds
+	private static final float TIME_OFF = (float) -5.0;
 	
-	public BabyBlueDot(Texture dot, Manager gm, Sound pop)
+	public PenDot2(Texture dot, Manager gm, Sound pop)
 	{
 		super(dot, gm, pop);
 	}
@@ -19,6 +19,6 @@ public class BabyBlueDot extends Dot
 		super.touchedByAnAngel();
 		
 		// Lose time
-		gm.addTime(TIME_ADD);
+		gm.addTime(TIME_OFF);
 	}
 }

@@ -25,6 +25,7 @@ android/gen/
 android/project.properties
 android/proguard/
 android/proguard-project.txt
+android/google_play_services
 .idea/
 *.ipr
 *.iws

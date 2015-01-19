@@ -45,11 +45,15 @@ public class Assets {
 
 	// Sounds
 	public static Sound button_pop;
-	public static Sound grn_pop;
-	public static Sound blue_pop;
-	public static Sound red_pop;
-	public static Sound baby_blue_pop;
 	public static Sound level_clear;
+
+	// Regular dots
+	public static Sound reg_pop_1; 			// Regular dot (ie. green)
+	public static Sound reg_pop_2;			// Regular dot (ie. babay blue)
+
+	// Penalty dots
+	public static Sound pen_pop_1;			// Penalty dot (ie. red)
+	public static Sound pen_pop_2;			// Penalty dot (ie. blue)
 
 	// Music
 	public static Music menu_bgm_black;
@@ -61,10 +65,10 @@ public class Assets {
 	public static Skin skin_window;
 
 	// Textures
-	public static Texture redDot;
-	public static Texture blueDot;
-	public static Texture greenDot;
-	public static Texture babyBlueDot;
+	public static Texture penDot_1; 			
+	public static Texture penDot_2;
+	public static Texture regDot_1;
+	public static Texture regDot_2;
 	public static Texture question_mark;
 
 	// Miscellaneous
@@ -75,7 +79,7 @@ public class Assets {
 	public static void load(ScrotsGame sg) {
 		int ref_width = 800;
 		float font_ratio = Gdx.graphics.getWidth() / ref_width;
-		
+
 		// Height and Width
 		game_height = Gdx.graphics.getHeight() - (Gdx.graphics.getHeight() / 5);
 		height = Gdx.graphics.getHeight();
@@ -128,9 +132,9 @@ public class Assets {
 
 		// Sounds
 		button_pop = Gdx.audio.newSound(Gdx.files.internal("sounds/button_pop.mp3"));
-		grn_pop = Gdx.audio.newSound(Gdx.files.internal("sounds/dot_pop1.mp3"));
-		blue_pop = Gdx.audio.newSound(Gdx.files.internal("sounds/dot_pop2.wav"));
-		baby_blue_pop = Gdx.audio.newSound(Gdx.files.internal("sounds/dot_pop3.wav"));
+		reg_pop_1 = Gdx.audio.newSound(Gdx.files.internal("sounds/dot_pop1.mp3"));
+		pen_pop_2 = Gdx.audio.newSound(Gdx.files.internal("sounds/dot_pop2.wav"));
+		reg_pop_2 = Gdx.audio.newSound(Gdx.files.internal("sounds/dot_pop3.wav"));
 		level_clear = Gdx.audio.newSound(Gdx.files.internal("sounds/level_clear.wav"));
 
 		// Music
@@ -149,24 +153,13 @@ public class Assets {
 		skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 		skin_window = new Skin(Gdx.files.internal("data/uiskin2.json"));
 
-		// Textures
-		redDot = new Texture(Gdx.files.internal("data/red_dot.png"));
-		redDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-
-		blueDot = new Texture(Gdx.files.internal("data/blue_dot.png"));
-		blueDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-
-		greenDot = new Texture(Gdx.files.internal("data/green_dot.png"));
-		greenDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-
-		babyBlueDot = new Texture(Gdx.files.internal("data/baby_blue_dot.png"));
-		babyBlueDot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		
-		question_mark = new Texture(Gdx.files.internal("data/question_dot.png"));
-
 		// Miscellaneous
 		prefs = Gdx.app.getPreferences("com.ayrten.scrots-preferences");
 		game = sg;
+
+		loadDotTextures();
+
+		question_mark = new Texture(Gdx.files.internal("data/question_dot.png"));
 	}
 
 	public static void playGameBGM() {
@@ -181,14 +174,36 @@ public class Assets {
 		if (game_bgm.isPlaying())
 			game_bgm.stop();
 		if (prefs.getString("bg_color", "White").equals("White")) {
-			menu_bgm_white.play();
+			if(!menu_bgm_white.isPlaying())
+				menu_bgm_white.play();
 			if (menu_bgm_black.isPlaying())
 				menu_bgm_black.stop();
 		} else {
-			menu_bgm_black.play();
+			if(!menu_bgm_black.isPlaying())
+				menu_bgm_black.play();
 			if (menu_bgm_white.isPlaying())
 				menu_bgm_white.stop();
 		}
+	}
+
+	public static void loadDotTextures()
+	{
+		// Textures
+		if(prefs.getBoolean("color_blind", false))
+			penDot_1 = new Texture(Gdx.files.internal("data/red_dot.png"));
+		penDot_1.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
+		if(prefs.getBoolean("color_blind", false))
+			penDot_2 = new Texture(Gdx.files.internal("data/blue_dot.png"));
+		penDot_2.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
+		if(prefs.getBoolean("color_blind", false))
+			regDot_1 = new Texture(Gdx.files.internal("data/green_dot.png"));
+		regDot_1.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
+		if(prefs.getBoolean("color_blind", false))
+			regDot_2 = new Texture(Gdx.files.internal("data/baby_blue_dot.png"));
+		regDot_2.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 	}
 
 	public static void dispose() {
@@ -200,10 +215,10 @@ public class Assets {
 
 		// Sounds
 		button_pop.dispose();
-		grn_pop.dispose();
+		reg_pop_1.dispose();
 		// red_pop.dispose();
-		blue_pop.dispose();
-		baby_blue_pop.dispose();
+		pen_pop_2.dispose();
+		reg_pop_2.dispose();
 
 		// Music
 		menu_bgm_black.dispose();
@@ -214,10 +229,10 @@ public class Assets {
 		skin.dispose();
 
 		// Textures
-		redDot.dispose();
-		blueDot.dispose();
-		greenDot.dispose();
-		babyBlueDot.dispose();
+		penDot_1.dispose();
+		penDot_2.dispose();
+		regDot_1.dispose();
+		regDot_2.dispose();
 		question_mark.dispose();
 
 		// Miscellaneous

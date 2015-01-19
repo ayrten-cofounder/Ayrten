@@ -6,19 +6,9 @@ import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.screens.Manager;
 
-public class DotGenerator {
-	private int dots = 3; // For the random generator: to
-							// get a random number between 0
-							// and 2. Because we have 3
-							// types of dots
-
+public class DotGenerator 
+{
 	private Random random = new Random();
-
-	// private Texture redDot;
-	// private Texture blueDot;
-	// private Texture greenDot;
-	// private Texture babyBlueDot;
-
 	// private Sound pop;
 
 	// Width and height of the game window
@@ -38,57 +28,28 @@ public class DotGenerator {
 		this.gm = gm;
 	}
 
-	public GreenDot genGreenDot() {
-		GreenDot gDot = new GreenDot(Assets.greenDot, gm, Assets.grn_pop);
-		setRandPositions(gDot);
-		return gDot;
+	public RegDot1 genRegDot1() {
+		RegDot1 regDot = new RegDot1(Assets.regDot_1, gm, Assets.reg_pop_1);
+		setRandPositions(regDot);
+		return regDot;
+	}
+	
+	public RegDot2 genRegDot2() {
+		RegDot2 regDot = new RegDot2(Assets.regDot_2, gm, Assets.reg_pop_2);
+		setRandPositions(regDot);
+		return regDot;
 	}
 
-	public RedDot genRedDot() {
-		RedDot rDot = new RedDot(Assets.redDot, gm, Assets.button_pop);
-		setRandPositions(rDot);
-		return rDot;
+	public PenDot1 genPenDot1() {
+		PenDot1 penDot = new PenDot1(Assets.penDot_1, gm, Assets.button_pop);
+		setRandPositions(penDot);
+		return penDot;
 	}
 
-	public BlueDot genBlueDot() {
-		BlueDot bDot = new BlueDot(Assets.blueDot, gm, Assets.blue_pop);
-		setRandPositions(bDot);
-		return bDot;
-	}
-
-	public BabyBlueDot genBabyBlueDot() {
-		BabyBlueDot bbDot = new BabyBlueDot(Assets.babyBlueDot, gm, Assets.baby_blue_pop);
-		setRandPositions(bbDot);
-		return bbDot;
-	}
-
-	// Gets random dot type
-	// Then gets random position
-	public Dot genRandDot() {
-		Dot randomDot = null;
-
-		int dotType = random.nextInt(dots);
-
-		switch (dotType) {
-		case 0:
-			randomDot = new GreenDot(Assets.greenDot, gm, Assets.grn_pop);
-			break;
-		case 1:
-			randomDot = new BlueDot(Assets.blueDot, gm, Assets.blue_pop);
-			break;
-		case 2:
-			randomDot = new RedDot(Assets.redDot, gm, Assets.button_pop);
-			break;
-		case 3:
-			randomDot = new BabyBlueDot(Assets.babyBlueDot, gm, Assets.baby_blue_pop);
-			break;
-		default:
-			break;
-		}
-
-		// Gets a random position based on the width an height of the window
-		setRandPositions(randomDot);
-		return randomDot;
+	public PenDot2 genPenDot2() {
+		PenDot2 penDot = new PenDot2(Assets.penDot_2, gm, Assets.pen_pop_1);
+		setRandPositions(penDot);
+		return penDot;
 	}
 
 	public void setRandPositions(Dot target) {

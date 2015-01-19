@@ -4,9 +4,9 @@ import com.ayrten.scrots.screens.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
-public class GreenDot extends Dot
+public class PenDot1 extends Dot
 {
-	public GreenDot(Texture dot, Manager gm, Sound pop)
+	public PenDot1(Texture dot, Manager gm, Sound pop)
 	{
 		super(dot, gm, pop);
 	}
@@ -15,8 +15,8 @@ public class GreenDot extends Dot
 	public void touchedByAnAngel()
 	{
 		super.touchedByAnAngel();
-		
-		// Removes a green dot from the array
-		gm.minusGreenDot();
+
+		// Game is over
+		gm.gameOver();
 	}
 }
