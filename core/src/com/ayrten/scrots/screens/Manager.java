@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class Manager
 {
-	private Level curr_level;
+	public Level curr_level;
 	private Time time;
 	private Scoreboard sb;
 	private Stage stage;

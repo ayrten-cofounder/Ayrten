@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class Dot extends Actor {
 	public Texture dot;
@@ -21,6 +22,7 @@ public class Dot extends Actor {
 	public Manager gm;
 	public Random random;
 	public DotGraphics graphics;
+	public Stage stage;
 
 	public Sound pop;
 	
@@ -48,6 +50,7 @@ public class Dot extends Actor {
 			public void touchUp(InputEvent event, float x, float y,
 					int pointer, int button) {
 
+				stage = event.getStage();
 				// Gotta get touched by an angel
 				touchedByAnAngel();
 
