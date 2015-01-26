@@ -45,7 +45,7 @@ public class TutorialScreen extends ScrotsScreen
 		
 		Label babyBlueDesc = new Label("", Assets.style_font_32_orange);
 		babyBlueDesc.setWrap(true);
-		babyBlueDesc.setText("Increased time limit by 1 second");
+		babyBlueDesc.setText("Increased time limit by 2.5 seconds");
 		
 		Label questionDesc = new Label("", Assets.style_font_32_orange);
 		questionDesc.setWrap(true);

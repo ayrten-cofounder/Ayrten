@@ -4,11 +4,9 @@ import com.ayrten.scrots.screens.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
-public class RegDot2 extends Dot
+public class DWD extends Dot
 {
-	private static final float TIME_ADD = (float) 2.6; // seconds
-	
-	public RegDot2(Texture dot, Manager gm, Sound pop)
+	public DWD(Texture dot, Manager gm, Sound pop)
 	{
 		super(dot, gm, pop);
 	}
@@ -17,8 +15,12 @@ public class RegDot2 extends Dot
 	public void touchedByAnAngel()
 	{
 		super.touchedByAnAngel();
-		
-		// Lose time
-		gm.addTime(TIME_ADD);
+
+		explode();
+	}
+	
+	private void explode()
+	{
+		System.out.println("Exploded!");
 	}
 }

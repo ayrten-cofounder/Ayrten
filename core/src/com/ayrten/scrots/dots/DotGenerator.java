@@ -51,6 +51,30 @@ public class DotGenerator
 		setRandPositions(penDot);
 		return penDot;
 	}
+	
+	public DWD_RegDot1 genDWDRegDot1() {
+		DWD_RegDot1 dwdRegDot = new DWD_RegDot1(Assets.dwdRegDot_1, gm, Assets.reg_pop_1);
+		setRandPositions(dwdRegDot);
+		return dwdRegDot;
+	}
+	
+	public DWD_RegDot2 genDWDRegDot2() {
+		DWD_RegDot2 dwdRegDot = new DWD_RegDot2(Assets.dwdRegDot_2, gm, Assets.reg_pop_2);
+		setRandPositions(dwdRegDot);
+		return dwdRegDot;
+	}
+
+	public DWD_PenDot1 genDWDPenDot1() {
+		DWD_PenDot1 dwdPenDot = new DWD_PenDot1(Assets.dwdPenDot_1, gm, Assets.button_pop);
+		setRandPositions(dwdPenDot);
+		return dwdPenDot;
+	}
+
+	public DWD_PenDot2 genDWDPenDot2() {
+		DWD_PenDot2 dwdPenDot = new DWD_PenDot2(Assets.dwdPenDot_2, gm, Assets.pen_pop_2);
+		setRandPositions(dwdPenDot);
+		return dwdPenDot;
+	}
 
 	public void setRandPositions(Dot target) {
 		int w = random.nextInt(width);
