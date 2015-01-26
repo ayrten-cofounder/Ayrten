@@ -6,11 +6,13 @@ import com.ayrten.scrots.dots.DWD_PenDot1;
 import com.ayrten.scrots.dots.DWD_PenDot2;
 import com.ayrten.scrots.dots.DWD_RegDot1;
 import com.ayrten.scrots.dots.DWD_RegDot2;
+import com.ayrten.scrots.dots.Dot;
 import com.ayrten.scrots.dots.DotGenerator;
 import com.ayrten.scrots.dots.PenDot1;
 import com.ayrten.scrots.dots.PenDot2;
 import com.ayrten.scrots.dots.RegDot1;
 import com.ayrten.scrots.dots.RegDot2;
+import com.ayrten.scrots.dots.RegDot3;
 import com.ayrten.scrots.screens.Manager;
 
 public class Level
@@ -41,10 +43,10 @@ public class Level
 	protected static final int DWD_WEIGHT = 2;
 
 	// Stores all the dots for that level.
-	private ArrayList<RegDot1> greenDots;
-	private ArrayList<PenDot1> redDots;
-	private ArrayList<PenDot2> blueDots;
-	private ArrayList<RegDot2> babyBlueDots;
+	private ArrayList<Dot> regDots1;
+	private ArrayList<Dot> penDots1;
+	private ArrayList<Dot> penDots2;
+	private ArrayList<Dot> regDots2;
 	
 	private ArrayList<DWD_RegDot1> dwdGreenDots;
 	private ArrayList<DWD_PenDot1> dwdRedDots;
@@ -55,7 +57,7 @@ public class Level
 	private DotGenerator generator;
 	
 	private int number_of_green_dots;
-
+	
 	public Level(int level, int width, int height, Manager gm)
 	{
 		assert level >= 0;
@@ -65,10 +67,10 @@ public class Level
 
 //		generator = new DotGenerator(width, height, gm);
 				
-		greenDots = new ArrayList<RegDot1>();
-		redDots = new ArrayList<PenDot1>();
-		blueDots = new ArrayList<PenDot2>();
-		babyBlueDots = new ArrayList<RegDot2>();
+		regDots1 = new ArrayList<Dot>();
+		penDots1 = new ArrayList<Dot>();
+		penDots2 = new ArrayList<Dot>();
+		regDots2 = new ArrayList<Dot>();
 		
 		dwdGreenDots = new ArrayList<DWD_RegDot1>();
 		dwdRedDots = new ArrayList<DWD_PenDot1>();
@@ -80,7 +82,7 @@ public class Level
 		gen_blue_dots();
 		gen_baby_blue_dots();
 		
-		number_of_green_dots = greenDots.size();
+		number_of_green_dots = regDots1.size();
 	}
 
 	public boolean level_clear()
@@ -93,24 +95,24 @@ public class Level
 		number_of_green_dots--;
 	}
 
-	public ArrayList<RegDot1> get_grn_dots()
+	public ArrayList<Dot> get_grn_dots()
 	{
-		return greenDots;
+		return regDots1;
 	}
 
-	public ArrayList<PenDot1> get_red_dots()
+	public ArrayList<Dot> get_red_dots()
 	{
-		return redDots;
+		return penDots1;
 	}
 
-	public ArrayList<PenDot2> get_blue_dots()
+	public ArrayList<Dot> get_blue_dots()
 	{
-		return blueDots;
+		return penDots2;
 	}
 
-	public ArrayList<RegDot2> get_baby_blue_dots()
+	public ArrayList<Dot> get_baby_blue_dots()
 	{
-		return babyBlueDots;
+		return regDots2;
 	}
 	
 	public ArrayList<DWD_RegDot1> get_dwd_grn_dots()
@@ -135,7 +137,7 @@ public class Level
 
 	private void gen_grn_dots()
 	{
-		greenDots.clear();
+		regDots1.clear();
 		int num = (int) Math.floor((level - GREEN_DOT_START) * GREEN_DOT_MOD);
 		
 		if	(num > GREEN_DOT_CAP)
@@ -153,13 +155,13 @@ public class Level
 		for (int i = 0; i < num; i++)
 		{
 			RegDot1 dot = generator.genRegDot1();
-			greenDots.add(dot);
+			regDots1.add(dot);
 		}
 	}
 
 	private void gen_red_dots()
 	{
-		redDots.clear();
+		penDots1.clear();
 		int num = (int) Math.floor((level - RED_DOT_START) * RED_DOT_MOD);
 		
 		if	(num > RED_DOT_CAP)
@@ -177,13 +179,13 @@ public class Level
 		for (int i = 0; i < num; i++)
 		{
 			PenDot1 dot = generator.genPenDot1();
-			redDots.add(dot);
+			penDots1.add(dot);
 		}
 	}
 
 	private void gen_blue_dots()
 	{
-		blueDots.clear();
+		penDots2.clear();
 		int num = (int) Math.floor((level - BLUE_DOT_START) * BLUE_DOT_MOD);
 		
 		if	(num > BLUE_DOT_CAP)
@@ -201,13 +203,13 @@ public class Level
 		for (int i = 0; i < num; i++)
 		{
 			PenDot2 dot = generator.genPenDot2();
-			blueDots.add(dot);
+			penDots2.add(dot);
 		}
 	}
 
 	private void gen_baby_blue_dots()
 	{
-		babyBlueDots.clear();
+		regDots2.clear();
 		int num = (int) Math.floor((level - BABY_BLUE_DOT_START) * BABY_BLUE_DOT_MOD);
 		
 		if	(num > BABY_BLUE_DOT_CAP)
@@ -225,7 +227,7 @@ public class Level
 		for (int i = 0; i < num; i++)
 		{
 			RegDot2 dot = generator.genRegDot2();
-			babyBlueDots.add(dot);
+			regDots2.add(dot);
 		}
 	}
 

@@ -18,7 +18,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class Dot extends Actor {
 	public Texture dot;
-
 	public Manager gm;
 	public Random random;
 	public DotGraphics graphics;

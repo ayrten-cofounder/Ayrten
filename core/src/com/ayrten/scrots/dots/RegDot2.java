@@ -1,12 +1,12 @@
 package com.ayrten.scrots.dots;
 
+import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.screens.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
 public class RegDot2 extends Dot
 {
-	private static final float TIME_ADD = (float) 2.6; // seconds
 	
 	public RegDot2(Texture dot, Manager gm, Sound pop)
 	{
@@ -19,6 +19,6 @@ public class RegDot2 extends Dot
 		super.touchedByAnAngel();
 		
 		// Lose time
-		gm.addTime(TIME_ADD);
+		gm.addTime(Assets.TIME_ADD);
 	}
 }

@@ -39,6 +39,11 @@ public class DotGenerator
 		setRandPositions(regDot);
 		return regDot;
 	}
+	
+	public RegDot3 genRegDot3() {
+		RegDot3 regDot = new RegDot3(Assets.dwdRegDot_1, gm, Assets.reg_pop_1);
+		return regDot;
+	}
 
 	public PenDot1 genPenDot1() {
 		PenDot1 penDot = new PenDot1(Assets.penDot_1, gm, Assets.button_pop);

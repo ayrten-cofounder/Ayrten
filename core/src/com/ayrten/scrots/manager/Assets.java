@@ -23,6 +23,9 @@ public class Assets {
 	public static int game_height;
 	public static int height;
 	public static int width;
+	public static final float TIME_ADD = (float) 2.6; // seconds
+	public static final float TIME_OFF = (float) -5.0;
+	
 
 	// Drawables
 	public static NinePatchDrawable gray_box;
@@ -49,12 +52,12 @@ public class Assets {
 	public static Sound level_clear;
 
 	// Regular dots
-	public static Sound reg_pop_1; // Regular dot (ie. green)
-	public static Sound reg_pop_2; // Regular dot (ie. babay blue)
+	public static Sound reg_pop_1; 
+	public static Sound reg_pop_2; 
 
 	// Penalty dots
-	public static Sound pen_pop_1; // Penalty dot (ie. red)
-	public static Sound pen_pop_2; // Penalty dot (ie. blue)
+	public static Sound pen_pop_1; 
+	public static Sound pen_pop_2;
 	
 	// Music
 	public static Music menu_bgm_black;
@@ -66,10 +69,12 @@ public class Assets {
 	public static Skin skin_window;
 
 	// Textures
-	public static Texture penDot_1;
-	public static Texture penDot_2;
-	public static Texture regDot_1;
-	public static Texture regDot_2;
+	public static Texture regDot_1; // Regular dot (ie. green)
+	public static Texture regDot_2; // Regular dot (ie. babay blue)
+	public static Texture regDot_3; // Exploding dot
+	
+	public static Texture penDot_1; // Penalty dot (ie. red)
+	public static Texture penDot_2; // Penalty dot (ie. blue)
 
 	public static Texture dwdPenDot_1;
 	public static Texture dwdPenDot_2;
@@ -212,7 +217,6 @@ public class Assets {
 	}
 
 	public static void loadDotTextures() {
-		// Textures
 		if(!prefs.getBoolean("color_blind", false))
 			penDot_1 = new Texture(Gdx.files.internal("data/red_dot.png"));
 		else
@@ -242,6 +246,9 @@ public class Assets {
 			regDot_2 = new Texture(
 					Gdx.files.internal("data/dots/baby_blue_dot_cb.png"));
 		regDot_2.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		
+		regDot_3 = new Texture(Gdx.files.internal("data/dots/brown_dot.png"));
+		regDot_3.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
 		dwdPenDot_1 = new Texture(Gdx.files.internal("data/dots/brown_dot.png"));
 		dwdPenDot_1.setFilter(TextureFilter.Linear, TextureFilter.Linear);

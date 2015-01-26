@@ -114,7 +114,7 @@ public class MainMenuScreen extends ScrotsScreen {
 		others.setCenterPosition(Gdx.graphics.getWidth()/2, highscore.getY() - others.getStyle().font.getLineHeight()/2);
 
 		Manager gm = new Manager(0, Gdx.graphics.getWidth(),
-				Gdx.graphics.getHeight());
+				Gdx.graphics.getHeight(), stage);
 		gm.setMode(GameMode.MAIN_MENU_BACKGROUND_MODE);
 		gm.setScoreboard(new Scoreboard());
 		new MainMenuBackgroundGameMode(stage, gm, Gdx.graphics.getWidth(),
