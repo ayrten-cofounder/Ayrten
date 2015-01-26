@@ -9,6 +9,7 @@ public class DWD_PenDot2 extends DWD {
 
 	public DWD_PenDot2(Texture dot, Manager gm, Sound pop) {
 		super(dot, gm, pop);
+		MAX_DOTS = 2;
 	}
 
 	@Override
@@ -17,5 +18,16 @@ public class DWD_PenDot2 extends DWD {
 
 		// Lose time
 		gm.addTime(TIME_OFF);
+	}
+	
+	@Override
+	public void generateMoreDots() {
+		super.generateMoreDots();
+		
+		for (int i = 0; i < MAX_DOTS; i++) {
+			Dot newDot = generator.genPenDot2();
+			newDot.setPosition(getX(), getY());
+			dots_inside.add(newDot);
+		}
 	}
 }

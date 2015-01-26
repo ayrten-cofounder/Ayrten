@@ -1,6 +1,8 @@
 package com.ayrten.scrots.desktop;
 
 import com.ayrten.scrots.manager.AndroidInterface;
+import com.ayrten.scrots.manager.ButtonInterface;
+import com.ayrten.scrots.screens.GameScreen;
 import com.ayrten.scrots.screens.ScrotsGame;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
@@ -32,5 +34,35 @@ public class DesktopLauncher implements AndroidInterface{
 	@Override
 	public void copyTextToClipboard(String text) {
 		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void makeYesNoWindow(String title, ButtonInterface yes_interface,
+			ButtonInterface no_interface, int color) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void makeWindow(String title, String yes_button, String no_button,
+			ButtonInterface yes_interface, ButtonInterface no_interface,
+			int color) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void makeGameOverDialog(ButtonInterface yes_interface,
+			ButtonInterface no_interface, int color) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void makeGameOverDialogHighScore(GameScreen gameScreen,
+			ButtonInterface yes_interface, ButtonInterface no_interface,
+			int color) {
+		// TODO Auto-generated method stub
+		
 	}
 }

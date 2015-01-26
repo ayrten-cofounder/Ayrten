@@ -26,6 +26,7 @@ public class DWD extends Dot
 	{
 		super.touchedByAnAngel();
 
+		generateMoreDots();
 		explode();
 	}
 	
@@ -34,6 +35,16 @@ public class DWD extends Dot
 		if(!dots_inside.isEmpty())
 		{
 			
+			for(Dot dot: dots_inside)
+			{
+				gm.getStage().addActor(dot);
+			}
+			
+			gm.curr_level.addToPoppedList(dots_inside);
 		}
+	}
+	
+	public void generateMoreDots()
+	{
 	}
 }

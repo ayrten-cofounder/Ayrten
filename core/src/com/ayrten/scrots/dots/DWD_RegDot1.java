@@ -1,5 +1,7 @@
 package com.ayrten.scrots.dots;
 
+import java.util.Random;
+
 import com.ayrten.scrots.screens.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,6 +11,8 @@ public class DWD_RegDot1 extends DWD
 	public DWD_RegDot1(Texture dot, Manager gm, Sound pop)
 	{
 		super(dot, gm, pop);
+		
+		MAX_DOTS = 5;
 	}
 
 	@Override
@@ -17,5 +21,20 @@ public class DWD_RegDot1 extends DWD
 		super.touchedByAnAngel();
 
 		
+	}
+	
+	@Override
+	public void generateMoreDots() {
+		super.generateMoreDots();
+		
+		Random rand = new Random();
+		int random = rand.nextInt(3) + 3;
+		
+		for (int i = 0; i < random; i++) {
+			Dot newDot = generator.genRegDot1();
+			newDot.setPosition(getX(), getY());
+			dots_inside.add(newDot);
+			gm.curr_level.addGreenDot();
+		}
 	}
 }

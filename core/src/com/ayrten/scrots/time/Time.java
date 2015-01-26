@@ -30,6 +30,11 @@ public class Time
 	{
 		return String.valueOf(second);
 	}
+	
+	public float getFloatTime()
+	{
+		return second;
+	}
 
 	// The change in second added to second
 	public void addTime(float secondDelta)
