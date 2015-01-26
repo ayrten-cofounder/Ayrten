@@ -42,6 +42,11 @@ public class Manager
 		this.stage = stage;
 	}
 	
+	public Stage getStage()
+	{
+		return stage;
+	}
+	
 	public void setMode(int mode)
 	{
 		this.mode = mode;
