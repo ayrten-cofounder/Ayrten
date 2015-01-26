@@ -165,6 +165,11 @@ public class Manager
 		return time.getTime();
 	}
 	
+	public float getFloatTime()
+	{
+		return time.getFloatTime();
+	}
+	
 	public void addTime(float x)
 	{
 		time.addTime(x);

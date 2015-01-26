@@ -6,6 +6,7 @@ import com.ayrten.scrots.dots.DWD_PenDot1;
 import com.ayrten.scrots.dots.DWD_PenDot2;
 import com.ayrten.scrots.dots.DWD_RegDot1;
 import com.ayrten.scrots.dots.DWD_RegDot2;
+import com.ayrten.scrots.dots.Dot;
 import com.ayrten.scrots.dots.DotGenerator;
 import com.ayrten.scrots.dots.PenDot1;
 import com.ayrten.scrots.dots.PenDot2;
@@ -50,6 +51,8 @@ public class Level
 	private ArrayList<DWD_PenDot1> dwdRedDots;
 	private ArrayList<DWD_PenDot2> dwdBlueDots;
 	private ArrayList<DWD_RegDot2> dwdBabyBlueDots;
+	
+	private ArrayList<Dot> poppedDots;
 
 	private int level;
 	private DotGenerator generator;
@@ -74,6 +77,8 @@ public class Level
 		dwdRedDots = new ArrayList<DWD_PenDot1>();
 		dwdBlueDots = new ArrayList<DWD_PenDot2>();
 		dwdBabyBlueDots = new ArrayList<DWD_RegDot2>();
+		
+		poppedDots = new ArrayList<Dot>();
 
 		gen_grn_dots();
 		gen_red_dots();
@@ -86,6 +91,11 @@ public class Level
 	public boolean level_clear()
 	{
 		return number_of_green_dots <= 0 ? true : false;
+	}
+	
+	public void addGreenDot()
+	{
+		number_of_green_dots++;
 	}
 	
 	public void minusGreenDot()
@@ -133,6 +143,11 @@ public class Level
 		return dwdBabyBlueDots;
 	}
 
+	public void addToPoppedList(ArrayList<Dot> array)
+	{
+		poppedDots.addAll(array);
+	}
+	
 	private void gen_grn_dots()
 	{
 		greenDots.clear();

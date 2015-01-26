@@ -18,7 +18,6 @@ public class RegDot2 extends Dot
 	{
 		super.touchedByAnAngel();
 		
-		// Lose time
 		gm.addTime(TIME_ADD);
 	}
 }
