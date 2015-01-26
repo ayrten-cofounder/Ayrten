@@ -133,7 +133,7 @@ public class GameScreen extends ScrotsScreen {
 			buttonStyle.fontColor = Color.WHITE;
 		}
 
-		gm = new Manager(0, w, h); // Starts with 0 points
+		gm = new Manager(0, w, h, stage); // Starts with 0 points
 //		if (Assets.prefs.getString("mode").equals("Normal")) {
 			gm.setMode(GameMode.NORMAL_MODE);
 			gm.setScoreboard(Assets.game.main_menu.nsb);
@@ -196,7 +196,6 @@ public class GameScreen extends ScrotsScreen {
 			}
 		});
 		pause.setWidth(buttonStyle.font.getBounds("  Menu").width);
-		// pause.setHeight(buttonStyle.font.getLineHeight());
 		pause.setPosition(w - pause.getWidth(), Gdx.graphics.getHeight()
 				- pause.getStyle().font.getLineHeight());
 

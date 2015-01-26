@@ -10,12 +10,14 @@ import com.ayrten.scrots.dots.Dot;
 import com.ayrten.scrots.level.Level;
 import com.ayrten.scrots.scoreboard.Scoreboard;
 import com.ayrten.scrots.time.Time;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class Manager
 {
 	private Level curr_level;
 	private Time time;
 	private Scoreboard sb;
+	private Stage stage;
 	
 	// Game mode
 	private int mode;
@@ -31,12 +33,13 @@ public class Manager
 	// The score, time, etc. of the game
 	private int score;
 	
-	public Manager(int score, int w, int h)
+	public Manager(int score, int w, int h, Stage stage)
 	{
 		this.score = score;
 		
 		time = new Time(this);
 		sb = new Scoreboard();
+		this.stage = stage;
 	}
 	
 	public void setMode(int mode)
