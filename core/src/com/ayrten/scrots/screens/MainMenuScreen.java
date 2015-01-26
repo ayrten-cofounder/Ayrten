@@ -27,14 +27,15 @@ public class MainMenuScreen extends ScrotsScreen {
 	protected GameScreen game_screen;
 
 	public NormalScoreboard nsb;
-//	public ChallengeScoreboard csb;
+
+	// public ChallengeScoreboard csb;
 
 	public MainMenuScreen() {
 		super(null, false);
 
 		// Initialize variables
 		nsb = new NormalScoreboard();
-//		csb = new ChallengeScoreboard();
+		// csb = new ChallengeScoreboard();
 
 		others_screen = new OthersScreen(this);
 		high_score_screen = new HighScoresScreen(this);
@@ -55,66 +56,81 @@ public class MainMenuScreen extends ScrotsScreen {
 				start.getHeight());
 		start.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
-				if(Assets.prefs.getBoolean("sound_effs", true))
+				if (Assets.prefs.getBoolean("sound_effs", true))
 					Assets.button_pop.play();
-				if(Assets.prefs.getBoolean("first_time", true)) {
-					Assets.game.apk_intf.makeYesNoWindow("This is your first time playing. Do you want to view the tutorial?", new ButtonInterface() {
-						@Override
-						public void buttonPressed() {
-							Assets.prefs.putBoolean("first_time", true);
-							Assets.prefs.flush();
-							Assets.game.setScreen(Assets.game.main_menu.others_screen.tutorial_screen);
-						}
-					}, new ButtonInterface() {
-						@Override
-						public void buttonPressed() {
-							Timer timer = new Timer();
-							timer.scheduleTask(new Task() {
-								@Override
-								public void run() {
-									Assets.prefs.putBoolean("first_time", false);
-									Assets.prefs.flush();
-									game_screen = new GameScreen();
-									Assets.playGameBGM();
-									Assets.game.setScreen(Assets.game.main_menu.game_screen);
-								}
-							}, 0.5f);
-						}
-					}, Assets.prefs.getString("bg_color").equals("Black") ? 0 : 1);
+				if (Assets.prefs.getBoolean("first_time", true)) {
+					Assets.game.apk_intf
+							.makeYesNoWindow(
+									"This is your first time playing. Do you want to view the tutorial?",
+									new ButtonInterface() {
+										@Override
+										public void buttonPressed() {
+											Assets.prefs.putBoolean(
+													"first_time", true);
+											Assets.prefs.flush();
+											Assets.game
+													.setScreen(Assets.game.main_menu.others_screen.tutorial_screen);
+										}
+									}, new ButtonInterface() {
+										@Override
+										public void buttonPressed() {
+											Timer timer = new Timer();
+											timer.scheduleTask(new Task() {
+												@Override
+												public void run() {
+													Assets.prefs
+															.putBoolean(
+																	"first_time",
+																	false);
+													Assets.prefs.flush();
+													game_screen = new GameScreen();
+													Assets.playGameBGM();
+													Assets.game
+															.setScreen(Assets.game.main_menu.game_screen);
+												}
+											}, 0.5f);
+										}
+									}, Assets.prefs.getString("bg_color")
+											.equals("Black") ? 0 : 1);
 				} else {
 					game_screen = new GameScreen();
 					Assets.playGameBGM();
 					Assets.game.setScreen(game_screen);
 				}
-			}			
+			}
 		});
-		start.setCenterPosition(Gdx.graphics.getWidth()/2, scrots.getY() - scrots.getStyle().font.getLineHeight()/2);
+		start.setCenterPosition(Gdx.graphics.getWidth() / 2, scrots.getY()
+				- scrots.getStyle().font.getLineHeight() / 2);
 
 		highscore = new Label("High Scores", style);
-		highscore.setBounds(highscore.getX(), highscore.getY(), highscore.getWidth(), highscore.getHeight());
+		highscore.setBounds(highscore.getX(), highscore.getY(),
+				highscore.getWidth(), highscore.getHeight());
 		highscore.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				if (Assets.prefs.getBoolean("sound_effs", true))
 					Assets.button_pop.play();
 				Assets.game.setScreen(high_score_screen);
-			}			
+			}
 		});
 
-		highscore.setCenterPosition(Gdx.graphics.getWidth()/2, start.getY() - highscore.getStyle().font.getLineHeight()/2);
+		highscore.setCenterPosition(Gdx.graphics.getWidth() / 2, start.getY()
+				- highscore.getStyle().font.getLineHeight() / 2);
 
 		others = new Label("Others", style);
-		others.setBounds(others.getX(), others.getY(), others.getWidth(), others.getHeight());
-		others.addListener(new ClickListener(){
+		others.setBounds(others.getX(), others.getY(), others.getWidth(),
+				others.getHeight());
+		others.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				if (Assets.prefs.getBoolean("sound_effs", true))
 					Assets.button_pop.play();
 				Assets.game.setScreen(others_screen);
-			}			
+			}
 		});
-		others.setCenterPosition(Gdx.graphics.getWidth()/2, highscore.getY() - others.getStyle().font.getLineHeight()/2);
+		others.setCenterPosition(Gdx.graphics.getWidth() / 2, highscore.getY()
+				- others.getStyle().font.getLineHeight() / 2);
 
 		Manager gm = new Manager(0, Gdx.graphics.getWidth(),
-				Gdx.graphics.getHeight());
+				Gdx.graphics.getHeight(), stage);
 		gm.setMode(GameMode.MAIN_MENU_BACKGROUND_MODE);
 		gm.setScoreboard(new Scoreboard());
 		new MainMenuBackgroundGameMode(stage, gm, Gdx.graphics.getWidth(),
@@ -128,19 +144,18 @@ public class MainMenuScreen extends ScrotsScreen {
 		stage.addActor(others);
 	}
 
-	public void addActors()
-	{
+	public void addActors() {
 		actors.add(start);
 		actors.add(highscore);
 		actors.add(others);
 	}
-	
+
 	@Override
 	public void show() {
 		super.show();
 		Assets.game.apk_intf.shouldShowAd(true);
 	}
-	
+
 	@Override
 	public void hide() {
 		super.hide();

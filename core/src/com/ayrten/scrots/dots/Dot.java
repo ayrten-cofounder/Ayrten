@@ -22,10 +22,9 @@ public class Dot extends Actor {
 	public Manager gm;
 	public Random random;
 	public DotGraphics graphics;
-	public Stage stage;
 
 	public Sound pop;
-	
+
 	public Dot(Texture dot, Manager gm, Sound pop) {
 		this.dot = dot;
 		this.gm = gm;
@@ -34,7 +33,7 @@ public class Dot extends Actor {
 		setBounds(getX(), getY(), dot.getWidth(), dot.getHeight());
 
 		if (gm.get_game_mode() == GameMode.NORMAL_MODE
-				|| gm.get_game_mode() == GameMode.CHALLENGE_MODE ) {
+				|| gm.get_game_mode() == GameMode.CHALLENGE_MODE) {
 			graphics = new DotGraphics_NormalGameMode(this);
 		} else if (gm.get_game_mode() == GameMode.MAIN_MENU_BACKGROUND_MODE) {
 			graphics = new DotGraphics_MainMenuScreenBackground(this);
@@ -50,7 +49,6 @@ public class Dot extends Actor {
 			public void touchUp(InputEvent event, float x, float y,
 					int pointer, int button) {
 
-				stage = event.getStage();
 				// Gotta get touched by an angel
 				touchedByAnAngel();
 
