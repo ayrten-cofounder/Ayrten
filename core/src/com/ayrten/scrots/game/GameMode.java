@@ -6,7 +6,6 @@ import com.ayrten.scrots.level.Level;
 import com.ayrten.scrots.screens.Manager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.Timer.Task;
 
 public class GameMode {
 	public static final int MAIN_MENU_BACKGROUND_MODE = -1;
