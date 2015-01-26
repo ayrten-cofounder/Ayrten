@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
@@ -54,7 +55,7 @@ public class Assets {
 	// Penalty dots
 	public static Sound pen_pop_1; // Penalty dot (ie. red)
 	public static Sound pen_pop_2; // Penalty dot (ie. blue)
-
+	
 	// Music
 	public static Music menu_bgm_black;
 	public static Music menu_bgm_white;
@@ -69,7 +70,13 @@ public class Assets {
 	public static Texture penDot_2;
 	public static Texture regDot_1;
 	public static Texture regDot_2;
+	public static Texture powDot_1;
+	public static Texture powDot_2;
 	public static Texture question_mark;
+	
+	public static Image powDot1_image;
+	public static Image powDot2_image;
+	public static Image powDot3_image;
 
 	// Miscellaneous
 	public static Preferences prefs;
@@ -165,6 +172,10 @@ public class Assets {
 		game = sg;
 
 		loadDotTextures();
+		
+		powDot1_image = new Image(regDot_1);
+		powDot2_image = new Image(regDot_1);
+		powDot3_image = new Image(regDot_1);
 
 		question_mark = new Texture(Gdx.files.internal("data/question_dot.png"));
 	}
@@ -195,7 +206,7 @@ public class Assets {
 
 	public static void loadDotTextures() {
 		// Textures
-s		if(!prefs.getBoolean("color_blind", false))
+		if(!prefs.getBoolean("color_blind", false))
 			penDot_1 = new Texture(Gdx.files.internal("data/red_dot.png"));
 		else
 			penDot_1 = new Texture(Gdx.files.internal("data/dots/red_dot_cb.png"));

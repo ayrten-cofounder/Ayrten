@@ -20,6 +20,11 @@ public class Manager
 	// Game mode
 	private int mode;
 	
+	// Tracks number of power dots.
+	private int powDot1_num;
+	private int powDot2_num;
+	private int powDot3_num;
+	
 	// True if player loses
 	private boolean game_over = false;
 

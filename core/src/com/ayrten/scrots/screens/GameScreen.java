@@ -13,19 +13,23 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g3d.Renderable;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.badlogic.gdx.utils.Timer;
 
-public class GameScreen implements Screen {
+public class GameScreen extends ScrotsScreen {
 	// Widgets
 	protected Label pause;
 
@@ -46,12 +50,18 @@ public class GameScreen implements Screen {
 	protected SpriteBatch batch;
 	protected boolean should_clear_stage;
 	protected ArrayList<Level> all_levels = new ArrayList<Level>();
+	
+	// Pause Menu
+	ArrayList<Image> powDot_images;
+	ArrayList<Label> powDot_num;
+	protected Table table;
 
 	protected Pool<MoveToAction> pool;
 
-	public boolean go_back = false;
-
 	public GameScreen() {
+		super(null, false);
+		createBackLabel();
+		
 		w = Gdx.graphics.getWidth();
 		h = Gdx.graphics.getHeight();
 		should_clear_stage = true;
@@ -88,7 +98,7 @@ public class GameScreen implements Screen {
 				1 + points_title.getWidth() + points.getWidth()
 						+ time_title.getWidth() / 2, points.getCenterY());
 
-		time = new Label("60.0", Assets.prefs.getString("bg_color").equals(
+		time = new Label("60.0", Assets.prefs.getString("bg_color").equals(	
 				"Black") ? Assets.style_font_64_white
 				: Assets.style_font_64_black);
 		// time = new Label("60.0", Assets.style_font_64_blue);
@@ -134,33 +144,14 @@ public class GameScreen implements Screen {
 //			gamemode = new ChallengeGameMode(stage, gm, w, h);
 //		}
 
-		pause = new Label("Menu", buttonStyle);
-		pause.setBounds(pause.getX(), pause.getY(), pause.getWidth(),
-				pause.getHeight());
-		pause.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				showMenu();
-
-				gm.pauseGame();
-			}
-		});
-		pause.setWidth(buttonStyle.font.getBounds("  Menu").width);
-		// pause.setHeight(buttonStyle.font.getLineHeight());
-		pause.setPosition(w - pause.getWidth(), Gdx.graphics.getHeight()
-				- pause.getStyle().font.getLineHeight());
-
-		TextButton pause_quit = new TextButton("", Assets.skin);
-		pause_quit.add(new Label("Quit", buttonStyle));
-		pause_quit.setBounds(pause_quit.getX(), pause_quit.getY(),
-				pause_quit.getWidth(), pause_quit.getHeight());
-
 		pool = new Pool<MoveToAction>() {
 			@Override
 			protected MoveToAction newObject() {
 				return new MoveToAction();
 			}
 		};
+		
+		initializePauseMenu(buttonStyle);
 
 		addStageActors();
 		curr_level = gamemode.gen_curr_level();
@@ -189,6 +180,143 @@ public class GameScreen implements Screen {
 		Assets.playMenuBGM();
 		Assets.game.setScreen(Assets.game.main_menu);
 	}
+	
+	private void initializePauseMenu(LabelStyle buttonStyle)
+	{
+		pause = new Label("Menu", buttonStyle);
+		pause.setBounds(pause.getX(), pause.getY(), pause.getWidth(),
+				pause.getHeight());
+		pause.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				if (Assets.prefs.getBoolean("sound_effs"))
+					Assets.button_pop.play();
+				gm.pauseGame();
+				table.setVisible(true);
+			}
+		});
+		pause.setWidth(buttonStyle.font.getBounds("  Menu").width);
+		// pause.setHeight(buttonStyle.font.getLineHeight());
+		pause.setPosition(w - pause.getWidth(), Gdx.graphics.getHeight()
+				- pause.getStyle().font.getLineHeight());
+
+		TextButton pause_quit = new TextButton("", Assets.skin);
+		pause_quit.add(new Label("Quit", buttonStyle));
+		pause_quit.setBounds(pause_quit.getX(), pause_quit.getY(),
+				pause_quit.getWidth(), pause_quit.getHeight());
+		
+		Label resume = new Label("Resume", buttonStyle);
+		resume.setBounds(resume.getX(), resume.getY(), resume.getWidth(), resume.getHeight());
+		resume.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				gm.startGame();
+				table.setVisible(false);
+			}
+		});
+		
+		Label quit = new Label("Quit", buttonStyle);
+		quit.setBounds(quit.getX(), quit.getY(), quit.getWidth(), quit.getHeight());
+		quit.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				showQuitConfirm();
+			}
+		});
+		
+		Label tutorial = new Label("Tutorial", buttonStyle);
+		tutorial.setBounds(tutorial.getX(), tutorial.getY(), tutorial.getWidth(), tutorial.getHeight());
+		tutorial.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				
+			}
+		});
+		
+		Label options = new Label("Options", buttonStyle);
+		options.setBounds(options.getX(), options.getY(), options.getWidth(), options.getHeight());
+		options.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+			
+			}
+		});
+		
+		table = new Table(Assets.skin);
+		table.setWidth(Assets.width);
+		table.setHeight(Assets.game_height);
+		table.left();
+		Table dotTable = new Table(Assets.skin);
+		dotTable.align(Align.right);
+		
+		addPowDots();
+		addPowDotsNum();
+		
+		for(int i = 0; i < powDot_images.size(); i++)
+		{
+			Image powDot = powDot_images.get(i);
+			Label powDotNum = powDot_num.get(i);
+			
+			
+			dotTable.add(powDot).padLeft(back.getWidth()/5).width(powDot.getWidth()/3 * 2).height(powDot.getHeight()/3 * 2);
+			dotTable.add(powDotNum).padLeft(back.getWidth()/5);
+			if(i != powDot_images.size() - 1)
+			{
+				dotTable.row();
+				dotTable.add().height(back.getStyle().font.getLineHeight()/2);
+				dotTable.row();			
+			}
+		}
+		
+		Table opTable = new Table(Assets.skin);
+		opTable.right();
+		opTable.add(resume).expandX();
+		opTable.row();
+		opTable.add().height(back.getStyle().font.getLineHeight()/2);
+		opTable.row();
+		opTable.add(quit);
+		opTable.row();
+		opTable.add().height(back.getStyle().font.getLineHeight()/2);
+		opTable.row();
+		opTable.add(options);
+		opTable.row();
+		opTable.add().height(back.getStyle().font.getLineHeight()/2);
+		opTable.row();
+		opTable.add(tutorial);
+		
+		table.top();
+		table.add(dotTable);
+		table.add(opTable).expandX().right();
+		table.setVisible(false);
+	}
+	
+	public void addPowDots()
+	{
+		powDot_images = new ArrayList<Image>();
+		Image powDot_1 = Assets.powDot1_image;
+		Image powDot_2 = Assets.powDot2_image;
+		Image powDot_3 = Assets.powDot3_image;
+		powDot_images.add(powDot_1);
+		powDot_images.add(powDot_2);
+		powDot_images.add(powDot_3);
+	}
+	
+	public void addPowDotsNum()
+	{
+		powDot_num = new ArrayList<Label>();
+		Label powDot_1_num = new Label("0", Assets.prefs.getString("bg_color").equals(	
+				"Black") ? Assets.style_font_64_white
+				: Assets.style_font_64_black);
+		Label powDot_2_num = new Label("0", Assets.prefs.getString("bg_color").equals(	
+				"Black") ? Assets.style_font_64_white
+				: Assets.style_font_64_black);
+		Label powDot_3_num = new Label("0", Assets.prefs.getString("bg_color").equals(	
+				"Black") ? Assets.style_font_64_white
+				: Assets.style_font_64_black);
+		powDot_num.add(powDot_1_num);
+		powDot_num.add(powDot_2_num);
+		powDot_num.add(powDot_3_num);
+	}
 
 	public void setHighScoreName(String name) {
 		// Gdx.input.setOnscreenKeyboardVisible(false);
@@ -213,24 +341,8 @@ public class GameScreen implements Screen {
 					}
 				}, Assets.prefs.getString("bg_color").equals("Black") ? 0 : 1);
 	}
-
-	public void showMenu() {
-		Assets.game.apk_intf.makeWindow("Menu", "Quit", "Resume",
-				new ButtonInterface() {
-
-					@Override
-					public void buttonPressed() {
-						showQuitConfirm();
-					}
-				}, new ButtonInterface() {
-
-					@Override
-					public void buttonPressed() {
-						gm.startGame();
-					}
-				}, Assets.prefs.getString("bg_color").equals("Black") ? 0 : 1);
-	}
-
+	
+	
 	public void showQuitConfirm() {
 		Assets.game.apk_intf.makeWindow("Quit?", "Yes", "No",
 				new ButtonInterface() {
@@ -239,13 +351,7 @@ public class GameScreen implements Screen {
 					public void buttonPressed() {
 						main_menu();
 					}
-				}, new ButtonInterface() {
-
-					@Override
-					public void buttonPressed() {
-						showMenu();
-					}
-				}, Assets.prefs.getString("bg_color").equals("Black") ? 0 : 1);
+				}, null, Assets.prefs.getString("bg_color").equals("Black") ? 0 : 1);
 	}
 
 	public void showGameOver() {
@@ -306,7 +412,6 @@ public class GameScreen implements Screen {
 				levelClear();
 			}
 		}
-
 	}
 
 	public void point() {
@@ -344,6 +449,7 @@ public class GameScreen implements Screen {
 		stage.addActor(time);
 		stage.addActor(time_title);
 		stage.addActor(time_end);
+		stage.addActor(table);
 	}
 
 	public void levelClear() {
