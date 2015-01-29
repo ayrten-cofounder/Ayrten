@@ -27,10 +27,21 @@ public class DWD_RegDot1 extends DWD
 	public void generateMoreDots() {
 		super.generateMoreDots();
 		
-		Random rand = new Random();
+		Random rand = new Random(System.currentTimeMillis());
 		int random = rand.nextInt(3) + 3;
 		
 		for (int i = 0; i < random; i++) {
+			if (i > 2)
+			{
+				if(rand.nextInt(100) % 10 > 0)
+				{
+					Dot newDot = generator.genRegDot3();
+					newDot.setPosition(getX(), getY());
+					dots_inside.add(newDot);
+					return;
+				}
+			}
+			
 			Dot newDot = generator.genRegDot1();
 			newDot.setPosition(getX(), getY());
 			dots_inside.add(newDot);

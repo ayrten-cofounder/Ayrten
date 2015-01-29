@@ -41,7 +41,7 @@ public class DotGenerator
 	}
 	
 	public RegDot3 genRegDot3() {
-		RegDot3 regDot = new RegDot3(Assets.dwdRegDot_1, gm, Assets.reg_pop_1);
+		RegDot3 regDot = new RegDot3(Assets.explosion_dot, gm, Assets.reg_pop_1);
 		return regDot;
 	}
 

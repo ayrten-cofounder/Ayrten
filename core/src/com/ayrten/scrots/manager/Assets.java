@@ -25,7 +25,6 @@ public class Assets {
 	public static int width;
 	public static final float TIME_ADD = (float) 2.6; // seconds
 	public static final float TIME_OFF = (float) -5.0;
-	
 
 	// Drawables
 	public static NinePatchDrawable gray_box;
@@ -52,13 +51,13 @@ public class Assets {
 	public static Sound level_clear;
 
 	// Regular dots
-	public static Sound reg_pop_1; 
-	public static Sound reg_pop_2; 
+	public static Sound reg_pop_1;
+	public static Sound reg_pop_2;
 
 	// Penalty dots
-	public static Sound pen_pop_1; 
+	public static Sound pen_pop_1;
 	public static Sound pen_pop_2;
-	
+
 	// Music
 	public static Music menu_bgm_black;
 	public static Music menu_bgm_white;
@@ -72,7 +71,7 @@ public class Assets {
 	public static Texture regDot_1; // Regular dot (ie. green)
 	public static Texture regDot_2; // Regular dot (ie. babay blue)
 	public static Texture regDot_3; // Exploding dot
-	
+
 	public static Texture penDot_1; // Penalty dot (ie. red)
 	public static Texture penDot_2; // Penalty dot (ie. blue)
 
@@ -84,8 +83,10 @@ public class Assets {
 	public static Texture powDot_1;
 	public static Texture powDot_2;
 
+	public static Texture explosion_dot;
+
 	public static Texture question_mark;
-	
+
 	public static Image powDot1_image;
 	public static Image powDot2_image;
 	public static Image powDot3_image;
@@ -184,7 +185,7 @@ public class Assets {
 		game = sg;
 
 		loadDotTextures();
-		
+
 		powDot1_image = new Image(regDot_1);
 		powDot2_image = new Image(regDot_1);
 		powDot3_image = new Image(regDot_1);
@@ -217,7 +218,7 @@ public class Assets {
 	}
 
 	public static void loadDotTextures() {
-		if(!prefs.getBoolean("color_blind", false))
+		if (!prefs.getBoolean("color_blind", false))
 			penDot_1 = new Texture(Gdx.files.internal("data/red_dot.png"));
 		else
 			penDot_1 = new Texture(
@@ -246,21 +247,27 @@ public class Assets {
 			regDot_2 = new Texture(
 					Gdx.files.internal("data/dots/baby_blue_dot_cb.png"));
 		regDot_2.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		
+
 		regDot_3 = new Texture(Gdx.files.internal("data/dots/brown_dot.png"));
 		regDot_3.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		
+
 		dwdPenDot_1 = new Texture(Gdx.files.internal("data/dots/brown_dot.png"));
 		dwdPenDot_1.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		
+
 		dwdPenDot_2 = new Texture(Gdx.files.internal("data/dots/pink_dot.png"));
 		dwdPenDot_2.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		
-		dwdRegDot_1 = new Texture(Gdx.files.internal("data/dots/yellow_dot.png"));
+
+		dwdRegDot_1 = new Texture(
+				Gdx.files.internal("data/dots/yellow_dot.png"));
 		dwdRegDot_1.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		
-		dwdRegDot_2 = new Texture(Gdx.files.internal("data/dots/orange_dot.png"));
+
+		dwdRegDot_2 = new Texture(
+				Gdx.files.internal("data/dots/orange_dot.png"));
 		dwdRegDot_2.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
+		explosion_dot = new Texture(
+				Gdx.files.internal("data/dots/explosion_dot.png"));
+		explosion_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 	}
 
 	public static void dispose() {
