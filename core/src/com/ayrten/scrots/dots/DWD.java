@@ -40,7 +40,7 @@ public class DWD extends Dot
 				gm.getStage().addActor(dot);
 			}
 			
-			gm.curr_level.addToPoppedList(dots_inside);
+			gm.curr_level.addToDotsThatCameOutOfDWDList(dots_inside);
 		}
 	}
 	
