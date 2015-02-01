@@ -1,14 +1,10 @@
 package com.ayrten.scrots.level;
 
-import com.ayrten.scrots.dots.DWD_PenDot1;
-import com.ayrten.scrots.dots.DWD_PenDot2;
-import com.ayrten.scrots.dots.DWD_RegDot1;
-import com.ayrten.scrots.dots.DWD_RegDot2;
 import com.ayrten.scrots.dots.PenDot1;
 import com.ayrten.scrots.dots.PenDot2;
 import com.ayrten.scrots.dots.RegDot1;
 import com.ayrten.scrots.dots.RegDot2;
-import com.ayrten.scrots.screens.Manager;
+import com.ayrten.scrots.manager.Manager;
 
 public class MainMenuBackgroundLevel extends Level {
 
