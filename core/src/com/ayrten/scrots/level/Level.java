@@ -11,6 +11,9 @@ import com.ayrten.scrots.dots.Dot;
 import com.ayrten.scrots.dots.DotGenerator;
 import com.ayrten.scrots.dots.PenDot1;
 import com.ayrten.scrots.dots.PenDot2;
+import com.ayrten.scrots.dots.PowerDot_Invincible;
+import com.ayrten.scrots.dots.PowerDot_Magnet;
+import com.ayrten.scrots.dots.PowerDot_Rainbow;
 import com.ayrten.scrots.dots.RegDot1;
 import com.ayrten.scrots.dots.RegDot2;
 import com.ayrten.scrots.dots.RegDot3;
@@ -56,7 +59,9 @@ public class Level
 	
 	protected ArrayList<Dot> dotsThatCameOutOfDWDs;
 	
-	protected LinkedList<ArrayList<Dot>> dots;
+	protected LinkedList<Dot> powerUpDot;
+	
+	protected LinkedList<ArrayList<Dot>> allDots;
 
 	protected int level;
 	protected DotGenerator generator;
@@ -84,16 +89,19 @@ public class Level
 		
 		dotsThatCameOutOfDWDs = new ArrayList<Dot>();
 		
-		dots = new LinkedList<ArrayList<Dot>>();
-		dots.add(regDots1);
-		dots.add(regDots2);
-		dots.add(penDots1);
-		dots.add(penDots2);
-		dots.add(dwdGreenDots);
-		dots.add(dwdRedDots);
-		dots.add(dwdBlueDots);
-		dots.add(dwdBabyBlueDots);
-		dots.add(dotsThatCameOutOfDWDs);
+		powerUpDot = new LinkedList<Dot>();
+		powerUpDot.add(generator.genPowerDotMagnet());
+		
+		allDots = new LinkedList<ArrayList<Dot>>();
+		allDots.add(regDots1);
+		allDots.add(regDots2);
+		allDots.add(penDots1);
+		allDots.add(penDots2);
+		allDots.add(dwdGreenDots);
+		allDots.add(dwdRedDots);
+		allDots.add(dwdBlueDots);
+		allDots.add(dwdBabyBlueDots);
+		allDots.add(dotsThatCameOutOfDWDs);
 
 		gen_grn_dots();
 		gen_red_dots();
@@ -165,7 +173,12 @@ public class Level
 
 	public LinkedList<ArrayList<Dot>> get_all_dots()
 	{
-		return dots;
+		return allDots;
+	}
+	
+	public LinkedList<Dot> get_power_ups()
+	{
+		return powerUpDot;
 	}
 	
 	public void addToDotsThatCameOutOfDWDList(ArrayList<Dot> array)

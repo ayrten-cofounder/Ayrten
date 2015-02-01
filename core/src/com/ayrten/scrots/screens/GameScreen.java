@@ -129,6 +129,7 @@ public class GameScreen extends ScrotsScreen {
 //		slots.setWidth(Assets.width - slots.getX());
 		//slots.setHeight(Assets.height - Assets.game_height);
 		slots.setScrollingDisabled(false, true);
+		slots.setFadeScrollBars(false);
 		
 		addStageActors();
 		curr_level = gamemode.gen_curr_level();

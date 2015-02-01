@@ -16,6 +16,11 @@ public class PenDot1 extends Dot
 	{
 		super.touchedByAnAngel();
 
+		if(INVINCIBLE)
+		{
+			return;
+		}
+		
 		// Game is over
 		gm.gameOver();
 	}

@@ -2,9 +2,10 @@ package com.ayrten.scrots.game;
 
 import java.util.ArrayList;
 
+import com.ayrten.scrots.dots.Dot;
 import com.ayrten.scrots.level.Level;
-import com.ayrten.scrots.manager.Manager;
 import com.ayrten.scrots.level.MainMenuBackgroundLevel;
+import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
@@ -39,7 +40,7 @@ public class GameMode {
 		}
 		
 		// Generate the first 20 levels.
-		for (int i = 1; i <= 20; i++) {
+		for (int i = 15; i <= 20; i++) {
 			Level lvl = new Level(i, w, h, gm);
 			all_levels.add(lvl);
 		}
@@ -135,6 +136,11 @@ public class GameMode {
 		for(int i = grn_half_size; i < curr_level.get_grn_dots().size(); i++)
 		{
 			stage.addActor(curr_level.get_grn_dots().get(i));
+		}
+		
+		for(Dot dot: curr_level.get_power_ups())
+		{
+			stage.addActor(dot);
 		}
 		
 		return curr_level;

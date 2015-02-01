@@ -14,15 +14,19 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class Dot extends Actor {
+	protected static boolean INVINCIBLE = false;
+	
 	public Texture dot;
 	public Manager gm;
 	public Random random;
 	public DotGraphics graphics;
 
 	public Sound pop;
+
+	protected InputListener listener;
+	public boolean magneted = false;
 
 	public Dot(Texture dot, Manager gm, Sound pop) {
 		this.dot = dot;
@@ -39,7 +43,7 @@ public class Dot extends Actor {
 		}
 
 		// An InputListener is a subclass of EventListener
-		addListener(new InputListener() {
+		listener = new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
 				return true;
@@ -56,7 +60,8 @@ public class Dot extends Actor {
 
 				dotChange();
 			}
-		});
+		};
+		addListener(listener);
 	}
 
 	// This class shall be overriddent by the blue, green, red dots
@@ -94,6 +99,6 @@ public class Dot extends Actor {
 	// Overridden functions.
 	@Override
 	public void draw(Batch batch, float alpha) {
-		graphics.draw(batch, alpha);
+		graphics.draw(batch, alpha, magneted);
 	}
 }

@@ -8,7 +8,11 @@ package com.ayrten.scrots.manager;
 
 import java.util.ArrayList;
 
+import com.ayrten.scrots.dots.DWD_PenDot1;
+import com.ayrten.scrots.dots.DWD_PenDot2;
 import com.ayrten.scrots.dots.Dot;
+import com.ayrten.scrots.dots.PenDot1;
+import com.ayrten.scrots.dots.PenDot2;
 import com.ayrten.scrots.level.Level;
 import com.ayrten.scrots.scoreboard.Scoreboard;
 import com.ayrten.scrots.time.Time;
@@ -100,6 +104,23 @@ public class Manager {
 			for(Dot dot: dotList)
 			{
 				dot.resetRatio();
+			}
+		}
+	}
+	
+	public void changePenalityDotVisibility(boolean visible)
+	{
+		for(ArrayList<Dot> dotList: curr_level.get_all_dots())
+		{
+			for(Dot dot: dotList)
+			{
+				if(dot.getClass() == PenDot1.class
+						|| dot.getClass() == PenDot2.class
+						|| dot.getClass() == DWD_PenDot1.class
+						|| dot.getClass() == DWD_PenDot2.class)
+				{
+					dot.setVisible(visible);
+				}
 			}
 		}
 	}
