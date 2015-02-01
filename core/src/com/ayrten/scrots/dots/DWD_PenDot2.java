@@ -15,6 +15,11 @@ public class DWD_PenDot2 extends DWD {
 	@Override
 	public void touchedByAnAngel() {
 		super.touchedByAnAngel();
+		
+		if(INVINCIBLE)
+		{
+			return;
+		}
 
 		// Lose time
 		gm.addTime(TIME_OFF);

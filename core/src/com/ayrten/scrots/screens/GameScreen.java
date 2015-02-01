@@ -136,7 +136,7 @@ public class GameScreen extends ScrotsScreen {
 			dot_width = slots.getHeight();
 			spacing = (slots.getWidth() - slot_switch.getWidth() - dot_width * 3)/3;
 		}
-		
+
 	  	for(int i = 0; i < powDot_images.size(); i++) 
 	  	{
 	  		Table temp = new Table(Assets.skin);

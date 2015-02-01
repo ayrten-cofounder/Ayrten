@@ -16,6 +16,11 @@ public class DWD_PenDot1 extends DWD {
 	@Override
 	public void touchedByAnAngel() {
 		super.touchedByAnAngel();
+		
+		if(INVINCIBLE)
+		{
+			return;
+		}
 
 		gm.addTime(-gm.getFloatTime() * DIVIDER);
 	}

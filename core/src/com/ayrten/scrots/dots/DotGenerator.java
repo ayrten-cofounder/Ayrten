@@ -80,6 +80,24 @@ public class DotGenerator
 		setRandPositions(dwdPenDot);
 		return dwdPenDot;
 	}
+	
+	public PowerDot_Rainbow genPowerDotRainbow() {
+		PowerDot_Rainbow rainbowDot = new PowerDot_Rainbow(Assets.explosion_dot, gm, Assets.pen_pop_2);
+		setRandPositions(rainbowDot);
+		return rainbowDot;
+	}
+	
+	public PowerDot_Invincible genPowerDotInvincible(){
+		PowerDot_Invincible invincibleDot = new PowerDot_Invincible(Assets.explosion_dot, gm, Assets.pen_pop_2);
+		setRandPositions(invincibleDot);
+		return invincibleDot;
+	}
+	
+	public PowerDot_Magnet genPowerDotMagnet(){
+		PowerDot_Magnet magnetDot = new PowerDot_Magnet(Assets.explosion_dot, gm, Assets.pen_pop_2);
+		setRandPositions(magnetDot);
+		return magnetDot;
+	}
 
 	public void setRandPositions(Dot target) {
 		int w = random.nextInt(width);

@@ -110,9 +110,14 @@ public class DotGraphics {
 		move();
 	}
 
-	public void draw(Batch batch, float alpha) {
+	public void draw(Batch batch, float alpha, boolean magnetized) {
+		
+		if(!magnetized)
+		{
+			changePosition();
+		}
+		
 		setSize();
-		changePosition();
 		dot.setBounds(dot.getX(), dot.getY(), curr_width, curr_height);
 		batch.draw(dot.dot, dot.getX(), dot.getY(), curr_width, curr_height);
 	}

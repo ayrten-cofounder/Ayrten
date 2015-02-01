@@ -17,6 +17,11 @@ public class PenDot2 extends Dot
 	{
 		super.touchedByAnAngel();
 		
+		if(INVINCIBLE)
+		{
+			return;
+		}
+		
 		// Lose time
 		gm.addTime(Assets.TIME_OFF);
 	}
