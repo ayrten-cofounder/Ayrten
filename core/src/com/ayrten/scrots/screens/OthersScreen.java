@@ -61,6 +61,7 @@ public class OthersScreen extends ScrotsScreen
 				setActorsTouchable(Touchable.disabled);
 				if(Assets.prefs.getBoolean("sound_effs", true))
 					Assets.button_pop.play();
+				tutorial_screen.setBackScreen(Assets.game.getScreen());
 				Assets.game.setScreen(tutorial_screen);
 			}
 		});

@@ -1,7 +1,7 @@
 package com.ayrten.scrots.dots;
 
 import com.ayrten.scrots.manager.Assets;
-import com.ayrten.scrots.screens.Manager;
+import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 

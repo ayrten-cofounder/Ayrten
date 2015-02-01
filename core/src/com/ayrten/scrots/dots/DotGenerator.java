@@ -4,7 +4,7 @@ import java.util.Random;
 
 import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.manager.Assets;
-import com.ayrten.scrots.screens.Manager;
+import com.ayrten.scrots.manager.Manager;
 
 public class DotGenerator 
 {

@@ -2,7 +2,7 @@ package com.ayrten.scrots.dots;
 
 import java.util.ArrayList;
 
-import com.ayrten.scrots.screens.Manager;
+import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Circle;

@@ -101,6 +101,11 @@ public class ScrotsScreen implements Screen {
 		if(back != null)
 			actors.add(back);
 	}
+	
+	public void setBackScreen(Screen bscreen)
+	{
+		backScreen = bscreen;
+	}
 
 	public void setActorsTouchable(Touchable touchable)
 	{

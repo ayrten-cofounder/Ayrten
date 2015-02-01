@@ -4,7 +4,7 @@
  *  state of the current level (ie. removing dots, adding/subtracting time, etc.)
  */
 
-package com.ayrten.scrots.screens;
+package com.ayrten.scrots.manager;
 
 import com.ayrten.scrots.dots.Dot;
 import com.ayrten.scrots.level.Level;

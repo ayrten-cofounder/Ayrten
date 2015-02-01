@@ -8,18 +8,18 @@ import com.ayrten.scrots.game.NormalGameMode;
 import com.ayrten.scrots.level.Level;
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.ButtonInterface;
+import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g3d.Renderable;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
@@ -51,6 +51,8 @@ public class GameScreen extends ScrotsScreen {
 	protected boolean should_clear_stage;
 	protected ArrayList<Level> all_levels = new ArrayList<Level>();
 	
+	protected ScrollPane slots;
+	
 	// Pause Menu
 	ArrayList<Image> powDot_images;
 	ArrayList<Label> powDot_num;
@@ -72,47 +74,8 @@ public class GameScreen extends ScrotsScreen {
 		this.batch.setBlendFunction(GL20.GL_LINEAR_MIPMAP_NEAREST,
 				GL20.GL_NEAREST);
 
-		// this.batch.setBlendFunction(GL20.GL_LINEAR_MIPMAP_LINEAR,
-		// GL20.GL_LINEAR_MIPMAP_LINEAR);
-
-		points_title = new Label("LEVEL", Assets.style_font_32_red);
-		points_title
-				.setWidth(points_title.getStyle().font.getBounds("LEVEL").width);
-		points_title.setCenterPosition(
-				1 + points_title.getWidth() / 2,
-				Gdx.graphics.getHeight()
-						- Assets.style_font_64_white.font.getLineHeight() / 2);
-
-		points = new Label("00", Assets.prefs.getString("bg_color").equals(
-				"Black") ? Assets.style_font_64_white
-				: Assets.style_font_64_black);
-		// points = new Label("00", Assets.style_font_64_blue);
-		points.setPosition(
-				0 + points_title.getWidth(),
-				Gdx.graphics.getHeight()
-						- points.getStyle().font.getLineHeight());
-
-		time_title = new Label("WITH", Assets.style_font_32_red);
-		time_title.setWidth(time_title.getStyle().font.getBounds("WITH").width);
-		time_title.setCenterPosition(
-				1 + points_title.getWidth() + points.getWidth()
-						+ time_title.getWidth() / 2, points.getCenterY());
-
-		time = new Label("60.0", Assets.prefs.getString("bg_color").equals(	
-				"Black") ? Assets.style_font_64_white
-				: Assets.style_font_64_black);
-		// time = new Label("60.0", Assets.style_font_64_blue);
-		time.setPosition(1 + points_title.getWidth() + points.getWidth()
-				+ time_title.getWidth(),
-				Gdx.graphics.getHeight() - time.getStyle().font.getLineHeight());
-
-		time_end = new Label("SECONDSLEFT", Assets.style_font_32_red);
-		time_end.setWidth(time_end.getStyle().font.getBounds("SECONDSLEFT").width);
-		time_end.setCenterPosition(
-				1 + points_title.getWidth() + points.getWidth()
-						+ time_title.getWidth() + time.getWidth()
-						+ time_end.getWidth() / 2, time.getCenterY());
-
+		initializePointsTime();
+		
 		Label.LabelStyle overStyle = new Label.LabelStyle();
 		overStyle.font = Assets.font_120;
 
@@ -153,9 +116,63 @@ public class GameScreen extends ScrotsScreen {
 		
 		initializePauseMenu(buttonStyle);
 
+		Table slots_table = new Table(Assets.skin);
+		slots_table.left();
+	  	for(int i = 0; i < powDot_images.size(); i++)
+	  	{
+	  		slots_table.add(powDot_images.get(i));
+	  	}
+		
+		slots = new ScrollPane(slots_table);
+		slots.setY(Assets.game_height);
+		slots.setX(time_end.getX() + time_end.getWidth());
+//		slots.setWidth(Assets.width - slots.getX());
+		//slots.setHeight(Assets.height - Assets.game_height);
+		slots.setScrollingDisabled(false, true);
+		
 		addStageActors();
 		curr_level = gamemode.gen_curr_level();
 		gm.startGame();
+	}
+
+	private void initializePointsTime() {
+		points_title = new Label("LEVEL", Assets.style_font_32_red);
+		points_title
+				.setWidth(points_title.getStyle().font.getBounds("LEVEL").width);
+		points_title.setCenterPosition(
+				1 + points_title.getWidth() / 2,
+				Gdx.graphics.getHeight()
+						- Assets.style_font_64_white.font.getLineHeight() / 2);
+
+		points = new Label("00", Assets.prefs.getString("bg_color").equals(
+				"Black") ? Assets.style_font_64_white
+				: Assets.style_font_64_black);
+		// points = new Label("00", Assets.style_font_64_blue);
+		points.setPosition(
+				0 + points_title.getWidth(),
+				Gdx.graphics.getHeight()
+						- points.getStyle().font.getLineHeight());
+
+		time_title = new Label("WITH", Assets.style_font_32_red);
+		time_title.setWidth(time_title.getStyle().font.getBounds("WITH").width);
+		time_title.setCenterPosition(
+				1 + points_title.getWidth() + points.getWidth()
+						+ time_title.getWidth() / 2, points.getCenterY());
+
+		time = new Label("60.0", Assets.prefs.getString("bg_color").equals(	
+				"Black") ? Assets.style_font_64_white
+				: Assets.style_font_64_black);
+		// time = new Label("60.0", Assets.style_font_64_blue);
+		time.setPosition(1 + points_title.getWidth() + points.getWidth()
+				+ time_title.getWidth(),
+				Gdx.graphics.getHeight() - time.getStyle().font.getLineHeight());
+
+		time_end = new Label("SECONDSLEFT", Assets.style_font_32_red);
+		time_end.setWidth(time_end.getStyle().font.getBounds("SECONDSLEFT").width);
+		time_end.setCenterPosition(
+				1 + points_title.getWidth() + points.getWidth()
+						+ time_title.getWidth() + time.getWidth()
+						+ time_end.getWidth() / 2, time.getCenterY());
 	}
 
 	public Manager getManager() {
@@ -228,7 +245,8 @@ public class GameScreen extends ScrotsScreen {
 		tutorial.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				
+				Assets.game.main_menu.others_screen.tutorial_screen.setBackScreen(Assets.game.getScreen());
+				Assets.game.setScreen(Assets.game.main_menu.others_screen.tutorial_screen);
 			}
 		});
 		
@@ -237,7 +255,8 @@ public class GameScreen extends ScrotsScreen {
 		options.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-			
+				Assets.game.main_menu.others_screen.options_screen.setBackScreen(Assets.game.getScreen());
+				Assets.game.setScreen(Assets.game.main_menu.others_screen.options_screen);
 			}
 		});
 		
@@ -289,7 +308,7 @@ public class GameScreen extends ScrotsScreen {
 		table.setVisible(false);
 	}
 	
-	public void addPowDots()
+	private void addPowDots()
 	{
 		powDot_images = new ArrayList<Image>();
 		Image powDot_1 = Assets.powDot1_image;
@@ -300,7 +319,7 @@ public class GameScreen extends ScrotsScreen {
 		powDot_images.add(powDot_3);
 	}
 	
-	public void addPowDotsNum()
+	private void addPowDotsNum()
 	{
 		powDot_num = new ArrayList<Label>();
 		Label powDot_1_num = new Label("0", Assets.prefs.getString("bg_color").equals(	
@@ -449,6 +468,7 @@ public class GameScreen extends ScrotsScreen {
 		stage.addActor(time_title);
 		stage.addActor(time_end);
 		stage.addActor(table);
+		stage.addActor(slots);
 	}
 
 	public void levelClear() {

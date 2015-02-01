@@ -3,7 +3,7 @@ package com.ayrten.scrots.game;
 import java.util.ArrayList;
 
 import com.ayrten.scrots.level.Level;
-import com.ayrten.scrots.screens.Manager;
+import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 

@@ -7,7 +7,7 @@ import com.ayrten.scrots.dotGraphics.DotGraphics_MainMenuScreenBackground;
 import com.ayrten.scrots.dotGraphics.DotGraphics_NormalGameMode;
 import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.manager.Assets;
-import com.ayrten.scrots.screens.Manager;
+import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
