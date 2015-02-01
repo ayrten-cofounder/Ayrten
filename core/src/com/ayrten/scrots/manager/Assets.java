@@ -86,6 +86,8 @@ public class Assets {
 	public static Texture explosion_dot;
 
 	public static Texture question_mark;
+	
+	public static Texture slot_switch;
 
 	public static Image powDot1_image;
 	public static Image powDot2_image;
@@ -185,6 +187,7 @@ public class Assets {
 		game = sg;
 
 		loadDotTextures();
+		slot_switch = explosion_dot;
 
 		powDot1_image = new Image(regDot_1);
 		powDot2_image = new Image(regDot_1);

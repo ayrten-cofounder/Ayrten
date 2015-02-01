@@ -27,6 +27,9 @@ public class Manager {
 	private int powDot1_num;
 	private int powDot2_num;
 	private int powDot3_num;
+	
+	private int slot_num;
+	private float slot_width;
 
 	// True if player loses
 	private boolean game_over = false;
@@ -40,6 +43,30 @@ public class Manager {
 		time = new Time(this);
 		sb = new Scoreboard();
 		this.stage = stage;
+		slot_num = 0;
+		slot_width = 0;
+	}
+	
+	public int getCurrentSlot()
+	{
+		return slot_num;
+	}
+	
+	public void nextSlot()
+	{
+		slot_num++;
+		if(slot_num > 2)
+			slot_num = 0;
+	}
+	
+	public void setSlotWidth(float f)
+	{
+		slot_width = f;
+	}
+	
+	public float getSlotWidth()
+	{
+		return slot_width;
 	}
 
 	public Stage getStage() {
