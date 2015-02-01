@@ -3,6 +3,7 @@ package com.ayrten.scrots.game;
 import java.util.ArrayList;
 
 import com.ayrten.scrots.level.Level;
+import com.ayrten.scrots.level.MainMenuBackgroundLevel;
 import com.ayrten.scrots.screens.Manager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -33,7 +34,7 @@ public class GameMode {
 	protected void generate() {
 		if(gm.get_game_mode() == GameMode.MAIN_MENU_BACKGROUND_MODE)
 		{
-			all_levels.add(new Level(20, w, h, gm));
+			all_levels.add(new MainMenuBackgroundLevel(20, w, h, gm));
 			return;
 		}
 		

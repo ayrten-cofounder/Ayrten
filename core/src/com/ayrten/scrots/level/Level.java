@@ -1,6 +1,7 @@
 package com.ayrten.scrots.level;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import com.ayrten.scrots.dots.DWD_PenDot1;
 import com.ayrten.scrots.dots.DWD_PenDot2;
@@ -17,10 +18,10 @@ import com.ayrten.scrots.screens.Manager;
 
 public class Level
 {
-	private static final int GREEN_DOT_START = 0;
-	private static final int RED_DOT_START = 1;
-	private static final int BLUE_DOT_START = 2;
-	private static final int BABY_BLUE_DOT_START = 5;
+	protected static final int GREEN_DOT_START = 0;
+	protected static final int RED_DOT_START = 1;
+	protected static final int BLUE_DOT_START = 2;
+	protected static final int BABY_BLUE_DOT_START = 5;
 	
 	// Modifiers for generating dots
 	protected static final float GREEN_DOT_MOD = 1.5f;
@@ -43,22 +44,24 @@ public class Level
 	protected static final int DWD_WEIGHT = 2;
 
 	// Stores all the dots for that level.
-	private ArrayList<Dot> regDots1;
-	private ArrayList<Dot> penDots1;
-	private ArrayList<Dot> penDots2;
-	private ArrayList<Dot> regDots2;
+	protected ArrayList<Dot> regDots1;
+	protected ArrayList<Dot> penDots1;
+	protected ArrayList<Dot> penDots2;
+	protected ArrayList<Dot> regDots2;
 	
-	private ArrayList<DWD_RegDot1> dwdGreenDots;
-	private ArrayList<DWD_PenDot1> dwdRedDots;
-	private ArrayList<DWD_PenDot2> dwdBlueDots;
-	private ArrayList<DWD_RegDot2> dwdBabyBlueDots;
+	protected ArrayList<Dot> dwdGreenDots;
+	protected ArrayList<Dot> dwdRedDots;
+	protected ArrayList<Dot> dwdBlueDots;
+	protected ArrayList<Dot> dwdBabyBlueDots;
 	
-	private ArrayList<Dot> poppedDots;
+	protected ArrayList<Dot> dotsThatCameOutOfDWDs;
+	
+	protected LinkedList<ArrayList<Dot>> dots;
 
-	private int level;
-	private DotGenerator generator;
+	protected int level;
+	protected DotGenerator generator;
 	
-	private int number_of_green_dots;
+	protected int number_of_green_dots;
 	
 	public Level(int level, int width, int height, Manager gm)
 	{
@@ -74,12 +77,23 @@ public class Level
 		penDots2 = new ArrayList<Dot>();
 		regDots2 = new ArrayList<Dot>();
 		
-		dwdGreenDots = new ArrayList<DWD_RegDot1>();
-		dwdRedDots = new ArrayList<DWD_PenDot1>();
-		dwdBlueDots = new ArrayList<DWD_PenDot2>();
-		dwdBabyBlueDots = new ArrayList<DWD_RegDot2>();
+		dwdGreenDots = new ArrayList<Dot>();
+		dwdRedDots = new ArrayList<Dot>();
+		dwdBlueDots = new ArrayList<Dot>();
+		dwdBabyBlueDots = new ArrayList<Dot>();
 		
-		poppedDots = new ArrayList<Dot>();
+		dotsThatCameOutOfDWDs = new ArrayList<Dot>();
+		
+		dots = new LinkedList<ArrayList<Dot>>();
+		dots.add(regDots1);
+		dots.add(regDots2);
+		dots.add(penDots1);
+		dots.add(penDots2);
+		dots.add(dwdGreenDots);
+		dots.add(dwdRedDots);
+		dots.add(dwdBlueDots);
+		dots.add(dwdBabyBlueDots);
+		dots.add(dotsThatCameOutOfDWDs);
 
 		gen_grn_dots();
 		gen_red_dots();
@@ -124,32 +138,42 @@ public class Level
 		return regDots2;
 	}
 	
-	public ArrayList<DWD_RegDot1> get_dwd_grn_dots()
+	public ArrayList<Dot> get_dwd_grn_dots()
 	{
 		return dwdGreenDots;
 	}
 
-	public ArrayList<DWD_PenDot1> get_dwd_red_dots()
+	public ArrayList<Dot> get_dwd_red_dots()
 	{
 		return dwdRedDots;
 	}
 
-	public ArrayList<DWD_PenDot2> get_dwd_blue_dots()
+	public ArrayList<Dot> get_dwd_blue_dots()
 	{
 		return dwdBlueDots;
 	}
 
-	public ArrayList<DWD_RegDot2> get_dwd_baby_blue_dots()
+	public ArrayList<Dot> get_dwd_baby_blue_dots()
 	{
 		return dwdBabyBlueDots;
 	}
-
-	public void addToPoppedList(ArrayList<Dot> array)
+	
+	public ArrayList<Dot> get_dots_that_came_out_of_dwds()
 	{
-		poppedDots.addAll(array);
+		return dotsThatCameOutOfDWDs;
+	}
+
+	public LinkedList<ArrayList<Dot>> get_all_dots()
+	{
+		return dots;
 	}
 	
-	private void gen_grn_dots()
+	public void addToDotsThatCameOutOfDWDList(ArrayList<Dot> array)
+	{
+		dotsThatCameOutOfDWDs.addAll(array);
+	}
+	
+	protected void gen_grn_dots()
 	{
 		regDots1.clear();
 		int num = (int) Math.floor((level - GREEN_DOT_START) * GREEN_DOT_MOD);
@@ -157,7 +181,8 @@ public class Level
 		if	(num > GREEN_DOT_CAP)
 		{
 			int yellow_num = (int) Math.floor(level * YELLOW_DOT_MOD);
-			num = num - (yellow_num * DWD_WEIGHT);
+//			num = num - (yellow_num * DWD_WEIGHT);
+			num = GREEN_DOT_CAP;
 			
 			for (int i = 0; i < yellow_num; i++)
 			{
@@ -173,7 +198,7 @@ public class Level
 		}
 	}
 
-	private void gen_red_dots()
+	protected void gen_red_dots()
 	{
 		penDots1.clear();
 		int num = (int) Math.floor((level - RED_DOT_START) * RED_DOT_MOD);
@@ -197,7 +222,7 @@ public class Level
 		}
 	}
 
-	private void gen_blue_dots()
+	protected void gen_blue_dots()
 	{
 		penDots2.clear();
 		int num = (int) Math.floor((level - BLUE_DOT_START) * BLUE_DOT_MOD);
@@ -221,7 +246,7 @@ public class Level
 		}
 	}
 
-	private void gen_baby_blue_dots()
+	protected void gen_baby_blue_dots()
 	{
 		regDots2.clear();
 		int num = (int) Math.floor((level - BABY_BLUE_DOT_START) * BABY_BLUE_DOT_MOD);
