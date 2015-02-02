@@ -27,7 +27,7 @@ public class DWD_RegDot1 extends DWD {
 		int random = rand.nextInt(3) + 3;
 
 		for (int i = 0; i < random; i++) {
-			if (rand.nextInt(100) % 10 > 5) {
+			if (rand.nextInt(100) % 10 == 6) {
 				Dot newDot = generator.genRegDot3();
 				newDot.setPosition(getX(), getY());
 				dots_inside.add(newDot);

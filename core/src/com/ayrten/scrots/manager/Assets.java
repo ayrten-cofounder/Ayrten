@@ -85,6 +85,10 @@ public class Assets {
 
 	public static Texture explosion_dot;
 
+	public static Texture invincible_dot;
+	public static Texture magnet_dot;
+	public static Texture rainbow_dot;
+	
 	public static Texture question_mark;
 
 	public static Image powDot1_image;
@@ -268,6 +272,18 @@ public class Assets {
 		explosion_dot = new Texture(
 				Gdx.files.internal("data/dots/explosion_dot.png"));
 		explosion_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		
+		invincible_dot = new Texture(
+				Gdx.files.internal("data/dots/invincible_dot.png"));
+		invincible_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		
+		magnet_dot = new Texture(
+				Gdx.files.internal("data/dots/magnet_dot.png"));
+		magnet_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		
+		rainbow_dot = new Texture(
+				Gdx.files.internal("data/dots/rainbow_dot.png"));
+		rainbow_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 	}
 
 	public static void dispose() {
