@@ -82,19 +82,19 @@ public class DotGenerator
 	}
 	
 	public PowerDot_Rainbow genPowerDotRainbow() {
-		PowerDot_Rainbow rainbowDot = new PowerDot_Rainbow(Assets.explosion_dot, gm, Assets.pen_pop_2);
+		PowerDot_Rainbow rainbowDot = new PowerDot_Rainbow(Assets.rainbow_dot, gm, Assets.pen_pop_2);
 		setRandPositions(rainbowDot);
 		return rainbowDot;
 	}
 	
 	public PowerDot_Invincible genPowerDotInvincible(){
-		PowerDot_Invincible invincibleDot = new PowerDot_Invincible(Assets.explosion_dot, gm, Assets.pen_pop_2);
+		PowerDot_Invincible invincibleDot = new PowerDot_Invincible(Assets.invincible_dot, gm, Assets.pen_pop_2);
 		setRandPositions(invincibleDot);
 		return invincibleDot;
 	}
 	
 	public PowerDot_Magnet genPowerDotMagnet(){
-		PowerDot_Magnet magnetDot = new PowerDot_Magnet(Assets.explosion_dot, gm, Assets.pen_pop_2);
+		PowerDot_Magnet magnetDot = new PowerDot_Magnet(Assets.magnet_dot, gm, Assets.pen_pop_2);
 		setRandPositions(magnetDot);
 		return magnetDot;
 	}
