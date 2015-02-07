@@ -126,8 +126,6 @@ public class GameScreen extends ScrotsScreen {
 
 		Image slot_switch = new Image(Assets.slot_switch);
 	  	float dot_width = (slots.getWidth() - slot_switch.getWidth())/3;
-	  	System.out.println("DOT WIDTH: " + dot_width);
-	  	System.out.println("SLOTS HEIGHT: " + slots.getHeight());
 	  	
 		Table scroll_table = new Table(Assets.skin);
 		float spacing = 0;
