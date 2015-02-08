@@ -104,6 +104,16 @@ public class PowerDot extends Dot {
 			}
 		}, DELAY);
 	}
+	
+	public void pauseTime()
+	{
+		timer.stop();
+	}
+	
+	public void resumeTime()
+	{
+		timer.start();
+	}
 
 	private void setTime() {
 		if (time < 10) {
