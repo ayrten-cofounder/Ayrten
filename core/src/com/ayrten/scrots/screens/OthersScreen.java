@@ -11,14 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class OthersScreen extends ScrotsScreen
 {
-	protected Table table;
-	
-	// Labels
-//	protected Label options;
-//	protected Label contact_us;
-	protected Label tutorial;
-	protected Label credits;
-	
 	// Screens
 	protected TutorialScreen 	tutorial_screen;
 	protected CreditsScreen		credits_screen;
@@ -27,9 +19,6 @@ public class OthersScreen extends ScrotsScreen
 	{
 		super(bscreen, true);
 		
-		table = new Table(Assets.skin);
-		table.setFillParent(true);
-		
 		tutorial_screen = new TutorialScreen(this);
 		credits_screen  = new CreditsScreen(this);
 		
@@ -37,7 +26,7 @@ public class OthersScreen extends ScrotsScreen
 		labelStyle.font = Assets.font_64;
 		labelStyle.fontColor = Assets.ORANGE;
 		
-		tutorial = new Label("Tutorial", labelStyle);
+		Label tutorial = new Label("Tutorial", labelStyle);
 		tutorial.setBounds(tutorial.getX(), tutorial.getY(), tutorial.getWidth(), tutorial.getHeight());
 		tutorial.addListener(new ClickListener() {
 			@Override
@@ -50,7 +39,7 @@ public class OthersScreen extends ScrotsScreen
 			}
 		});
 				
-		credits = new Label("Credits", labelStyle);
+		Label credits = new Label("Credits", labelStyle);
 		credits.setBounds(credits.getX(), credits.getY(), credits.getWidth(), credits.getHeight());
 		credits.addListener(new ClickListener() {
 			@Override
@@ -62,18 +51,13 @@ public class OthersScreen extends ScrotsScreen
 			}
 		});
 		
+		Table table = new Table(Assets.skin);
+		table.setFillParent(true);
 		table.add(tutorial);
 		table.row();
 		table.add(credits);
 		
 		setupStage();
 		stage.addActor(table);
-	}
-	
-	@Override
-	public void addActors() {
-		actors.add(tutorial);
-		actors.add(credits);
-		super.addActors();
 	}
 }

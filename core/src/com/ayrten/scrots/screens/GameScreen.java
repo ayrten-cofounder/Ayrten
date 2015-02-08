@@ -149,9 +149,8 @@ public class GameScreen extends ScrotsScreen {
 	  		powDots.get(i).setLabel(powDots_time.get(i));
 	  		
 	  		Table temp2 = new Table(Assets.skin);
-	  		temp2.setWidth(powDot_num.get(i).getStyle().font.getBounds("99").width);
 	  		temp2.add(powDot_num.get(i));
-	  		scroll_table.add(temp2);
+	  		scroll_table.add(temp2).width(powDot_num.get(i).getStyle().font.getBounds("99").width);;
 	  		
 //	  		if(spacing != 0 && i != powDot_images.size() - 1)
 //	  			scroll_table.add().width(spacing);
@@ -250,7 +249,6 @@ public class GameScreen extends ScrotsScreen {
 	
 	private void initializePauseMenu(LabelStyle buttonStyle)
 	{
-//		pause = new Label("Menu", buttonStyle);
 		pause = new Image(Assets.pause_dot);
 		pause.setHeight(Assets.height - Assets.game_height);
 		pause.setWidth(Assets.height - Assets.game_height);
@@ -265,7 +263,6 @@ public class GameScreen extends ScrotsScreen {
 				pause_scroll.scrollTo(0, Assets.game_height*2, pause_scroll.getWidth(), pause_scroll.getHeight());
 			}
 		});
-//		pause.setWidth(buttonStyle.font.getBounds("  Menu").width);
 		pause.setPosition(w - pause.getWidth(), Gdx.graphics.getHeight()
 				- pause.getHeight());
 
@@ -402,15 +399,15 @@ public class GameScreen extends ScrotsScreen {
 	private void addPowDotsNum()
 	{
 		powDot_num = new ArrayList<Label>();
-		Label powDot_1_num = new Label("0", Assets.prefs.getString("bg_color").equals(	
+		Label powDot_1_num = new Label("99", Assets.prefs.getString("bg_color").equals(	
 				"Black") ? Assets.style_font_64_white
 				: Assets.style_font_64_black);
 		// powDot_1_num.setWidth(powDot_1_num.getStyle().font.getBounds("99").width);
-		Label powDot_2_num = new Label("0", Assets.prefs.getString("bg_color").equals(	
+		Label powDot_2_num = new Label("99", Assets.prefs.getString("bg_color").equals(	
 				"Black") ? Assets.style_font_64_white
 				: Assets.style_font_64_black);
 		powDot_2_num.setWidth(powDot_2_num.getStyle().font.getBounds("99").width);
-		Label powDot_3_num = new Label("0", Assets.prefs.getString("bg_color").equals(	
+		Label powDot_3_num = new Label("99", Assets.prefs.getString("bg_color").equals(	
 				"Black") ? Assets.style_font_64_white
 				: Assets.style_font_64_black);
 		powDot_3_num.setWidth(powDot_3_num.getStyle().font.getBounds("99").width);

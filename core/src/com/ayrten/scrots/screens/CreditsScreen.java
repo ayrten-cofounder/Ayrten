@@ -1,5 +1,7 @@
 package com.ayrten.scrots.screens;
 
+import java.util.ArrayList;
+
 import com.ayrten.scrots.manager.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -34,6 +36,22 @@ public class CreditsScreen extends ScrotsScreen
 		thanksName.setWrap(true);
 		thanksName.setText("Family and friends who supported us");
 		thanksName.setWidth(Assets.style_font_32_orange.font.getBounds("Family and friends who supported us").width);
+		
+		ArrayList<String> thanks_list = new ArrayList<String>();
+		thanks_list.add("Trina Dao");
+		thanks_list.add("Emily Do");
+		
+		Table thanks_table = new Table(Assets.skin);
+		thanks_table.left();
+		thanks_table.add(thanksName);
+		for(int i = 0; i < thanks_list.size(); i++)
+		{
+			Label thank_person = new Label(thanks_list.get(i), Assets.style_font_32_orange);
+			thank_person.setWrap(true);
+			thank_person.setWidth(Assets.style_font_32_orange.font.getBounds(thanks_list.get(i)).width);
+			thanks_table.row();
+			thanks_table.add(thank_person);
+		}
 		
 		Label publish = new Label("", Assets.style_font_32_orange);
 		publish.setWrap(true);
@@ -94,7 +112,7 @@ public class CreditsScreen extends ScrotsScreen
 		upperTable.add("").height(back.getStyle().font.getLineHeight());
 		upperTable.row();
 		upperTable.add(thanks).left().top().padLeft(Gdx.graphics.getWidth()/2 - thanks.getWidth());
-		upperTable.add(thanksName).left().padLeft(back.getWidth()/5).width(Gdx.graphics.getWidth()/2 - back.getWidth()/5 * 2);
+		upperTable.add(thanks_table).left().padLeft(back.getWidth()/5).width(Gdx.graphics.getWidth()/2 - back.getWidth()/5 * 2);
 		upperTable.row();
 		upperTable.add("").height(back.getStyle().font.getLineHeight());
 		upperTable.row();
@@ -122,8 +140,7 @@ public class CreditsScreen extends ScrotsScreen
 		
 		ScrollPane scroll_view = new ScrollPane(table);
 		scroll_view.setFillParent(true);
-		scroll_view.setFlickScroll(true);
-		scroll_view.updateVisualScroll();
+		scroll_view.setScrollingDisabled(true, false);
 		
 		setupStage();
 		stage.addActor(scroll_view);

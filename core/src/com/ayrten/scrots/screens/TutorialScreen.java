@@ -88,8 +88,7 @@ public class TutorialScreen extends ScrotsScreen
 		
 		ScrollPane scroll_view = new ScrollPane(table);
 		scroll_view.setFillParent(true);
-		scroll_view.setFlickScroll(true);
-		scroll_view.updateVisualScroll();
+		scroll_view.setScrollingDisabled(true, false);
 		
 		setupStage();
 		stage.addActor(scroll_view);
