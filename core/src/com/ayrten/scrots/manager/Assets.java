@@ -46,6 +46,9 @@ public class Assets {
 	public static LabelStyle style_font_64_red;
 	public static LabelStyle style_font_64_orange;
 	public static LabelStyle style_font_64_white;
+	
+	public static LabelStyle style_font_32_white;
+	public static LabelStyle style_font_32_black;
 	public static LabelStyle style_font_32_red;
 	public static LabelStyle style_font_32_orange;
 	public static LabelStyle style_font_32_blue;
@@ -136,7 +139,7 @@ public class Assets {
 		// Style
 		style_font_64_black = new LabelStyle();
 		style_font_64_black.font = font_64;
-		style_font_64_black.fontColor = Color.valueOf("1c1c1c");
+		style_font_64_black.fontColor = Color.BLACK;
 
 		style_font_64_blue = new LabelStyle();
 		style_font_64_blue.font = font_64;
@@ -153,6 +156,14 @@ public class Assets {
 		style_font_64_white = new LabelStyle();
 		style_font_64_white.font = font_64;
 		style_font_64_white.fontColor = Color.WHITE;
+		
+		style_font_32_white = new LabelStyle();
+		style_font_32_white.font = font_32;
+		style_font_32_white.fontColor = Color.WHITE;
+		
+		style_font_32_black = new LabelStyle();
+		style_font_32_black.font = font_32;
+		style_font_32_black.fontColor = Color.BLACK;
 
 		style_font_32_red = new LabelStyle();
 		style_font_32_red.font = font_32;
