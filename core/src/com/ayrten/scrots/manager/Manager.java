@@ -27,13 +27,10 @@ public class Manager {
 	// Game mode
 	private int mode;
 
-	// Tracks number of power dots.
-	private int powDot1_num;
-	private int powDot2_num;
-	private int powDot3_num;
-	
 	private int slot_num;
 	private float slot_width;
+	
+	private boolean isRainbowState;
 
 	// True if player loses
 	private boolean game_over = false;
@@ -49,6 +46,17 @@ public class Manager {
 		this.stage = stage;
 		slot_num = 0;
 		slot_width = 0;
+		isRainbowState = false;
+	}
+	
+	public boolean isRainbowState()
+	{
+		return isRainbowState;
+	}
+	
+	public void setRainbowState(boolean state)
+	{
+		isRainbowState = state;
 	}
 	
 	public int getCurrentSlot()
@@ -120,7 +128,8 @@ public class Manager {
 		{
 			for(Dot dot: dotList)
 			{
-				dot.setVisible(visible);
+				if(!isRainbowState || !isPenDot(dot))
+					dot.setVisible(visible);
 			}
 		}
 	}
@@ -141,15 +150,20 @@ public class Manager {
 		{
 			for(Dot dot: dotList)
 			{
-				if(dot.getClass() == PenDot1.class
-						|| dot.getClass() == PenDot2.class
-						|| dot.getClass() == DWD_PenDot1.class
-						|| dot.getClass() == DWD_PenDot2.class)
+				if(isPenDot(dot))
 				{
 					dot.setVisible(visible);
 				}
 			}
 		}
+	}
+	
+	private boolean isPenDot(Dot dot)
+	{
+		return (dot.getClass() == PenDot1.class
+				|| dot.getClass() == PenDot2.class
+				|| dot.getClass() == DWD_PenDot1.class
+				|| dot.getClass() == DWD_PenDot2.class);
 	}
 
 	public void minusGreenDot() {

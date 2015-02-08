@@ -23,6 +23,7 @@ public class PowerDot_Rainbow extends PowerDot {
 		Assets.power_dot_manager.setRainbowDotAmount(--num);
 		updateNumLabel();
 		
+		gm.setRainbowState(true);
 		gm.changePenalityDotVisibility(false);
 	}
 	
@@ -30,7 +31,7 @@ public class PowerDot_Rainbow extends PowerDot {
 	public void afterAction() 
 	{
 		super.afterAction();
-		
+		gm.setRainbowState(false);
 		gm.changePenalityDotVisibility(true);
 	}
 	

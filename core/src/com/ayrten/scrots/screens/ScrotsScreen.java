@@ -113,15 +113,12 @@ public class ScrotsScreen implements Screen {
 			actor.setTouchable(touchable);
 	}
 
-	public void setActorsColor(Color color) {}
-
+	
 	@Override
 	public void render(float delta) {
 		if (Assets.prefs.getString("bg_color").equals("Black")) {
-			setActorsColor(Color.WHITE);
 			Gdx.gl.glClearColor(0, 0, 0, 0);
 		} else {
-			setActorsColor(Color.BLACK);
 			Gdx.gl.glClearColor(1, 1, 1, 1);
 		}
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
