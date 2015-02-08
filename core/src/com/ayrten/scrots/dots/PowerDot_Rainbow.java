@@ -3,6 +3,7 @@ package com.ayrten.scrots.dots;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 
 public class PowerDot_Rainbow extends PowerDot {
 
@@ -26,5 +27,10 @@ public class PowerDot_Rainbow extends PowerDot {
 		super.afterAction();
 		
 		gm.changePenalityDotVisibility(true);
+	}
+	
+	@Override
+	public void draw(Batch batch, float alpha) {
+		batch.draw(dot, getX(), getY(), getWidth(), getHeight());
 	}
 }
