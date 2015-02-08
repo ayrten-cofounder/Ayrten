@@ -55,9 +55,9 @@ public class GameScreen extends ScrotsScreen {
 	protected SpriteBatch batch;
 	protected boolean should_clear_stage;
 	protected ArrayList<Level> all_levels = new ArrayList<Level>();
-	
+
 	protected Table slots;
-	
+
 	// Pause Menu
 	ArrayList<PowerDot> powDots;
 	ArrayList<Label> powDots_time;
@@ -69,7 +69,7 @@ public class GameScreen extends ScrotsScreen {
 	public GameScreen() {
 		super(null, false);
 		createBackLabel();
-		
+
 		w = Gdx.graphics.getWidth();
 		h = Gdx.graphics.getHeight();
 		should_clear_stage = true;
@@ -81,37 +81,32 @@ public class GameScreen extends ScrotsScreen {
 				GL20.GL_NEAREST);
 
 		initializePointsTime();
-		
+
 		Label.LabelStyle overStyle = new Label.LabelStyle();
 		overStyle.font = Assets.font_120;
 
 		TextFieldStyle textStyle = new TextFieldStyle();
 		textStyle.font = Assets.font_64;
 
-		LabelStyle buttonStyle = new LabelStyle();
-		buttonStyle.font = Assets.font_64;
-
 		if (Assets.prefs.getString("bg_color", "").equals("")
 				|| Assets.prefs.getString("bg_color", "").equals("White")) {
 			overStyle.fontColor = Color.BLACK;
 			textStyle.fontColor = Color.BLACK;
-			buttonStyle.fontColor = Color.BLACK;
 		} else {
 			overStyle.fontColor = Color.WHITE;
 			textStyle.fontColor = Color.WHITE;
-			buttonStyle.fontColor = Color.WHITE;
 		}
 
 		gm = new Manager(0, w, h, stage); // Starts with 0 points
-//		if (Assets.prefs.getString("mode").equals("Normal")) {
-			gm.setMode(GameMode.NORMAL_MODE);
-			gm.setScoreboard(Assets.game.main_menu.nsb);
-			gamemode = new NormalGameMode(stage, gm, w, h);
-//		} else {
-//			gm.setMode(GameMode.CHALLENGE_MODE);
-//			gm.setScoreboard(Assets.game.main_menu.csb);
-//			gamemode = new ChallengeGameMode(stage, gm, w, h);
-//		}
+		// if (Assets.prefs.getString("mode").equals("Normal")) {
+		gm.setMode(GameMode.NORMAL_MODE);
+		gm.setScoreboard(Assets.game.main_menu.nsb);
+		gamemode = new NormalGameMode(stage, gm, w, h);
+		// } else {
+		// gm.setMode(GameMode.CHALLENGE_MODE);
+		// gm.setScoreboard(Assets.game.main_menu.csb);
+		// gamemode = new ChallengeGameMode(stage, gm, w, h);
+		// }
 
 		pool = new Pool<MoveToAction>() {
 			@Override
@@ -119,8 +114,8 @@ public class GameScreen extends ScrotsScreen {
 				return new MoveToAction();
 			}
 		};
-		
-		initializePauseMenu(buttonStyle);
+
+		initializePauseMenu();
 
 		slots = new Table(Assets.skin);
 		slots.left();
@@ -129,55 +124,58 @@ public class GameScreen extends ScrotsScreen {
 		slots.setWidth(pause.getX() - slots.getX());
 		slots.setHeight(Assets.height - Assets.game_height);
 
-//		Image slot_switch = new Image(Assets.slot_switch);
-//	  	float dot_width = (slots.getWidth())/3;
-	  	float dot_width = slots.getHeight();
-	  	
-		Table scroll_table = new Table(Assets.skin);
-//		float spacing = 0;
-//		if(dot_width > slots.getHeight())
-//		{
-//			dot_width = slots.getHeight();
-//			spacing = (slots.getWidth() - dot_width * 3)/3;
-//		}
+		// Image slot_switch = new Image(Assets.slot_switch);
+		// float dot_width = (slots.getWidth())/3;
+		float dot_width = slots.getHeight();
 
-	  	for(int i = 0; i < powDots.size(); i++) 
-	  	{
-	  		Table temp = new Table(Assets.skin);
-	  		temp.add(powDots_time.get(i));
-	  		scroll_table.stack(powDots.get(i), temp).width(dot_width).height(dot_width).center();
-	  		powDots.get(i).setLabel(powDots_time.get(i));
-	  		
-	  		Table temp2 = new Table(Assets.skin);
-	  		temp2.add(powDot_num.get(i));
-	  		scroll_table.add(temp2).width(powDot_num.get(i).getStyle().font.getBounds("99").width);;
-	  		
-//	  		if(spacing != 0 && i != powDot_images.size() - 1)
-//	  			scroll_table.add().width(spacing);
-	  	}
-	  	
-//	  	for(int i = 0; i < 9 - powDot_images.size(); i ++)
-//	  	{
-//	  		scroll_table.add().width(dot_width);
-//	  		if(spacing != 0 && i != 9 - powDot_images.size() - 1)
-//	  			scroll_table.add().width(spacing);
-//	  	}
-	  	
-	  	final ScrollPane slots_scroll = new ScrollPane(scroll_table);
-	  	slots_scroll.setScrollingDisabled(true, true);
-	  	slots_scroll.setFadeScrollBars(false);
-//	  	slots_scroll.setTouchable(Touchable.disabled);
-//	  	slot_switch.addListener(new ClickListener(){
-//	  		@Override
-//	  		public void clicked(InputEvent event, float x, float y) {
-//	  			gm.nextSlot();
-//	  			slots_scroll.scrollTo(gm.getCurrentSlot() * gm.getSlotWidth(), 0, gm.getSlotWidth(), slots_scroll.getHeight());
-//	  		}
-//	  	});
-	  	
-	  	gm.setSlotWidth(slots.getWidth());
+		Table scroll_table = new Table(Assets.skin);
+
+		// float spacing = 0;
+		// if(dot_width > slots.getHeight())
+		// {
+		// dot_width = slots.getHeight();
+		// spacing = (slots.getWidth() - dot_width * 3)/3;
+		// }
+		
+		for (int i = 0; i < powDots.size(); i++) {
+			Table temp = new Table(Assets.skin);
+			temp.add(powDots_time.get(i));
+			scroll_table.stack(powDots.get(i), temp).width(dot_width)
+					.height(dot_width).center();
+			powDots.get(i).setTimeLabel(powDots_time.get(i));
+			
+			Table temp2 = new Table(Assets.skin);
+			temp2.add(powDot_num.get(i));
+			scroll_table.add(temp2).width(powDot_num.get(i).getStyle().font.getBounds("99").width);;
+			powDots.get(i).setNumLabel(powDot_num.get(i));
+
+			// if(spacing != 0 && i != powDot_images.size() - 1)
+			// scroll_table.add().width(spacing);
+		}
+
+		// for(int i = 0; i < 9 - powDot_images.size(); i ++)
+		// {
+		// scroll_table.add().width(dot_width);
+		// if(spacing != 0 && i != 9 - powDot_images.size() - 1)
+		// scroll_table.add().width(spacing);
+		// }
+
+		final ScrollPane slots_scroll = new ScrollPane(scroll_table);
+		slots_scroll.setScrollingDisabled(true, true);
+		slots_scroll.setFadeScrollBars(false);
+		// slots_scroll.setTouchable(Touchable.disabled);
+		// slot_switch.addListener(new ClickListener(){
+		// @Override
+		// public void clicked(InputEvent event, float x, float y) {
+		// gm.nextSlot();
+		// slots_scroll.scrollTo(gm.getCurrentSlot() * gm.getSlotWidth(), 0,
+		// gm.getSlotWidth(), slots_scroll.getHeight());
+		// }
+		// });
+
+		gm.setSlotWidth(slots.getWidth());
 		slots.add(slots_scroll).width(slots.getWidth());
-//		slots.add(slot_switch).width(slot_switch.getWidth());
+		// slots.add(slot_switch).width(slot_switch.getWidth());
 
 		addStageActors();
 		curr_level = gamemode.gen_curr_level();
@@ -191,12 +189,11 @@ public class GameScreen extends ScrotsScreen {
 		points_title.setCenterPosition(
 				1 + points_title.getWidth() / 2,
 				Gdx.graphics.getHeight()
-						- Assets.style_font_64_white.font.getLineHeight() / 2);
+						- Assets.style_font_32_white.font.getLineHeight() / 2);
 
 		points = new Label("00", Assets.prefs.getString("bg_color").equals(
-				"Black") ? Assets.style_font_64_white
-				: Assets.style_font_64_black);
-		// points = new Label("00", Assets.style_font_64_blue);
+				"Black") ? Assets.style_font_32_white
+				: Assets.style_font_32_black);
 		points.setPosition(
 				0 + points_title.getWidth(),
 				Gdx.graphics.getHeight()
@@ -208,10 +205,9 @@ public class GameScreen extends ScrotsScreen {
 				1 + points_title.getWidth() + points.getWidth()
 						+ time_title.getWidth() / 2, points.getCenterY());
 
-		time = new Label("60.0", Assets.prefs.getString("bg_color").equals(	
-				"Black") ? Assets.style_font_64_white
-				: Assets.style_font_64_black);
-		// time = new Label("60.0", Assets.style_font_64_blue);
+		time = new Label("60.0", Assets.prefs.getString("bg_color").equals(
+				"Black") ? Assets.style_font_32_white
+				: Assets.style_font_32_black);
 		time.setPosition(1 + points_title.getWidth() + points.getWidth()
 				+ time_title.getWidth(),
 				Gdx.graphics.getHeight() - time.getStyle().font.getLineHeight());
@@ -247,8 +243,10 @@ public class GameScreen extends ScrotsScreen {
 		Assets.game.setScreen(Assets.game.main_menu);
 	}
 	
-	private void initializePauseMenu(LabelStyle buttonStyle)
+	private void initializePauseMenu()
 	{
+		LabelStyle buttonStyle = (Assets.prefs.getString("bg_color").equals("Black")) ? Assets.style_font_64_white : Assets.style_font_64_black;
+		
 		pause = new Image(Assets.pause_dot);
 		pause.setHeight(Assets.height - Assets.game_height);
 		pause.setWidth(Assets.height - Assets.game_height);
@@ -260,157 +258,169 @@ public class GameScreen extends ScrotsScreen {
 				if (Assets.prefs.getBoolean("sound_effs"))
 					Assets.button_pop.play();
 				gm.pauseGame();
-				pause_scroll.scrollTo(0, Assets.game_height*2, pause_scroll.getWidth(), pause_scroll.getHeight());
+				pause_scroll.scrollTo(0, Assets.game_height * 2,
+						pause_scroll.getWidth(), pause_scroll.getHeight());
 			}
 		});
 		pause.setPosition(w - pause.getWidth(), Gdx.graphics.getHeight()
 				- pause.getHeight());
 
-		TextButton pause_quit = new TextButton("", Assets.skin);		
+		TextButton pause_quit = new TextButton("", Assets.skin);
 		pause_quit.add(new Label("Quit", buttonStyle));
 		pause_quit.setBounds(pause_quit.getX(), pause_quit.getY(),
 				pause_quit.getWidth(), pause_quit.getHeight());
-		
+
 		Label resume = new Label("Resume", buttonStyle);
-		resume.setBounds(resume.getX(), resume.getY(), resume.getWidth(), resume.getHeight());
-		resume.addListener(new ClickListener(){
+		resume.setBounds(resume.getX(), resume.getY(), resume.getWidth(),
+				resume.getHeight());
+		resume.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				gm.startGame();
 				// pause_scroll.setVisible(false);
-				pause_scroll.scrollTo(0, 0, pause_scroll.getWidth(), pause_scroll.getHeight());
+				pause_scroll.scrollTo(0, 0, pause_scroll.getWidth(),
+						pause_scroll.getHeight());
 			}
 		});
-		
+
 		Label quit = new Label("Quit", buttonStyle);
-		quit.setBounds(quit.getX(), quit.getY(), quit.getWidth(), quit.getHeight());
-		quit.addListener(new ClickListener(){
+		quit.setBounds(quit.getX(), quit.getY(), quit.getWidth(),
+				quit.getHeight());
+		quit.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				showQuitConfirm();
 			}
 		});
-		
+
 		Label tutorial = new Label("Tutorial", buttonStyle);
-		tutorial.setBounds(tutorial.getX(), tutorial.getY(), tutorial.getWidth(), tutorial.getHeight());
-		tutorial.addListener(new ClickListener(){
+		tutorial.setBounds(tutorial.getX(), tutorial.getY(),
+				tutorial.getWidth(), tutorial.getHeight());
+		tutorial.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Assets.game.main_menu.others_screen.tutorial_screen.setBackScreen(Assets.game.getScreen());
-				Assets.game.setScreen(Assets.game.main_menu.others_screen.tutorial_screen);
+				Assets.game.main_menu.others_screen.tutorial_screen
+						.setBackScreen(Assets.game.getScreen());
+				Assets.game
+						.setScreen(Assets.game.main_menu.others_screen.tutorial_screen);
 			}
 		});
-		
+
 		Label options = new Label("Options", buttonStyle);
-		options.setBounds(options.getX(), options.getY(), options.getWidth(), options.getHeight());
-		options.addListener(new ClickListener(){
+		options.setBounds(options.getX(), options.getY(), options.getWidth(),
+				options.getHeight());
+		options.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Assets.game.main_menu.options_screen.setBackScreen(Assets.game.getScreen());
+				Assets.game.main_menu.options_screen.setBackScreen(Assets.game
+						.getScreen());
 				Assets.game.setScreen(Assets.game.main_menu.options_screen);
 			}
 		});
-		
+
 		Table pause_table = new Table(Assets.skin);
 		pause_table.setWidth(Assets.width);
 		pause_table.setHeight(Assets.game_height);
 		pause_table.left();
 		Table dotTable = new Table(Assets.skin);
 		dotTable.align(Align.right);
-		
+
 		addPowDots();
 		addPowDotsNum();
-		
-		for(int i = 0; i < powDots.size(); i++)
-		{
+
+		for (int i = 0; i < powDots.size(); i++) {
 			Dot powDot = powDots.get(i);
 			Label powDotNum = powDot_num.get(i);
-			
-			dotTable.add(powDot).padLeft(back.getWidth()/5).width(powDot.getWidth()/3 * 2).height(Assets.game_height/powDots.size());
-			dotTable.add(powDotNum).padLeft(back.getWidth()/5);
-			if(i != powDots.size() - 1)
+
+			dotTable.add(powDot).padLeft(back.getWidth() / 5)
+					.width(powDot.getWidth() / 3 * 2)
+					.height(Assets.game_height / powDots.size());
+			dotTable.add(powDotNum).padLeft(back.getWidth() / 5);
+			if (i != powDots.size() - 1)
 				dotTable.row();
 		}
-		
+
 		ArrayList<Actor> opts = new ArrayList<Actor>();
 		opts.add(resume);
 		opts.add(quit);
 		opts.add(options);
 		opts.add(tutorial);
-				
+
 		Table opTable = new Table(Assets.skin);
 		opTable.right();
-		for(int i = 0; i < opts.size(); i++)
-		{
+		for (int i = 0; i < opts.size(); i++) {
 			Table temp = new Table(Assets.skin);
 			temp.add(opts.get(i));
-			opTable.add(temp).height(Assets.game_height/opts.size());
-			if(i != opts.size() - 1)
+			opTable.add(temp).height(Assets.game_height / opts.size());
+			if (i != opts.size() - 1)
 				opTable.row();
 		}
-		
+
 		pause_table.add().height(Assets.game_height * 2);
 		pause_table.add(dotTable).top();
 		pause_table.add(opTable).expandX().right().top();
-		
+
 		pause_scroll = new ScrollPane(pause_table);
 		pause_scroll.setPosition(0, 0);
 		pause_scroll.setWidth(Assets.width);
 		pause_scroll.setHeight(Assets.game_height);
-		pause_scroll.scrollTo(0, 0, pause_scroll.getWidth(), pause_scroll.getHeight());
-//		pause_scroll.addAction(Actions.run(new Runnable() {
-//			@Override
-//			public void run() {
-//				pause_scroll.scrollTo(0, 0, pause_scroll.getWidth(), pause_scroll.getHeight());
-//			}
-//		}));
-//		pause_scroll.setScrollingDisabled(true, true);
+		pause_scroll.scrollTo(0, 0, pause_scroll.getWidth(),
+				pause_scroll.getHeight());
+		// pause_scroll.addAction(Actions.run(new Runnable() {
+		// @Override
+		// public void run() {
+		// pause_scroll.scrollTo(0, 0, pause_scroll.getWidth(),
+		// pause_scroll.getHeight());
+		// }
+		// }));
+		// pause_scroll.setScrollingDisabled(true, true);
 	}
-	
+
 	// Creates the time label for the power dots also
-	private void addPowDots()
-	{
+	private void addPowDots() {
 		powDots_time = new ArrayList<Label>();
 		Label powDot_1_num = new Label("0", Assets.style_font_64_white);
-//		 powDot_1_num.setWidth(powDot_1_num.getStyle().font.getBounds("99").width);
+		// powDot_1_num.setWidth(powDot_1_num.getStyle().font.getBounds("99").width);
 		Label powDot_2_num = new Label("0", Assets.style_font_64_white);
-//		powDot_2_num.setWidth(powDot_2_num.getStyle().font.getBounds("99").width);
+		// powDot_2_num.setWidth(powDot_2_num.getStyle().font.getBounds("99").width);
 		Label powDot_3_num = new Label("0", Assets.style_font_64_white);
-//		powDot_3_num.setWidth(powDot_3_num.getStyle().font.getBounds("99").width);
+		// powDot_3_num.setWidth(powDot_3_num.getStyle().font.getBounds("99").width);
 		powDots_time.add(powDot_1_num);
 		powDots_time.add(powDot_2_num);
 		powDots_time.add(powDot_3_num);
-		
-		
+
 		powDots = new ArrayList<PowerDot>();
-		PowerDot powDot_1 = new PowerDot_Rainbow(Assets.rainbow_dot, gm, Assets.reg_pop_1);
-		PowerDot powDot_2 = new PowerDot_Invincible(Assets.invincible_dot, gm, Assets.reg_pop_1);
-		PowerDot powDot_3 = new PowerDot_Magnet(Assets.magnet_dot, gm, Assets.reg_pop_1);
+		PowerDot powDot_1 = new PowerDot_Rainbow(Assets.rainbow_dot, gm,
+				Assets.reg_pop_1);
+		PowerDot powDot_2 = new PowerDot_Invincible(Assets.invincible_dot, gm,
+				Assets.reg_pop_1);
+		PowerDot powDot_3 = new PowerDot_Magnet(Assets.magnet_dot, gm,
+				Assets.reg_pop_1);
 		powDots.add(powDot_1);
 		powDots.add(powDot_2);
 		powDots.add(powDot_3);
-		
-		for(int i = 0; i < powDots.size(); i++)
-		{
-			powDots.get(i).setLabel(powDots_time.get(i));
+
+		for (int i = 0; i < powDots.size(); i++) {
+			powDots.get(i).setTimeLabel(powDots_time.get(i));
 		}
 	}
-	
-	private void addPowDotsNum()
-	{
+
+	private void addPowDotsNum() {
 		powDot_num = new ArrayList<Label>();
-		Label powDot_1_num = new Label("99", Assets.prefs.getString("bg_color").equals(	
-				"Black") ? Assets.style_font_64_white
+		Label powDot_1_num = new Label("0", Assets.prefs.getString("bg_color")
+				.equals("Black") ? Assets.style_font_64_white
 				: Assets.style_font_64_black);
 		// powDot_1_num.setWidth(powDot_1_num.getStyle().font.getBounds("99").width);
-		Label powDot_2_num = new Label("99", Assets.prefs.getString("bg_color").equals(	
-				"Black") ? Assets.style_font_64_white
+		Label powDot_2_num = new Label("0", Assets.prefs.getString("bg_color")
+				.equals("Black") ? Assets.style_font_64_white
 				: Assets.style_font_64_black);
-		powDot_2_num.setWidth(powDot_2_num.getStyle().font.getBounds("99").width);
-		Label powDot_3_num = new Label("99", Assets.prefs.getString("bg_color").equals(	
-				"Black") ? Assets.style_font_64_white
+		powDot_2_num
+				.setWidth(powDot_2_num.getStyle().font.getBounds("99").width);
+		Label powDot_3_num = new Label("0", Assets.prefs.getString("bg_color")
+				.equals("Black") ? Assets.style_font_64_white
 				: Assets.style_font_64_black);
-		powDot_3_num.setWidth(powDot_3_num.getStyle().font.getBounds("99").width);
+		powDot_3_num
+				.setWidth(powDot_3_num.getStyle().font.getBounds("99").width);
 		powDot_num.add(powDot_1_num);
 		powDot_num.add(powDot_2_num);
 		powDot_num.add(powDot_3_num);
@@ -439,8 +449,7 @@ public class GameScreen extends ScrotsScreen {
 					}
 				}, Assets.prefs.getString("bg_color").equals("Black") ? 0 : 1);
 	}
-	
-	
+
 	public void showQuitConfirm() {
 		Assets.game.apk_intf.makeWindow("Quit?", "Yes", "No",
 				new ButtonInterface() {
@@ -449,7 +458,8 @@ public class GameScreen extends ScrotsScreen {
 					public void buttonPressed() {
 						main_menu();
 					}
-				}, null, Assets.prefs.getString("bg_color").equals("Black") ? 0 : 1);
+				}, null, Assets.prefs.getString("bg_color").equals("Black") ? 0
+						: 1);
 	}
 
 	public void showGameOver() {

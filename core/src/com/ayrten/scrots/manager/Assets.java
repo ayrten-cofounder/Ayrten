@@ -1,6 +1,7 @@
 package com.ayrten.scrots.manager;
 
 import com.ayrten.scrots.screens.ScrotsGame;
+import com.ayrten.scrots.shop.PowerDotManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
@@ -25,6 +26,9 @@ public class Assets {
 	public static int width;
 	public static final float TIME_ADD = (float) 2.6; // seconds
 	public static final float TIME_OFF = (float) -5.0;
+	
+	// Shop
+	public static PowerDotManager power_dot_manager;
 
 	// Drawables
 	public static NinePatchDrawable gray_box;
@@ -118,6 +122,9 @@ public class Assets {
 		height = Gdx.graphics.getHeight();
 		width = Gdx.graphics.getWidth();
 		game_height = height - font_32.getLineHeight() * 2;
+		
+		// Shop
+		power_dot_manager = new PowerDotManager();
 
 		// Drawable
 		gray_box = new NinePatchDrawable(new NinePatch(new Texture(

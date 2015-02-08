@@ -24,6 +24,7 @@ public class PowerDot_Magnet extends PowerDot {
 		super(dot, gm, pop);
 
 		ACTIVE_TIME = 8;
+		num = Assets.power_dot_manager.getMagnetDots();
 		generator = new DotGenerator(Assets.width, Assets.game_height, gm);
 	}
 
@@ -31,6 +32,9 @@ public class PowerDot_Magnet extends PowerDot {
 	public void beforeAction() {
 		super.beforeAction();
 
+		Assets.power_dot_manager.setMagnetDotAmount(--num);
+		updateNumLabel();
+		
 		magnet = generator.genPowerDotMagnet();
 		magnet.setTouchable(Touchable.disabled);
 		gm.getStage().addActor(magnet);
