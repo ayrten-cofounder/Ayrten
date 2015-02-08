@@ -10,8 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 
-public class PowerDot extends Dot 
-{
+public class PowerDot extends Dot {
 	private float DELAY = (float) 0.05; // seconds
 	private static final float ADDER = (float) 0.005; // seconds
 	protected float ACTIVE_TIME = 0; // seconds
@@ -20,7 +19,7 @@ public class PowerDot extends Dot
 	private Label time_label;
 	private Timer timer;
 	public float time;
-	
+
 	protected int num = 0; // The amount of power dots the user has
 
 	protected InputListener powerdot_listener;
@@ -37,7 +36,10 @@ public class PowerDot extends Dot
 
 			public void touchUp(InputEvent event, float x, float y,
 					int pointer, int button) {
-				touchedByAnAngel();
+
+				if (num > 0) {
+					touchedByAnAngel();
+				}
 			}
 		};
 
@@ -58,7 +60,7 @@ public class PowerDot extends Dot
 	public void updateNumLabel() {
 		num_label.setText(String.valueOf(num));
 	}
-	
+
 	@Override
 	public void touchedByAnAngel() {
 		super.touchedByAnAngel();
@@ -73,7 +75,7 @@ public class PowerDot extends Dot
 
 	// Action to do before timer starts.
 	public void beforeAction() {
-	
+
 	}
 
 	// Action to do during the timer
@@ -98,7 +100,8 @@ public class PowerDot extends Dot
 				if (time <= 0) {
 					time_label.setVisible(false);
 					afterAction();
-					System.out.println("TIMER REACHED ZERO FOR : " + getClass());
+					System.out
+							.println("TIMER REACHED ZERO FOR : " + getClass());
 					return;
 				}
 
@@ -106,14 +109,12 @@ public class PowerDot extends Dot
 			}
 		}, DELAY);
 	}
-	
-	public void pauseTime()
-	{
+
+	public void pauseTime() {
 		timer.stop();
 	}
-	
-	public void resumeTime()
-	{
+
+	public void resumeTime() {
 		timer.start();
 	}
 
