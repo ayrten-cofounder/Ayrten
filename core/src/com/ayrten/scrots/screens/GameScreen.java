@@ -89,7 +89,7 @@ public class GameScreen extends ScrotsScreen {
 		textStyle.font = Assets.font_64;
 
 		LabelStyle buttonStyle = new LabelStyle();
-		buttonStyle.font = Assets.font_32;
+		buttonStyle.font = Assets.font_64;
 
 		if (Assets.prefs.getString("bg_color", "").equals("")
 				|| Assets.prefs.getString("bg_color", "").equals("White")) {
@@ -302,8 +302,8 @@ public class GameScreen extends ScrotsScreen {
 		options.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Assets.game.main_menu.others_screen.options_screen.setBackScreen(Assets.game.getScreen());
-				Assets.game.setScreen(Assets.game.main_menu.others_screen.options_screen);
+				Assets.game.main_menu.options_screen.setBackScreen(Assets.game.getScreen());
+				Assets.game.setScreen(Assets.game.main_menu.options_screen);
 			}
 		});
 		
@@ -338,7 +338,9 @@ public class GameScreen extends ScrotsScreen {
 		opTable.right();
 		for(int i = 0; i < opts.size(); i++)
 		{
-			opTable.add(opts.get(i)).height(Assets.game_height/opts.size());
+			Table temp = new Table(Assets.skin);
+			temp.add(opts.get(i));
+			opTable.add(temp).height(Assets.game_height/opts.size());
 			if(i != opts.size() - 1)
 				opTable.row();
 		}

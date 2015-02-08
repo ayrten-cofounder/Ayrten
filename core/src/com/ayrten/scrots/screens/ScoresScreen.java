@@ -21,7 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-public class HighScoresScreen extends ScrotsScreen {
+public class ScoresScreen extends ScrotsScreen {
 	private float pad_left = (float) 5.5;
 	private float pad_right = (float) 5.5;
 	private int height = 75;
@@ -34,7 +34,7 @@ public class HighScoresScreen extends ScrotsScreen {
 	LabelStyle style_big;
 	LabelStyle style_small;
 
-	public HighScoresScreen(Screen bscreen) {
+	public ScoresScreen(Screen bscreen) {
 		super(bscreen, true);
 
 		table = new Table();
