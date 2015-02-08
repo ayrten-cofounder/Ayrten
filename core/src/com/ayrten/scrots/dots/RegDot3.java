@@ -3,6 +3,7 @@ package com.ayrten.scrots.dots;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -47,6 +48,7 @@ public class RegDot3 extends Dot {
 					if (dot.getClass() == RegDot1.class && removed)
 					{
 						gm.curr_level.minusGreenDot();
+						Assets.points_manager.addEarnedPoints(1);
 					}
 				}
 			}
