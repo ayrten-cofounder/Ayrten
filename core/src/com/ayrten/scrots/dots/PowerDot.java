@@ -1,5 +1,6 @@
 package com.ayrten.scrots.dots;
 
+import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,9 +15,12 @@ public class PowerDot extends Dot {
 	private static final float ADDER = (float) 0.005; // seconds
 	protected float ACTIVE_TIME = 0; // seconds
 
+	private Label num_label;
 	private Label time_label;
 	private Timer timer;
 	public float time;
+
+	protected int num = 0; // The amount of power dots the user has
 
 	protected InputListener powerdot_listener;
 
@@ -40,9 +44,18 @@ public class PowerDot extends Dot {
 		addListener(powerdot_listener);
 	}
 
-	public void setLabel(Label label) {
+	public void setTimeLabel(Label label) {
 		time_label = label;
 		time_label.setVisible(false);
+	}
+
+	public void setNumLabel(Label label) {
+		num_label = label;
+		num_label.setText(String.valueOf(num));
+	}
+
+	public void updateNumLabel() {
+		num_label.setText(String.valueOf(num));
 	}
 
 	@Override
@@ -95,9 +108,7 @@ public class PowerDot extends Dot {
 	private void setTime() {
 		if (time < 10) {
 			time_label.setText(String.valueOf(time).substring(0, 3));
-		}
-		else
-		{
+		} else {
 			time_label.setText(String.valueOf(time).substring(0, 2));
 		}
 	}

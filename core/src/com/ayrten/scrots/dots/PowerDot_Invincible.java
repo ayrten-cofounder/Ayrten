@@ -1,5 +1,6 @@
 package com.ayrten.scrots.dots;
 
+import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -11,6 +12,7 @@ public class PowerDot_Invincible extends PowerDot {
 		super(dot, gm, pop);
 		
 		ACTIVE_TIME = 5;
+		num = Assets.power_dot_manager.getInvincibleDots();
 	}
 	
 	@Override
@@ -18,6 +20,8 @@ public class PowerDot_Invincible extends PowerDot {
 	{
 		super.beforeAction();
 		
+		Assets.power_dot_manager.setInvincibleDotAmount(--num);
+		updateNumLabel();
 		INVINCIBLE = true;
 	}
 	
