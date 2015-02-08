@@ -12,16 +12,16 @@ public class DotGenerator
 	// private Sound pop;
 
 	// Width and height of the game window
-	private int height;
+	private float height;
 	private int width;
 
 	private Manager gm;
 
-	public DotGenerator(int width, int height, Manager gm) {
+	public DotGenerator(int width, float game_height, Manager gm) {
 
 		this.width = width;
 		if (gm.get_game_mode() == GameMode.MAIN_MENU_BACKGROUND_MODE) {
-			this.height = height;
+			this.height = game_height;
 		} else {
 			this.height = Assets.game_height;
 		}
@@ -101,7 +101,7 @@ public class DotGenerator
 
 	public void setRandPositions(Dot target) {
 		int w = random.nextInt(width);
-		int h = random.nextInt(height);
+		float h = random.nextFloat() * Assets.height;
 
 		if (w == 0) {
 			w += target.getTexture().getWidth();
@@ -112,7 +112,7 @@ public class DotGenerator
 		if (h == 0) {
 			h += target.getTexture().getWidth();
 		} else if (h + target.getTexture().getHeight() > height) {
-			h = (int) (height - target.getTexture().getHeight());
+			h = height - target.getTexture().getHeight();
 		}
 
 		target.setPosition(w, h);

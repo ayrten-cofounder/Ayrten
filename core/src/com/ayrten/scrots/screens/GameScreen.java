@@ -13,9 +13,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -29,6 +31,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.badlogic.gdx.utils.Timer;
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.OptimizedTransducedAccessorFactory;
 
 public class GameScreen extends ScrotsScreen {
 	// Widgets
@@ -57,7 +60,7 @@ public class GameScreen extends ScrotsScreen {
 	// Pause Menu
 	ArrayList<Image> powDot_images;
 	ArrayList<Label> powDot_num;
-	protected Table table;
+	protected ScrollPane pause_scroll;
 
 	protected Pool<MoveToAction> pool;
 
@@ -84,7 +87,7 @@ public class GameScreen extends ScrotsScreen {
 		textStyle.font = Assets.font_64;
 
 		LabelStyle buttonStyle = new LabelStyle();
-		buttonStyle.font = Assets.font_64;
+		buttonStyle.font = Assets.font_32;
 
 		if (Assets.prefs.getString("bg_color", "").equals("")
 				|| Assets.prefs.getString("bg_color", "").equals("White")) {
@@ -246,7 +249,7 @@ public class GameScreen extends ScrotsScreen {
 				if (Assets.prefs.getBoolean("sound_effs"))
 					Assets.button_pop.play();
 				gm.pauseGame();
-				table.setVisible(true);
+				pause_scroll.scrollTo(0, Assets.game_height*2, pause_scroll.getWidth(), pause_scroll.getHeight());
 			}
 		});
 		pause.setWidth(buttonStyle.font.getBounds("  Menu").width);
@@ -264,7 +267,8 @@ public class GameScreen extends ScrotsScreen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				gm.startGame();
-				table.setVisible(false);
+				// pause_scroll.setVisible(false);
+				pause_scroll.scrollTo(0, 0, pause_scroll.getWidth(), pause_scroll.getHeight());
 			}
 		});
 		
@@ -297,10 +301,10 @@ public class GameScreen extends ScrotsScreen {
 			}
 		});
 		
-		table = new Table(Assets.skin);
-		table.setWidth(Assets.width);
-		table.setHeight(Assets.game_height);
-		table.left();
+		Table pause_table = new Table(Assets.skin);
+		pause_table.setWidth(Assets.width);
+		pause_table.setHeight(Assets.game_height);
+		pause_table.left();
 		Table dotTable = new Table(Assets.skin);
 		dotTable.align(Align.right);
 		
@@ -323,26 +327,37 @@ public class GameScreen extends ScrotsScreen {
 			}
 		}
 		
+		ArrayList<Actor> opts = new ArrayList<Actor>();
+		opts.add(resume);
+		opts.add(quit);
+		opts.add(options);
+		opts.add(tutorial);
+				
 		Table opTable = new Table(Assets.skin);
 		opTable.right();
-		opTable.add(resume).expandX();
-		opTable.row();
-		opTable.add().height(back.getStyle().font.getLineHeight()/2);
-		opTable.row();
-		opTable.add(quit);
-		opTable.row();
-		opTable.add().height(back.getStyle().font.getLineHeight()/2);
-		opTable.row();
-		opTable.add(options);
-		opTable.row();
-		opTable.add().height(back.getStyle().font.getLineHeight()/2);
-		opTable.row();
-		opTable.add(tutorial);
+		for(int i = 0; i < opts.size(); i++)
+		{
+			opTable.add(opts.get(i)).height(Assets.game_height/opts.size());
+			if(i != opts.size() - 1)
+				opTable.row();
+		}
 		
-		table.top();
-		table.add(dotTable);
-		table.add(opTable).expandX().right();
-		table.setVisible(false);
+		pause_table.add().height(Assets.game_height * 2);
+		pause_table.add(dotTable);
+		pause_table.add(opTable).expandX().right().top();
+		
+		pause_scroll = new ScrollPane(pause_table);
+		pause_scroll.setPosition(0, 0);
+		pause_scroll.setWidth(Assets.width);
+		pause_scroll.setHeight(Assets.game_height);
+		pause_scroll.scrollTo(0, 0, pause_scroll.getWidth(), pause_scroll.getHeight());
+//		pause_scroll.addAction(Actions.run(new Runnable() {
+//			@Override
+//			public void run() {
+//				pause_scroll.scrollTo(0, 0, pause_scroll.getWidth(), pause_scroll.getHeight());
+//			}
+//		}));
+//		pause_scroll.setScrollingDisabled(true, true);
 	}
 	
 	private void addPowDots()
@@ -359,7 +374,7 @@ public class GameScreen extends ScrotsScreen {
 	private void addPowDotsNum()
 	{
 		powDot_num = new ArrayList<Label>();
-		Label powDot_1_num = new Label("0", Assets.prefs.getString("bg_color").equals(	
+		Label powDot_1_num = new Label("99", Assets.prefs.getString("bg_color").equals(	
 				"Black") ? Assets.style_font_64_white
 				: Assets.style_font_64_black);
 		// powDot_1_num.setWidth(powDot_1_num.getStyle().font.getBounds("99").width);
@@ -507,7 +522,7 @@ public class GameScreen extends ScrotsScreen {
 		stage.addActor(time);
 		stage.addActor(time_title);
 		stage.addActor(time_end);
-		stage.addActor(table);
+		stage.addActor(pause_scroll);
 		stage.addActor(slots);
 	}
 

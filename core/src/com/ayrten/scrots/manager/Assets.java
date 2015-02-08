@@ -20,7 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class Assets {
 	// Height and Width
-	public static int game_height;
+	public static float game_height;
 	public static int height;
 	public static int width;
 	public static final float TIME_ADD = (float) 2.6; // seconds
@@ -88,9 +88,9 @@ public class Assets {
 	public static Texture invincible_dot;
 	public static Texture magnet_dot;
 	public static Texture rainbow_dot;
-	
+
 	public static Texture question_mark;
-	
+
 	public static Texture slot_switch;
 
 	public static Image powDot1_image;
@@ -106,10 +106,17 @@ public class Assets {
 		int ref_width = 800;
 		float font_ratio = Gdx.graphics.getWidth() / ref_width;
 
+		// Fonts
+		font_120 = generate_BitMapFont(120, font_ratio);
+		font_64 = generate_BitMapFont(64, font_ratio);
+		font_32 = generate_BitMapFont(32, font_ratio);
+		font_16 = generate_BitMapFont(16, font_ratio);
+
 		// Height and Width
-		game_height = Gdx.graphics.getHeight() - (Gdx.graphics.getHeight() / 5);
+		// game_height = Gdx.graphics.getHeight() - (Gdx.graphics.getHeight() / 5);
 		height = Gdx.graphics.getHeight();
 		width = Gdx.graphics.getWidth();
+		game_height = height - font_32.getLineHeight() * 2;
 
 		// Drawable
 		gray_box = new NinePatchDrawable(new NinePatch(new Texture(
@@ -117,11 +124,6 @@ public class Assets {
 		transparent_box = new NinePatchDrawable(new NinePatch(new Texture(
 				Gdx.files.internal("data/transparent_box.9.png"))));
 
-		// Fonts
-		font_120 = generate_BitMapFont(120, font_ratio);
-		font_64 = generate_BitMapFont(64, font_ratio);
-		font_32 = generate_BitMapFont(32, font_ratio);
-		font_16 = generate_BitMapFont(16, font_ratio);
 
 		// Style
 		style_font_64_black = new LabelStyle();
@@ -275,15 +277,15 @@ public class Assets {
 		explosion_dot = new Texture(
 				Gdx.files.internal("data/dots/explosion_dot.png"));
 		explosion_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		
+
 		invincible_dot = new Texture(
 				Gdx.files.internal("data/dots/invincible_dot.png"));
 		invincible_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		
+
 		magnet_dot = new Texture(
 				Gdx.files.internal("data/dots/magnet_dot.png"));
 		magnet_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		
+
 		rainbow_dot = new Texture(
 				Gdx.files.internal("data/dots/rainbow_dot.png"));
 		rainbow_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
