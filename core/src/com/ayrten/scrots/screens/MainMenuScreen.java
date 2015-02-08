@@ -136,6 +136,7 @@ public class MainMenuScreen extends ScrotsScreen
 				setActorsTouchable(Touchable.disabled);
 				if(Assets.prefs.getBoolean("sound_effs", true))
 					Assets.button_pop.play();
+				options_screen.setBackScreen(Assets.game.getScreen());
 				Assets.game.setScreen(options_screen);
 			}
 		});

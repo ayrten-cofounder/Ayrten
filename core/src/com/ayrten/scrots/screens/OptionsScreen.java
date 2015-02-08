@@ -133,7 +133,8 @@ public class OptionsScreen extends ScrotsScreen {
 			Assets.prefs.putBoolean("color_blind", color_blind.isChecked());
 		
 		Assets.prefs.flush();
-		Assets.playMenuBGM();
+		if(backScreen.getClass() == MainMenuScreen.class)
+		  Assets.playMenuBGM();
 	}
 
 	@Override
