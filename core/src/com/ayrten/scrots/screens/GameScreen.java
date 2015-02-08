@@ -20,6 +20,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -277,10 +278,13 @@ public class GameScreen extends ScrotsScreen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 
+				pause.setTouchable(Touchable.disabled);
+				
 				new Timer().scheduleTask(new Task() {
 					@Override
 					public void run() {
 						gm.startGame();
+						pause.setTouchable(Touchable.enabled);
 					}
 				}, 1);
 
