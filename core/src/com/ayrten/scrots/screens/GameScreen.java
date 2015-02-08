@@ -39,11 +39,13 @@ public class GameScreen extends ScrotsScreen {
 	// Widgets
 	protected Image pause;
 
-	protected Label points_title;
-	protected Label points;
+	protected Label level_title;
+	protected Label level;
 	protected Label time_title;
 	protected Label time;
 	protected Label time_end;
+
+	protected Label points;
 
 	protected GameMode gamemode;
 	protected Manager gm;
@@ -137,17 +139,19 @@ public class GameScreen extends ScrotsScreen {
 		// dot_width = slots.getHeight();
 		// spacing = (slots.getWidth() - dot_width * 3)/3;
 		// }
-		
+
 		for (int i = 0; i < powDots.size(); i++) {
 			Table temp = new Table(Assets.skin);
 			temp.add(powDots_time.get(i));
 			scroll_table.stack(powDots.get(i), temp).width(dot_width)
 					.height(dot_width).center();
 			powDots.get(i).setTimeLabel(powDots_time.get(i));
-			
+
 			Table temp2 = new Table(Assets.skin);
 			temp2.add(powDot_num.get(i));
-			scroll_table.add(temp2).width(powDot_num.get(i).getStyle().font.getBounds("99").width);;
+			scroll_table.add(temp2).width(
+					powDot_num.get(i).getStyle().font.getBounds("99").width);
+			;
 			powDots.get(i).setNumLabel(powDot_num.get(i));
 
 			// if(spacing != 0 && i != powDot_images.size() - 1)
@@ -184,41 +188,48 @@ public class GameScreen extends ScrotsScreen {
 	}
 
 	private void initializePointsTime() {
-		points_title = new Label("LEVEL", Assets.style_font_32_red);
-		points_title
-				.setWidth(points_title.getStyle().font.getBounds("LEVEL").width);
-		points_title.setCenterPosition(
-				1 + points_title.getWidth() / 2,
+		level_title = new Label("LEVEL", Assets.style_font_32_red);
+		level_title
+				.setWidth(level_title.getStyle().font.getBounds("LEVEL").width);
+		level_title.setCenterPosition(
+				1 + level_title.getWidth() / 2,
 				Gdx.graphics.getHeight()
 						- Assets.style_font_32_white.font.getLineHeight() / 2);
 
-		points = new Label("00", Assets.prefs.getString("bg_color").equals(
+		level = new Label("00", Assets.prefs.getString("bg_color").equals(
 				"Black") ? Assets.style_font_32_white
 				: Assets.style_font_32_black);
-		points.setPosition(
-				0 + points_title.getWidth(),
-				Gdx.graphics.getHeight()
-						- points.getStyle().font.getLineHeight());
+		level.setPosition(0 + level_title.getWidth(), Gdx.graphics.getHeight()
+				- level.getStyle().font.getLineHeight());
 
 		time_title = new Label("WITH", Assets.style_font_32_red);
 		time_title.setWidth(time_title.getStyle().font.getBounds("WITH").width);
 		time_title.setCenterPosition(
-				1 + points_title.getWidth() + points.getWidth()
-						+ time_title.getWidth() / 2, points.getCenterY());
+				1 + level_title.getWidth() + level.getWidth()
+						+ time_title.getWidth() / 2, level.getCenterY());
 
 		time = new Label("60.0", Assets.prefs.getString("bg_color").equals(
 				"Black") ? Assets.style_font_32_white
 				: Assets.style_font_32_black);
-		time.setPosition(1 + points_title.getWidth() + points.getWidth()
+		time.setPosition(1 + level_title.getWidth() + level.getWidth()
 				+ time_title.getWidth(),
 				Gdx.graphics.getHeight() - time.getStyle().font.getLineHeight());
 
 		time_end = new Label("SECONDSLEFT", Assets.style_font_32_red);
 		time_end.setWidth(time_end.getStyle().font.getBounds("SECONDSLEFT").width);
 		time_end.setCenterPosition(
-				1 + points_title.getWidth() + points.getWidth()
+				1 + level_title.getWidth() + level.getWidth()
 						+ time_title.getWidth() + time.getWidth()
 						+ time_end.getWidth() / 2, time.getCenterY());
+
+		points = new Label(
+				String.valueOf(Assets.points_manager.getTotalPoints()),
+				Assets.prefs.getString("bg_color").equals("Black") ? Assets.style_font_32_white
+						: Assets.style_font_32_black);
+		points.setPosition(
+				0,
+				Gdx.graphics.getHeight()
+						- points.getStyle().font.getLineHeight() * 2);
 	}
 
 	public Manager getManager() {
@@ -243,11 +254,12 @@ public class GameScreen extends ScrotsScreen {
 		Assets.playMenuBGM();
 		Assets.game.setScreen(Assets.game.main_menu);
 	}
-	
-	private void initializePauseMenu()
-	{
-		LabelStyle buttonStyle = (Assets.prefs.getString("bg_color").equals("Black")) ? Assets.style_font_64_white : Assets.style_font_64_black;
-		
+
+	private void initializePauseMenu() {
+		LabelStyle buttonStyle = (Assets.prefs.getString("bg_color")
+				.equals("Black")) ? Assets.style_font_64_white
+				: Assets.style_font_64_black;
+
 		pause = new Image(Assets.pause_dot);
 		pause.setHeight(Assets.height - Assets.game_height);
 		pause.setWidth(Assets.height - Assets.game_height);
@@ -262,8 +274,8 @@ public class GameScreen extends ScrotsScreen {
 				pause_scroll.scrollTo(0, Assets.game_height * 2,
 						pause_scroll.getWidth(), pause_scroll.getHeight());
 				slots.setTouchable(Touchable.disabled);
-				for(int i = 0; i < powDots.size(); i++)
-						powDots.get(i).pauseTime();
+				for (int i = 0; i < powDots.size(); i++)
+					powDots.get(i).pauseTime();
 			}
 		});
 		pause.setPosition(w - pause.getWidth(), Gdx.graphics.getHeight()
@@ -281,7 +293,7 @@ public class GameScreen extends ScrotsScreen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				pause.setTouchable(Touchable.disabled);
-				
+
 				new Timer().scheduleTask(new Task() {
 					@Override
 					public void run() {
@@ -294,8 +306,8 @@ public class GameScreen extends ScrotsScreen {
 				pause_scroll.scrollTo(0, 0, pause_scroll.getWidth(),
 						pause_scroll.getHeight());
 				slots.setTouchable(Touchable.enabled);
-				for(int i = 0; i < powDots.size(); i++)
-						powDots.get(i).resumeTime();
+				for (int i = 0; i < powDots.size(); i++)
+					powDots.get(i).resumeTime();
 			}
 		});
 
@@ -383,14 +395,14 @@ public class GameScreen extends ScrotsScreen {
 		pause_scroll.setPosition(0, 0);
 		pause_scroll.layout();
 		pause_scroll.setScrollPercentY(100);
-		
+
 		new Timer().scheduleTask(new Task() {
 			@Override
 			public void run() {
 				pause_table.setVisible(true);
 			}
 		}, (float) 0.5);
-		
+
 		// pause_scroll.addAction(Actions.run(new Runnable() {
 		// @Override
 		// public void run() {
@@ -537,8 +549,9 @@ public class GameScreen extends ScrotsScreen {
 		if (gm.isGameOver()) {
 			gameOver();
 		} else {
-			point();
+			level();
 			time();
+			points();
 
 			stage.draw();
 			if (curr_level.level_clear()) {
@@ -546,14 +559,19 @@ public class GameScreen extends ScrotsScreen {
 			}
 		}
 	}
+	
+	public void points()
+	{
+		points.setText(String.valueOf(Assets.points_manager.getTotalPoints()));
+	}
 
-	public void point() {
+	public void level() {
 		String score = String.valueOf(gm.get_player_score());
 
 		if (gm.get_player_score() < 10) {
 			score = "0" + score;
 		}
-		points.setText(score);
+		level.setText(score);
 	}
 
 	public void time() {
@@ -577,10 +595,11 @@ public class GameScreen extends ScrotsScreen {
 
 	private void addStageActors() {
 		stage.addActor(pause);
-		stage.addActor(points_title);
-		stage.addActor(points);
+		stage.addActor(level_title);
+		stage.addActor(level);
 		stage.addActor(time);
 		stage.addActor(time_title);
+		stage.addActor(points);
 		stage.addActor(time_end);
 		stage.addActor(pause_scroll);
 		stage.addActor(slots);
