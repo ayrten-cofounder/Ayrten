@@ -130,15 +130,16 @@ public class GameScreen extends ScrotsScreen {
 		slots.setHeight(Assets.height - Assets.game_height);
 
 //		Image slot_switch = new Image(Assets.slot_switch);
-	  	float dot_width = (slots.getWidth())/3;
+//	  	float dot_width = (slots.getWidth())/3;
+	  	float dot_width = slots.getHeight();
 	  	
 		Table scroll_table = new Table(Assets.skin);
-		float spacing = 0;
-		if(dot_width > slots.getHeight())
-		{
-			dot_width = slots.getHeight();
-			spacing = (slots.getWidth() - dot_width * 3)/3;
-		}
+//		float spacing = 0;
+//		if(dot_width > slots.getHeight())
+//		{
+//			dot_width = slots.getHeight();
+//			spacing = (slots.getWidth() - dot_width * 3)/3;
+//		}
 
 	  	for(int i = 0; i < powDots.size(); i++) 
 	  	{
@@ -146,6 +147,12 @@ public class GameScreen extends ScrotsScreen {
 	  		temp.add(powDots_time.get(i));
 	  		scroll_table.stack(powDots.get(i), temp).width(dot_width).height(dot_width).center();
 	  		powDots.get(i).setLabel(powDots_time.get(i));
+	  		
+	  		Table temp2 = new Table(Assets.skin);
+	  		temp2.setWidth(powDot_num.get(i).getStyle().font.getBounds("99").width);
+	  		temp2.add(powDot_num.get(i));
+	  		scroll_table.add(temp2);
+	  		
 //	  		if(spacing != 0 && i != powDot_images.size() - 1)
 //	  			scroll_table.add().width(spacing);
 	  	}
@@ -395,7 +402,7 @@ public class GameScreen extends ScrotsScreen {
 	private void addPowDotsNum()
 	{
 		powDot_num = new ArrayList<Label>();
-		Label powDot_1_num = new Label("99", Assets.prefs.getString("bg_color").equals(	
+		Label powDot_1_num = new Label("0", Assets.prefs.getString("bg_color").equals(	
 				"Black") ? Assets.style_font_64_white
 				: Assets.style_font_64_black);
 		// powDot_1_num.setWidth(powDot_1_num.getStyle().font.getBounds("99").width);
