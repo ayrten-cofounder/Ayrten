@@ -92,6 +92,7 @@ public class Assets {
 	public static Texture question_mark;
 
 	public static Texture slot_switch;
+	public static Texture pause_dot;
 
 	public static Image powDot1_image;
 	public static Image powDot2_image;
@@ -289,6 +290,10 @@ public class Assets {
 		rainbow_dot = new Texture(
 				Gdx.files.internal("data/dots/rainbow_dot.png"));
 		rainbow_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		
+		pause_dot = new Texture(
+				Gdx.files.internal("data/dots/pause_dot.png"));
+		pause_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 	}
 
 	public static void dispose() {

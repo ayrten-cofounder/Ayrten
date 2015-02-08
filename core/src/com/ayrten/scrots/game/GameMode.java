@@ -40,7 +40,7 @@ public class GameMode {
 		}
 		
 		// Generate the first 20 levels.
-		for (int i = 1; i <= 20; i++) {
+		for (int i = 15; i <= 20; i++) {
 			Level lvl = new Level(i, w, h, gm);
 			all_levels.add(lvl);
 		}

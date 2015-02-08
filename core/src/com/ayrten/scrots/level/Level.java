@@ -11,12 +11,8 @@ import com.ayrten.scrots.dots.Dot;
 import com.ayrten.scrots.dots.DotGenerator;
 import com.ayrten.scrots.dots.PenDot1;
 import com.ayrten.scrots.dots.PenDot2;
-import com.ayrten.scrots.dots.PowerDot_Invincible;
-import com.ayrten.scrots.dots.PowerDot_Magnet;
-import com.ayrten.scrots.dots.PowerDot_Rainbow;
 import com.ayrten.scrots.dots.RegDot1;
 import com.ayrten.scrots.dots.RegDot2;
-import com.ayrten.scrots.dots.RegDot3;
 import com.ayrten.scrots.manager.Manager;
 
 public class Level
@@ -90,7 +86,7 @@ public class Level
 		dotsThatCameOutOfDWDs = new ArrayList<Dot>();
 		
 		powerUpDot = new LinkedList<Dot>();
-		powerUpDot.add(generator.genPowerDotMagnet());
+//		powerUpDot.add(generator.genPowerDotMagnet());
 		
 		allDots = new LinkedList<ArrayList<Dot>>();
 		allDots.add(regDots1);
