@@ -280,7 +280,17 @@ public class GameScreen extends ScrotsScreen {
 		resume.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				gm.startGame();
+				pause.setTouchable(Touchable.disabled);
+				
+				new Timer().scheduleTask(new Task() {
+					@Override
+					public void run() {
+						gm.startGame();
+						pause.setTouchable(Touchable.enabled);
+					}
+				}, 1);
+
+				// pause_scroll.setVisible(false);
 				pause_scroll.scrollTo(0, 0, pause_scroll.getWidth(),
 						pause_scroll.getHeight());
 				slots.setTouchable(Touchable.enabled);
@@ -324,9 +334,9 @@ public class GameScreen extends ScrotsScreen {
 			}
 		});
 
-		Table pause_table = new Table(Assets.skin);
+		final Table pause_table = new Table(Assets.skin);
 		pause_table.setWidth(Assets.width);
-		pause_table.setHeight(Assets.game_height);
+		pause_table.setHeight(Assets.game_height * 2);
 		pause_table.left();
 		Table dotTable = new Table(Assets.skin);
 		dotTable.align(Align.right);
@@ -365,13 +375,22 @@ public class GameScreen extends ScrotsScreen {
 		pause_table.add().height(Assets.game_height * 2);
 		pause_table.add(dotTable).top();
 		pause_table.add(opTable).expandX().right().top();
+		pause_table.setVisible(false);
 
 		pause_scroll = new ScrollPane(pause_table);
-		pause_scroll.setPosition(0, 0);
 		pause_scroll.setWidth(Assets.width);
 		pause_scroll.setHeight(Assets.game_height);
-		pause_scroll.scrollTo(0, 0, pause_scroll.getWidth(),
-				pause_scroll.getHeight());
+		pause_scroll.setPosition(0, 0);
+		pause_scroll.layout();
+		pause_scroll.setScrollPercentY(100);
+		
+		new Timer().scheduleTask(new Task() {
+			@Override
+			public void run() {
+				pause_table.setVisible(true);
+			}
+		}, (float) 0.5);
+		
 		// pause_scroll.addAction(Actions.run(new Runnable() {
 		// @Override
 		// public void run() {
