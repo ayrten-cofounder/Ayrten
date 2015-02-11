@@ -45,6 +45,7 @@ public class GameScreen extends ScrotsScreen {
 	protected Label time;
 	protected Label time_end;
 
+	protected Label points_title;
 	protected Label points;
 
 	protected GameMode gamemode;
@@ -222,14 +223,21 @@ public class GameScreen extends ScrotsScreen {
 						+ time_title.getWidth() + time.getWidth()
 						+ time_end.getWidth() / 2, time.getCenterY());
 
+		points_title = new Label(
+				"Points: ",
+				Assets.style_font_32_orange);
+		points_title.setPosition(
+				0,
+				Assets.game_height);
+		points_title.setWidth(points_title.getStyle().font.getBounds("Points: ").width);
+		
 		points = new Label(
 				String.valueOf(Assets.points_manager.getTotalPoints()),
 				Assets.prefs.getString("bg_color").equals("Black") ? Assets.style_font_32_white
 						: Assets.style_font_32_black);
 		points.setPosition(
-				0,
-				Gdx.graphics.getHeight()
-						- points.getStyle().font.getLineHeight() * 2);
+				0 + points_title.getWidth(),
+				Assets.game_height);
 	}
 
 	public Manager getManager() {
@@ -599,6 +607,7 @@ public class GameScreen extends ScrotsScreen {
 		stage.addActor(level);
 		stage.addActor(time);
 		stage.addActor(time_title);
+		stage.addActor(points_title);
 		stage.addActor(points);
 		stage.addActor(time_end);
 		stage.addActor(pause_scroll);
