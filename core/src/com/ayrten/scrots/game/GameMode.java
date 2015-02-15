@@ -143,6 +143,8 @@ public class GameMode {
 			stage.addActor(dot);
 		}
 		
+		if(gm.isRainbowState())
+			gm.changePenalityDotVisibility(false);
 		return curr_level;
 	}	
 }

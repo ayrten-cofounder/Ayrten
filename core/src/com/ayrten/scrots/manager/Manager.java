@@ -176,6 +176,8 @@ public class Manager {
 
 	public void plusOnePoint() {
 		score++;
+		if(score == 5)
+			Assets.game.apk_intf.unlockAchievement("pass_lvled5");
 	}
 
 	public void minusOnePoint() {

@@ -1,5 +1,7 @@
 package com.ayrten.scrots.android;
 
+import java.util.HashMap;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
@@ -16,6 +18,8 @@ public class AndroidLauncher extends AdLauncher implements GoogleApiClient.Conne
 	private boolean mResolvingConnectionFailure = false;
 	private boolean mAutoStartSignInflow = true;
 	private boolean mSignInClicked = false;
+	
+	protected HashMap<String, Integer> achievement_list;
 
 	@Override
 	public void onCreate (Bundle savedInstanceState) {
@@ -29,6 +33,8 @@ public class AndroidLauncher extends AdLauncher implements GoogleApiClient.Conne
 		.addApi(Games.API).addScope(Games.SCOPE_GAMES)
 		// add other APIs and scopes here as needed
 		.build();
+		
+		initializeAchievements();
 	}
 
 	@Override
@@ -127,5 +133,33 @@ public class AndroidLauncher extends AdLauncher implements GoogleApiClient.Conne
 			startActivityForResult(Games.Leaderboards.getAllLeaderboardsIntent(mGoogleApiClient), 789);
 		else
 			showToast("Failed to show Leaderboard: not signed-in!");
+	}
+	
+	@Override
+	public void unlockAchievement(String name) {
+		if(mGoogleApiClient != null && mGoogleApiClient.isConnected())
+		{
+			if(achievement_list.containsKey(name))
+				Games.Achievements.unlock(mGoogleApiClient, 
+						this.getResources().getString(achievement_list.get(name)));
+		}
+	}
+	
+	private void initializeAchievements()
+	{
+		achievement_list.put("popped_1000_dots", R.string.popped_1000_dots);
+		achievement_list.put("popped_5000_dots", R.string.popped_5000_dots);
+		achievement_list.put("popped_10000_dots", R.string.popped_10000_dots);
+		achievement_list.put("popped_25000_dots", R.string.popped_25000_dots);
+		achievement_list.put("popped_50000_dots", R.string.popped_50000_dots);
+		achievement_list.put("popped_100000_dots", R.string.popped_100000_dots);
+		
+		achievement_list.put("unlock_rainbow", R.string.unlocked_rainbow);
+		achievement_list.put("unlock_invincible", R.string.unlocked_invinvincible);
+		achievement_list.put("unlock_magnet", R.string.unlocked_magnet);
+	
+		achievement_list.put("passed_lvl5", R.string.passed_lvl5);
+		achievement_list.put("passed_lvl10", R.string.passed_lvl10);
+		achievement_list.put("passed_lvl15", R.string.passed_lvl15);
 	}
 }

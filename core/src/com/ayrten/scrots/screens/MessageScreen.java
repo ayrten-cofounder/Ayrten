@@ -1,7 +1,5 @@
 package com.ayrten.scrots.screens;
 
-import javax.swing.GroupLayout.Alignment;
-
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.ButtonInterface;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;

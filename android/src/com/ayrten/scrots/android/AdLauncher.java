@@ -2,7 +2,6 @@ package com.ayrten.scrots.android;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -55,7 +54,7 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		
 		FontsOverride.setDefaultFont(this, "MONOSPACE",
 				"fonts/summer_of_love.ttf");
 
@@ -242,4 +241,7 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface {
 
 	@Override
 	public void showAchievements() {}
+
+	@Override
+	public void unlockAchievement(String name) {}
 }

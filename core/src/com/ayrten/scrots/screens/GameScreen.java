@@ -302,15 +302,14 @@ public class GameScreen extends ScrotsScreen {
 					public void run() {
 						gm.startGame();
 						pause.setTouchable(Touchable.enabled);
+						slots.setTouchable(Touchable.enabled);
+						for (int i = 0; i < powDots.size(); i++)
+							powDots.get(i).resumeTime();
 					}
 				}, 1);
 
-				// pause_scroll.setVisible(false);
 				pause_scroll.scrollTo(0, 0, pause_scroll.getWidth(),
 						pause_scroll.getHeight());
-				slots.setTouchable(Touchable.enabled);
-				for (int i = 0; i < powDots.size(); i++)
-					powDots.get(i).resumeTime();
 			}
 		});
 
