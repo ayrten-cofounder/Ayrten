@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
-public class MessageScreen {
+public class MessageScreen extends ScrotsScreen {
 	private Stage stage;
 	
 	private Table table;
@@ -23,6 +23,7 @@ public class MessageScreen {
 	private Label negative_button;
 	private Label positive_button;
 
+	// Used as an overlay window.
 	public MessageScreen(Stage stage) {
 		this.stage = stage;
 		
@@ -32,6 +33,14 @@ public class MessageScreen {
 
 		background_overlay = new Image(Assets.transparent_background);
 		background_overlay.setBounds(0, 0, Assets.width, Assets.height);
+	}
+	
+	// Used as a generic message screen. Actors must be initialized beforehand.
+	public MessageScreen(ArrayList<Actor> actor_list)
+	{
+		stage = new Stage();
+		for(Actor actor : actor_list)
+			stage.addActor(actor);
 	}
 
 	public void makeWindow(String title, String positive_title, String negative_title,
@@ -97,7 +106,6 @@ public class MessageScreen {
 
 		stage.addActor(background_overlay);
 		stage.addActor(table);
-//		table.debug();
 	}
 	
 	private void removeActors()
