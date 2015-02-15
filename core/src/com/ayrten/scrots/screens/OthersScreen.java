@@ -26,6 +26,28 @@ public class OthersScreen extends ScrotsScreen
 		labelStyle.font = Assets.font_64;
 		labelStyle.fontColor = Assets.ORANGE;
 		
+		Label achievements = new Label("Achievements", labelStyle);
+		achievements.setBounds(achievements.getX(), achievements.getY(), achievements.getWidth(), achievements.getHeight());
+		achievements.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Assets.game.apk_intf.showAchievements();
+				if(Assets.prefs.getBoolean("sound_effs", true))
+					Assets.button_pop.play();
+			}
+		});
+		
+		Label leaderboard = new Label("Leaderboard", labelStyle);
+		leaderboard.setBounds(leaderboard.getX(), leaderboard.getY(), leaderboard.getWidth(), leaderboard.getHeight());
+		leaderboard.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Assets.game.apk_intf.showLeadershipBoard();
+				if(Assets.prefs.getBoolean("sound_effs", true))
+					Assets.button_pop.play();
+			}
+		});
+		
 		Label tutorial = new Label("Tutorial", labelStyle);
 		tutorial.setBounds(tutorial.getX(), tutorial.getY(), tutorial.getWidth(), tutorial.getHeight());
 		tutorial.addListener(new ClickListener() {
@@ -36,24 +58,6 @@ public class OthersScreen extends ScrotsScreen
 					Assets.button_pop.play();
 				tutorial_screen.setBackScreen(Assets.game.getScreen());
 				Assets.game.setScreen(tutorial_screen);
-			}
-		});
-		
-		Label achievements = new Label("Achievements", labelStyle);
-		achievements.setBounds(achievements.getX(), achievements.getY(), achievements.getWidth(), achievements.getHeight());
-		achievements.addListener(new ClickListener(){
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				Assets.game.apk_intf.showAchievements();
-			}
-		});
-		
-		Label leaderboard = new Label("Leaderboard", labelStyle);
-		leaderboard.setBounds(leaderboard.getX(), leaderboard.getY(), leaderboard.getWidth(), leaderboard.getHeight());
-		leaderboard.addListener(new ClickListener(){
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				Assets.game.apk_intf.showLeadershipBoard();
 			}
 		});
 		
