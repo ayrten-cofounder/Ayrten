@@ -77,6 +77,8 @@ public class Assets {
 	public static Skin skin_window;
 
 	// Textures
+	public static Texture transparent_background;
+	
 	public static Texture regDot_1; // Regular dot (ie. green)
 	public static Texture regDot_2; // Regular dot (ie. babay blue)
 	public static Texture regDot_3; // Exploding dot
@@ -249,6 +251,9 @@ public class Assets {
 	}
 
 	public static void loadDotTextures() {
+		transparent_background = new Texture(Gdx.files.internal("data/transparent_gray.png"));
+		transparent_background.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		
 		if (!prefs.getBoolean("color_blind", false))
 			penDot_1 = new Texture(Gdx.files.internal("data/red_dot.png"));
 		else

@@ -8,9 +8,9 @@ public class PowerDotManager {
 	protected String file = "power_dots.txt";
 
 	public static class Dots {
-		public int magnet_dot = 15;
-		public int invincible_dot = 15;
-		public int rainbow_dot = 15;
+		public int magnet_dot = 0;
+		public int invincible_dot = 0;
+		public int rainbow_dot = 0;
 	}
 
 	public Dots dots;

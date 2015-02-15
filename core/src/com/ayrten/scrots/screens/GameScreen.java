@@ -45,6 +45,7 @@ public class GameScreen extends ScrotsScreen {
 	protected Label time;
 	protected Label time_end;
 
+	protected Label points_title;
 	protected Label points;
 
 	protected GameMode gamemode;
@@ -222,14 +223,16 @@ public class GameScreen extends ScrotsScreen {
 						+ time_title.getWidth() + time.getWidth()
 						+ time_end.getWidth() / 2, time.getCenterY());
 
-		points = new Label(
-				String.valueOf(Assets.points_manager.getTotalPoints()),
-				Assets.prefs.getString("bg_color").equals("Black") ? Assets.style_font_32_white
-						: Assets.style_font_32_black);
-		points.setPosition(
-				0,
-				Gdx.graphics.getHeight()
-						- points.getStyle().font.getLineHeight() * 2);
+		points_title = new Label("Points: ", Assets.style_font_32_orange);
+		points_title.setPosition(0, Assets.game_height);
+		points_title.setWidth(points_title.getStyle().font
+				.getBounds("Points: ").width);
+
+		points = new Label(String.valueOf(Assets.points_manager
+				.getTotalPoints()), Assets.prefs.getString("bg_color").equals(
+				"Black") ? Assets.style_font_32_white
+				: Assets.style_font_32_black);
+		points.setPosition(0 + points_title.getWidth(), Assets.game_height);
 	}
 
 	public Manager getManager() {
@@ -394,6 +397,7 @@ public class GameScreen extends ScrotsScreen {
 		pause_scroll.setHeight(Assets.game_height);
 		pause_scroll.setPosition(0, 0);
 		pause_scroll.layout();
+		pause_scroll.setFlickScroll(false);
 		pause_scroll.setScrollPercentY(100);
 
 		new Timer().scheduleTask(new Task() {
@@ -402,15 +406,6 @@ public class GameScreen extends ScrotsScreen {
 				pause_table.setVisible(true);
 			}
 		}, (float) 0.5);
-
-		// pause_scroll.addAction(Actions.run(new Runnable() {
-		// @Override
-		// public void run() {
-		// pause_scroll.scrollTo(0, 0, pause_scroll.getWidth(),
-		// pause_scroll.getHeight());
-		// }
-		// }));
-		// pause_scroll.setScrollingDisabled(true, true);
 	}
 
 	// Creates the time label for the power dots also
@@ -559,9 +554,8 @@ public class GameScreen extends ScrotsScreen {
 			}
 		}
 	}
-	
-	public void points()
-	{
+
+	public void points() {
 		points.setText(String.valueOf(Assets.points_manager.getTotalPoints()));
 	}
 
@@ -599,6 +593,7 @@ public class GameScreen extends ScrotsScreen {
 		stage.addActor(level);
 		stage.addActor(time);
 		stage.addActor(time_title);
+		stage.addActor(points_title);
 		stage.addActor(points);
 		stage.addActor(time_end);
 		stage.addActor(pause_scroll);

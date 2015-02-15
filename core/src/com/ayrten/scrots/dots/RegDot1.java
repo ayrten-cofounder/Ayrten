@@ -20,6 +20,6 @@ public class RegDot1 extends Dot
 		// Removes a green dot from the array
 		// Then Adds a point
 		gm.minusGreenDot();
-		Assets.points_manager.addEarnedPoints(1);
+		Assets.points_manager.addPoints(1);
 	}
 }

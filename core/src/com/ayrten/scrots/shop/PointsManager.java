@@ -5,11 +5,10 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 
 public class PointsManager {
-	protected String file = "points_manager.txt";
+	protected String file = "points_manager2.txt";
 
 	public static class Points {
-		public int earned_points = 0;
-		public int bought_points = 0;
+		public int points = 0;
 	}
 
 	public Points points;
@@ -25,29 +24,19 @@ public class PointsManager {
 			Json json = new Json();
 			Points points = json.fromJson(Points.class, file);
 
-			return (points.earned_points + points.bought_points);
+			return (points.points);
 		}
 
 		return 0;
 	}
 
-	public void addEarnedPoints(int amount) {
+	public void addPoints(int amount) {
 		Points points = getPoints();
 		Json json = new Json();
 
-		points.earned_points += amount;
+		points.points += amount;
 
 		writeFile(this.file, json.toJson(points));
-	}
-
-	public void addBoughtPoints(int amount) {
-		Points points = getPoints();
-		Json json = new Json();
-
-		points.bought_points += amount;
-
-		writeFile(this.file, json.toJson(points));
-
 	}
 
 	public Points getPoints() {

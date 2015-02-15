@@ -48,7 +48,7 @@ public class RegDot3 extends Dot {
 					if (dot.getClass() == RegDot1.class && removed)
 					{
 						gm.curr_level.minusGreenDot();
-						Assets.points_manager.addEarnedPoints(1);
+						Assets.points_manager.addPoints(1);
 					}
 				}
 			}
