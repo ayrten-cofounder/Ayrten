@@ -1,6 +1,7 @@
 package com.ayrten.scrots.screens;
 
 import com.ayrten.scrots.manager.Assets;
+import com.ayrten.scrots.manager.ButtonInterface;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -18,7 +19,7 @@ public class ShopScreen extends ScrotsScreen {
 	private Label points_label;
 
 	private Table table;
-	
+
 	private Image background_window;
 
 	private Image invincible_dot;
@@ -46,18 +47,25 @@ public class ShopScreen extends ScrotsScreen {
 		setUpShopTable();
 		updatePoints();
 	}
-	
-	private void setBackgroundWindow()
-	{
-		background_window = new Image(Assets.transparent_background);
-		background_window.setBounds(0, 0, Assets.width, Assets.height);
-		
-		Label notEnough = new Label("Not enough points. Do you want to purchase more?",
-				Assets.style_font_32_white);
-		notEnough.setPosition((Assets.width / 2) - (notEnough.getWidth() / 2), Assets.height / 2);
-		
-		stage.addActor(background_window);
-		stage.addActor(notEnough);
+
+	private void setBackgroundWindow() {
+		MessageScreen message = new MessageScreen(stage);
+
+		message.makeWindow("You do not have enough points. Do you want to purchase more?", "Yes", "No",
+				new ButtonInterface() {
+
+					@Override
+					public void buttonPressed() {
+						// User clicked yes
+						// Go to purchase shop
+					}
+				}, new ButtonInterface() {
+
+					@Override
+					public void buttonPressed() {
+						// User clicked no
+					}
+				});
 	}
 
 	private void updatePoints() {
@@ -112,7 +120,7 @@ public class ShopScreen extends ScrotsScreen {
 				buyInvincibleDot(1);
 			}
 		});
-		
+
 		magnet_dot_buy.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
@@ -124,7 +132,7 @@ public class ShopScreen extends ScrotsScreen {
 				buyMagnetDot(1);
 			}
 		});
-		
+
 		rainbow_dot_buy.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
@@ -209,4 +217,14 @@ public class ShopScreen extends ScrotsScreen {
 
 		updatePoints();
 	}
+
+	@Override
+	public void render(float delta) {
+		// TODO Auto-generated method stub
+		super.render(delta);
+		
+//		Table.drawDebug(stage);
+	}
+	
+	
 }

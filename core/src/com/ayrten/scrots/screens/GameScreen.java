@@ -466,36 +466,73 @@ public class GameScreen extends ScrotsScreen {
 	}
 
 	public void showQuitHighScoreMenu() {
-		Assets.game.apk_intf.makeWindow(
-				"Are you sure you don't want to enter your highscore?", "Yes",
+//		Assets.game.apk_intf.makeWindow(
+//				"Are you sure you don't want to enter your highscore?", "Yes",
+//				"Cancel", new ButtonInterface() {
+//
+//					@Override
+//					public void buttonPressed() {
+//						showQuitConfirm();
+//					}
+//				}, new ButtonInterface() {
+//
+//					@Override
+//					public void buttonPressed() {
+//					}
+//				}, Assets.prefs.getString("bg_color").equals("Black") ? 0 : 1);
+		
+		MessageScreen message = new MessageScreen(stage);
+
+		message.makeWindow("Are you sure you don't want to enter your highscore?", "Yes",
 				"Cancel", new ButtonInterface() {
 
-					@Override
-					public void buttonPressed() {
-						showQuitConfirm();
-					}
-				}, new ButtonInterface() {
+			@Override
+			public void buttonPressed() {
+				main_menu();
+			}
+		}, new ButtonInterface() {
 
-					@Override
-					public void buttonPressed() {
-					}
-				}, Assets.prefs.getString("bg_color").equals("Black") ? 0 : 1);
+			@Override
+			public void buttonPressed() {
+			}
+		});
 	}
 
 	public void showQuitConfirm() {
-		Assets.game.apk_intf.makeWindow("Quit?", "Yes", "No",
-				new ButtonInterface() {
+		MessageScreen message = new MessageScreen(stage);
 
-					@Override
-					public void buttonPressed() {
-						main_menu();
-					}
-				}, null, Assets.prefs.getString("bg_color").equals("Black") ? 0
-						: 1);
+		message.makeWindow("Quit?", "Yes", "No", new ButtonInterface() {
+
+			@Override
+			public void buttonPressed() {
+				main_menu();
+			}
+		}, new ButtonInterface() {
+
+			@Override
+			public void buttonPressed() {
+			}
+		});
 	}
 
 	public void showGameOver() {
-		Assets.game.apk_intf.makeGameOverDialog(new ButtonInterface() {
+//		Assets.game.apk_intf.makeGameOverDialog(new ButtonInterface() {
+//
+//			@Override
+//			public void buttonPressed() {
+//				replay();
+//			}
+//		}, new ButtonInterface() {
+//
+//			@Override
+//			public void buttonPressed() {
+//				main_menu();
+//			}
+//		}, Assets.prefs.getString("bg_color").equals("Black") ? 0 : 1);
+		
+		MessageScreen message = new MessageScreen(stage);
+
+		message.makeWindow("Game Over!", "Replay", "Main Menu", new ButtonInterface() {
 
 			@Override
 			public void buttonPressed() {
@@ -507,7 +544,7 @@ public class GameScreen extends ScrotsScreen {
 			public void buttonPressed() {
 				main_menu();
 			}
-		}, Assets.prefs.getString("bg_color").equals("Black") ? 0 : 1);
+		});
 	}
 
 	public void showGameOverWithHighScore() {
