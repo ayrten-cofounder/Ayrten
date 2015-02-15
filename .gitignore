@@ -31,6 +31,11 @@ android/google_play_services
 *.iws
 *.iml
 out/
+
+## Desktop
+desktop/points_manager2.txt
+desktop/src/com/ayrten/scrots/desktop/DesktopLauncher.java
+
 com_crashlytics_export_strings.xml
 
 ## Eclipse
