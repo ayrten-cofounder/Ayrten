@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_id">942945143878</string>
+    
+    <!-- Achievements -->
+    <string name="popped_1000_dots">CgkIxpik37gbEAIQAg</string>
+    <string name="popped_5000_dots">CgkIxpik37gbEAIQBw </string>
+    <string name="popped_10000_dots">CgkIxpik37gbEAIQCA</string>
+    <string name="popped_25000_dots">CgkIxpik37gbEAIQCQ</string>
+    <string name="popped_50000_dots">CgkIxpik37gbEAIQCg</string>
+    <string name="popped_100000_dots">CgkIxpik37gbEAIQCw</string>
+    <string name="unlocked_rainbow">CgkIxpik37gbEAIQAw</string>
+   	<string name="unlocked_invinvincible">CgkIxpik37gbEAIQBA</string>
+   	<string name="unlocked_magnet">CgkIxpik37gbEAIQBQ</string>
+   	<string name="passed_lvl5">CgkIxpik37gbEAIQBg</string>
+   	<string name="passed_lvl10">CgkIxpik37gbEAIQDA</string>
+   	<string name="passed_lvl15">CgkIxpik37gbEAIQDQ</string>
+   	
+   	<!-- Leaderboards -->
+   	<string name="leaderboard">CgkIxpik37gbEAIQAQ</string>
+</resources>

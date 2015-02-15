@@ -38,7 +38,25 @@ public class OthersScreen extends ScrotsScreen
 				Assets.game.setScreen(tutorial_screen);
 			}
 		});
-				
+		
+		Label achievements = new Label("Achievements", labelStyle);
+		achievements.setBounds(achievements.getX(), achievements.getY(), achievements.getWidth(), achievements.getHeight());
+		achievements.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Assets.game.apk_intf.showAchievements();
+			}
+		});
+		
+		Label leaderboard = new Label("Leaderboard", labelStyle);
+		leaderboard.setBounds(leaderboard.getX(), leaderboard.getY(), leaderboard.getWidth(), leaderboard.getHeight());
+		leaderboard.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Assets.game.apk_intf.showLeadershipBoard();
+			}
+		});
+		
 		Label credits = new Label("Credits", labelStyle);
 		credits.setBounds(credits.getX(), credits.getY(), credits.getWidth(), credits.getHeight());
 		credits.addListener(new ClickListener() {
@@ -53,6 +71,10 @@ public class OthersScreen extends ScrotsScreen
 		
 		Table table = new Table(Assets.skin);
 		table.setFillParent(true);
+		table.add(achievements);
+		table.row();
+		table.add(leaderboard);
+		table.row();
 		table.add(tutorial);
 		table.row();
 		table.add(credits);

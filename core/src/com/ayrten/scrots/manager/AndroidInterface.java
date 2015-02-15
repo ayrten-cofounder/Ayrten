@@ -20,4 +20,8 @@ public interface AndroidInterface {
 	
 	public void makeGameOverDialogHighScore(GameScreen gameScreen, ButtonInterface yes_interface,
 			ButtonInterface no_interface, int color);
+	
+	public void showLeadershipBoard();
+	
+	public void showAchievements();
 }

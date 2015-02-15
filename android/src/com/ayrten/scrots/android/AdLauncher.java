@@ -236,4 +236,10 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface {
 			}
 		});
 	}
+
+	@Override
+	public void showLeadershipBoard() {}
+
+	@Override
+	public void showAchievements() {}
 }
