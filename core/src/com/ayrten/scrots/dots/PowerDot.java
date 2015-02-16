@@ -99,8 +99,6 @@ public class PowerDot extends Dot {
 				if (time <= 0) {
 					time_label.setVisible(false);
 					afterAction();
-					System.out
-							.println("TIMER REACHED ZERO FOR : " + getClass());
 					return;
 				}
 

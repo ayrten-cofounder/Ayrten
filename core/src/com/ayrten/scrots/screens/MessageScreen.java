@@ -1,7 +1,10 @@
 package com.ayrten.scrots.screens;
 
+import java.util.ArrayList;
+
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.ButtonInterface;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -10,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
-public class MessageScreen {
+public class MessageScreen extends ScrotsScreen {
 	private Stage stage;
 	
 	private Table table;
@@ -20,18 +23,24 @@ public class MessageScreen {
 	private Label negative_button;
 	private Label positive_button;
 
+	// Used as an overlay window.
 	public MessageScreen(Stage stage) {
 		this.stage = stage;
 		
 		table = new Table();
 		table.setFillParent(true);
 		table.setSkin(Assets.skin);
-//		table.setHeight(Assets.game_height);
-//		table.setWidth(Assets.game_height);
-//		table.setCenterPosition(Assets.width /2, Assets.height / 2);
 
 		background_overlay = new Image(Assets.transparent_background);
 		background_overlay.setBounds(0, 0, Assets.width, Assets.height);
+	}
+	
+	// Used as a generic message screen. Actors must be initialized beforehand.
+	public MessageScreen(ArrayList<Actor> actor_list)
+	{
+		stage = new Stage();
+		for(Actor actor : actor_list)
+			stage.addActor(actor);
 	}
 
 	public void makeWindow(String title, String positive_title, String negative_title,
@@ -80,8 +89,16 @@ public class MessageScreen {
 		});
 		
 		Table newTable = new Table(Assets.skin);
-		newTable.add(negative_button).width(Assets.game_height/ 2);
-		newTable.add(positive_button).width(Assets.game_height / 2);
+		ArrayList<Actor> actor_list = new ArrayList<Actor>();
+		actor_list.add(positive_button);
+		actor_list.add(negative_button);
+		
+		for(int i = 0; i < actor_list.size(); i++)
+		{
+			Table temp = new Table(Assets.skin);
+			temp.add(actor_list.get(i));
+			newTable.add(temp).width(Assets.width/2);
+		}
 		
 		table.add(message).width(Assets.game_height);
 		table.row();

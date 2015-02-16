@@ -58,16 +58,18 @@ public class ScoresScreen extends ScrotsScreen {
 			public void clicked(InputEvent event, float x, float y) {
 				if (Assets.prefs.getBoolean("sound_effs"))
 					Assets.button_pop.play();
-				Assets.game.apk_intf.makeYesNoWindow("Clear Highscores?",
-						new ButtonInterface() {
-
-							@Override
-							public void buttonPressed() {
-								clearScoreboard();
-							}
-						}, null,
-						Assets.prefs.getString("bg_color").equals("Black") ? 0
-								: 1);
+				MessageScreen message = new MessageScreen(stage);
+				message.makeWindow("Clear Highscores?", "Yes", "No", new ButtonInterface() {
+					
+					@Override
+					public void buttonPressed() {
+						clearScoreboard();
+					}
+				}, new ButtonInterface() {
+					@Override
+					public void buttonPressed() {
+					}
+				});
 			}
 		});
 
@@ -129,13 +131,13 @@ public class ScoresScreen extends ScrotsScreen {
 	}
 
 	public void clearScoreboard() {
-//		if (mode.getSelected().equals("Normal")) {
-			NormalScoreboard scoreboard = new NormalScoreboard();
-			scoreboard.clearScoreboard();
-//		} else {
-//			ChallengeScoreboard scoreboard = new ChallengeScoreboard();
-//			scoreboard.clearScoreboard();
-//		}
+		//		if (mode.getSelected().equals("Normal")) {
+		NormalScoreboard scoreboard = new NormalScoreboard();
+		scoreboard.clearScoreboard();
+		//		} else {
+		//			ChallengeScoreboard scoreboard = new ChallengeScoreboard();
+		//			scoreboard.clearScoreboard();
+		//		}
 		switchHighScoreTable();
 	}
 
@@ -155,13 +157,13 @@ public class ScoresScreen extends ScrotsScreen {
 	}
 
 	private void setHighScoreTable(Table table) {
-//		if (mode.getSelected().equals("Normal")) {
-			NormalScoreboard scoreboard = new NormalScoreboard();
-			fillInHighScore(scoreboard, table);
-//		} else {
-//			ChallengeScoreboard scoreboard = new ChallengeScoreboard();
-//			fillInHighScore(scoreboard, table);
-//		}
+		//		if (mode.getSelected().equals("Normal")) {
+		NormalScoreboard scoreboard = new NormalScoreboard();
+		fillInHighScore(scoreboard, table);
+		//		} else {
+		//			ChallengeScoreboard scoreboard = new ChallengeScoreboard();
+		//			fillInHighScore(scoreboard, table);
+		//		}
 	}
 
 	private void fillInHighScore(Scoreboard scoreboard, Table table) {
@@ -178,34 +180,34 @@ public class ScoresScreen extends ScrotsScreen {
 		innerTable.add("").height(Gdx.graphics.getHeight() / height);
 		innerTable.row();
 		innerTable.add(new Label(scores.first_name, style_small)).left()
-				.padRight((float) (Gdx.graphics.getWidth() / pad_left));
+		.padRight((float) (Gdx.graphics.getWidth() / pad_left));
 		innerTable.add(new Label(String.valueOf(scores.first), style_small))
-				.right().padLeft(Gdx.graphics.getWidth() / pad_right)
-				.height(style_small.font.getLineHeight());
+		.right().padLeft(Gdx.graphics.getWidth() / pad_right)
+		.height(style_small.font.getLineHeight());
 		innerTable.row();
 		innerTable.add(new Label(scores.second_name, style_small)).left()
-				.padRight((float) (Gdx.graphics.getWidth() / pad_left));
+		.padRight((float) (Gdx.graphics.getWidth() / pad_left));
 		innerTable.add(new Label(String.valueOf(scores.second), style_small))
-				.right().padLeft(Gdx.graphics.getWidth() / pad_right)
-				.height(style_small.font.getLineHeight());
+		.right().padLeft(Gdx.graphics.getWidth() / pad_right)
+		.height(style_small.font.getLineHeight());
 		innerTable.row();
 		innerTable.add(new Label(scores.third_name, style_small)).left()
-				.padRight((float) (Gdx.graphics.getWidth() / pad_left));
+		.padRight((float) (Gdx.graphics.getWidth() / pad_left));
 		innerTable.add(new Label(String.valueOf(scores.third), style_small))
-				.right().padLeft(Gdx.graphics.getWidth() / pad_right)
-				.height(style_small.font.getLineHeight());
+		.right().padLeft(Gdx.graphics.getWidth() / pad_right)
+		.height(style_small.font.getLineHeight());
 		innerTable.row();
 		innerTable.add(new Label(scores.fourth_name, style_small)).left()
-				.padRight((float) (Gdx.graphics.getWidth() / pad_left));
+		.padRight((float) (Gdx.graphics.getWidth() / pad_left));
 		innerTable.add(new Label(String.valueOf(scores.fourth), style_small))
-				.right().padLeft(Gdx.graphics.getWidth() / pad_right)
-				.height(style_small.font.getLineHeight());
+		.right().padLeft(Gdx.graphics.getWidth() / pad_right)
+		.height(style_small.font.getLineHeight());
 		innerTable.row();
 		innerTable.add(new Label(scores.fifth_name, style_small)).left()
-				.padRight((float) (Gdx.graphics.getWidth() / pad_left));
+		.padRight((float) (Gdx.graphics.getWidth() / pad_left));
 		innerTable.add(new Label(String.valueOf(scores.fifth), style_small))
-				.right().padLeft(Gdx.graphics.getWidth() / pad_right)
-				.height(style_small.font.getLineHeight());
+		.right().padLeft(Gdx.graphics.getWidth() / pad_right)
+		.height(style_small.font.getLineHeight());
 		innerTable.row();
 
 		table.add(innerTable);

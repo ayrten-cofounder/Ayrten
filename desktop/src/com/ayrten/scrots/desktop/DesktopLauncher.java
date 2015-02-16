@@ -77,4 +77,10 @@ public class DesktopLauncher implements AndroidInterface{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void unlockAchievement(String name) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -24,4 +24,6 @@ public interface AndroidInterface {
 	public void showLeadershipBoard();
 	
 	public void showAchievements();
+
+	public void unlockAchievement(String name);
 }
