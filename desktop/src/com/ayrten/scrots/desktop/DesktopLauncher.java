@@ -65,4 +65,16 @@ public class DesktopLauncher implements AndroidInterface{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void showLeadershipBoard() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showAchievements() {
+		// TODO Auto-generated method stub
+		
+	}
 }

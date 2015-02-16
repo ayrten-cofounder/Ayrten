@@ -1,7 +1,5 @@
 package com.ayrten.scrots.screens;
 
-import javax.swing.GroupLayout.Alignment;
-
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.ButtonInterface;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -91,7 +89,6 @@ public class MessageScreen {
 
 		stage.addActor(background_overlay);
 		stage.addActor(table);
-//		table.debug();
 	}
 	
 	private void removeActors()
