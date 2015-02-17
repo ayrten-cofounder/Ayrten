@@ -14,19 +14,22 @@ import com.ayrten.scrots.manager.AndroidInterface;
 import com.ayrten.scrots.manager.ButtonInterface;
 import com.ayrten.scrots.screens.GameScreen;
 import com.ayrten.scrots.screens.ScrotsGame;
+import com.ayrten.scrots.shop.IAP;
+import com.ayrten.scrots.shop.IAPInterface;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 @SuppressLint("NewApi")
-public class AdLauncher extends AndroidApplication implements AndroidInterface {
+public class AdLauncher extends AndroidApplication implements AndroidInterface, IAP {
 	protected AdView adView;
 	private AdRequest adRequest;
 	private RelativeLayout layout;
 	private YesNoDialog dialog;
 	private GameOverDialog gameOverDialog;
 	private RelativeLayout.LayoutParams adParams;
+	private InAppPurchase iap;
 
 	private final static int SHOW_ADS = 1;
 	private final static int HIDE_ADS = 0;
@@ -55,6 +58,9 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		// Create IAP
+		iap = new InAppPurchase(this);
+
 		FontsOverride.setDefaultFont(this, "MONOSPACE",
 				"fonts/summer_of_love.ttf");
 
@@ -77,7 +83,7 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface {
 				.findViewById(R.id.adView);
 
 		// Create the libgdx View
-		View gameView = initializeForView(new ScrotsGame(this), config);
+		View gameView = initializeForView(new ScrotsGame(this, this), config);
 
 		LayoutInflater inflater = LayoutInflater.from(this);
 		View inflatedLayout = inflater.inflate(R.layout.fragment_ad, null,
@@ -133,6 +139,14 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface {
 						.show();
 			}
 		});
+	}
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+
+		iap.destroy();
 	}
 
 	@SuppressWarnings("deprecation")
@@ -237,11 +251,44 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface {
 	}
 
 	@Override
-	public void showLeadershipBoard() {}
+	public void showLeadershipBoard() {
+	}
 
 	@Override
-	public void showAchievements() {}
+	public void showAchievements() {
+	}
 
 	@Override
-	public void unlockAchievement(String name) {}
+	public void unlockAchievement(String name) {
+	}
+
+	@Override
+	public void purchase(String item, IAPInterface callback)
+	{
+		iap.purchase(item, callback);
+	}
+
+	@Override
+	public void consume(String item, IAPInterface callback)
+	{
+		iap.consumeItem(iap.inventory.getPurchase(item), callback);
+	}
+
+	@Override
+	public void queryPurchaseItems()
+	{
+		iap.queryPurchasedItems();
+	}
+
+	@Override
+	public boolean isConnected()
+	{
+		return iap.isConnected;
+	}
+
+	@Override
+	public String getPrice(String item)
+	{
+		return iap.getPrice(item);
+	}
 }

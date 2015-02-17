@@ -9,6 +9,8 @@ import com.ayrten.scrots.manager.ButtonInterface;
 import com.ayrten.scrots.manager.Manager;
 import com.ayrten.scrots.scoreboard.NormalScoreboard;
 import com.ayrten.scrots.scoreboard.Scoreboard;
+import com.ayrten.scrots.shop.IAP;
+import com.ayrten.scrots.shop.IAPInterface;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
