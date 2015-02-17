@@ -1,5 +1,7 @@
 package com.ayrten.scrots.screens;
 
+import java.util.ArrayList;
+
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.ButtonInterface;
 import com.badlogic.gdx.Screen;
@@ -10,29 +12,93 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class ShopScreen extends ScrotsScreen {
-	private static final int MAGNET_PRICE = 150;
-	private static final int INVINCIBLE_PRICE = 250;
-	private static final int RAINBOW_PRICE = 350;
-
 	private int points = 0;
-
-	private Label points_label;
-
 	private Table table;
+	private Label points_label;
+	
+	private enum DOT_TYPE {
+		MAGNET(150), 
+		INVINCIBLE(250), 
+		RAINBOW(350);
+		
+		private int price = 0;
+		
+		private DOT_TYPE(int p) {
+			price = p;
+		}
+		
+		protected int price() {
+			return price;
+		}
+	}
 
-	private Image background_window;
-
-	private Image invincible_dot;
-	private Image rainbow_dot;
-	private Image magnet_dot;
-
-	private Label invincible_dot_price;
-	private Label rainbow_dot_price;
-	private Label magnet_dot_price;
-
-	private Label invincible_dot_buy;
-	private Label rainbow_dot_buy;
-	private Label magnet_dot_buy;
+	private class Dot {
+		private Image dotImage;
+		private Label priceLabel;
+		private Label  buyLabel ;
+		private DOT_TYPE dotType;
+		
+		protected Dot(DOT_TYPE dotType) {
+			this.dotType = dotType;
+			priceLabel = new Label(
+					String.valueOf(dotType.price()),
+					Assets.prefs.getString("bg_color").equals("Black") ? Assets.style_font_32_white : Assets.style_font_32_black);
+			buyLabel = new Label(
+					"Buy",
+					Assets.prefs.getString("bg_color").equals("Black") ? Assets.style_font_32_white : Assets.style_font_32_black);
+			
+			switch(dotType) {
+				case INVINCIBLE:
+					dotImage = new Image(Assets.invincible_dot);
+					break;
+				
+				case MAGNET:
+					dotImage = new Image(Assets.magnet_dot);
+					break;
+				
+				case RAINBOW:
+					dotImage = new Image(Assets.rainbow_dot);
+					break;
+			}
+		}
+		
+		protected void buyDot(int quantity) {
+			int cost = dotType.price() * quantity;
+			
+			if (points < cost) {
+				notEnoughPoints();
+				
+			} else {
+				
+				Assets.points_manager.addPoints(-(cost));
+				
+				switch(dotType) {
+					case INVINCIBLE:
+						Assets.power_dot_manager
+							.setInvincibleDotAmount(Assets.power_dot_manager
+							.getInvincibleDots() + quantity);
+						break;
+					case MAGNET:
+						Assets.power_dot_manager
+							.setMagnetDotAmount(Assets.power_dot_manager
+							.getMagnetDots() + quantity);
+						break;
+					case RAINBOW:
+						Assets.power_dot_manager
+							.setRainbowDotAmount(Assets.power_dot_manager
+							.getRainbowDots() + quantity);
+						break;
+				}
+				
+				updatePoints();
+				
+			}
+		}
+		
+		protected Image getDotImage() { return dotImage; }
+		protected Label getPriceLabel() { return priceLabel; }
+		protected Label getBuyLabel() { return buyLabel; }
+	}
 
 	public ShopScreen(Screen bscreen) {
 		super(bscreen, true);
@@ -74,137 +140,44 @@ public class ShopScreen extends ScrotsScreen {
 	}
 
 	private void setUpShopTable() {
+		final Dot invincibleDot = new Dot(DOT_TYPE.INVINCIBLE);
+		final Dot rainbowDot = new Dot(DOT_TYPE.RAINBOW);
+		final Dot magnetDot = new Dot(DOT_TYPE.MAGNET);
+		
+		ArrayList<Dot> dots = new ArrayList<Dot>(); 
+		dots.add(invincibleDot);
+		dots.add(rainbowDot);
+		dots.add(magnetDot);
+		
+		// Total Points Label
 		points_label = new Label(
 				"Points: " + String.valueOf(points),
-				Assets.prefs.getString("bg_color").equals("Black") ? Assets.style_font_32_white
-						: Assets.style_font_32_black);
+				Assets.prefs.getString("bg_color").equals("Black") ? Assets.style_font_32_white : Assets.style_font_32_black);
 
-		invincible_dot = new Image(Assets.invincible_dot);
-		rainbow_dot = new Image(Assets.rainbow_dot);
-		magnet_dot = new Image(Assets.magnet_dot);
+		// Event Listeners
+		for(final Dot d : dots) {
+			d.getBuyLabel().addListener(new InputListener() {
+				public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+					return true;
+				}
 
-		invincible_dot_price = new Label(
-				String.valueOf(INVINCIBLE_PRICE),
-				Assets.prefs.getString("bg_color").equals("Black") ? Assets.style_font_32_white
-						: Assets.style_font_32_black);
-
-		rainbow_dot_price = new Label(
-				String.valueOf(RAINBOW_PRICE),
-				Assets.prefs.getString("bg_color").equals("Black") ? Assets.style_font_32_white
-						: Assets.style_font_32_black);
-
-		magnet_dot_price = new Label(
-				String.valueOf(MAGNET_PRICE),
-				Assets.prefs.getString("bg_color").equals("Black") ? Assets.style_font_32_white
-						: Assets.style_font_32_black);
-
-		invincible_dot_buy = new Label(
-				"Buy",
-				Assets.prefs.getString("bg_color").equals("Black") ? Assets.style_font_32_white
-						: Assets.style_font_32_black);
-		magnet_dot_buy = new Label("Buy", Assets.prefs.getString("bg_color")
-				.equals("Black") ? Assets.style_font_32_white
-				: Assets.style_font_32_black);
-		rainbow_dot_buy = new Label("Buy", Assets.prefs.getString("bg_color")
-				.equals("Black") ? Assets.style_font_32_white
-				: Assets.style_font_32_black);
-
-		invincible_dot_buy.addListener(new InputListener() {
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
-				return true;
-			}
-
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
-				buyInvincibleDot(1);
-			}
-		});
-
-		magnet_dot_buy.addListener(new InputListener() {
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
-				return true;
-			}
-
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
-				buyMagnetDot(1);
-			}
-		});
-
-		rainbow_dot_buy.addListener(new InputListener() {
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
-				return true;
-			}
-
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
-				buyRainbowDot(1);
-			}
-		});
-
+				public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+					d.buyDot(1);
+				}
+			});
+		}
+		
+		// Construct Table
 		table.add(points_label);
-		table.row();
-		table.row();
-		table.add(invincible_dot);
-		table.add(invincible_dot_price);
-		table.add(invincible_dot_buy);
-		table.row();
-		table.row();
-		table.add(rainbow_dot);
-		table.add(rainbow_dot_price);
-		table.add(rainbow_dot_buy);
-		table.row();
-		table.row();
-		table.add(magnet_dot);
-		table.add(magnet_dot_price);
-		table.add(magnet_dot_buy);
+		
+		for(Dot d : dots) {
+			table.row();
+			table.add(d.getDotImage());
+			table.add(d.getPriceLabel());
+			table.add(d.getBuyLabel());
+		}
 
 		stage.addActor(table);
-	}
-
-	private void buyInvincibleDot(int num) {
-		int cost = INVINCIBLE_PRICE * num;
-
-		if (cost <= points) {
-			Assets.points_manager.addPoints(-(cost));
-			Assets.power_dot_manager
-					.setInvincibleDotAmount(Assets.power_dot_manager
-							.getInvincibleDots() + num);
-			updatePoints();
-		} else {
-			notEnoughPoints();
-		}
-	}
-
-	private void buyRainbowDot(int num) {
-		int cost = RAINBOW_PRICE * num;
-
-		if (cost <= points) {
-			Assets.points_manager.addPoints(-(cost));
-			Assets.power_dot_manager
-					.setRainbowDotAmount(Assets.power_dot_manager
-							.getRainbowDots() + num);
-			updatePoints();
-		} else {
-			notEnoughPoints();
-		}
-	}
-
-	private void buyMagnetDot(int num) {
-		int cost = MAGNET_PRICE * num;
-
-		if (cost <= points) {
-			Assets.points_manager.addPoints(-(cost));
-			Assets.power_dot_manager
-					.setMagnetDotAmount(Assets.power_dot_manager
-							.getMagnetDots() + num);
-			updatePoints();
-		} else {
-			notEnoughPoints();
-		}
 	}
 
 	private void notEnoughPoints() {
@@ -214,7 +187,6 @@ public class ShopScreen extends ScrotsScreen {
 	@Override
 	public void show() {
 		super.show();
-
 		updatePoints();
 	}
 
@@ -222,8 +194,6 @@ public class ShopScreen extends ScrotsScreen {
 	public void render(float delta) {
 		// TODO Auto-generated method stub
 		super.render(delta);
-		
-//		Table.drawDebug(stage);
 	}
 	
 	
