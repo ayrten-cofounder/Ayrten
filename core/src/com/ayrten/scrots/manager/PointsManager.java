@@ -1,7 +1,5 @@
-package com.ayrten.scrots.shop;
+package com.ayrten.scrots.manager;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 
 public class PointsManager {
@@ -18,7 +16,7 @@ public class PointsManager {
 	}
 
 	public int getTotalPoints() {
-		String file = readFile(this.file);
+		String file = Assets.readFile(this.file);
 
 		if (!file.isEmpty()) {
 			Json json = new Json();
@@ -36,11 +34,11 @@ public class PointsManager {
 
 		points.points += amount;
 
-		writeFile(this.file, json.toJson(points));
+		Assets.writeFile(this.file, json.toJson(points));
 	}
 
 	public Points getPoints() {
-		String file = readFile(this.file);
+		String file = Assets.readFile(this.file);
 
 		if (!file.isEmpty()) {
 			Json json = new Json();
@@ -51,7 +49,7 @@ public class PointsManager {
 			Json json = new Json();
 			Points points = new Points();
 
-			writeFile(this.file, json.toJson(points));
+			Assets.writeFile(this.file, json.toJson(points));
 		}
 
 		return new Points();
@@ -61,23 +59,6 @@ public class PointsManager {
 		Points points = new Points();
 		Json json = new Json();
 
-		writeFile(this.file, json.toJson(points));
-	}
-
-	public static void writeFile(String fileName, String s) {
-		FileHandle file = Gdx.files.local(fileName);
-		file.writeString(com.badlogic.gdx.utils.Base64Coder.encodeString(s),
-				false);
-	}
-
-	public static String readFile(String fileName) {
-		FileHandle file = Gdx.files.local(fileName);
-		if (file != null && file.exists()) {
-			String s = file.readString();
-			if (!s.isEmpty()) {
-				return com.badlogic.gdx.utils.Base64Coder.decodeString(s);
-			}
-		}
-		return "";
+		Assets.writeFile(this.file, json.toJson(points));
 	}
 }

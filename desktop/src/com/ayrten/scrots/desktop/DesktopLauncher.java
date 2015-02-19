@@ -7,17 +7,17 @@ import com.ayrten.scrots.screens.ScrotsGame;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
-public class DesktopLauncher implements AndroidInterface{
-	
+public class DesktopLauncher implements AndroidInterface {
+
 	private static DesktopLauncher app;
-	
-	public static void main (String[] arg) {
+
+	public static void main(String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = 1920;
 		config.height = 1080;
-		
+
 		app = new DesktopLauncher();
-		
+
 		new LwjglApplication(new ScrotsGame(app), config);
 	}
 
@@ -40,7 +40,7 @@ public class DesktopLauncher implements AndroidInterface{
 	public void makeYesNoWindow(String title, ButtonInterface yes_interface,
 			ButtonInterface no_interface, int color) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -48,14 +48,14 @@ public class DesktopLauncher implements AndroidInterface{
 			ButtonInterface yes_interface, ButtonInterface no_interface,
 			int color) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void makeGameOverDialog(ButtonInterface yes_interface,
 			ButtonInterface no_interface, int color) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -63,6 +63,42 @@ public class DesktopLauncher implements AndroidInterface{
 			ButtonInterface yes_interface, ButtonInterface no_interface,
 			int color) {
 		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void showLeadershipBoard() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void showAchievements() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void unlockAchievement(String name) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void gplay_signin() {
+		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void gplay_logout() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean is_gplay_signedin() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
