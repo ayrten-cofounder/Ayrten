@@ -8,7 +8,7 @@ public class PointsManager {
 	public static class Points {
 		public int points = 0;
 	}
-
+	
 	public Points points;
 
 	public PointsManager() {

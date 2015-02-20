@@ -18,7 +18,7 @@ public class DesktopLauncher implements AndroidInterface {
 
 		app = new DesktopLauncher();
 
-		new LwjglApplication(new ScrotsGame(app), config);
+		new LwjglApplication(new ScrotsGame(app, null), config);
 	}
 
 	@Override
@@ -67,24 +67,6 @@ public class DesktopLauncher implements AndroidInterface {
 	}
 
 	@Override
-	public void showLeadershipBoard() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void showAchievements() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void unlockAchievement(String name) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void gplay_signin() {
 		// TODO Auto-generated method stub
 		
@@ -100,5 +82,22 @@ public class DesktopLauncher implements AndroidInterface {
 	public boolean is_gplay_signedin() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public void showLeadershipBoard() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showAchievements() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void unlockAchievement(String name) {
+		// TODO Auto-generated method stub
+		
 	}
 }
