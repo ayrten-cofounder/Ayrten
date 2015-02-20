@@ -9,6 +9,8 @@ import com.ayrten.scrots.manager.ButtonInterface;
 import com.ayrten.scrots.manager.Manager;
 import com.ayrten.scrots.scoreboard.NormalScoreboard;
 import com.ayrten.scrots.scoreboard.Scoreboard;
+import com.ayrten.scrots.shop.IAP;
+import com.ayrten.scrots.shop.IAPInterface;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -64,7 +66,32 @@ public class MainMenuScreen extends ScrotsScreen
 		shop.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Assets.game.setScreen(shop_screen);
+				Assets.game.iap_inft.purchase(IAP.ITEM_1, new IAPInterface(){
+
+					@Override
+					public void purchaseFailed() {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void purchaseSuccess() {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void consumeFailed() {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void consumeSuccess() {
+						// TODO Auto-generated method stub
+						
+					}});
+//				Assets.game.setScreen(shop_screen);
 			}
 		});
 		

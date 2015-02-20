@@ -4,10 +4,12 @@ import com.ayrten.scrots.manager.AndroidInterface;
 import com.ayrten.scrots.manager.ButtonInterface;
 import com.ayrten.scrots.screens.GameScreen;
 import com.ayrten.scrots.screens.ScrotsGame;
+import com.ayrten.scrots.shop.IAP;
+import com.ayrten.scrots.shop.IAPInterface;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
-public class DesktopLauncher implements AndroidInterface{
+public class DesktopLauncher implements AndroidInterface, IAP{
 	
 	private static DesktopLauncher app;
 	
@@ -18,7 +20,7 @@ public class DesktopLauncher implements AndroidInterface{
 		
 		app = new DesktopLauncher();
 		
-		new LwjglApplication(new ScrotsGame(app), config);
+		new LwjglApplication(new ScrotsGame(app, app), config);
 	}
 
 	@Override
@@ -80,6 +82,36 @@ public class DesktopLauncher implements AndroidInterface{
 
 	@Override
 	public void unlockAchievement(String name) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isConnected() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public String getPrice(String item) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void purchase(String item, IAPInterface callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void consume(String item, IAPInterface callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void queryPurchaseItems() {
 		// TODO Auto-generated method stub
 		
 	}

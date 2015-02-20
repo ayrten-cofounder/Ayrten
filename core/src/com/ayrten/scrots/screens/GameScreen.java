@@ -575,6 +575,8 @@ public class GameScreen extends ScrotsScreen {
 	}
 
 	public void gameOver() {
+		Assets.stats_manager.writeToFile();
+		
 		if (should_clear_stage) {
 			stage.clear();
 			should_clear_stage = false;

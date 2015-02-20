@@ -3,6 +3,7 @@ package com.ayrten.scrots.manager;
 import com.ayrten.scrots.screens.ScrotsGame;
 import com.ayrten.scrots.shop.PointsManager;
 import com.ayrten.scrots.shop.PowerDotManager;
+import com.ayrten.scrots.statistics.StatisticsManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
@@ -31,6 +32,8 @@ public class Assets {
 	// Shop
 	public static PowerDotManager power_dot_manager;
 	public static PointsManager points_manager;
+	
+	public static StatisticsManager stats_manager;
 
 	// Drawables
 	public static NinePatchDrawable gray_box;
@@ -133,6 +136,8 @@ public class Assets {
 		// Shop
 		power_dot_manager = new PowerDotManager();
 		points_manager = new PointsManager();
+		
+		stats_manager = new StatisticsManager();
 
 		// Drawable
 		gray_box = new NinePatchDrawable(new NinePatch(new Texture(
