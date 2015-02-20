@@ -1,5 +1,6 @@
 package com.ayrten.scrots.dots;
 
+import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -23,5 +24,7 @@ public class PenDot1 extends Dot
 		
 		// Game is over
 		gm.gameOver();
+		
+		Assets.stats_manager.stats.pen_dot_1.popped++;
 	}
 }

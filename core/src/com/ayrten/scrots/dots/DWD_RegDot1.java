@@ -2,6 +2,7 @@ package com.ayrten.scrots.dots;
 
 import java.util.Random;
 
+import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -17,6 +18,7 @@ public class DWD_RegDot1 extends DWD {
 	public void touchedByAnAngel() {
 		super.touchedByAnAngel();
 
+		Assets.stats_manager.stats.dwd_reg_dot_1.popped++;
 	}
 
 	@Override

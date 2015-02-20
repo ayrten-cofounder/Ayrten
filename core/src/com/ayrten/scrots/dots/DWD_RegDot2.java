@@ -1,5 +1,6 @@
 package com.ayrten.scrots.dots;
 
+import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -21,6 +22,7 @@ public class DWD_RegDot2 extends DWD
 		super.touchedByAnAngel();
 
 		gm.addTime(TIME_ADD);
+		Assets.stats_manager.stats.dwd_reg_dot_2.popped++;
 	}
 	
 	@Override

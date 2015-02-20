@@ -24,5 +24,6 @@ public class PenDot2 extends Dot
 		
 		// Lose time
 		gm.addTime(Assets.TIME_OFF);
+		Assets.stats_manager.stats.pen_dot_2.popped++;
 	}
 }

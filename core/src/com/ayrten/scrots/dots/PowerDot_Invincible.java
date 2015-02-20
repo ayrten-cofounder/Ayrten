@@ -23,6 +23,7 @@ public class PowerDot_Invincible extends PowerDot {
 		Assets.power_dot_manager.setInvincibleDotAmount(--num);
 		updateNumLabel();
 		INVINCIBLE = true;
+		Assets.stats_manager.stats.power_dot_invincible.popped++;
 	}
 	
 	@Override

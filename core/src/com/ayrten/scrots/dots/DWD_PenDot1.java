@@ -1,5 +1,6 @@
 package com.ayrten.scrots.dots;
 
+import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -23,6 +24,7 @@ public class DWD_PenDot1 extends DWD {
 		}
 
 		gm.addTime(-gm.getFloatTime() * DIVIDER);
+		Assets.stats_manager.stats.dwd_pen_dot_1.popped++;
 	}
 
 	@Override
