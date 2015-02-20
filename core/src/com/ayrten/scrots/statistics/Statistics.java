@@ -6,5 +6,5 @@ package com.ayrten.scrots.statistics;
  */
 public class Statistics 
 {
-	int popped = 0;
+	public int popped = 0;
 }

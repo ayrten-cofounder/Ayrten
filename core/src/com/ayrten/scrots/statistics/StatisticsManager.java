@@ -5,7 +5,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 
 public class StatisticsManager {
-	protected String file = "statistics.txt";
+	protected String file = "statistics2.txt";
 	
 	public enum Stat
 	{
@@ -31,7 +31,24 @@ public class StatisticsManager {
 
 	public static class Stats
 	{
-//		System.out.println(Stat.values().length);
+		public Statistics reg_dot_1 = new Statistics();
+		public Statistics reg_dot_2 = new Statistics();
+		public Statistics reg_dot_3 = new Statistics(); 
+		
+		public Statistics pen_dot_1 = new Statistics();
+		public Statistics pen_dot_2 = new Statistics();
+		
+		public Statistics dwd_reg_dot_1 = new Statistics();
+		public Statistics dwd_reg_dot_2 = new Statistics();
+		public Statistics dwd_reg_dot_3 = new Statistics();
+		
+		public Statistics dwd_pen_dot_1 = new Statistics();
+		public Statistics dwd_pen_dot_2 = new Statistics();
+		public Statistics dwd_pen_dot_3 = new Statistics();
+		
+		public Statistics power_dot_magnet = new Statistics();
+		public Statistics power_dot_invincible = new Statistics();
+		public Statistics power_dot_rainbow = new Statistics();
 	}
 	
 	public Stats stats;
@@ -40,15 +57,6 @@ public class StatisticsManager {
 	{
 		stats = getStats();
 	}
-
-//	public void setStats(int amount) {
-//		Stats stats = getStats();
-//		Json json = new Json();
-//
-//		stats.green_dots_popped += amount;
-//
-//		writeFile(this.file, json.toJson(stats));
-//	}
 
 	public Stats getStats() {
 		String file = readFile(this.file);
@@ -66,6 +74,13 @@ public class StatisticsManager {
 		}
 
 		return new Stats();
+	}
+	
+	public void writeToFile()
+	{
+		Json json = new Json();
+
+		writeFile(this.file, json.toJson(stats));
 	}
 
 	public void ClearStats()
