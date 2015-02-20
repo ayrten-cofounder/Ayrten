@@ -64,7 +64,7 @@ public class Dot extends Actor {
 		addListener(listener);
 	}
 
-	// This class shall be overriddent by the blue, green, red dots
+	// This class shall be overriddent by the real dots
 	public void touchedByAnAngel() {
 		if (Assets.prefs.getBoolean("sound_effs", true)) {
 			pop.play();

@@ -17,9 +17,9 @@ public class RegDot1 extends Dot
 	{
 		super.touchedByAnAngel();
 		
-		// Removes a green dot from the array
 		// Then Adds a point
 		gm.minusGreenDot();
 		Assets.points_manager.addPoints(1);
+		Assets.stats_manager.stats.reg_dot_1.popped++;
 	}
 }

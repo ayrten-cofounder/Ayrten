@@ -25,6 +25,7 @@ public class PowerDot_Rainbow extends PowerDot {
 		
 		gm.setRainbowState(true);
 		gm.changePenalityDotVisibility(false);
+		Assets.stats_manager.stats.power_dot_rainbow.popped++;
 	}
 	
 	@Override

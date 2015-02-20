@@ -68,7 +68,31 @@ public class MainMenuScreen extends ScrotsScreen
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				Assets.game.setScreen(shop_screen);
-				
+//				Assets.game.iap_inft.purchase(IAP.ITEM_1, new IAPInterface(){
+//
+//					@Override
+//					public void purchaseFailed() {
+//						// TODO Auto-generated method stub
+//						
+//					}
+//
+//					@Override
+//					public void purchaseSuccess() {
+//						// TODO Auto-generated method stub
+//						
+//					}
+//
+//					@Override
+//					public void consumeFailed() {
+//						// TODO Auto-generated method stub
+//						
+//					}
+//
+//					@Override
+//					public void consumeSuccess() {
+//						// TODO Auto-generated method stub
+//						
+//					}});
 			}
 		});
 		

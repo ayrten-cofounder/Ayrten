@@ -1,6 +1,7 @@
 package com.ayrten.scrots.manager;
 
 import com.ayrten.scrots.screens.ScrotsGame;
+import com.ayrten.scrots.statistics.StatisticsManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
@@ -31,8 +32,8 @@ public class Assets {
 	// Shop
 	public static PowerDotManager power_dot_manager;
 	public static PointsManager points_manager;
-	
 	public static GPlayManager gplay_manager;
+	public static StatisticsManager stats_manager;
 
 	// Drawables
 	public static NinePatchDrawable gray_box;
@@ -143,6 +144,8 @@ public class Assets {
 		else
 			gplay_manager = json.fromJson(GPlayManager.class, text);
 		
+		stats_manager = new StatisticsManager();
+
 		// Drawable
 		gray_box = new NinePatchDrawable(new NinePatch(new Texture(
 				Gdx.files.internal("data/gray_box.9.png"))));
