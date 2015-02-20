@@ -18,7 +18,7 @@ public class DWD_RegDot1 extends DWD {
 	public void touchedByAnAngel() {
 		super.touchedByAnAngel();
 
-		Assets.stats_manager.stats.dwd_reg_dot_1.popped++;
+		Assets.stats_manager.getPlayerStats().dwd_reg_dot_1.popped++;
 	}
 
 	@Override

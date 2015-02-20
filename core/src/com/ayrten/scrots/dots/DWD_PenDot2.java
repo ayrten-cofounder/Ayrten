@@ -25,7 +25,7 @@ public class DWD_PenDot2 extends DWD {
 		// Lose time
 		gm.addTime(TIME_OFF);
 		
-		Assets.stats_manager.stats.dwd_pen_dot_2.popped++;
+		Assets.stats_manager.getPlayerStats().dwd_pen_dot_2.popped++;
 	}
 	
 	@Override

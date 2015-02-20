@@ -22,7 +22,7 @@ public class DWD_RegDot2 extends DWD
 		super.touchedByAnAngel();
 
 		gm.addTime(TIME_ADD);
-		Assets.stats_manager.stats.dwd_reg_dot_2.popped++;
+		Assets.stats_manager.getPlayerStats().dwd_reg_dot_2.popped++;
 	}
 	
 	@Override
