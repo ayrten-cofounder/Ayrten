@@ -51,7 +51,9 @@ public class AndroidLauncher extends AdLauncher implements GoogleApiClient.Conne
 
 	@Override
 	public void onConnectionFailed(ConnectionResult result) {
-		scrots.main_menu.update_gplay_status(false);
+		if(scrots.main_menu != null)
+			scrots.main_menu.update_gplay_status(false);
+		
 		if (mResolvingConnectionFailure) {
 			// already resolving
 			return;
