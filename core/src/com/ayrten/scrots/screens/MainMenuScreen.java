@@ -25,12 +25,13 @@ import com.badlogic.gdx.utils.Timer.Task;
 
 public class MainMenuScreen extends ScrotsScreen 
 {
-	protected OthersScreen 		others_screen;
-	protected ScoresScreen 		high_score_screen;
-	protected GameScreen 		game_screen;
-	protected ShopScreen		shop_screen;
-	protected OptionsScreen 	options_screen;
 	protected ContactScreen		contact_screen;
+	protected GameScreen 		game_screen;
+	protected OptionsScreen 	options_screen;
+	protected OthersScreen 		others_screen;
+	protected ProfileScreen 	profile_screen;
+	protected ScoresScreen 		high_score_screen;
+	protected ShopScreen		shop_screen;
 
 	public NormalScoreboard nsb;
 
@@ -42,12 +43,13 @@ public class MainMenuScreen extends ScrotsScreen
 		// Initialize variables
 		nsb = new NormalScoreboard();
 		// csb = new ChallengeScoreboard();
-
-		others_screen 		= new OthersScreen(this);
-		high_score_screen 	= new ScoresScreen(this);
-		shop_screen 		= new ShopScreen(this);
-		options_screen  	= new OptionsScreen(this);
+		
 		contact_screen 		= new ContactScreen(this);
+		high_score_screen 	= new ScoresScreen(this);
+		options_screen  	= new OptionsScreen(this);
+		others_screen 		= new OthersScreen(this);
+		profile_screen		= new ProfileScreen(this);
+		shop_screen 		= new ShopScreen(this);
 		
 		
 		LabelStyle title_style = new LabelStyle();
@@ -61,37 +63,37 @@ public class MainMenuScreen extends ScrotsScreen
 		style.font = Assets.font_64;
 		style.fontColor = Assets.ORANGE;
 		
-		Label shop = new Label("Shop", style);
+		Label shop = new Label("Profile", style);
 		shop.setBounds(shop.getX(), shop.getY(), shop.getWidth(), shop.getHeight());
 		shop.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Assets.game.iap_inft.purchase(IAP.ITEM_1, new IAPInterface(){
-
-					@Override
-					public void purchaseFailed() {
-						// TODO Auto-generated method stub
-						
-					}
-
-					@Override
-					public void purchaseSuccess() {
-						// TODO Auto-generated method stub
-						
-					}
-
-					@Override
-					public void consumeFailed() {
-						// TODO Auto-generated method stub
-						
-					}
-
-					@Override
-					public void consumeSuccess() {
-						// TODO Auto-generated method stub
-						
-					}});
-//				Assets.game.setScreen(shop_screen);
+//				Assets.game.iap_inft.purchase(IAP.ITEM_1, new IAPInterface(){
+//
+//					@Override
+//					public void purchaseFailed() {
+//						// TODO Auto-generated method stub
+//						
+//					}
+//
+//					@Override
+//					public void purchaseSuccess() {
+//						// TODO Auto-generated method stub
+//						
+//					}
+//
+//					@Override
+//					public void consumeFailed() {
+//						// TODO Auto-generated method stub
+//						
+//					}
+//
+//					@Override
+//					public void consumeSuccess() {
+//						// TODO Auto-generated method stub
+//						
+//					}});
+				Assets.game.setScreen(profile_screen);
 			}
 		});
 		
