@@ -24,7 +24,7 @@ public class ProfileScreen extends ScrotsScreen {
 		setupStage();
 		table.row();
 		table.add(new Label(
-				String.valueOf(As),
+				String.valueOf("Green Dot"),
 				Assets.prefs.getString("bg_color").equals("Black") ? Assets.style_font_32_white : Assets.style_font_32_black));
 		table.add(new Label(
 				String.valueOf(Assets.stats_manager.getPlayerStats().reg_dot_1.popped),

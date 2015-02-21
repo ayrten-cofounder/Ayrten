@@ -63,7 +63,7 @@ public class MainMenuScreen extends ScrotsScreen
 		style.font = Assets.font_64;
 		style.fontColor = Assets.ORANGE;
 		
-		Label shop = new Label("Profile", style);
+		Label shop = new Label("Shop", style);
 		shop.setBounds(shop.getX(), shop.getY(), shop.getWidth(), shop.getHeight());
 		shop.addListener(new ClickListener() {
 			@Override
@@ -93,7 +93,7 @@ public class MainMenuScreen extends ScrotsScreen
 //						// TODO Auto-generated method stub
 //						
 //					}});
-				Assets.game.setScreen(profile_screen);
+				Assets.game.setScreen(shop_screen);
 			}
 		});
 		
