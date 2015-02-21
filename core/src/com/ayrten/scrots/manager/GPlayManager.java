@@ -88,6 +88,7 @@ public class GPlayManager {
 			Assets.game.apk_intf.unlockAchievement(achievement_name);
 			Assets.points_manager.addPoints(achievement_points
 					.get(achievement_name));
+			checklist_achievements.put(achievement_name, true);
 		}
 	}
 
