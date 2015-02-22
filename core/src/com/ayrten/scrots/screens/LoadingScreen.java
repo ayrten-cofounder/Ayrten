@@ -27,7 +27,7 @@ public class LoadingScreen implements Screen {
 							@Override
 							public void run() {
 								stage.dispose();
-								if (Assets.game.apk_intf.getAppVersion() == Assets.prefs.getFloat("app_version", 0))
+								if (Assets.game.apk_intf.getAppVersion() != Assets.prefs.getFloat("app_version", 0))
 									loadUpdateScreen();
 								else {
 									Assets.game.apk_intf.shouldShowAd(true);
