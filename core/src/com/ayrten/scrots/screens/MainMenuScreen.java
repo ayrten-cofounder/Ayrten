@@ -9,8 +9,6 @@ import com.ayrten.scrots.manager.ButtonInterface;
 import com.ayrten.scrots.manager.Manager;
 import com.ayrten.scrots.scoreboard.NormalScoreboard;
 import com.ayrten.scrots.scoreboard.Scoreboard;
-import com.ayrten.scrots.shop.IAP;
-import com.ayrten.scrots.shop.IAPInterface;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -111,9 +109,6 @@ public class MainMenuScreen extends ScrotsScreen
 									new ButtonInterface() {
 										@Override
 										public void buttonPressed() {
-											Assets.prefs.putBoolean(
-													"first_time", true);
-											Assets.prefs.flush();
 											Assets.game
 													.setScreen(Assets.game.main_menu.others_screen.tutorial_screen);
 										}

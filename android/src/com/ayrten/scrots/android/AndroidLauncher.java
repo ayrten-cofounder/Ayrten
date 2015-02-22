@@ -148,7 +148,6 @@ public class AndroidLauncher extends AdLauncher implements GoogleApiClient.Conne
 	private void initializeAchievements()
 	{
 		achievement_list = new HashMap<String, Integer>();
-		
 		achievement_list.put("popped_1000_dots", R.string.popped_1000_dots);
 		achievement_list.put("popped_5000_dots", R.string.popped_5000_dots);
 		achievement_list.put("popped_10000_dots", R.string.popped_10000_dots);
