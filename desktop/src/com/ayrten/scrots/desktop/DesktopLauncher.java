@@ -130,4 +130,10 @@ public class DesktopLauncher implements AndroidInterface, IAP{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public float getAppVersion() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

@@ -37,16 +37,16 @@ public class OthersScreen extends ScrotsScreen
 			}
 		});
 		
-		Label leaderboard = new Label("Leaderboard", labelStyle);
-		leaderboard.setBounds(leaderboard.getX(), leaderboard.getY(), leaderboard.getWidth(), leaderboard.getHeight());
-		leaderboard.addListener(new ClickListener(){
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				Assets.game.apk_intf.showLeadershipBoard();
-				if(Assets.prefs.getBoolean("sound_effs", true))
-					Assets.button_pop.play();
-			}
-		});
+//		Label leaderboard = new Label("Leaderboard", labelStyle);
+//		leaderboard.setBounds(leaderboard.getX(), leaderboard.getY(), leaderboard.getWidth(), leaderboard.getHeight());
+//		leaderboard.addListener(new ClickListener(){
+//			@Override
+//			public void clicked(InputEvent event, float x, float y) {
+//				Assets.game.apk_intf.showLeadershipBoard();
+//				if(Assets.prefs.getBoolean("sound_effs", true))
+//					Assets.button_pop.play();
+//			}
+//		});
 		
 		Label tutorial = new Label("Tutorial", labelStyle);
 		tutorial.setBounds(tutorial.getX(), tutorial.getY(), tutorial.getWidth(), tutorial.getHeight());
@@ -77,8 +77,8 @@ public class OthersScreen extends ScrotsScreen
 		table.setFillParent(true);
 		table.add(achievements);
 		table.row();
-		table.add(leaderboard);
-		table.row();
+//		table.add(leaderboard);
+//		table.row();
 		table.add(tutorial);
 		table.row();
 		table.add(credits);

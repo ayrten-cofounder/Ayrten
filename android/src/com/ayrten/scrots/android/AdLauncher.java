@@ -2,6 +2,8 @@ package com.ayrten.scrots.android;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -33,10 +35,10 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface, 
 
 	private final static int SHOW_ADS = 1;
 	private final static int HIDE_ADS = 0;
-	private final static int SHOW_TOAST = 2;
+//	private final static int SHOW_TOAST = 2;
 
 	private final static int BLACK = 1;
-	private final static int WHITE = 0;
+//	private final static int WHITE = 0;
 	
 	protected ScrotsGame scrots;
 
@@ -302,5 +304,18 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface, 
 	public String getPrice(String item)
 	{
 		return iap.getPrice(item);
+	}
+
+	@Override
+	public float getAppVersion() {
+		PackageInfo info = null;
+		try {
+			info = getPackageManager().getPackageInfo(getPackageName(), 0);
+		} catch (NameNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return (Float.parseFloat(info.versionName));
 	}
 }

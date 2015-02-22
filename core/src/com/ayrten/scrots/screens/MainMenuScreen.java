@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.game.MainMenuBackgroundGameMode;
 import com.ayrten.scrots.manager.Assets;
-import com.ayrten.scrots.manager.ButtonInterface;
 import com.ayrten.scrots.manager.Manager;
 import com.ayrten.scrots.scoreboard.NormalScoreboard;
 import com.ayrten.scrots.scoreboard.Scoreboard;
@@ -18,8 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Timer;
-import com.badlogic.gdx.utils.Timer.Task;
 
 public class MainMenuScreen extends ScrotsScreen 
 {
@@ -68,7 +65,6 @@ public class MainMenuScreen extends ScrotsScreen
 		shop.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-
 				Assets.game.setScreen(shop_screen);
 			}
 		});
@@ -80,40 +76,12 @@ public class MainMenuScreen extends ScrotsScreen
 			public void clicked(InputEvent event, float x, float y) {
 				if (Assets.prefs.getBoolean("sound_effs", true))
 					Assets.button_pop.play();
-				if (Assets.prefs.getBoolean("first_time", true)) {
-					Assets.game.apk_intf
-							.makeYesNoWindow(
-									"This is your first time playing. Do you want to view the tutorial?",
-									new ButtonInterface() {
-										@Override
-										public void buttonPressed() {
-											Assets.game
-													.setScreen(Assets.game.main_menu.others_screen.tutorial_screen);
-										}
-									}, new ButtonInterface() {
-										@Override
-										public void buttonPressed() {
-											Timer timer = new Timer();
-											timer.scheduleTask(new Task() {
-												@Override
-												public void run() {
-													Assets.prefs
-															.putBoolean(
-																	"first_time",
-																	false);
-													Assets.prefs.flush();
-													game_screen = new GameScreen();
-													Assets.playGameBGM();
-													Assets.game
-															.setScreen(Assets.game.main_menu.game_screen);
-												}
-											}, 0.5f);
-										}
-									}, Assets.prefs.getString("bg_color")
-											.equals("Black") ? 0 : 1);
-				} else {
+				if (Assets.prefs.getBoolean("first_time", true))
+					loadTutorialScreen();
+				else {
 					game_screen = new GameScreen();
 					Assets.playGameBGM();
+					System.out.println(Assets.game.apk_intf.getAppVersion());
 					Assets.game.setScreen(game_screen);
 				}
 			}
@@ -225,6 +193,30 @@ public class MainMenuScreen extends ScrotsScreen
 		
 		stage.addActor(main_table);
 		stage.addActor(gplay_log);
+	}
+	
+	private void loadTutorialScreen()
+	{
+		int pages = 3;
+	    Table top_tutorial_table = new Table(Assets.skin);
+	    top_tutorial_table.setWidth(Assets.width * pages);
+	    top_tutorial_table.add("first").width(Assets.width);
+	    top_tutorial_table.add("middle").width(Assets.width);
+	    top_tutorial_table.add("end").width(Assets.width);
+		
+	    // Use the slideshow type MessageScreen.
+		MessageScreen tutorial_screen = new MessageScreen(top_tutorial_table, pages){
+			@Override
+			public void transition() {
+				Assets.prefs.putBoolean("first_time", false);
+				Assets.prefs.flush();
+				game_screen = new GameScreen();
+				Assets.playGameBGM();
+				Assets.game.setScreen(game_screen);
+			}
+		};
+		
+		Assets.game.setScreen(tutorial_screen);
 	}
 	
 	public void update_gplay_status(boolean isConnected) {

@@ -32,4 +32,6 @@ public interface AndroidInterface {
 	public void gplay_logout();
 	
 	public boolean is_gplay_signedin();
+	
+	public float getAppVersion();
 }
