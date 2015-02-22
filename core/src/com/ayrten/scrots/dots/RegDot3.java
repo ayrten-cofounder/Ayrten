@@ -23,7 +23,7 @@ public class RegDot3 extends Dot {
 
 		circle.set(getCenterX(), getCenterY(), getWidth());
 		checkRadius(gm.curr_level.get_all_dots());
-		Assets.stats_manager.stats.reg_dot_3.popped++;
+		Assets.stats_manager.getPlayerStats().reg_dot_3.popped++;
 	}
 
 	private void checkRadius(LinkedList<ArrayList<Dot>> linkedList) {

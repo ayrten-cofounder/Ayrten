@@ -3,10 +3,12 @@ package com.ayrten.scrots.screens;
 import com.ayrten.scrots.manager.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class TutorialScreen extends ScrotsScreen
 {	
@@ -36,6 +38,7 @@ public class TutorialScreen extends ScrotsScreen
 		greenDesc.setText("Requires popping in order to advance");
 		
 		Label redDesc = new Label("", Assets.style_font_32_orange);
+		
 		redDesc.setWrap(true);
 		redDesc.setText("Immediate GAME OVER!");
 		
@@ -46,6 +49,13 @@ public class TutorialScreen extends ScrotsScreen
 		Label babyBlueDesc = new Label("", Assets.style_font_32_orange);
 		babyBlueDesc.setWrap(true);
 		babyBlueDesc.setText("Increased time limit by 2.5 seconds");
+		babyBlueDesc.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				// TODO Auto-generated method stub
+				super.clicked(event, x, y);
+			}
+		});
 		
 		Label questionDesc = new Label("", Assets.style_font_32_orange);
 		questionDesc.setWrap(true);

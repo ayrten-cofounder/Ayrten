@@ -25,6 +25,6 @@ public class PenDot1 extends Dot
 		// Game is over
 		gm.gameOver();
 		
-		Assets.stats_manager.stats.pen_dot_1.popped++;
+		Assets.stats_manager.getPlayerStats().pen_dot_1.popped++;
 	}
 }

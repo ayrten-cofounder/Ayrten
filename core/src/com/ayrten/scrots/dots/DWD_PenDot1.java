@@ -24,7 +24,7 @@ public class DWD_PenDot1 extends DWD {
 		}
 
 		gm.addTime(-gm.getFloatTime() * DIVIDER);
-		Assets.stats_manager.stats.dwd_pen_dot_1.popped++;
+		Assets.stats_manager.getPlayerStats().dwd_pen_dot_1.popped++;
 	}
 
 	@Override

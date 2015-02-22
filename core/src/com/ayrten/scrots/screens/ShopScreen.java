@@ -171,7 +171,7 @@ public class ShopScreen extends ScrotsScreen {
 		table.add(points_label);
 		
 		for(Dot d : dots) {
-			table.row();
+			table.row().pad(20);
 			table.add(d.getDotImage());
 			table.add(d.getPriceLabel());
 			table.add(d.getBuyLabel());

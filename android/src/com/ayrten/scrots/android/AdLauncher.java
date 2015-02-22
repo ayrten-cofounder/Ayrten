@@ -2,6 +2,8 @@ package com.ayrten.scrots.android;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -33,10 +35,12 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface, 
 
 	private final static int SHOW_ADS = 1;
 	private final static int HIDE_ADS = 0;
-	private final static int SHOW_TOAST = 2;
+//	private final static int SHOW_TOAST = 2;
 
 	private final static int BLACK = 1;
-	private final static int WHITE = 0;
+//	private final static int WHITE = 0;
+	
+	protected ScrotsGame scrots;
 
 	protected Handler handler = new Handler() {
 		@Override
@@ -81,9 +85,11 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface, 
 		gameOverDialog = new GameOverDialog(this);
 		AdView gameOver_dialog_adView = (AdView) gameOverDialog
 				.findViewById(R.id.adView);
+		
+		scrots = new ScrotsGame(this, this);
 
 		// Create the libgdx View
-		View gameView = initializeForView(new ScrotsGame(this, this), config);
+		View gameView = initializeForView(scrots, config);
 
 		LayoutInflater inflater = LayoutInflater.from(this);
 		View inflatedLayout = inflater.inflate(R.layout.fragment_ad, null,
@@ -263,6 +269,14 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface, 
 	}
 
 	@Override
+	public void gplay_signin() {}
+
+	@Override
+	public void gplay_logout() {}
+
+	@Override
+	public boolean is_gplay_signedin() { return true; }
+	
 	public void purchase(String item, IAPInterface callback)
 	{
 		iap.purchase(item, callback);
@@ -290,5 +304,18 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface, 
 	public String getPrice(String item)
 	{
 		return iap.getPrice(item);
+	}
+
+	@Override
+	public float getAppVersion() {
+		PackageInfo info = null;
+		try {
+			info = getPackageManager().getPackageInfo(getPackageName(), 0);
+		} catch (NameNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return (Float.parseFloat(info.versionName));
 	}
 }

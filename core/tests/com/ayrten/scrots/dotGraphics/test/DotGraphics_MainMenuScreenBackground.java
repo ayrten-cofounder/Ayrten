@@ -5,7 +5,6 @@ package com.ayrten.scrots.dotGraphics.test;
 
 import org.junit.Test;
 import junit.framework.TestCase;
-import static org.hamcrest.CoreMatchers.instanceOf;
 
 import com.ayrten.scrots.dotGraphics.*;
 

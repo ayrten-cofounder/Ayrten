@@ -2,6 +2,7 @@ package com.ayrten.scrots.android;
 
 import java.util.HashMap;
 
+import com.badlogic.gdx.utils.Json;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
@@ -51,6 +52,9 @@ public class AndroidLauncher extends AdLauncher implements GoogleApiClient.Conne
 
 	@Override
 	public void onConnectionFailed(ConnectionResult result) {
+//		if(scrots.main_menu != null)
+//			scrots.main_menu.update_gplay_status(false);
+		
 		if (mResolvingConnectionFailure) {
 			// already resolving
 			return;
@@ -79,7 +83,7 @@ public class AndroidLauncher extends AdLauncher implements GoogleApiClient.Conne
 
 	@Override
 	public void onConnected(Bundle connectionHint) {
-
+//		scrots.main_menu.update_gplay_status(true);
 	}
 
 	@Override
@@ -107,17 +111,6 @@ public class AndroidLauncher extends AdLauncher implements GoogleApiClient.Conne
 		}	
 	}
 	
-	// Call when the sign-in button is clicked
-	private void signInClicked() {
-	    mSignInClicked = true;
-	    mGoogleApiClient.connect();
-	}
-	
-	// Call when the sign-out button is clicked
-	private void signOutclicked() {
-	    mSignInClicked = false;
-	    Games.signOut(mGoogleApiClient);
-	}
 	
 	@Override
 	public void showAchievements() {
@@ -145,10 +138,28 @@ public class AndroidLauncher extends AdLauncher implements GoogleApiClient.Conne
 		}
 	}
 	
+	@Override
+	public boolean is_gplay_signedin() {
+		return (mGoogleApiClient != null && mGoogleApiClient.isConnected());
+	}
+	
+	@Override
+	public void gplay_signin() {
+		mSignInClicked = true;
+		mGoogleApiClient.connect();
+	}
+	
+	@Override
+	public void gplay_logout() {
+		mSignInClicked = false;
+		Games.signOut(mGoogleApiClient);
+		mGoogleApiClient.disconnect();
+		scrots.main_menu.update_gplay_status(false);
+	}
+	
 	private void initializeAchievements()
 	{
 		achievement_list = new HashMap<String, Integer>();
-		
 		achievement_list.put("popped_1000_dots", R.string.popped_1000_dots);
 		achievement_list.put("popped_5000_dots", R.string.popped_5000_dots);
 		achievement_list.put("popped_10000_dots", R.string.popped_10000_dots);

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_id">942945143878</string>
-    
+<resources>        
     <!-- Achievements -->
     <string name="popped_1000_dots">CgkIxpik37gbEAIQAg</string>
     <string name="popped_5000_dots">CgkIxpik37gbEAIQBw </string>
