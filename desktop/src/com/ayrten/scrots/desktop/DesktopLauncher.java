@@ -1,13 +1,17 @@
 package com.ayrten.scrots.desktop;
 
+import java.util.HashMap;
+
 import com.ayrten.scrots.manager.AndroidInterface;
 import com.ayrten.scrots.manager.ButtonInterface;
+import com.ayrten.scrots.manager.GPlayManager;
 import com.ayrten.scrots.screens.GameScreen;
 import com.ayrten.scrots.screens.ScrotsGame;
 import com.ayrten.scrots.shop.IAP;
 import com.ayrten.scrots.shop.IAPInterface;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 public class DesktopLauncher implements AndroidInterface, IAP{
 	private static DesktopLauncher app;
@@ -34,36 +38,6 @@ public class DesktopLauncher implements AndroidInterface, IAP{
 	@Override
 	public void copyTextToClipboard(String text) {
 		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void makeYesNoWindow(String title, ButtonInterface yes_interface,
-			ButtonInterface no_interface, int color) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void makeWindow(String title, String yes_button, String no_button,
-			ButtonInterface yes_interface, ButtonInterface no_interface,
-			int color) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void makeGameOverDialog(ButtonInterface yes_interface,
-			ButtonInterface no_interface, int color) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void makeGameOverDialogHighScore(GameScreen gameScreen,
-			ButtonInterface yes_interface, ButtonInterface no_interface,
-			int color) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -135,5 +109,23 @@ public class DesktopLauncher implements AndroidInterface, IAP{
 	public float getAppVersion() {
 		// TODO Auto-generated method stub
 		return 1.3f;
+	}
+
+	@Override
+	public boolean loadAchievements(HashMap<String, Boolean> map) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setGPlayManager(GPlayManager manager) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setGPlayButton(Label button) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -44,6 +44,7 @@ public class Assets {
 	public static BitmapFont font_64;
 	public static BitmapFont font_32;
 	public static BitmapFont font_16;
+	public static BitmapFont font_0;
 
 	// Style
 	public static LabelStyle style_font_64_black;
@@ -58,6 +59,8 @@ public class Assets {
 	public static LabelStyle style_font_32_orange;
 	public static LabelStyle style_font_32_blue;
 
+	public static LabelStyle style_font_0_white;
+	
 	// Sounds
 	public static Sound button_pop;
 	public static Sound level_clear;
@@ -126,6 +129,7 @@ public class Assets {
 		font_64 = generate_BitMapFont(64, font_ratio);
 		font_32 = generate_BitMapFont(32, font_ratio);
 		font_16 = generate_BitMapFont(16, font_ratio);
+		font_0 = generate_BitMapFont(0, font_ratio);
 
 		// Height and Width
 		// game_height = Gdx.graphics.getHeight() - (Gdx.graphics.getHeight() / 5);
@@ -195,6 +199,10 @@ public class Assets {
 		style_font_32_blue = new LabelStyle();
 		style_font_32_blue.font = font_32;
 		style_font_32_blue.fontColor = Color.valueOf("7A80E0");
+		
+		style_font_0_white = new LabelStyle();
+		style_font_0_white.font = font_0;
+		style_font_0_white.fontColor = Color.WHITE;
 
 		// Sounds
 		button_pop = Gdx.audio.newSound(Gdx.files

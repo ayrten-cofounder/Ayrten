@@ -229,12 +229,12 @@ public class MainMenuScreen extends ScrotsScreen
 	@Override
 	public void show() {
 		super.show();
-		Assets.game.apk_intf.shouldShowAd(true);
+//		Assets.game.apk_intf.shouldShowAd(true);
 	}
 
 	@Override
 	public void hide() {
 		super.hide();
-		Assets.game.apk_intf.shouldShowAd(false);
+//		Assets.game.apk_intf.shouldShowAd(false);
 	}
 }

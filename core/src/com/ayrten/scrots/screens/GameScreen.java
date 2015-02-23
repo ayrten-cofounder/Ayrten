@@ -34,6 +34,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class GameScreen extends ScrotsScreen {
 	// Widgets
@@ -466,17 +467,18 @@ public class GameScreen extends ScrotsScreen {
 
 	public void showQuitHighScoreMenu() {
 		MessageScreen message = new MessageScreen(stage);
-		message.makeWindow("Are you sure you don't want to enter your highscore?", "Yes",
+		message.makeWindow(
+				"Are you sure you don't want to enter your highscore?", "Yes",
 				"Cancel", new ButtonInterface() {
-			@Override
-			public void buttonPressed() {
-				main_menu();
-			}
-		}, new ButtonInterface() {
-			@Override
-			public void buttonPressed() {
-			}
-		});
+					@Override
+					public void buttonPressed() {
+						main_menu();
+					}
+				}, new ButtonInterface() {
+					@Override
+					public void buttonPressed() {
+					}
+				});
 	}
 
 	public void showQuitConfirm() {
@@ -498,35 +500,34 @@ public class GameScreen extends ScrotsScreen {
 
 	public void showGameOver() {
 		MessageScreen message = new MessageScreen(stage);
-		message.makeWindow("Game Over!", "Replay", "Main Menu", new ButtonInterface() {
-			@Override
-			public void buttonPressed() {
-				replay();
-			}
-		}, new ButtonInterface() {
-			@Override
-			public void buttonPressed() {
-				main_menu();
-			}
-		});
-	}
-
-	public void showGameOverWithHighScore() {
-		MessageScreen message = new MessageScreen(stage);
-		Assets.game.apk_intf.makeGameOverDialogHighScore(this,
+		message.makeWindow("Game Over!", "Replay", "Main Menu",
 				new ButtonInterface() {
-
 					@Override
 					public void buttonPressed() {
 						replay();
 					}
 				}, new ButtonInterface() {
-
 					@Override
 					public void buttonPressed() {
 						main_menu();
 					}
-				}, Assets.prefs.getString("bg_color").equals("Black") ? 0 : 1);
+				});
+	}
+
+	public void showGameOverWithHighScore() {
+		MessageScreen message = new MessageScreen(stage);
+		message.makeGameOverWithHighScore(this, "Game Over!", "Replay", "Main Menu",
+				new ButtonInterface() {
+					@Override
+					public void buttonPressed() {
+						replay();
+					}
+				}, new ButtonInterface() {
+					@Override
+					public void buttonPressed() {
+						main_menu();
+					}
+				});
 	}
 
 	@Override
@@ -535,7 +536,7 @@ public class GameScreen extends ScrotsScreen {
 	}
 
 	@Override
-	public void render(float delta) {
+	public void render(float delta) {		
 		if (Assets.prefs.getString("bg_color").equals("Black"))
 			Gdx.gl.glClearColor(0, 0, 0, 0);
 		else
@@ -576,7 +577,7 @@ public class GameScreen extends ScrotsScreen {
 
 	public void gameOver() {
 		Assets.stats_manager.writePlayerStatsToFile();
-		
+
 		if (should_clear_stage) {
 			stage.clear();
 			should_clear_stage = false;

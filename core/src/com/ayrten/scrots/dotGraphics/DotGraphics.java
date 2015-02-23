@@ -96,6 +96,7 @@ public class DotGraphics {
 	public void setSize() {
 		curr_width = getCircleWidth();
 		curr_height = getCircleHeight();
+		move();
 	}
 
 	private float getCircleWidth() {
