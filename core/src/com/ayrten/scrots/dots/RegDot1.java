@@ -20,6 +20,6 @@ public class RegDot1 extends Dot
 		// Then Adds a point
 		gm.minusGreenDot();
 		Assets.points_manager.addPoints(1);
-		Assets.stats_manager.stats.reg_dot_1.popped++;
+		Assets.stats_manager.getPlayerStats().reg_dot_1.popped++;
 	}
 }

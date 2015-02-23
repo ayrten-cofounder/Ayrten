@@ -39,7 +39,7 @@ public class PowerDot_Magnet extends PowerDot {
 		magnet.setTouchable(Touchable.disabled);
 		gm.getStage().addActor(magnet);
 		checkRadius(gm.curr_level.get_all_dots());
-		Assets.stats_manager.stats.power_dot_magnet.popped++;
+		Assets.stats_manager.getPlayerStats().power_dot_magnet.popped++;
 	}
 
 	@Override

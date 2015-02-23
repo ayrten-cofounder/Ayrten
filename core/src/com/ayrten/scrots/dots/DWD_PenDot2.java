@@ -1,5 +1,6 @@
 package com.ayrten.scrots.dots;
 
+import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -23,6 +24,8 @@ public class DWD_PenDot2 extends DWD {
 
 		// Lose time
 		gm.addTime(TIME_OFF);
+		
+		Assets.stats_manager.getPlayerStats().dwd_pen_dot_2.popped++;
 	}
 	
 	@Override

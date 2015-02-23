@@ -2,6 +2,7 @@ package com.ayrten.scrots.android;
 
 import java.util.HashMap;
 
+import com.badlogic.gdx.utils.Json;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
@@ -51,8 +52,8 @@ public class AndroidLauncher extends AdLauncher implements GoogleApiClient.Conne
 
 	@Override
 	public void onConnectionFailed(ConnectionResult result) {
-		if(scrots.main_menu != null)
-			scrots.main_menu.update_gplay_status(false);
+//		if(scrots.main_menu != null)
+//			scrots.main_menu.update_gplay_status(false);
 		
 		if (mResolvingConnectionFailure) {
 			// already resolving
@@ -82,7 +83,7 @@ public class AndroidLauncher extends AdLauncher implements GoogleApiClient.Conne
 
 	@Override
 	public void onConnected(Bundle connectionHint) {
-		scrots.main_menu.update_gplay_status(true);
+//		scrots.main_menu.update_gplay_status(true);
 	}
 
 	@Override

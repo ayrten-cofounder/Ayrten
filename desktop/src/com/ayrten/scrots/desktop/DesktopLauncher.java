@@ -37,36 +37,6 @@ public class DesktopLauncher implements AndroidInterface, IAP{
 	}
 
 	@Override
-	public void makeYesNoWindow(String title, ButtonInterface yes_interface,
-			ButtonInterface no_interface, int color) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void makeWindow(String title, String yes_button, String no_button,
-			ButtonInterface yes_interface, ButtonInterface no_interface,
-			int color) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void makeGameOverDialog(ButtonInterface yes_interface,
-			ButtonInterface no_interface, int color) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void makeGameOverDialogHighScore(GameScreen gameScreen,
-			ButtonInterface yes_interface, ButtonInterface no_interface,
-			int color) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void gplay_signin() {
 		// TODO Auto-generated method stub
 		
@@ -129,5 +99,11 @@ public class DesktopLauncher implements AndroidInterface, IAP{
 	public void queryPurchaseItems() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public float getAppVersion() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

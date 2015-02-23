@@ -5,12 +5,9 @@ import java.util.ArrayList;
 import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.game.MainMenuBackgroundGameMode;
 import com.ayrten.scrots.manager.Assets;
-import com.ayrten.scrots.manager.ButtonInterface;
 import com.ayrten.scrots.manager.Manager;
 import com.ayrten.scrots.scoreboard.NormalScoreboard;
 import com.ayrten.scrots.scoreboard.Scoreboard;
-import com.ayrten.scrots.shop.IAP;
-import com.ayrten.scrots.shop.IAPInterface;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -20,17 +17,17 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Timer;
-import com.badlogic.gdx.utils.Timer.Task;
 
 public class MainMenuScreen extends ScrotsScreen 
 {
-	protected OthersScreen 		others_screen;
-	protected ScoresScreen 		high_score_screen;
 	protected GameScreen 		game_screen;
+	protected OthersScreen 		others_screen;
+	protected ProfileScreen 	profile_screen;
+	protected ScoresScreen 		high_score_screen;
 	protected ShopScreen		shop_screen;
 	protected OptionsScreen 	options_screen;
 	protected ContactScreen		contact_screen;
+
 	protected Label gplay_log;
 
 	public NormalScoreboard nsb;
@@ -43,12 +40,13 @@ public class MainMenuScreen extends ScrotsScreen
 		// Initialize variables
 		nsb = new NormalScoreboard();
 		// csb = new ChallengeScoreboard();
-
-		others_screen 		= new OthersScreen(this);
-		high_score_screen 	= new ScoresScreen(this);
-		shop_screen 		= new ShopScreen(this);
-		options_screen  	= new OptionsScreen(this);
+		
 		contact_screen 		= new ContactScreen(this);
+		high_score_screen 	= new ScoresScreen(this);
+		options_screen  	= new OptionsScreen(this);
+		others_screen 		= new OthersScreen(this);
+		profile_screen		= new ProfileScreen(this);
+		shop_screen 		= new ShopScreen(this);
 		
 		
 		LabelStyle title_style = new LabelStyle();
@@ -66,33 +64,9 @@ public class MainMenuScreen extends ScrotsScreen
 		shop.setBounds(shop.getX(), shop.getY(), shop.getWidth(), shop.getHeight());
 		shop.addListener(new ClickListener() {
 			@Override
-			public void clicked(InputEvent event, float x, float y) {
+			public void clicked(InputEvent event, float x, float y) 
+			{
 				Assets.game.setScreen(shop_screen);
-//				Assets.game.iap_inft.purchase(IAP.ITEM_1, new IAPInterface(){
-//
-//					@Override
-//					public void purchaseFailed() {
-//						// TODO Auto-generated method stub
-//						
-//					}
-//
-//					@Override
-//					public void purchaseSuccess() {
-//						// TODO Auto-generated method stub
-//						
-//					}
-//
-//					@Override
-//					public void consumeFailed() {
-//						// TODO Auto-generated method stub
-//						
-//					}
-//
-//					@Override
-//					public void consumeSuccess() {
-//						// TODO Auto-generated method stub
-//						
-//					}});
 			}
 		});
 		
@@ -103,43 +77,12 @@ public class MainMenuScreen extends ScrotsScreen
 			public void clicked(InputEvent event, float x, float y) {
 				if (Assets.prefs.getBoolean("sound_effs", true))
 					Assets.button_pop.play();
-				if (Assets.prefs.getBoolean("first_time", true)) {
-					Assets.game.apk_intf
-							.makeYesNoWindow(
-									"This is your first time playing. Do you want to view the tutorial?",
-									new ButtonInterface() {
-										@Override
-										public void buttonPressed() {
-											Assets.prefs.putBoolean(
-													"first_time", true);
-											Assets.prefs.flush();
-											Assets.game
-													.setScreen(Assets.game.main_menu.others_screen.tutorial_screen);
-										}
-									}, new ButtonInterface() {
-										@Override
-										public void buttonPressed() {
-											Timer timer = new Timer();
-											timer.scheduleTask(new Task() {
-												@Override
-												public void run() {
-													Assets.prefs
-															.putBoolean(
-																	"first_time",
-																	false);
-													Assets.prefs.flush();
-													game_screen = new GameScreen();
-													Assets.playGameBGM();
-													Assets.game
-															.setScreen(Assets.game.main_menu.game_screen);
-												}
-											}, 0.5f);
-										}
-									}, Assets.prefs.getString("bg_color")
-											.equals("Black") ? 0 : 1);
-				} else {
+				if (Assets.prefs.getBoolean("first_time", true))
+					loadTutorialScreen();
+				else {
 					game_screen = new GameScreen();
 					Assets.playGameBGM();
+//					System.out.println(Assets.game.apk_intf.getAppVersion());
 					Assets.game.setScreen(game_screen);
 				}
 			}
@@ -253,6 +196,30 @@ public class MainMenuScreen extends ScrotsScreen
 		stage.addActor(gplay_log);
 	}
 	
+	private void loadTutorialScreen()
+	{
+		int pages = 3;
+	    Table top_tutorial_table = new Table(Assets.skin);
+	    top_tutorial_table.setWidth(Assets.width * pages);
+	    top_tutorial_table.add("first").width(Assets.width);
+	    top_tutorial_table.add("middle").width(Assets.width);
+	    top_tutorial_table.add("end").width(Assets.width);
+		
+	    // Use the slideshow type MessageScreen.
+		MessageScreen tutorial_screen = new MessageScreen(top_tutorial_table, pages){
+			@Override
+			public void transition() {
+				Assets.prefs.putBoolean("first_time", false);
+				Assets.prefs.flush();
+				game_screen = new GameScreen();
+				Assets.playGameBGM();
+				Assets.game.setScreen(game_screen);
+			}
+		};
+		
+		Assets.game.setScreen(tutorial_screen);
+	}
+	
 	public void update_gplay_status(boolean isConnected) {
 		if(isConnected)
 			gplay_log.setText("Logout");
@@ -263,12 +230,12 @@ public class MainMenuScreen extends ScrotsScreen
 	@Override
 	public void show() {
 		super.show();
-		Assets.game.apk_intf.shouldShowAd(true);
+//		Assets.game.apk_intf.shouldShowAd(true);
 	}
 
 	@Override
 	public void hide() {
 		super.hide();
-		Assets.game.apk_intf.shouldShowAd(false);
+//		Assets.game.apk_intf.shouldShowAd(false);
 	}
 }
