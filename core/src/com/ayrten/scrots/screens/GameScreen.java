@@ -536,7 +536,7 @@ public class GameScreen extends ScrotsScreen {
 	}
 
 	@Override
-	public void render(float delta) {
+	public void render(float delta) {		
 		if (Assets.prefs.getString("bg_color").equals("Black"))
 			Gdx.gl.glClearColor(0, 0, 0, 0);
 		else

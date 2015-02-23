@@ -26,6 +26,8 @@ public class MessageScreen extends ScrotsScreen {
 	private Label negative_button;
 	private Label positive_button;
 
+	private boolean clicked = false;
+
 	// Used as an overlay window.
 	public MessageScreen(Stage stage) {
 		this.stage = stage;
@@ -54,20 +56,7 @@ public class MessageScreen extends ScrotsScreen {
 		final ScrollPane message_scroll = new ScrollPane(top_table);
 		message_scroll.setFlickScroll(false);
 
-		Label previous = new Label("Prev", Assets.style_font_64_orange);
-		previous.setBounds(previous.getX(), previous.getY(),
-				previous.getWidth(), previous.getHeight());
-		previous.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				if (message_scroll.getScrollX() != 0)
-					message_scroll.scrollTo(message_scroll.getScrollX()
-							- Assets.width, 0, message_scroll.getWidth(),
-							message_scroll.getHeight());
-			}
-		});
-
-		Label next = new Label("Next", Assets.style_font_64_orange);
+		final Label next = new Label("Next", Assets.style_font_64_orange);
 		next.setBounds(next.getX(), next.getY(), next.getWidth(),
 				next.getHeight());
 		next.addListener(new ClickListener() {
@@ -75,12 +64,34 @@ public class MessageScreen extends ScrotsScreen {
 
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				if (message_scroll.getScrollX() != max_x)
+				if (message_scroll.getScrollX() != max_x) {
+					if (message_scroll.getScrollX() + Assets.width == max_x) {
+						next.setText("Done");
+					}
+
 					message_scroll.scrollTo(message_scroll.getScrollX()
 							+ Assets.width, 0, message_scroll.getWidth(),
 							message_scroll.getHeight());
-				else
-					((MessageScreen) Assets.game.getScreen()).transition();
+				} else {
+					transition();
+				}
+			}
+		});
+		
+		Label previous = new Label("Prev", Assets.style_font_64_orange);
+		previous.setBounds(previous.getX(), previous.getY(),
+				previous.getWidth(), previous.getHeight());
+		previous.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				if (message_scroll.getScrollX() != 0)
+				{
+					next.setText("Next");
+					
+					message_scroll.scrollTo(message_scroll.getScrollX()
+							- Assets.width, 0, message_scroll.getWidth(),
+							message_scroll.getHeight());
+				}
 			}
 		});
 
@@ -244,6 +255,7 @@ public class MessageScreen extends ScrotsScreen {
 			public void touchUp(InputEvent event, float x, float y,
 					int pointer, int button) {
 				name.setText("");
+				clicked = true;
 			}
 		});
 
@@ -254,9 +266,8 @@ public class MessageScreen extends ScrotsScreen {
 				name.setText(textField.getText());
 			}
 		});
-		
+
 		final Label submit = new Label("Submit", Assets.style_font_64_blue);
-		submit.setAlignment(Align.center);
 
 		submit.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y,
@@ -266,10 +277,13 @@ public class MessageScreen extends ScrotsScreen {
 
 			public void touchUp(InputEvent event, float x, float y,
 					int pointer, int button) {
-				gameScreen.setHighScoreName(name.getText().toString());
-				name.remove();
-				textField.remove();
-				submit.remove();
+
+				if (clicked) {
+					gameScreen.setHighScoreName(name.getText().toString());
+					name.remove();
+					textField.remove();
+					submit.remove();
+				}
 			}
 		});
 
@@ -284,12 +298,15 @@ public class MessageScreen extends ScrotsScreen {
 			newTable.add(temp).width(Assets.width / 2);
 		}
 
+		Table submitTable = new Table(Assets.skin);
+		submitTable.stack(textField, name).width(name.getWidth())
+				.height(name.getHeight());
+		submitTable.row();
+		submitTable.add(submit).width(submit.getWidth());
+
 		table.add(message).width(Assets.game_height);
 		table.row();
-		table.stack(textField, name).width(name.getWidth())
-				.height(name.getHeight()).center();
-		table.row();
-		table.add(submit).width(submit.getWidth());
+		table.add(submitTable);
 		table.row();
 		table.add(newTable);
 
