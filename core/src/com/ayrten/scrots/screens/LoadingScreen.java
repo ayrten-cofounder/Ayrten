@@ -60,7 +60,6 @@ public class LoadingScreen implements Screen {
 			public void transition() {
 				Assets.prefs.putFloat("app_version", Assets.game.apk_intf.getAppVersion());
 				Assets.prefs.flush();
-				Assets.game.apk_intf.shouldShowAd(true);
 				Assets.game.setScreen(Assets.game.main_menu);
 			}
 		};
