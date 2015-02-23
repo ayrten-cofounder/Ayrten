@@ -134,7 +134,8 @@ public class MainMenuScreen extends ScrotsScreen
 			}
 		});
 		
-		Label gplay_log = new Label((Assets.game.apk_intf.is_gplay_signedin()) ? "Logout" : "Sign in", style);
+		gplay_log = new Label("Sign in", style);
+		gplay_log.setWidth(gplay_log.getStyle().font.getBounds("Logout").width);
 		gplay_log.setBounds(gplay_log.getX(), gplay_log.getY(), gplay_log.getWidth(), gplay_log.getHeight());
 		gplay_log.addListener(new ClickListener(){
 			public void clicked(InputEvent event, float x, float y) {
@@ -191,8 +192,8 @@ public class MainMenuScreen extends ScrotsScreen
 		main_table.row();
 		main_table.add(lowerTable).height(Assets.height/2).width(Assets.width);
 		
-		stage.addActor(main_table);
 		stage.addActor(gplay_log);
+		stage.addActor(main_table);
 	}
 	
 	private void loadTutorialScreen()
@@ -219,17 +220,19 @@ public class MainMenuScreen extends ScrotsScreen
 		Assets.game.setScreen(tutorial_screen);
 	}
 	
-	public void update_gplay_status(boolean isConnected) {
-		if(isConnected)
-			gplay_log.setText("Logout");
-		else
-			gplay_log.setText("Sign in");
-	}
+//	public void update_gplay_status(boolean isConnected) {
+//		if(isConnected)
+//			gplay_log.setText("Logout");
+//		else
+//			gplay_log.setText("Sign in");
+//	}
 
 	@Override
 	public void show() {
 		super.show();
 //		Assets.game.apk_intf.shouldShowAd(true);
+		Assets.game.apk_intf.setGPlayButton(gplay_log);
+		gplay_log.setText((Assets.game.apk_intf.is_gplay_signedin()) ? "Logout" : "Sign in");
 	}
 
 	@Override

@@ -28,6 +28,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
+import com.google.android.gms.internal.gp;
 import com.google.example.games.basegameutils.BaseGameUtils;
 
 @SuppressLint("NewApi")
@@ -52,8 +53,10 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface,
 	private boolean mSignInClicked = false;
 
 	protected HashMap<String, Integer> achievement_list;
+	
+	// Pointer to ScrotsGame objects.
+	private Label gplay_status;
 
-	protected ScrotsGame scrots;
 
 	protected Handler handler = new Handler() {
 		@Override
@@ -90,7 +93,7 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface,
 		config.useImmersiveMode = true;
 		config.hideStatusBar = true;
 
-		scrots = new ScrotsGame(this, this);
+		ScrotsGame scrots = new ScrotsGame(this, this);
 
 		// Create the libgdx View
 		View gameView = initializeForView(scrots, config);
@@ -240,6 +243,8 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface,
 	public void onConnectionFailed(ConnectionResult result) {
 		// if(scrots.main_menu != null)
 		// scrots.main_menu.update_gplay_status(false);
+		if(gplay_status != null)
+			gplay_status.setText("Sign in");
 
 		if (mResolvingConnectionFailure) {
 			// already resolving
@@ -270,6 +275,8 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface,
 	@Override
 	public void onConnected(Bundle connectionHint) {
 		// scrots.main_menu.update_gplay_status(true);
+		if(gplay_status != null)
+			gplay_status.setText("Logout");
 	}
 
 	@Override
@@ -279,7 +286,7 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface,
 	}
 
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {		
 		if (requestCode == RC_SIGN_IN) {
 			mSignInClicked = false;
 			mResolvingConnectionFailure = false;
@@ -342,7 +349,8 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface,
 		mSignInClicked = false;
 		Games.signOut(mGoogleApiClient);
 		mGoogleApiClient.disconnect();
-		scrots.main_menu.update_gplay_status(false);
+		gplay_status.setText("Sign in");
+		showToast("Logged out successfully!");
 	}
 
 	private void initializeAchievements() {
@@ -374,7 +382,6 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface,
 
 	@Override
 	public void setGPlayButton(Label button) {
-		// TODO Auto-generated method stub
-		
+		gplay_status = button;
 	}
 }
