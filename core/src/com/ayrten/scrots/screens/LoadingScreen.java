@@ -30,7 +30,6 @@ public class LoadingScreen implements Screen {
 								if (Assets.game.apk_intf.getAppVersion() != Assets.prefs.getFloat("app_version", 0))
 									loadUpdateScreen();
 								else {
-									Assets.game.apk_intf.shouldShowAd(true);
 									Assets.game.setScreen(Assets.game.main_menu);
 								}
 							}

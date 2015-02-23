@@ -2,12 +2,8 @@ package com.ayrten.scrots.screens;
 
 import java.util.ArrayList;
 
-import javax.swing.GroupLayout.Alignment;
-
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.ButtonInterface;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -223,7 +219,7 @@ public class MessageScreen extends ScrotsScreen {
 			}
 		});
 
-		final Label name = new Label("Enter Name", Assets.style_font_32_black);
+		final Label name = new Label("Enter Name", Assets.style_font_64_black);
 		name.setWidth(name.getStyle().font.getBounds("wwwwwwwwww").width);
 		name.setAlignment(Align.center);
 		name.setTouchable(Touchable.disabled);
@@ -259,7 +255,7 @@ public class MessageScreen extends ScrotsScreen {
 			}
 		});
 		
-		final Label submit = new Label("Submit", Assets.style_font_32_blue);
+		final Label submit = new Label("Submit", Assets.style_font_64_blue);
 		submit.setAlignment(Align.center);
 
 		submit.addListener(new InputListener() {
