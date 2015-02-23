@@ -82,7 +82,7 @@ public class MainMenuScreen extends ScrotsScreen
 				else {
 					game_screen = new GameScreen();
 					Assets.playGameBGM();
-					System.out.println(Assets.game.apk_intf.getAppVersion());
+//					System.out.println(Assets.game.apk_intf.getAppVersion());
 					Assets.game.setScreen(game_screen);
 				}
 			}
@@ -230,12 +230,12 @@ public class MainMenuScreen extends ScrotsScreen
 	@Override
 	public void show() {
 		super.show();
-		Assets.game.apk_intf.shouldShowAd(true);
+//		Assets.game.apk_intf.shouldShowAd(true);
 	}
 
 	@Override
 	public void hide() {
 		super.hide();
-		Assets.game.apk_intf.shouldShowAd(false);
+//		Assets.game.apk_intf.shouldShowAd(false);
 	}
 }

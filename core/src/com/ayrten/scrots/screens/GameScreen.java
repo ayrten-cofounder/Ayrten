@@ -466,17 +466,18 @@ public class GameScreen extends ScrotsScreen {
 
 	public void showQuitHighScoreMenu() {
 		MessageScreen message = new MessageScreen(stage);
-		message.makeWindow("Are you sure you don't want to enter your highscore?", "Yes",
+		message.makeWindow(
+				"Are you sure you don't want to enter your highscore?", "Yes",
 				"Cancel", new ButtonInterface() {
-			@Override
-			public void buttonPressed() {
-				main_menu();
-			}
-		}, new ButtonInterface() {
-			@Override
-			public void buttonPressed() {
-			}
-		});
+					@Override
+					public void buttonPressed() {
+						main_menu();
+					}
+				}, new ButtonInterface() {
+					@Override
+					public void buttonPressed() {
+					}
+				});
 	}
 
 	public void showQuitConfirm() {
@@ -498,35 +499,34 @@ public class GameScreen extends ScrotsScreen {
 
 	public void showGameOver() {
 		MessageScreen message = new MessageScreen(stage);
-		message.makeWindow("Game Over!", "Replay", "Main Menu", new ButtonInterface() {
-			@Override
-			public void buttonPressed() {
-				replay();
-			}
-		}, new ButtonInterface() {
-			@Override
-			public void buttonPressed() {
-				main_menu();
-			}
-		});
-	}
-
-	public void showGameOverWithHighScore() {
-		MessageScreen message = new MessageScreen(stage);
-		Assets.game.apk_intf.makeGameOverDialogHighScore(this,
+		message.makeWindow("Game Over!", "Replay", "Main Menu",
 				new ButtonInterface() {
-
 					@Override
 					public void buttonPressed() {
 						replay();
 					}
 				}, new ButtonInterface() {
-
 					@Override
 					public void buttonPressed() {
 						main_menu();
 					}
-				}, Assets.prefs.getString("bg_color").equals("Black") ? 0 : 1);
+				});
+	}
+
+	public void showGameOverWithHighScore() {
+		MessageScreen message = new MessageScreen(stage);
+		message.makeGameOverWithHighScore(this, "Game Over!", "Replay", "Main Menu",
+				new ButtonInterface() {
+					@Override
+					public void buttonPressed() {
+						replay();
+					}
+				}, new ButtonInterface() {
+					@Override
+					public void buttonPressed() {
+						main_menu();
+					}
+				});
 	}
 
 	@Override
@@ -576,7 +576,7 @@ public class GameScreen extends ScrotsScreen {
 
 	public void gameOver() {
 		Assets.stats_manager.writePlayerStatsToFile();
-		
+
 		if (should_clear_stage) {
 			stage.clear();
 			should_clear_stage = false;
