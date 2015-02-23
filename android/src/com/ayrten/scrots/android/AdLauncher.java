@@ -1,5 +1,7 @@
 package com.ayrten.scrots.android;
 
+import java.util.HashMap;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 
 import com.ayrten.scrots.manager.AndroidInterface;
 import com.ayrten.scrots.manager.ButtonInterface;
+import com.ayrten.scrots.manager.GPlayManager;
 import com.ayrten.scrots.screens.GameScreen;
 import com.ayrten.scrots.screens.ScrotsGame;
 import com.ayrten.scrots.shop.IAP;
@@ -318,4 +321,12 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface, 
 		
 		return (Float.parseFloat(info.versionName));
 	}
+
+	@Override
+	public boolean loadAchievements(HashMap<String, Boolean> map) {
+		return false;
+	}
+
+	@Override
+	public void setGPlayManager(GPlayManager manager) {}
 }

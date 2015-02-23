@@ -56,6 +56,7 @@ public class LoadingScreen implements Screen {
 		top_table.add("middle").width(Assets.width);
 		top_table.add("last").width(Assets.width);
 		
+		// Use the slideshow version of MessageScreen.
 		MessageScreen update_screen = new MessageScreen(top_table, pages){
 			@Override
 			public void transition() {
@@ -92,6 +93,7 @@ public class LoadingScreen implements Screen {
 
 	@Override
 	public void show() {
+		Assets.game.apk_intf.setGPlayManager(Assets.gplay_manager);
 		stage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(1f),
 				Actions.run(new Runnable() {
 					@Override

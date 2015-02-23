@@ -65,7 +65,8 @@ public class MainMenuScreen extends ScrotsScreen
 		shop.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Assets.game.setScreen(shop_screen);
+//				Assets.game.setScreen(shop_screen);
+				Gdx.net.openURI("market://details?id=com.ayrten.scrots");
 			}
 		});
 		
@@ -81,7 +82,6 @@ public class MainMenuScreen extends ScrotsScreen
 				else {
 					game_screen = new GameScreen();
 					Assets.playGameBGM();
-					System.out.println(Assets.game.apk_intf.getAppVersion());
 					Assets.game.setScreen(game_screen);
 				}
 			}

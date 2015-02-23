@@ -1,15 +1,30 @@
 package com.ayrten.scrots.android;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.concurrent.TimeUnit;
 
+import com.ayrten.scrots.manager.GPlayManager;
 import com.badlogic.gdx.utils.Json;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.games.Games;
+import com.google.android.gms.games.GamesStatusCodes;
+import com.google.android.gms.games.achievement.Achievement;
+import com.google.android.gms.games.achievement.AchievementBuffer;
+import com.google.android.gms.games.achievement.Achievements;
+import com.google.android.gms.games.achievement.Achievements.LoadAchievementsResult;
+import com.google.android.gms.games.achievement.Achievements.UpdateAchievementResult;
+import com.google.android.gms.internal.gp;
 import com.google.example.games.basegameutils.BaseGameUtils;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.Time;
 
 public class AndroidLauncher extends AdLauncher implements GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener
 {
@@ -19,6 +34,9 @@ public class AndroidLauncher extends AdLauncher implements GoogleApiClient.Conne
 	private boolean mResolvingConnectionFailure = false;
 	private boolean mAutoStartSignInflow = true;
 	private boolean mSignInClicked = false;
+	
+	// Pointer to ScrotsGame GPlayerManager object.
+	private GPlayManager gplay_manager;
 	
 	protected HashMap<String, Integer> achievement_list;
 
@@ -129,12 +147,20 @@ public class AndroidLauncher extends AdLauncher implements GoogleApiClient.Conne
 	}
 	
 	@Override
-	public void unlockAchievement(String name) {
+	public void unlockAchievement(final String name) {
 		if(mGoogleApiClient != null && mGoogleApiClient.isConnected())
 		{
-			if(achievement_list.containsKey(name))
-				Games.Achievements.unlock(mGoogleApiClient, 
+			if(achievement_list.containsKey(name)) {
+				PendingResult<Achievements.UpdateAchievementResult> result = Games.Achievements.unlockImmediate(mGoogleApiClient, 
 						this.getResources().getString(achievement_list.get(name)));
+				result.setResultCallback(new ResultCallback<Achievements.UpdateAchievementResult>() {
+					@Override
+					public void onResult(UpdateAchievementResult result) {
+						if(result.getStatus().getStatusCode() == GamesStatusCodes.STATUS_OK)
+	gplay_manager.addPoints(name);
+					}
+				});
+			}
 		}
 	}
 	
@@ -155,6 +181,53 @@ public class AndroidLauncher extends AdLauncher implements GoogleApiClient.Conne
 		Games.signOut(mGoogleApiClient);
 		mGoogleApiClient.disconnect();
 		scrots.main_menu.update_gplay_status(false);
+	}
+	
+	@Override
+	public boolean loadAchievements(HashMap<String, Boolean> map) {
+		 boolean fullLoad = false;  // set to 'true' to reload all achievements (ignoring cache)
+	     long waitTime = 60;    // seconds to wait for achievements to load before timing out
+
+	     // load achievements
+	     PendingResult<LoadAchievementsResult> p = Games.Achievements.load( mGoogleApiClient, fullLoad );
+	     Achievements.LoadAchievementsResult r = (Achievements.LoadAchievementsResult) p.await(waitTime, TimeUnit.SECONDS);
+	     int status = r.getStatus().getStatusCode();
+	     if ( status != GamesStatusCodes.STATUS_OK )  {
+	        r.release();
+	        return false;           // Error Occured
+	     }
+	     
+	     HashMap<String, String> conversion_map = new HashMap<String, String>();
+	     Iterator<Entry<String, Integer>> iter = achievement_list.entrySet().iterator();
+	     while(iter.hasNext()) {
+	    	 Map.Entry<String, Integer> pair = (Entry<String, Integer>) iter.next();
+	    	 String id = this.getResources().getString(pair.getValue());
+	    	 String alias = pair.getKey();
+	    	 conversion_map.put(id, alias);
+	     }
+
+	     // cache the loaded achievements
+	     AchievementBuffer buf = r.getAchievements();
+	     int bufSize = buf.getCount();
+	     for ( int i = 0; i < bufSize; i++ )  {
+	        Achievement ach = buf.get( i );
+
+	        String id = ach.getAchievementId();  
+	        boolean unlocked = ach.getState() == Achievement.STATE_UNLOCKED;
+	        String alias = conversion_map.get(id);
+	        System.out.println("GPLAY ALIAS: " + alias);
+	        System.out.println("GPLAY UNLCOKED: " + unlocked);
+	        map.put(alias, unlocked);
+	     }
+	     buf.close();
+	     r.release();
+		
+		return true;
+	}
+	
+	@Override
+	public void setGPlayManager(GPlayManager manager) {
+		gplay_manager = manager;
 	}
 	
 	private void initializeAchievements()

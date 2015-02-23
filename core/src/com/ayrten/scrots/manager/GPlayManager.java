@@ -2,10 +2,13 @@ package com.ayrten.scrots.manager;
 
 import java.util.HashMap;
 
+import com.badlogic.gdx.utils.Json;
+
 public class GPlayManager {
 	private final String LVL_REGEXP = "passed_lvl%d";
 	private final String DOT_REGEXP = "popped_%d_dots";
-	
+	private final String CHECKLIST_NAME = "gplay_achievement_checklist";
+
 	private int dot_count;
 
 	// Achievement types.
@@ -20,6 +23,7 @@ public class GPlayManager {
 
 	public GPlayManager() {
 		dot_count = 0;
+		System.out.println("INSIDE GPLAY MANAGER");
 		
 		initializeHashMaps();
 
@@ -42,8 +46,24 @@ public class GPlayManager {
 	private void initializeHashMaps() {
 		level_achievements = new HashMap<Integer, String>();
 		dot_achievements = new HashMap<Integer, String>();
-		checklist_achievements = new HashMap<String, Boolean>();
 		achievement_points = new HashMap<String, Integer>();
+
+		// String text = Assets.readFile(CHECKLIST_NAME);
+		// if(!text.isEmpty()) {
+		// Json json = new Json();
+		// checklist_achievements = json.fromJson(HashMap.class, text);
+		// System.out.println(json.prettyPrint(text));
+		// }
+		// else
+		// checklist_achievements = new HashMap<String, Boolean>();
+
+//		if (Assets.game.apk_intf.is_gplay_signedin()) {
+//			boolean isOK = Assets.game.apk_intf.loadAchievements(checklist_achievements);
+//			if (!isOK)
+//				checklist_achievements = new HashMap<String, Boolean>();
+//		}
+//		else
+			checklist_achievements = new HashMap<String, Boolean>();
 	}
 
 	private void addAchievement(int num, String regexp,
@@ -63,13 +83,13 @@ public class GPlayManager {
 	public boolean isAchievementLevel(int lvl) {
 		return (level_achievements.containsKey(lvl));
 	}
-	
-	public boolean isDotAchievement(int dot_count)
-	{
+
+	public boolean isDotAchievement(int dot_count) {
 		return (dot_achievements.containsKey(dot_count));
 	}
 
 	public void unlockLevelAchievement(int lvl) {
+		System.out.println(String.format(LVL_REGEXP, lvl));
 		unlockAchievement(String.format(LVL_REGEXP, lvl));
 	}
 
@@ -86,19 +106,28 @@ public class GPlayManager {
 				&& Assets.game.apk_intf.is_gplay_signedin()
 				&& !isUnlocked(achievement_name)) {
 			Assets.game.apk_intf.unlockAchievement(achievement_name);
-			Assets.points_manager.addPoints(achievement_points
-					.get(achievement_name));
 			checklist_achievements.put(achievement_name, true);
 		}
+	}
+	
+	public void addPoints(String achievement_name)
+	{
+		Assets.points_manager.addPoints(achievement_points.get(achievement_name));
 	}
 
 	public boolean isUnlocked(String achievement_name) {
 		return (checklist_achievements.get(achievement_name) == true);
 	}
-	
-	public void increment_dot_count(){
+
+	public void increment_dot_count() {
 		dot_count++;
-		if(isDotAchievement(dot_count))
+		if (isDotAchievement(dot_count))
 			unlockDotAchievement(dot_count);
+	}
+
+	public void dispose() {
+		Json json = new Json();
+		Assets.writeFile(CHECKLIST_NAME, json.toJson(checklist_achievements));
+		Assets.writeFile(Assets.GPLAY_FILE, json.toJson(this));
 	}
 }

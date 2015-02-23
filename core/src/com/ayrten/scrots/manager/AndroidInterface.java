@@ -1,6 +1,9 @@
 package com.ayrten.scrots.manager;
 
+import java.util.HashMap;
+
 import com.ayrten.scrots.screens.GameScreen;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 public interface AndroidInterface {
 	public void shouldShowAd(boolean show);
@@ -34,4 +37,13 @@ public interface AndroidInterface {
 	public boolean is_gplay_signedin();
 	
 	public float getAppVersion();
+	
+	public boolean loadAchievements(HashMap<String, Boolean> map);
+	
+	// Set pointers to Scrots object.
+	public void setGPlayManager(GPlayManager manager);
+	
+	public void setGPlayButton(Label button);
+	
+	
 }

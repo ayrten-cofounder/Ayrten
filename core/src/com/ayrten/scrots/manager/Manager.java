@@ -176,8 +176,9 @@ public class Manager {
 
 	public void plusOnePoint() {
 		score++;
-		if(Assets.gplay_manager.isAchievementLevel(score))
-			Assets.gplay_manager.unlockLevelAchievement(score);;
+		int temp = score - 1;
+		if(Assets.gplay_manager.isAchievementLevel(temp))
+			Assets.gplay_manager.unlockLevelAchievement(temp);
 	}
 
 	public void minusOnePoint() {

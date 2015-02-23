@@ -141,8 +141,10 @@ public class Assets {
 		String text = Assets.readFile(GPLAY_FILE);
 		if(text.isEmpty())
 			gplay_manager = new GPlayManager();
-		else
+		else {
 			gplay_manager = json.fromJson(GPlayManager.class, text);
+			System.out.println(text);
+		}
 		
 		stats_manager = new StatisticsManager();
 
@@ -365,11 +367,10 @@ public class Assets {
 
 		// Miscellaneous
 		// Make the changes persist. (ie. saves an XML file for Windows in
-		// /Users/<user>/.prefs/
+		// Windows: /Users/<user>/.prefs/
+		// OS X: ~/.prefs/My Preferences 
 		prefs.flush();
-		
-		Json json = new Json();
-		writeFile(GPLAY_FILE, json.toJson(gplay_manager));
+		gplay_manager.dispose();
 	}
 
 	private static BitmapFont generate_BitMapFont(int fontSize, float font_ratio) {
