@@ -17,6 +17,8 @@ public class ScrotsGame extends Game
     public AndroidInterface apk_intf;
     public IAP iap_inft;
     
+    public ScrotsGame() {}
+    
     public ScrotsGame(AndroidInterface apk_intf, IAP iap_intf)
     {
     	this.apk_intf = apk_intf;
