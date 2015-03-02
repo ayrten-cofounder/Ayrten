@@ -23,7 +23,6 @@ public class GPlayManager {
 
 	public GPlayManager() {
 		dot_count = 0;
-		System.out.println("INSIDE GPLAY MANAGER");
 		
 		initializeHashMaps();
 

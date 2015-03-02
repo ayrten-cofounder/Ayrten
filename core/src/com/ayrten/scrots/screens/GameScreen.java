@@ -61,7 +61,10 @@ public class GameScreen extends ScrotsScreen {
 	protected boolean should_clear_stage;
 	protected ArrayList<Level> all_levels = new ArrayList<Level>();
 
-	protected Table slots;
+//	protected Table slots;
+	protected Table top_table;
+	protected Table corner_table;
+	protected Table side_table;
 
 	// Pause Menu
 	ArrayList<PowerDot> powDots;
@@ -121,19 +124,55 @@ public class GameScreen extends ScrotsScreen {
 		};
 
 		initializePauseMenu();
+		
+		top_table = new Table(Assets.skin);
+		top_table.setPosition(0, Assets.game_height);
+		top_table.setWidth(Assets.width);
+		top_table.setHeight(Assets.height - Assets.game_height);
+		top_table.align(Align.left);
+		top_table.add(pause).left();
+		
+		corner_table = new Table(Assets.skin);
+		corner_table.setHeight(top_table.getHeight()/2 * 3);
+		corner_table.setWidth(top_table.getHeight()/2 * 3);
+		corner_table.setPosition(Assets.width - corner_table.getWidth(), Assets.height - corner_table.getHeight());
+		
+		Table temp = new Table(Assets.skin);
+		temp.add(level);
+		
+		Table lvl_table = new Table(Assets.skin);
+		lvl_table.setHeight(corner_table.getHeight());
+		lvl_table.setWidth(corner_table.getWidth());
+		Image lvl_bubble = new Image(Assets.lvl_bubble);
+		lvl_table.stack(lvl_bubble, temp).height(corner_table.getHeight()/2).width(corner_table.getWidth()/2);
+		lvl_table.top().right();
+		
+		temp = new Table(Assets.skin);
+		temp.add(time);
+		
+		Table time_table = new Table(Assets.skin);
+		time_table.setHeight(corner_table.getHeight());
+		time_table.setWidth(corner_table.getWidth());
+		Image time_bubble = new Image(Assets.time_bubble);
+		time_table.stack(time_bubble, temp).height(corner_table.getHeight()/4 * 3).width(corner_table.getWidth()/4 * 3);
+		time_table.bottom().left();
+		
+		corner_table.stack(time_table, lvl_table).height(corner_table.getHeight()).width(corner_table.getWidth());
+		
+		side_table = new Table(Assets.skin);
 
-		slots = new Table(Assets.skin);
-		slots.left();
-		slots.setY(Assets.game_height);
-		slots.setX(time_end.getX() + time_end.getWidth());
-		slots.setWidth(pause.getX() - slots.getX());
-		slots.setHeight(Assets.height - Assets.game_height);
+//		slots = new Table(Assets.skin);
+//		slots.left();
+//		slots.setY(Assets.game_height);
+//		slots.setX(time_end.getX() + time_end.getWidth());
+//		slots.setWidth(pause.getX() - slots.getX());
+//		slots.setHeight(Assets.height - Assets.game_height);
 
 		// Image slot_switch = new Image(Assets.slot_switch);
 		// float dot_width = (slots.getWidth())/3;
-		float dot_width = slots.getHeight();
+//		float dot_width = slots.getHeight();
 
-		Table scroll_table = new Table(Assets.skin);
+//		Table scroll_table = new Table(Assets.skin);
 
 		// float spacing = 0;
 		// if(dot_width > slots.getHeight())
@@ -142,46 +181,26 @@ public class GameScreen extends ScrotsScreen {
 		// spacing = (slots.getWidth() - dot_width * 3)/3;
 		// }
 
-		for (int i = 0; i < powDots.size(); i++) {
-			Table temp = new Table(Assets.skin);
-			temp.add(powDots_time.get(i));
-			scroll_table.stack(powDots.get(i), temp).width(dot_width)
-					.height(dot_width).center();
-			powDots.get(i).setTimeLabel(powDots_time.get(i));
+//		for (int i = 0; i < powDots.size(); i++) {
+//			Table temp = new Table(Assets.skin);
+//			temp.add(powDots_time.get(i));
+//			scroll_table.stack(powDots.get(i), temp).width(dot_width)
+//					.height(dot_width).center();
+//			powDots.get(i).setTimeLabel(powDots_time.get(i));
+//
+//			Table temp2 = new Table(Assets.skin);
+//			temp2.add(powDot_num.get(i));
+//			scroll_table.add(temp2).width(
+//					powDot_num.get(i).getStyle().font.getBounds("99").width);
+//			powDots.get(i).setNumLabel(powDot_num.get(i));
+//		}
 
-			Table temp2 = new Table(Assets.skin);
-			temp2.add(powDot_num.get(i));
-			scroll_table.add(temp2).width(
-					powDot_num.get(i).getStyle().font.getBounds("99").width);
-			;
-			powDots.get(i).setNumLabel(powDot_num.get(i));
+//		final ScrollPane slots_scroll = new ScrollPane(scroll_table);
+//		slots_scroll.setScrollingDisabled(true, true);
+//		slots_scroll.setFadeScrollBars(false);
 
-			// if(spacing != 0 && i != powDot_images.size() - 1)
-			// scroll_table.add().width(spacing);
-		}
-
-		// for(int i = 0; i < 9 - powDot_images.size(); i ++)
-		// {
-		// scroll_table.add().width(dot_width);
-		// if(spacing != 0 && i != 9 - powDot_images.size() - 1)
-		// scroll_table.add().width(spacing);
-		// }
-
-		final ScrollPane slots_scroll = new ScrollPane(scroll_table);
-		slots_scroll.setScrollingDisabled(true, true);
-		slots_scroll.setFadeScrollBars(false);
-		// slots_scroll.setTouchable(Touchable.disabled);
-		// slot_switch.addListener(new ClickListener(){
-		// @Override
-		// public void clicked(InputEvent event, float x, float y) {
-		// gm.nextSlot();
-		// slots_scroll.scrollTo(gm.getCurrentSlot() * gm.getSlotWidth(), 0,
-		// gm.getSlotWidth(), slots_scroll.getHeight());
-		// }
-		// });
-
-		gm.setSlotWidth(slots.getWidth());
-		slots.add(slots_scroll).width(slots.getWidth());
+//		gm.setSlotWidth(slots.getWidth());
+//		slots.add(slots_scroll).width(slots.getWidth());
 		// slots.add(slot_switch).width(slot_switch.getWidth());
 
 		addStageActors();
@@ -190,50 +209,50 @@ public class GameScreen extends ScrotsScreen {
 	}
 
 	private void initializePointsTime() {
-		level_title = new Label("LEVEL", Assets.style_font_32_red);
-		level_title
-				.setWidth(level_title.getStyle().font.getBounds("LEVEL").width);
-		level_title.setCenterPosition(
-				1 + level_title.getWidth() / 2,
-				Gdx.graphics.getHeight()
-						- Assets.style_font_32_white.font.getLineHeight() / 2);
-
+//		level_title = new Label("LEVEL", Assets.style_font_32_red);
+//		level_title
+//				.setWidth(level_title.getStyle().font.getBounds("LEVEL").width);
+//		level_title.setCenterPosition(
+//				1 + level_title.getWidth() / 2,
+//				Gdx.graphics.getHeight()
+//						- Assets.style_font_32_white.font.getLineHeight() / 2);
+//
 		level = new Label("00", Assets.prefs.getString("bg_color").equals(
 				"Black") ? Assets.style_font_32_white
 				: Assets.style_font_32_black);
-		level.setPosition(0 + level_title.getWidth(), Gdx.graphics.getHeight()
-				- level.getStyle().font.getLineHeight());
-
-		time_title = new Label("WITH", Assets.style_font_32_red);
-		time_title.setWidth(time_title.getStyle().font.getBounds("WITH").width);
-		time_title.setCenterPosition(
-				1 + level_title.getWidth() + level.getWidth()
-						+ time_title.getWidth() / 2, level.getCenterY());
-
+//		level.setPosition(0 + level_title.getWidth(), Gdx.graphics.getHeight()
+//				- level.getStyle().font.getLineHeight());
+//
+//		time_title = new Label("WITH", Assets.style_font_32_red);
+//		time_title.setWidth(time_title.getStyle().font.getBounds("WITH").width);
+//		time_title.setCenterPosition(
+//				1 + level_title.getWidth() + level.getWidth()
+//						+ time_title.getWidth() / 2, level.getCenterY());
+//
 		time = new Label("60.0", Assets.prefs.getString("bg_color").equals(
 				"Black") ? Assets.style_font_32_white
 				: Assets.style_font_32_black);
-		time.setPosition(1 + level_title.getWidth() + level.getWidth()
-				+ time_title.getWidth(),
-				Gdx.graphics.getHeight() - time.getStyle().font.getLineHeight());
-
-		time_end = new Label("SECONDSLEFT", Assets.style_font_32_red);
-		time_end.setWidth(time_end.getStyle().font.getBounds("SECONDSLEFT").width);
-		time_end.setCenterPosition(
-				1 + level_title.getWidth() + level.getWidth()
-						+ time_title.getWidth() + time.getWidth()
-						+ time_end.getWidth() / 2, time.getCenterY());
-
-		points_title = new Label("Points: ", Assets.style_font_32_orange);
-		points_title.setPosition(0, Assets.game_height);
-		points_title.setWidth(points_title.getStyle().font
-				.getBounds("Points: ").width);
-
-		points = new Label(String.valueOf(Assets.points_manager
-				.getTotalPoints()), Assets.prefs.getString("bg_color").equals(
-				"Black") ? Assets.style_font_32_white
-				: Assets.style_font_32_black);
-		points.setPosition(0 + points_title.getWidth(), Assets.game_height);
+//		time.setPosition(1 + level_title.getWidth() + level.getWidth()
+//				+ time_title.getWidth(),
+//				Gdx.graphics.getHeight() - time.getStyle().font.getLineHeight());
+//
+//		time_end = new Label("SECONDSLEFT", Assets.style_font_32_red);
+//		time_end.setWidth(time_end.getStyle().font.getBounds("SECONDSLEFT").width);
+//		time_end.setCenterPosition(
+//				1 + level_title.getWidth() + level.getWidth()
+//						+ time_title.getWidth() + time.getWidth()
+//						+ time_end.getWidth() / 2, time.getCenterY());
+//
+//		points_title = new Label("Points: ", Assets.style_font_32_orange);
+//		points_title.setPosition(0, Assets.game_height);
+//		points_title.setWidth(points_title.getStyle().font
+//				.getBounds("Points: ").width);
+//
+//		points = new Label(String.valueOf(Assets.points_manager
+//				.getTotalPoints()), Assets.prefs.getString("bg_color").equals(
+//				"Black") ? Assets.style_font_32_white
+//				: Assets.style_font_32_black);
+//		points.setPosition(0 + points_title.getWidth(), Assets.game_height);
 	}
 
 	public Manager getManager() {
@@ -274,45 +293,45 @@ public class GameScreen extends ScrotsScreen {
 			public void clicked(InputEvent event, float x, float y) {
 				if (Assets.prefs.getBoolean("sound_effs"))
 					Assets.button_pop.play();
-				gm.pauseGame();
-				pause_scroll.scrollTo(0, Assets.game_height * 2,
-						pause_scroll.getWidth(), pause_scroll.getHeight());
-				slots.setTouchable(Touchable.disabled);
-				for (int i = 0; i < powDots.size(); i++)
-					powDots.get(i).pauseTime();
+//				gm.pauseGame();
+//				pause_scroll.scrollTo(0, Assets.game_height * 2,
+//						pause_scroll.getWidth(), pause_scroll.getHeight());
+//				slots.setTouchable(Touchable.disabled);
+//				for (int i = 0; i < powDots.size(); i++)
+//					powDots.get(i).pauseTime();
+				
+				if(gm.getGameState() == Manager.game_state.ONGOING)
+				{
+					gm.setGameState(Manager.game_state.PAUSED);
+					gm.pauseGame();
+					pause_scroll.scrollTo(0, Assets.game_height * 2,
+					pause_scroll.getWidth(), pause_scroll.getHeight());
+				}
+				else if (gm.getGameState() == Manager.game_state.PAUSED)
+				{
+					gm.setGameState(Manager.game_state.ONGOING);
+					new Timer().scheduleTask(new Task() {
+						@Override
+						public void run() {
+							gm.startGame();
+							pause.setTouchable(Touchable.enabled);
+//							slots.setTouchable(Touchable.enabled);
+//							for (int i = 0; i < powDots.size(); i++)
+//								powDots.get(i).resumeTime();
+						}
+					}, 1);
+
+					pause_scroll.scrollTo(0, 0, pause_scroll.getWidth(),
+							pause_scroll.getHeight());
+				}
 			}
 		});
-		pause.setPosition(w - pause.getWidth(), Gdx.graphics.getHeight()
-				- pause.getHeight());
-
+		pause.setAlign(Align.left);
+		
 		TextButton pause_quit = new TextButton("", Assets.skin);
 		pause_quit.add(new Label("Quit", buttonStyle));
 		pause_quit.setBounds(pause_quit.getX(), pause_quit.getY(),
 				pause_quit.getWidth(), pause_quit.getHeight());
-
-		Label resume = new Label("Resume", buttonStyle);
-		resume.setBounds(resume.getX(), resume.getY(), resume.getWidth(),
-				resume.getHeight());
-		resume.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				pause.setTouchable(Touchable.disabled);
-
-				new Timer().scheduleTask(new Task() {
-					@Override
-					public void run() {
-						gm.startGame();
-						pause.setTouchable(Touchable.enabled);
-						slots.setTouchable(Touchable.enabled);
-						for (int i = 0; i < powDots.size(); i++)
-							powDots.get(i).resumeTime();
-					}
-				}, 1);
-
-				pause_scroll.scrollTo(0, 0, pause_scroll.getWidth(),
-						pause_scroll.getHeight());
-			}
-		});
 
 		Label quit = new Label("Quit", buttonStyle);
 		quit.setBounds(quit.getX(), quit.getY(), quit.getWidth(),
@@ -359,20 +378,19 @@ public class GameScreen extends ScrotsScreen {
 		addPowDots();
 		addPowDotsNum();
 
-		for (int i = 0; i < powDots.size(); i++) {
-			Dot powDot = powDots.get(i);
-			Label powDotNum = powDot_num.get(i);
-
-			dotTable.add(powDot).padLeft(back.getWidth() / 5)
-					.width(powDot.getWidth() / 3 * 2)
-					.height(Assets.game_height / powDots.size());
-			dotTable.add(powDotNum).padLeft(back.getWidth() / 5);
-			if (i != powDots.size() - 1)
-				dotTable.row();
-		}
+//		for (int i = 0; i < powDots.size(); i++) {
+//			Dot powDot = powDots.get(i);
+//			Label powDotNum = powDot_num.get(i);
+//
+//			dotTable.add(powDot).padLeft(back.getWidth() / 5)
+//					.width(powDot.getWidth() / 3 * 2)
+//					.height(Assets.game_height / powDots.size());
+//			dotTable.add(powDotNum).padLeft(back.getWidth() / 5);
+//			if (i != powDots.size() - 1)
+//				dotTable.row();
+//		}
 
 		ArrayList<Actor> opts = new ArrayList<Actor>();
-		opts.add(resume);
 		opts.add(quit);
 		opts.add(options);
 		opts.add(tutorial);
@@ -388,8 +406,8 @@ public class GameScreen extends ScrotsScreen {
 		}
 
 		pause_table.add().height(Assets.game_height * 2);
-		pause_table.add(dotTable).top();
-		pause_table.add(opTable).expandX().right().top();
+		pause_table.add(opTable).top();
+//		pause_table.add(dotTable).expandX().right().top();
 		pause_table.setVisible(false);
 
 		pause_scroll = new ScrollPane(pause_table);
@@ -399,6 +417,7 @@ public class GameScreen extends ScrotsScreen {
 		pause_scroll.layout();
 		pause_scroll.setFlickScroll(false);
 		pause_scroll.setScrollPercentY(100);
+		pause_scroll.setFadeScrollBars(false);
 
 		new Timer().scheduleTask(new Task() {
 			@Override
@@ -549,7 +568,7 @@ public class GameScreen extends ScrotsScreen {
 		} else {
 			level();
 			time();
-			points();
+//			points();
 
 			stage.draw();
 			if (curr_level.level_clear()) {
@@ -593,16 +612,19 @@ public class GameScreen extends ScrotsScreen {
 	}
 
 	private void addStageActors() {
-		stage.addActor(pause);
-		stage.addActor(level_title);
-		stage.addActor(level);
-		stage.addActor(time);
-		stage.addActor(time_title);
-		stage.addActor(points_title);
-		stage.addActor(points);
-		stage.addActor(time_end);
+//		stage.addActor(pause);
+//		stage.addActor(level_title);
+//		stage.addActor(level);
+//		stage.addActor(time);
+//		stage.addActor(time_title);
+//		stage.addActor(points_title);
+//		stage.addActor(points);
+//		stage.addActor(time_end);
 		stage.addActor(pause_scroll);
-		stage.addActor(slots);
+//		stage.addActor(slots);
+		stage.addActor(top_table);
+		stage.addActor(corner_table);
+		stage.addActor(side_table);
 	}
 
 	public void levelClear() {

@@ -117,11 +117,11 @@ public class ScrotsScreen implements Screen {
 	
 	@Override
 	public void render(float delta) {
-		if (Assets.prefs.getString("bg_color").equals("Black")) {
-			Gdx.gl.glClearColor(0, 0, 0, 0);
-		} else {
-			Gdx.gl.glClearColor(1, 1, 1, 1);
-		}
+//		if (Assets.prefs.getString("bg_color").equals("Black")) {
+//			Gdx.gl.glClearColor(0, 0, 0, 0);
+//		} else {
+//			Gdx.gl.glClearColor(1, 1, 1, 1);
+//		}
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		stage.act(Gdx.graphics.getDeltaTime());

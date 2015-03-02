@@ -110,6 +110,8 @@ public class Assets {
 
 	public static Texture slot_switch;
 	public static Texture pause_dot;
+	public static Texture lvl_bubble;
+	public static Texture time_bubble;
 
 	public static Image powDot1_image;
 	public static Image powDot2_image;
@@ -147,7 +149,6 @@ public class Assets {
 			gplay_manager = new GPlayManager();
 		else {
 			gplay_manager = json.fromJson(GPlayManager.class, text);
-			System.out.println(text);
 		}
 		
 		stats_manager = new StatisticsManager();
@@ -342,6 +343,9 @@ public class Assets {
 		pause_dot = new Texture(
 				Gdx.files.internal("data/dots/pause_dot.png"));
 		pause_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		
+		lvl_bubble = dwdPenDot_1;
+		time_bubble = pause_dot;
 	}
 
 	public static void dispose() {

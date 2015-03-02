@@ -23,6 +23,10 @@ public class Manager {
 	private Time time;
 	private Scoreboard sb;
 	private Stage stage;
+	
+	public enum game_state { ONGOING, PAUSED, GAME_OVER };
+	
+	public game_state current_state;
 
 	// Game mode
 	private int mode;
@@ -47,6 +51,17 @@ public class Manager {
 		slot_num = 0;
 		slot_width = 0;
 		isRainbowState = false;
+		current_state = game_state.ONGOING;
+	}
+	
+	public game_state getGameState()
+	{
+		return current_state;
+	}
+	
+	public void setGameState(game_state state)
+	{
+		current_state = state;
 	}
 	
 	public boolean isRainbowState()
