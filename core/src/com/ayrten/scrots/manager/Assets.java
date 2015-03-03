@@ -49,6 +49,7 @@ public class Assets {
 
 	// Style
 	public static LabelStyle style_font_64_black;
+	public static LabelStyle style_font_64_light_gray;
 	public static LabelStyle style_font_64_blue;
 	public static LabelStyle style_font_64_red;
 	public static LabelStyle style_font_64_orange;
@@ -56,6 +57,7 @@ public class Assets {
 	
 	public static LabelStyle style_font_32_white;
 	public static LabelStyle style_font_32_black;
+	public static LabelStyle style_font_32_light_gray;
 	public static LabelStyle style_font_32_red;
 	public static LabelStyle style_font_32_orange;
 	public static LabelStyle style_font_32_blue;
@@ -167,6 +169,10 @@ public class Assets {
 		style_font_64_black.font = font_64;
 		style_font_64_black.fontColor = Color.BLACK;
 
+		style_font_64_light_gray = new LabelStyle();
+		style_font_64_light_gray.font = font_64;
+		style_font_64_light_gray.fontColor = Color.LIGHT_GRAY;
+		
 		style_font_64_blue = new LabelStyle();
 		style_font_64_blue.font = font_64;
 		style_font_64_blue.fontColor = Color.valueOf("7A80E0");
@@ -190,6 +196,10 @@ public class Assets {
 		style_font_32_black = new LabelStyle();
 		style_font_32_black.font = font_32;
 		style_font_32_black.fontColor = Color.BLACK;
+		
+		style_font_32_light_gray = new LabelStyle();
+		style_font_32_light_gray.font = font_32;
+		style_font_32_light_gray.fontColor = Color.LIGHT_GRAY;
 
 		style_font_32_red = new LabelStyle();
 		style_font_32_red.font = font_32;
