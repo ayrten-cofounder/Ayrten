@@ -506,6 +506,10 @@ public class GameScreen extends ScrotsScreen {
 		powDot_num.add(powDot_1_num);
 		powDot_num.add(powDot_2_num);
 		powDot_num.add(powDot_3_num);
+		
+		for (int i = 0; i < powDots.size(); i++) {
+			powDots.get(i).setNumLabel(powDot_num.get(i));
+		}
 	}
 
 	public void setHighScoreName(String name) {

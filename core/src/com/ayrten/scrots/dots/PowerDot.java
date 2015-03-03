@@ -53,11 +53,11 @@ public class PowerDot extends Dot {
 
 	public void setNumLabel(Label label) {
 		num_label = label;
-		num_label.setText(String.valueOf(num));
+		updateNumLabel();
 	}
 
 	public void updateNumLabel() {
-		num_label.setText(String.valueOf(num));
+		num_label.setText("x" + String.valueOf(num));
 	}
 
 	@Override
