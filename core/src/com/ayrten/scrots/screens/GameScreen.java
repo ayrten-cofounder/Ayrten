@@ -26,6 +26,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
@@ -130,7 +131,7 @@ public class GameScreen extends ScrotsScreen {
 		top_table.setWidth(Assets.width);
 		top_table.setHeight(Assets.height - Assets.game_height);
 		top_table.align(Align.left);
-		top_table.add(pause).left();
+		top_table.add(pause).width(pause.getWidth()/5 * 4).height(pause.getWidth()/5 * 4).padLeft(pause.getWidth()/5);
 		
 		corner_table = new Table(Assets.skin);
 		corner_table.setHeight(top_table.getHeight()/2 * 3);
@@ -159,7 +160,45 @@ public class GameScreen extends ScrotsScreen {
 		
 		corner_table.stack(time_table, lvl_table).height(corner_table.getHeight()).width(corner_table.getWidth());
 		
-		side_table = new Table(Assets.skin);
+		side_table = new Table(Assets.skin_window);
+		side_table.setHeight(Assets.height - corner_table.getHeight());
+		side_table.setWidth(pause.getWidth());
+		side_table.setPosition(Assets.width - side_table.getWidth(), 0);
+		
+		boolean use_default_height = false;
+		boolean should_check = true;
+		for (int i = 0; i < powDots.size(); i++) {
+			Dot powDot = powDots.get(i);
+			Label powDotNum = powDot_num.get(i);
+			
+			float width, height;
+			if(powDot.getWidth() > side_table.getWidth())
+				width = side_table.getWidth()/5 * 4;
+			else
+				width = powDot.getWidth();
+			
+			if(should_check)
+			{
+				if(side_table.getHeight() / powDots.size() > width)
+					use_default_height = true;
+				should_check = false;
+			}
+			
+			if(use_default_height)
+				height = width;
+			else
+				height = powDot.getHeight();
+			
+			temp = new Table(Assets.skin);
+			temp.add(powDot).width(side_table.getWidth()/5 * 4).height(side_table.getWidth()/5 * 4);
+			temp.add(powDotNum).width(side_table.getWidth()/5).top();
+
+			side_table.add(temp).width(side_table.getWidth())
+					.height(height).left();
+			if (i != powDots.size() - 1)
+				side_table.row();
+		}
+//	}
 
 //		slots = new Table(Assets.skin);
 //		slots.left();
@@ -292,14 +331,7 @@ public class GameScreen extends ScrotsScreen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				if (Assets.prefs.getBoolean("sound_effs"))
-					Assets.button_pop.play();
-//				gm.pauseGame();
-//				pause_scroll.scrollTo(0, Assets.game_height * 2,
-//						pause_scroll.getWidth(), pause_scroll.getHeight());
-//				slots.setTouchable(Touchable.disabled);
-//				for (int i = 0; i < powDots.size(); i++)
-//					powDots.get(i).pauseTime();
-				
+					Assets.button_pop.play();				
 				if(gm.getGameState() == Manager.game_state.ONGOING)
 				{
 					gm.setGameState(Manager.game_state.PAUSED);
@@ -457,19 +489,18 @@ public class GameScreen extends ScrotsScreen {
 	}
 
 	private void addPowDotsNum() {
+		LabelStyle dot_count_style = new LabelStyle();
+		dot_count_style.font = Assets.font_16;
+		dot_count_style.fontColor = Assets.prefs.getString("bg_color")
+				.equals("Black") ? Color.WHITE : Color.BLACK;
+		
 		powDot_num = new ArrayList<Label>();
-		Label powDot_1_num = new Label("0", Assets.prefs.getString("bg_color")
-				.equals("Black") ? Assets.style_font_64_white
-				: Assets.style_font_64_black);
+		Label powDot_1_num = new Label("x0", dot_count_style);
 		// powDot_1_num.setWidth(powDot_1_num.getStyle().font.getBounds("99").width);
-		Label powDot_2_num = new Label("0", Assets.prefs.getString("bg_color")
-				.equals("Black") ? Assets.style_font_64_white
-				: Assets.style_font_64_black);
+		Label powDot_2_num = new Label("x0", dot_count_style);
 		powDot_2_num
 				.setWidth(powDot_2_num.getStyle().font.getBounds("99").width);
-		Label powDot_3_num = new Label("0", Assets.prefs.getString("bg_color")
-				.equals("Black") ? Assets.style_font_64_white
-				: Assets.style_font_64_black);
+		Label powDot_3_num = new Label("x0", dot_count_style);
 		powDot_3_num
 				.setWidth(powDot_3_num.getStyle().font.getBounds("99").width);
 		powDot_num.add(powDot_1_num);
