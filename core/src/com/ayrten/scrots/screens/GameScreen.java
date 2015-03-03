@@ -409,6 +409,8 @@ public class GameScreen extends ScrotsScreen {
 
 		addPowDots();
 		addPowDotsNum();
+		for(int i = 0; i < powDots.size(); i++)
+			powDots.get(i).setNumLabel(powDot_num.get(i));
 
 //		for (int i = 0; i < powDots.size(); i++) {
 //			Dot powDot = powDots.get(i);
