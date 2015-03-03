@@ -9,12 +9,83 @@ public class PowerDotManager {
 		public int magnet_dot = 0;
 		public int invincible_dot = 0;
 		public int rainbow_dot = 0;
+
+		// 0 == locked :: 1 == unlocked
+		public int magnet_dot_unlock = 0;
+		public int invincible_dot_unlock = 0;
+		public int rainbow_dot_unlock = 0;
 	}
 
 	public Dots dots;
 
 	public PowerDotManager() {
 		dots = getPowerDots();
+	}
+
+	public boolean isMagnetDotUnlocked() {
+		String file = Assets.readFile(this.file);
+
+		if (!file.isEmpty()) {
+			Json json = new Json();
+			Dots dots = json.fromJson(Dots.class, file);
+
+			return dots.magnet_dot_unlock == 1 ? true : false;
+		}
+
+		return false;
+	}
+	
+	public boolean isInvincibleDotUnlocked() {
+		String file = Assets.readFile(this.file);
+
+		if (!file.isEmpty()) {
+			Json json = new Json();
+			Dots dots = json.fromJson(Dots.class, file);
+
+			return dots.invincible_dot_unlock == 1 ? true : false;
+		}
+
+		return false;
+	}
+	
+	public boolean isRainbowDotUnlocked() {
+		String file = Assets.readFile(this.file);
+
+		if (!file.isEmpty()) {
+			Json json = new Json();
+			Dots dots = json.fromJson(Dots.class, file);
+
+			return dots.rainbow_dot_unlock == 1 ? true : false;
+		}
+
+		return false;
+	}
+
+	public void unlockMagnetDot() {
+		Dots dots = getPowerDots();
+		Json json = new Json();
+
+		dots.magnet_dot_unlock = 1;
+
+		Assets.writeFile(this.file, json.toJson(dots));
+	}
+
+	public void unlockInvincibleDot() {
+		Dots dots = getPowerDots();
+		Json json = new Json();
+
+		dots.invincible_dot_unlock = 1;
+
+		Assets.writeFile(this.file, json.toJson(dots));
+	}
+
+	public void unlockRainbowDot() {
+		Dots dots = getPowerDots();
+		Json json = new Json();
+
+		dots.rainbow_dot_unlock = 1;
+
+		Assets.writeFile(this.file, json.toJson(dots));
 	}
 
 	public int getMagnetDots() {
@@ -91,12 +162,10 @@ public class PowerDotManager {
 			Dots dots = json.fromJson(Dots.class, file);
 
 			return dots;
-		}
-		else
-		{
+		} else {
 			Json json = new Json();
 			Dots dots = new Dots();
-			
+
 			Assets.writeFile(this.file, json.toJson(dots));
 		}
 
