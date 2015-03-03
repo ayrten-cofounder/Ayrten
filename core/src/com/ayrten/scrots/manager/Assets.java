@@ -23,6 +23,7 @@ import com.badlogic.gdx.utils.Json;
 public class Assets {
 	// Height and Width
 	public static float game_height;
+	public static float powerdot_thresh;
 	public static int height;
 	public static int width;
 	public static final float TIME_ADD = (float) 2.6; // seconds
@@ -138,6 +139,7 @@ public class Assets {
 		height = Gdx.graphics.getHeight();
 		width = Gdx.graphics.getWidth();
 		game_height = height - font_32.getLineHeight() * 2;
+		powerdot_thresh = height - game_height;
 		
 		// Managers
 		power_dot_manager = new PowerDotManager();

@@ -1,5 +1,6 @@
 package com.ayrten.scrots.dots;
 
+import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -22,23 +23,35 @@ public class PowerDot extends Dot {
 	protected int num = 0; // The amount of power dots the user has
 
 	protected InputListener powerdot_listener;
+	protected float origX, origY;
+
 
 	public PowerDot(Texture dot, Manager gm, Sound pop) {
 		super(dot, gm, pop);
-
 		timer = new Timer();
-		powerdot_listener = new InputListener() {
+
+		powerdot_listener = new InputListener(){
+			@Override
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
+				origX = event.getTarget().getX();
+				origY = event.getTarget().getY();
 				return true;
 			}
-
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
-
-				if (num > 0) {
+			
+			@Override
+			public void touchDragged(InputEvent event, float x, float y, int pointer) {
+				if(event.getTarget().getX() + x < origX)
+					event.getTarget().setX(event.getTarget().getX() + x);
+			}
+			
+			@Override
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				super.touchUp(event, x, y, pointer, button);
+				// If x position exceeds a threshold, then activate the effect.
+				if (origX - event.getTarget().getX() > Assets.powerdot_thresh && num > 0) 
 					touchedByAnAngel();
-				}
+				event.getTarget().setPosition(origX, origY);
 			}
 		};
 
@@ -53,11 +66,11 @@ public class PowerDot extends Dot {
 
 	public void setNumLabel(Label label) {
 		num_label = label;
-		num_label.setText(String.valueOf(num));
+		num_label.setText("x" + String.valueOf(num));
 	}
 
 	public void updateNumLabel() {
-		num_label.setText(String.valueOf(num));
+		num_label.setText("x" + String.valueOf(num));
 	}
 
 	@Override
