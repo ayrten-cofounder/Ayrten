@@ -1,7 +1,6 @@
 package com.ayrten.scrots.scoreboard;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
+import com.ayrten.scrots.manager.Assets;
 import com.badlogic.gdx.utils.Json;
 
 public class Scoreboard {
@@ -28,7 +27,7 @@ public class Scoreboard {
 	}
 
 	public int getLowestHighScore() {
-		String file = readFile(this.file);
+		String file = Assets.readFile(this.file);
 
 		if (!file.isEmpty()) {
 			Json json = new Json();
@@ -41,7 +40,7 @@ public class Scoreboard {
 	}
 
 	public Scores getAllScores() {
-		String file = readFile(this.file);
+		String file = Assets.readFile(this.file);
 
 		if (!file.isEmpty()) {
 			Json json = new Json();
@@ -108,7 +107,7 @@ public class Scoreboard {
 			scores.fifth_name = name;
 		}
 		
-		writeFile(this.file, json.toJson(scores));
+		Assets.writeFile(this.file, json.toJson(scores));
 	}
 	
 	public void clearScoreboard()
@@ -116,23 +115,6 @@ public class Scoreboard {
 		Scores scores = new Scores();
 		Json json = new Json();
 		
-		writeFile(this.file, json.toJson(scores));
-	}
-
-	public static void writeFile(String fileName, String s) {
-		FileHandle file = Gdx.files.local(fileName);
-		file.writeString(com.badlogic.gdx.utils.Base64Coder.encodeString(s),
-				false);
-	}
-
-	public static String readFile(String fileName) {
-		FileHandle file = Gdx.files.local(fileName);
-		if (file != null && file.exists()) {
-			String s = file.readString();
-			if (!s.isEmpty()) {
-				return com.badlogic.gdx.utils.Base64Coder.decodeString(s);
-			}
-		}
-		return "";
+		Assets.writeFile(this.file, json.toJson(scores));
 	}
 }

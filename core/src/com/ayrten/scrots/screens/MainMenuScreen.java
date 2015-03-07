@@ -31,6 +31,7 @@ public class MainMenuScreen extends ScrotsScreen
 	protected ShopScreen		shop_screen;
 	protected OptionsScreen 	options_screen;
 	protected ContactScreen		contact_screen;
+	protected Label gplay_log;
 
 	public NormalScoreboard nsb;
 
@@ -67,6 +68,31 @@ public class MainMenuScreen extends ScrotsScreen
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				Assets.game.setScreen(shop_screen);
+//				Assets.game.iap_inft.purchase(IAP.ITEM_1, new IAPInterface(){
+//
+//					@Override
+//					public void purchaseFailed() {
+//						// TODO Auto-generated method stub
+//						
+//					}
+//
+//					@Override
+//					public void purchaseSuccess() {
+//						// TODO Auto-generated method stub
+//						
+//					}
+//
+//					@Override
+//					public void consumeFailed() {
+//						// TODO Auto-generated method stub
+//						
+//					}
+//
+//					@Override
+//					public void consumeSuccess() {
+//						// TODO Auto-generated method stub
+//						
+//					}});
 			}
 		});
 		
@@ -165,6 +191,18 @@ public class MainMenuScreen extends ScrotsScreen
 				Assets.game.setScreen(others_screen);
 			}
 		});
+		
+		Label gplay_log = new Label((Assets.game.apk_intf.is_gplay_signedin()) ? "Logout" : "Sign in", style);
+		gplay_log.setBounds(gplay_log.getX(), gplay_log.getY(), gplay_log.getWidth(), gplay_log.getHeight());
+		gplay_log.addListener(new ClickListener(){
+			public void clicked(InputEvent event, float x, float y) {
+				if(Assets.game.apk_intf.is_gplay_signedin())
+					Assets.game.apk_intf.gplay_logout();
+				else
+					Assets.game.apk_intf.gplay_signin();
+			}
+		});
+		gplay_log.setPosition(0, Assets.height - gplay_log.getStyle().font.getLineHeight());
 
 		Manager gm = new Manager(0, Gdx.graphics.getWidth(),
 				Gdx.graphics.getHeight(), stage);
@@ -212,6 +250,14 @@ public class MainMenuScreen extends ScrotsScreen
 		main_table.add(lowerTable).height(Assets.height/2).width(Assets.width);
 		
 		stage.addActor(main_table);
+		stage.addActor(gplay_log);
+	}
+	
+	public void update_gplay_status(boolean isConnected) {
+		if(isConnected)
+			gplay_log.setText("Logout");
+		else
+			gplay_log.setText("Sign in");
 	}
 
 	@Override

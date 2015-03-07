@@ -81,7 +81,7 @@ public class InAppPurchase {
 		};
 
 		mHelper.launchPurchaseFlow(activity, item, REQUEST_CODE,
-				mPurchaseFinishedListener, base64EncodedPublicKey);
+				mPurchaseFinishedListener, "testing");
 	}
 
 	public void consumeItem(Purchase purchase, final IAPInterface callback) {

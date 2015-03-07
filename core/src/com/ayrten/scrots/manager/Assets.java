@@ -1,8 +1,7 @@
 package com.ayrten.scrots.manager;
 
 import com.ayrten.scrots.screens.ScrotsGame;
-import com.ayrten.scrots.shop.PointsManager;
-import com.ayrten.scrots.shop.PowerDotManager;
+import com.ayrten.scrots.statistics.StatisticsManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
@@ -19,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
+import com.badlogic.gdx.utils.Json;
 
 public class Assets {
 	// Height and Width
@@ -27,10 +27,13 @@ public class Assets {
 	public static int width;
 	public static final float TIME_ADD = (float) 2.6; // seconds
 	public static final float TIME_OFF = (float) -5.0;
+	public static final String GPLAY_FILE = "gplay_status.txt";
 	
 	// Shop
 	public static PowerDotManager power_dot_manager;
 	public static PointsManager points_manager;
+	public static GPlayManager gplay_manager;
+	public static StatisticsManager stats_manager;
 
 	// Drawables
 	public static NinePatchDrawable gray_box;
@@ -130,9 +133,18 @@ public class Assets {
 		width = Gdx.graphics.getWidth();
 		game_height = height - font_32.getLineHeight() * 2;
 		
-		// Shop
+		// Managers
 		power_dot_manager = new PowerDotManager();
 		points_manager = new PointsManager();
+		
+		Json json = new Json();
+		String text = Assets.readFile(GPLAY_FILE);
+		if(text.isEmpty())
+			gplay_manager = new GPlayManager();
+		else
+			gplay_manager = json.fromJson(GPlayManager.class, text);
+		
+		stats_manager = new StatisticsManager();
 
 		// Drawable
 		gray_box = new NinePatchDrawable(new NinePatch(new Texture(
@@ -355,6 +367,9 @@ public class Assets {
 		// Make the changes persist. (ie. saves an XML file for Windows in
 		// /Users/<user>/.prefs/
 		prefs.flush();
+		
+		Json json = new Json();
+		writeFile(GPLAY_FILE, json.toJson(gplay_manager));
 	}
 
 	private static BitmapFont generate_BitMapFont(int fontSize, float font_ratio) {
@@ -369,5 +384,22 @@ public class Assets {
 		BitmapFont font = font_gen.generateFont(params);
 		font_gen.dispose();
 		return (font);
+	}
+	
+	public static void writeFile(String fileName, String s) {
+		FileHandle file = Gdx.files.local(fileName);
+		file.writeString(com.badlogic.gdx.utils.Base64Coder.encodeString(s),
+				false);
+	}
+
+	public static String readFile(String fileName) {
+		FileHandle file = Gdx.files.local(fileName);
+		if (file != null && file.exists()) {
+			String s = file.readString();
+			if (!s.isEmpty()) {
+				return com.badlogic.gdx.utils.Base64Coder.decodeString(s);
+			}
+		}
+		return "";
 	}
 }

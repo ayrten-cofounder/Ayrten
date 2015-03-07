@@ -37,6 +37,8 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface, 
 
 	private final static int BLACK = 1;
 	private final static int WHITE = 0;
+	
+	protected ScrotsGame scrots;
 
 	protected Handler handler = new Handler() {
 		@Override
@@ -81,9 +83,11 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface, 
 		gameOverDialog = new GameOverDialog(this);
 		AdView gameOver_dialog_adView = (AdView) gameOverDialog
 				.findViewById(R.id.adView);
+		
+		scrots = new ScrotsGame(this, this);
 
 		// Create the libgdx View
-		View gameView = initializeForView(new ScrotsGame(this, this), config);
+		View gameView = initializeForView(scrots, config);
 
 		LayoutInflater inflater = LayoutInflater.from(this);
 		View inflatedLayout = inflater.inflate(R.layout.fragment_ad, null,
@@ -263,6 +267,14 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface, 
 	}
 
 	@Override
+	public void gplay_signin() {}
+
+	@Override
+	public void gplay_logout() {}
+
+	@Override
+	public boolean is_gplay_signedin() { return true; }
+	
 	public void purchase(String item, IAPInterface callback)
 	{
 		iap.purchase(item, callback);

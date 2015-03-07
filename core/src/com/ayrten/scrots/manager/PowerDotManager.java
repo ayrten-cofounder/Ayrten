@@ -1,7 +1,5 @@
-package com.ayrten.scrots.shop;
+package com.ayrten.scrots.manager;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 
 public class PowerDotManager {
@@ -20,7 +18,7 @@ public class PowerDotManager {
 	}
 
 	public int getMagnetDots() {
-		String file = readFile(this.file);
+		String file = Assets.readFile(this.file);
 
 		if (!file.isEmpty()) {
 			Json json = new Json();
@@ -33,7 +31,7 @@ public class PowerDotManager {
 	}
 
 	public int getInvincibleDots() {
-		String file = readFile(this.file);
+		String file = Assets.readFile(this.file);
 
 		if (!file.isEmpty()) {
 			Json json = new Json();
@@ -46,7 +44,7 @@ public class PowerDotManager {
 	}
 
 	public int getRainbowDots() {
-		String file = readFile(this.file);
+		String file = Assets.readFile(this.file);
 
 		if (!file.isEmpty()) {
 			Json json = new Json();
@@ -64,7 +62,7 @@ public class PowerDotManager {
 
 		dots.magnet_dot = amount;
 
-		writeFile(this.file, json.toJson(dots));
+		Assets.writeFile(this.file, json.toJson(dots));
 	}
 
 	public void setInvincibleDotAmount(int amount) {
@@ -73,7 +71,7 @@ public class PowerDotManager {
 
 		dots.invincible_dot = amount;
 
-		writeFile(this.file, json.toJson(dots));
+		Assets.writeFile(this.file, json.toJson(dots));
 	}
 
 	public void setRainbowDotAmount(int amount) {
@@ -82,11 +80,11 @@ public class PowerDotManager {
 
 		dots.rainbow_dot = amount;
 
-		writeFile(this.file, json.toJson(dots));
+		Assets.writeFile(this.file, json.toJson(dots));
 	}
 
 	public Dots getPowerDots() {
-		String file = readFile(this.file);
+		String file = Assets.readFile(this.file);
 
 		if (!file.isEmpty()) {
 			Json json = new Json();
@@ -99,7 +97,7 @@ public class PowerDotManager {
 			Json json = new Json();
 			Dots dots = new Dots();
 			
-			writeFile(this.file, json.toJson(dots));
+			Assets.writeFile(this.file, json.toJson(dots));
 		}
 
 		return new Dots();
@@ -109,23 +107,6 @@ public class PowerDotManager {
 		Dots dots = new Dots();
 		Json json = new Json();
 
-		writeFile(this.file, json.toJson(dots));
-	}
-
-	public static void writeFile(String fileName, String s) {
-		FileHandle file = Gdx.files.local(fileName);
-		file.writeString(com.badlogic.gdx.utils.Base64Coder.encodeString(s),
-				false);
-	}
-
-	public static String readFile(String fileName) {
-		FileHandle file = Gdx.files.local(fileName);
-		if (file != null && file.exists()) {
-			String s = file.readString();
-			if (!s.isEmpty()) {
-				return com.badlogic.gdx.utils.Base64Coder.decodeString(s);
-			}
-		}
-		return "";
+		Assets.writeFile(this.file, json.toJson(dots));
 	}
 }

@@ -20,5 +20,6 @@ public class RegDot2 extends Dot
 		
 		// Lose time
 		gm.addTime(Assets.TIME_ADD);
+		Assets.stats_manager.stats.reg_dot_2.popped++;
 	}
 }
