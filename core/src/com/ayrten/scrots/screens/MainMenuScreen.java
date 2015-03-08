@@ -2,6 +2,7 @@ package com.ayrten.scrots.screens;
 
 import java.util.ArrayList;
 
+import com.ayrten.scrots.dots.RadialSprite;
 import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.game.MainMenuBackgroundGameMode;
 import com.ayrten.scrots.manager.Assets;
@@ -10,6 +11,8 @@ import com.ayrten.scrots.scoreboard.NormalScoreboard;
 import com.ayrten.scrots.scoreboard.Scoreboard;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -31,7 +34,7 @@ public class MainMenuScreen extends ScrotsScreen
 	protected Label gplay_log;
 
 	public NormalScoreboard nsb;
-
+	
 	// public ChallengeScoreboard csb;
 
 	public MainMenuScreen() {
@@ -219,25 +222,11 @@ public class MainMenuScreen extends ScrotsScreen
 		
 		Assets.game.setScreen(tutorial_screen);
 	}
-	
-//	public void update_gplay_status(boolean isConnected) {
-//		if(isConnected)
-//			gplay_log.setText("Logout");
-//		else
-//			gplay_log.setText("Sign in");
-//	}
 
 	@Override
 	public void show() {
 		super.show();
-//		Assets.game.apk_intf.shouldShowAd(true);
 		Assets.game.apk_intf.setGPlayButton(gplay_log);
 		gplay_log.setText((Assets.game.apk_intf.is_gplay_signedin()) ? "Logout" : "Sign in");
-	}
-
-	@Override
-	public void hide() {
-		super.hide();
-//		Assets.game.apk_intf.shouldShowAd(false);
 	}
 }
