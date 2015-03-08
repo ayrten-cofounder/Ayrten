@@ -77,17 +77,16 @@ public class MessageScreen extends ScrotsScreen {
 				}
 			}
 		});
-		
+
 		Label previous = new Label("Prev", Assets.style_font_64_orange);
 		previous.setBounds(previous.getX(), previous.getY(),
 				previous.getWidth(), previous.getHeight());
 		previous.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				if (message_scroll.getScrollX() != 0)
-				{
+				if (message_scroll.getScrollX() != 0) {
 					next.setText("Next");
-					
+
 					message_scroll.scrollTo(message_scroll.getScrollX()
 							- Assets.width, 0, message_scroll.getWidth(),
 							message_scroll.getHeight());
@@ -173,6 +172,51 @@ public class MessageScreen extends ScrotsScreen {
 			Table temp = new Table(Assets.skin);
 			temp.add(actor_list.get(i));
 			newTable.add(temp).width(Assets.width / 2);
+		}
+
+		table.add(message).width(Assets.game_height);
+		table.row();
+		table.add(newTable);
+
+		stage.addActor(background_overlay);
+		stage.addActor(table);
+		Assets.game.apk_intf.shouldShowAd(true);
+	}
+
+	public void makeSingleButtonWindow(String title, String positive_title,
+			final ButtonInterface yes_interface) {
+		message = new Label(title, Assets.style_font_64_white);
+		message.setPosition((Assets.width / 2) - (message.getWidth() / 2),
+				Assets.height / 2);
+		message.setAlignment(Align.center);
+		message.setWrap(true);
+
+		positive_button = new Label(positive_title, Assets.style_font_64_orange);
+		positive_button.setPosition(Assets.width / 5 * 4, (Assets.height / 2)
+				- message.getHeight());
+		positive_button.setAlignment(Align.center);
+
+		positive_button.addListener(new InputListener() {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				return true;
+			}
+
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
+				removeActors();
+				yes_interface.buttonPressed();
+			}
+		});
+
+		Table newTable = new Table(Assets.skin);
+		ArrayList<Actor> actor_list = new ArrayList<Actor>();
+		actor_list.add(positive_button);
+
+		for (int i = 0; i < actor_list.size(); i++) {
+			Table temp = new Table(Assets.skin);
+			temp.add(actor_list.get(i));
+			newTable.add(temp).width(Assets.width);
 		}
 
 		table.add(message).width(Assets.game_height);

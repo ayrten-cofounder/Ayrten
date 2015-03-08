@@ -30,6 +30,11 @@ public class Assets {
 	public static final float TIME_OFF = (float) -5.0;
 	public static final String GPLAY_FILE = "gplay_status.txt";
 	
+	// Power Dot Descriptions
+	public static final String magnet_dot_description = "Attracts negative dots for 8 seconds.";
+	public static final String invincible_dot_description = "Negative dots won't affect you for 5 seconds.";
+	public static final String rainbow_dot_description = "Removes negative dots for 5 seconds.";
+	
 	// Shop
 	public static PowerDotManager power_dot_manager;
 	public static PointsManager points_manager;
