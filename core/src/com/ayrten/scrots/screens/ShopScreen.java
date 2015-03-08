@@ -4,233 +4,36 @@ import java.util.ArrayList;
 
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.ButtonInterface;
+import com.ayrten.scrots.shop.ShopDot;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
 public class ShopScreen extends ScrotsScreen {
+	private static final int SPACE = 50;
+
+	protected PremiumShopScreen premium_shop_screen;
+
 	private int points = 0;
 	private Table table;
+	private Table bottom_bar_table;
 	private Label points_label;
+	private Label total_price_label;
+	private Label buy_label;
+	private Label clear_label;
+	private Label premium_label;
 
-	private enum DOT_TYPE {
-		MAGNET(150), INVINCIBLE(250), RAINBOW(350);
-
-		private int price = 0;
-
-		private DOT_TYPE(int p) {
-			price = p;
-		}
-
-		protected int price() {
-			return price;
-		}
-	}
-
-	private enum DOT_UNLOCK {
-		MAGNET(500), INVINCIBLE(850), RAINBOW(1050);
-
-		private int price = 0;
-
-		private DOT_UNLOCK(int p) {
-			price = p;
-		}
-
-		protected int price() {
-			return price;
-		}
-	}
-
-	private class Dot {
-		private Image dotImage;
-		private boolean unlocked;
-
-		private Label priceLabel;
-		private Label buyLabel;
-		private DOT_TYPE dotType;
-
-		private Label unlockPriceLabel;
-		private Label unlockBuyLabel;
-		private DOT_UNLOCK dotUnlock;
-
-		private InputListener buyDotListener;
-		private InputListener buyUnlockDotListener;
-
-		/*
-		 * 
-		 */
-		public void setBuyLabelListener(InputListener listener) {
-			buyDotListener = listener;
-			buyLabel.addListener(buyDotListener);
-		}
-
-		public void setUnlockLabelListener(InputListener listener) {
-			buyUnlockDotListener = listener;
-			unlockBuyLabel.addListener(buyUnlockDotListener);
-		}
-
-		protected Dot(DOT_TYPE dotType) {
-			this.dotType = dotType;
-
-			buyDotListener = new InputListener() {
-			};
-			buyUnlockDotListener = new InputListener() {
-			};
-
-			switch (dotType) {
-			case INVINCIBLE:
-				dotImage = new Image(Assets.invincible_dot);
-				dotUnlock = DOT_UNLOCK.INVINCIBLE;
-				unlocked = Assets.power_dot_manager.isInvincibleDotUnlocked();
-				break;
-
-			case MAGNET:
-				dotImage = new Image(Assets.magnet_dot);
-				dotUnlock = DOT_UNLOCK.MAGNET;
-				unlocked = Assets.power_dot_manager.isMagnetDotUnlocked();
-				break;
-
-			case RAINBOW:
-				dotImage = new Image(Assets.rainbow_dot);
-				dotUnlock = DOT_UNLOCK.RAINBOW;
-				unlocked = Assets.power_dot_manager.isRainbowDotUnlocked();
-				break;
-			}
-
-			if (unlocked) {
-				setUnlockedLabels();
-			} else {
-				setLockedLabels();
-			}
-
-		}
-
-		protected void buyDot(int quantity) {
-			int cost = dotType.price() * quantity;
-
-			if (points < cost) {
-				notEnoughPoints();
-
-			} else {
-
-				Assets.points_manager.addPoints(-(cost));
-
-				switch (dotType) {
-				case INVINCIBLE:
-					Assets.power_dot_manager
-							.setInvincibleDotAmount(Assets.power_dot_manager
-									.getInvincibleDots() + quantity);
-					break;
-				case MAGNET:
-					Assets.power_dot_manager
-							.setMagnetDotAmount(Assets.power_dot_manager
-									.getMagnetDots() + quantity);
-					break;
-				case RAINBOW:
-					Assets.power_dot_manager
-							.setRainbowDotAmount(Assets.power_dot_manager
-									.getRainbowDots() + quantity);
-					break;
-				}
-
-				updatePoints();
-
-			}
-		}
-
-		protected void unlockDot() {
-			int cost = dotUnlock.price();
-
-			if (points < cost) {
-				notEnoughPoints();
-
-			} else {
-
-				Assets.points_manager.addPoints(-(cost));
-
-				switch (dotUnlock) {
-				case INVINCIBLE:
-					Assets.power_dot_manager.unlockInvincibleDot();
-					break;
-				case MAGNET:
-					Assets.power_dot_manager.unlockMagnetDot();
-					break;
-				case RAINBOW:
-					Assets.power_dot_manager.unlockRainbowDot();
-					break;
-				}
-
-				updatePoints();
-				setUnlockedLabels();
-
-			}
-		}
-
-		protected void setLockedLabels() {
-			priceLabel = new Label(String.valueOf(dotType.price()),
-					Assets.style_font_32_light_gray);
-			buyLabel = new Label("Buy", Assets.style_font_32_light_gray);
-
-			buyLabel.setTouchable(Touchable.disabled);
-
-			unlockPriceLabel = new Label(
-					String.valueOf(dotUnlock.price()),
-					Assets.prefs.getString("bg_color").equals("Black") ? Assets.style_font_32_white
-							: Assets.style_font_32_black);
-			unlockBuyLabel = new Label("Unlock", Assets.prefs.getString(
-					"bg_color").equals("Black") ? Assets.style_font_32_white
-					: Assets.style_font_32_black);
-
-			unlockBuyLabel.addListener(buyUnlockDotListener);
-		}
-
-		protected void setUnlockedLabels() {
-			priceLabel = new Label(
-					String.valueOf(dotType.price()),
-					Assets.prefs.getString("bg_color").equals("Black") ? Assets.style_font_32_white
-							: Assets.style_font_32_black);
-			buyLabel = new Label("Buy", Assets.prefs.getString("bg_color")
-					.equals("Black") ? Assets.style_font_32_white
-					: Assets.style_font_32_black);
-
-			buyLabel.removeListener(buyDotListener);
-			buyLabel.addListener(buyDotListener);
-
-			unlockPriceLabel = new Label(String.valueOf(dotUnlock.price()),
-					Assets.style_font_32_light_gray);
-			unlockBuyLabel = new Label("Unlock",
-					Assets.style_font_32_light_gray);
-
-			unlockBuyLabel.setTouchable(Touchable.disabled);
-		}
-
-		protected Image getDotImage() {
-			return dotImage;
-		}
-
-		protected Label getPriceLabel() {
-			return priceLabel;
-		}
-
-		protected Label getBuyLabel() {
-			return buyLabel;
-		}
-
-		protected Label getUnlockPriceLabel() {
-			return unlockPriceLabel;
-		}
-
-		protected Label getUnlockBuyLabel() {
-			return unlockBuyLabel;
-		}
-	}
+	private ArrayList<ShopDot> dots;
+	private int total_price = 0;
 
 	public ShopScreen(Screen bscreen) {
 		super(bscreen, true);
+
+		premium_shop_screen = new PremiumShopScreen(this);
 
 		table = new Table();
 		table.setFillParent(true);
@@ -240,10 +43,16 @@ public class ShopScreen extends ScrotsScreen {
 
 		setupStage();
 		setUpShopTable();
+		setUpShopScreen();
 		updatePoints();
+
+		stage.addActor(points_label);
+		stage.addActor(premium_label);
+		stage.addActor(bottom_bar_table);
+		stage.addActor(table);
 	}
 
-	private void setBackgroundWindow() {
+	private void notEnoughtPointsWindow() {
 		MessageScreen message = new MessageScreen(stage);
 
 		message.makeWindow(
@@ -252,89 +61,269 @@ public class ShopScreen extends ScrotsScreen {
 
 					@Override
 					public void buttonPressed() {
-						// User clicked yes
-						// Go to purchase shop
+						goToPremiumShop();
 					}
 				}, new ButtonInterface() {
 
 					@Override
 					public void buttonPressed() {
-						// User clicked no
 					}
 				});
 	}
 
-	private void updatePoints() {
+	private void confirmBuyWindow() {
+		MessageScreen message = new MessageScreen(stage);
+
+		message.makeWindow("Are you sure?", "Yes", "No", new ButtonInterface() {
+
+			@Override
+			public void buttonPressed() {
+				buy();
+			}
+		}, new ButtonInterface() {
+
+			@Override
+			public void buttonPressed() {
+			}
+		});
+	}
+
+	private void areYouAMinorWindow() {
+		MessageScreen message = new MessageScreen(stage);
+
+		message.makeWindow("Are you a minor?", "Yes", "No",
+				new ButtonInterface() {
+
+					@Override
+					public void buttonPressed() {
+						havePermissionWindow();
+					}
+				}, new ButtonInterface() {
+
+					@Override
+					public void buttonPressed() {
+						Assets.game.setScreen(premium_shop_screen);
+					}
+				});
+	}
+
+	private void havePermissionWindow() {
+		MessageScreen message = new MessageScreen(stage);
+
+		message.makeWindow(
+				"Do you have permission from your parent/guardian to purchase points?",
+				"Yes", "No", new ButtonInterface() {
+
+					@Override
+					public void buttonPressed() {
+						Assets.game.setScreen(premium_shop_screen);
+					}
+				}, new ButtonInterface() {
+
+					@Override
+					public void buttonPressed() {
+					}
+				});
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void updatePoints() {
 		points = Assets.points_manager.getTotalPoints();
 		points_label.setText("Points: " + String.valueOf(points));
 	}
 
-	private void setUpShopTable() {
-		final Dot invincibleDot = new Dot(DOT_TYPE.INVINCIBLE);
-		final Dot rainbowDot = new Dot(DOT_TYPE.RAINBOW);
-		final Dot magnetDot = new Dot(DOT_TYPE.MAGNET);
-
-		ArrayList<Dot> dots = new ArrayList<Dot>();
-		dots.add(magnetDot);
-		dots.add(invincibleDot);
-		dots.add(rainbowDot);
-
+	private void setUpShopScreen() {
 		// Total Points Label
 		points_label = new Label(
 				"Points: " + String.valueOf(points),
 				Assets.prefs.getString("bg_color").equals("Black") ? Assets.style_font_32_white
 						: Assets.style_font_32_black);
+		points_label.setCenterPosition(Assets.width / 2, Assets.height
+				- points_label.getHeight());
 
-		// Event Listeners
-		for (final Dot d : dots) {
-			d.setBuyLabelListener(new InputListener() {
-				public boolean touchDown(InputEvent event, float x, float y,
-						int pointer, int button) {
-					return true;
-				}
+		// Premium Label
+		premium_label = new Label("Buy Points!", Assets.prefs.getString(
+				"bg_color").equals("Black") ? Assets.style_font_64_white
+				: Assets.style_font_64_black);
 
-				public void touchUp(InputEvent event, float x, float y,
-						int pointer, int button) {
-					d.buyDot(1);
-				}
-			});
+		premium_label.setPosition(Assets.width - premium_label.getWidth(),
+				Assets.height - premium_label.getHeight());
 
-			d.setUnlockLabelListener(new InputListener() {
-				public boolean touchDown(InputEvent event, float x, float y,
-						int pointer, int button) {
-					return true;
-				}
+		premium_label.addListener(new InputListener() {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				return true;
+			}
 
-				public void touchUp(InputEvent event, float x, float y,
-						int pointer, int button) {
-					d.unlockDot();
-				}
-			});
-		}
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
+				goToPremiumShop();
+			}
+		});
 
-		// Construct Table
-		table.add(points_label);
+		// Total Price Label
+		total_price_label = new Label(
+				String.valueOf(total_price),
+				Assets.prefs.getString("bg_color").equals("Black") ? Assets.style_font_32_white
+						: Assets.style_font_32_black);
 
-		for (Dot d : dots) {
-			table.row().pad(20);
-			table.add(d.getDotImage());
-			table.add(d.getPriceLabel());
-			table.add(d.getBuyLabel());
-			table.add(d.getUnlockPriceLabel());
-			table.add(d.getUnlockBuyLabel());
-		}
+		// Buy Label
+		buy_label = new Label("Buy", Assets.prefs.getString("bg_color").equals(
+				"Black") ? Assets.style_font_32_white
+				: Assets.style_font_32_black);
 
-		stage.addActor(table);
+		buy_label.addListener(new InputListener() {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				return true;
+			}
+
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
+				confirmBuyWindow();
+			}
+		});
+
+		// Clear Label
+		clear_label = new Label("Clear", Assets.prefs.getString("bg_color")
+				.equals("Black") ? Assets.style_font_32_white
+				: Assets.style_font_32_black);
+
+		clear_label.addListener(new InputListener() {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				return true;
+			}
+
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
+				clear();
+			}
+		});
+
+		// Bottom Bar Table
+		bottom_bar_table = new Table();
+		bottom_bar_table.setSkin(Assets.skin);
+
+		bottom_bar_table.setWidth(Assets.width);
+		bottom_bar_table.setHeight(total_price_label.getHeight());
+
+		bottom_bar_table.setPosition(0, 0 + bottom_bar_table.getHeight());
+
+		bottom_bar_table.add(clear_label).width(clear_label.getWidth() + SPACE);
+		bottom_bar_table.add(buy_label).width(buy_label.getWidth() + SPACE);
+		bottom_bar_table.add(total_price_label).width(
+				total_price_label.getWidth() + SPACE);
 	}
 
-	private void notEnoughPoints() {
-		setBackgroundWindow();
+	private void setUpShopTable() {
+		table.clear();
+
+		final ShopDot invincibleDot = new ShopDot(ShopDot.DOT_TYPE.INVINCIBLE,
+				this);
+		final ShopDot rainbowDot = new ShopDot(ShopDot.DOT_TYPE.RAINBOW, this);
+		final ShopDot magnetDot = new ShopDot(ShopDot.DOT_TYPE.MAGNET, this);
+
+		dots = new ArrayList<ShopDot>();
+		dots.add(magnetDot);
+		dots.add(invincibleDot);
+		dots.add(rainbowDot);
+
+		Label p = new Label("Power Dot", Assets.prefs.getString("bg_color")
+				.equals("Black") ? Assets.style_font_32_white
+				: Assets.style_font_32_black);
+		Label des = new Label("Description", Assets.prefs.getString("bg_color")
+				.equals("Black") ? Assets.style_font_32_white
+				: Assets.style_font_32_black);
+		Label c = new Label("Cost", Assets.prefs.getString("bg_color").equals(
+				"Black") ? Assets.style_font_32_white
+				: Assets.style_font_32_black);
+		Label a = new Label("Amount", Assets.prefs.getString("bg_color")
+				.equals("Black") ? Assets.style_font_32_white
+				: Assets.style_font_32_black);
+		Label t = new Label("Total", Assets.prefs.getString("bg_color").equals(
+				"Black") ? Assets.style_font_32_white
+				: Assets.style_font_32_black);
+
+		p.setAlignment(Align.center);
+		des.setAlignment(Align.center);
+		c.setAlignment(Align.center);
+		a.setAlignment(Align.center);
+		t.setAlignment(Align.center);
+
+		table.add(p).width(Assets.width / 6);
+		table.add(des).width(Assets.width / 6);
+		table.add(c).width(Assets.width / 6);
+		table.add(a).width(Assets.width / 6);
+		table.add(t).width(Assets.width / 6);
+
+		for (ShopDot d : dots) {
+			table.row().pad(20);
+
+			if (d.unlocked) {
+				table.add(d.dotImage);
+				table.add(d.descriptionImage);
+				table.add(d.priceLabel);
+				table.add(d.amountTable);
+				table.add(d.totalCostLabel);
+			} else {
+				table.add(d.getTable()).colspan(5);
+			}
+		}
+	}
+
+	public void updateTotalPrice() {
+		total_price = 0;
+
+		for (ShopDot d : dots) {
+			total_price += d.getTotalCost();
+		}
+
+		updateTotalPriceLabel();
+	}
+
+	private void updateTotalPriceLabel() {
+		total_price_label.setText(String.valueOf(total_price));
+	}
+
+	public void notEnoughPoints() {
+		notEnoughtPointsWindow();
+	}
+
+	private void goToPremiumShop() {
+		areYouAMinorWindow();
+	}
+
+	private void buy() {
+		if (total_price > points) {
+			notEnoughPoints();
+			return;
+		}
+
+		for (ShopDot d : dots) {
+			d.buyDots();
+		}
+		clear();
+	}
+
+	private void clear() {
+		setUpShopTable();
+		updateTotalPrice();
+		updateTotalPriceLabel();
+	}
+
+	public Stage getStage() {
+		return stage;
 	}
 
 	@Override
 	public void show() {
 		super.show();
 		updatePoints();
+		clear();
 	}
 
 	@Override
