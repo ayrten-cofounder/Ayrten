@@ -16,11 +16,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.Align;
 public class ShopScreen extends ScrotsScreen {
 	private static final int SPACE = 50;
 
-	protected PremiumShopScreen premium_shop_screen;
-
 	private int points = 0;
+
 	private Table table;
 	private Table bottom_bar_table;
+
 	private Label points_label;
 	private Label total_price_label;
 	private Label buy_label;
@@ -32,8 +32,6 @@ public class ShopScreen extends ScrotsScreen {
 
 	public ShopScreen(Screen bscreen) {
 		super(bscreen, true);
-
-		premium_shop_screen = new PremiumShopScreen(this);
 
 		table = new Table();
 		table.setFillParent(true);
@@ -48,7 +46,7 @@ public class ShopScreen extends ScrotsScreen {
 
 		stage.addActor(points_label);
 		stage.addActor(premium_label);
-		stage.addActor(bottom_bar_table);
+		// stage.addActor(bottom_bar_table);
 		stage.addActor(table);
 	}
 
@@ -102,7 +100,7 @@ public class ShopScreen extends ScrotsScreen {
 
 					@Override
 					public void buttonPressed() {
-						Assets.game.setScreen(premium_shop_screen);
+						Assets.game.setScreen(getPremiumShopScreen());
 					}
 				});
 	}
@@ -116,7 +114,7 @@ public class ShopScreen extends ScrotsScreen {
 
 					@Override
 					public void buttonPressed() {
-						Assets.game.setScreen(premium_shop_screen);
+						Assets.game.setScreen(getPremiumShopScreen());
 					}
 				}, new ButtonInterface() {
 
@@ -216,21 +214,24 @@ public class ShopScreen extends ScrotsScreen {
 		bottom_bar_table.add(clear_label).width(clear_label.getWidth() + SPACE);
 		bottom_bar_table.add(buy_label).width(buy_label.getWidth() + SPACE);
 		bottom_bar_table.add(total_price_label).width(
-				total_price_label.getWidth() + SPACE);
+				total_price_label.getWidth());
 	}
 
 	private void setUpShopTable() {
 		table.clear();
 
-		final ShopDot invincibleDot = new ShopDot(ShopDot.DOT_TYPE.INVINCIBLE,
-				this);
-		final ShopDot rainbowDot = new ShopDot(ShopDot.DOT_TYPE.RAINBOW, this);
-		final ShopDot magnetDot = new ShopDot(ShopDot.DOT_TYPE.MAGNET, this);
+		if (dots == null) {
+			final ShopDot invincibleDot = new ShopDot(
+					ShopDot.DOT_TYPE.INVINCIBLE, this);
+			final ShopDot rainbowDot = new ShopDot(ShopDot.DOT_TYPE.RAINBOW,
+					this);
+			final ShopDot magnetDot = new ShopDot(ShopDot.DOT_TYPE.MAGNET, this);
 
-		dots = new ArrayList<ShopDot>();
-		dots.add(magnetDot);
-		dots.add(invincibleDot);
-		dots.add(rainbowDot);
+			dots = new ArrayList<ShopDot>();
+			dots.add(magnetDot);
+			dots.add(invincibleDot);
+			dots.add(rainbowDot);
+		}
 
 		Label p = new Label("Power Dot", Assets.prefs.getString("bg_color")
 				.equals("Black") ? Assets.style_font_32_white
@@ -270,9 +271,23 @@ public class ShopScreen extends ScrotsScreen {
 				table.add(d.amountTable);
 				table.add(d.totalCostLabel);
 			} else {
-				table.add(d.getTable()).colspan(5);
+				table.add(d.dotImage);
+				table.add(d.descriptionImage);
+				table.add(d.unlockPriceLabel);
+				table.add(d.unlockBuyLabel).colspan(2);
 			}
 		}
+
+		table.row().pad(20);
+		table.add();
+		table.add();
+		table.add(clear_label);
+		table.add(buy_label);
+		table.add(total_price_label);
+	}
+
+	public void updateShopTable() {
+		setUpShopTable();
 	}
 
 	public void updateTotalPrice() {
@@ -310,6 +325,10 @@ public class ShopScreen extends ScrotsScreen {
 	}
 
 	private void clear() {
+		for (ShopDot d : dots) {
+			d.clear();
+		}
+
 		setUpShopTable();
 		updateTotalPrice();
 		updateTotalPriceLabel();
@@ -317,6 +336,10 @@ public class ShopScreen extends ScrotsScreen {
 
 	public Stage getStage() {
 		return stage;
+	}
+
+	private PremiumShopScreen getPremiumShopScreen() {
+		return new PremiumShopScreen(this);
 	}
 
 	@Override

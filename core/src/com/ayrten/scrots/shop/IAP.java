@@ -9,7 +9,9 @@ public interface IAP
 	static final String ITEM_5 = "tier5"; // $20
 	
 	public boolean isConnected();
+	public boolean retrievedItems();
 	public String getPrice(String item);
+	public String getDescription(String item);
 	
 	public void purchase(String item, IAPInterface callback);
 	public void consume(String item, IAPInterface callback);

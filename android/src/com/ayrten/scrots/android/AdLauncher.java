@@ -208,6 +208,16 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface,
 	public boolean isConnected() {
 		return iap.isConnected;
 	}
+	
+	@Override
+	public boolean retrievedItems() {
+		return iap.retrievedItems;
+	}
+
+	@Override
+	public String getDescription(String item) {
+		return iap.getDescription(item);
+	}
 
 	@Override
 	public String getPrice(String item) {

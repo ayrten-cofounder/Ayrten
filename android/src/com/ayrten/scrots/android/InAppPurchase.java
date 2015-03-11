@@ -15,15 +15,27 @@ public class InAppPurchase {
 	private static String base64EncodedPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupC79FGlC6wvZFhHkKXvrbcvh26pYAzPDuCyJUS3ACsOdzAjGTa3jn6QSWhIaQXemviTUWY72Gp3bTK38kG5E7xL9CBAiSwKcaDgoM82TCznJ/myZzwg3wNLVbnBbjlfdY0R5uiNouKPXnc0pZ3I2uwpM6UEsGtYGhIBhMtig9L9PqZWAejjNpYlusAfin6Rad0H/nDVOv6AFLiYTzqoE78d4Rrpa5kx9tEJIdgRJtyX/knm/R4Eb/daFuqEAtt7BGfU7lFrNYOP3zjCAfG22E+4jAvThfNJT9ilE6vQ7YLwJQNF9y2DBF1hIHXfnaTniQ6G4bnB0WaBEqCq9cHCywIDAQAB";
 	private static final int REQUEST_CODE = 83197;
 
-	private static final String ITEM_1 = IAP.ITEM_1;
-
 	private Activity activity;
 	private IabHelper mHelper;
 	public Inventory inventory;
 
 	public boolean isConnected = false; // If connected to Google Play for IAP
+	public boolean retrievedItems = false; // If items are queried
 
 	public String item_1_price;
+	public String item_1_description;
+
+	public String item_2_price;
+	public String item_2_description;
+
+	public String item_3_price;
+	public String item_3_description;
+
+	public String item_4_price;
+	public String item_4_description;
+
+	public String item_5_price;
+	public String item_5_description;
 
 	public InAppPurchase(Activity activity) {
 		this.activity = activity;
@@ -49,14 +61,42 @@ public class InAppPurchase {
 							if (result.isFailure()) {
 								return;
 							}
-
-							item_1_price = inventory.getSkuDetails(ITEM_1)
+							
+							item_1_price = inventory.getSkuDetails(IAP.ITEM_1)
 									.getPrice();
+							item_1_description = inventory.getSkuDetails(
+									IAP.ITEM_1).getDescription();
+
+							item_2_price = inventory.getSkuDetails(IAP.ITEM_2)
+									.getPrice();
+							item_2_description = inventory.getSkuDetails(
+									IAP.ITEM_2).getDescription();
+
+							item_3_price = inventory.getSkuDetails(IAP.ITEM_3)
+									.getPrice();
+							item_3_description = inventory.getSkuDetails(
+									IAP.ITEM_3).getDescription();
+
+							item_4_price = inventory.getSkuDetails(IAP.ITEM_4)
+									.getPrice();
+							item_4_description = inventory.getSkuDetails(
+									IAP.ITEM_4).getDescription();
+
+							item_5_price = inventory.getSkuDetails(IAP.ITEM_5)
+									.getPrice();
+							item_5_description = inventory.getSkuDetails(
+									IAP.ITEM_5).getDescription();
+							
+							retrievedItems = true;
 						}
 					};
 
 					ArrayList<String> additionalSkuList = new ArrayList<String>();
-					additionalSkuList.add(ITEM_1);
+					additionalSkuList.add(IAP.ITEM_1);
+					additionalSkuList.add(IAP.ITEM_2);
+					additionalSkuList.add(IAP.ITEM_3);
+					additionalSkuList.add(IAP.ITEM_4);
+					additionalSkuList.add(IAP.ITEM_5);
 					mHelper.queryInventoryAsync(true, additionalSkuList,
 							mQueryFinishedListener);
 				}
@@ -74,7 +114,7 @@ public class InAppPurchase {
 				} else if (purchase.getSku().equals(item)) {
 					// consume the gas and update the UI
 					callback.purchaseSuccess();
-					
+
 					consumeItem(purchase, callback);
 				}
 			}
@@ -87,12 +127,9 @@ public class InAppPurchase {
 	public void consumeItem(Purchase purchase, final IAPInterface callback) {
 		IabHelper.OnConsumeFinishedListener mConsumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
 			public void onConsumeFinished(Purchase purchase, IabResult result) {
-				if (result.isSuccess())
-				{
+				if (result.isSuccess()) {
 					callback.consumeSuccess();
-				} 
-				else
-				{
+				} else {
 					callback.consumeFailed();
 				}
 			}
@@ -106,12 +143,9 @@ public class InAppPurchase {
 			public void onQueryInventoryFinished(IabResult result,
 					Inventory inventory) {
 
-				if (result.isFailure())
-				{
+				if (result.isFailure()) {
 
-				} 
-				else
-				{
+				} else {
 					InAppPurchase.this.inventory = inventory;
 				}
 			}
@@ -119,16 +153,37 @@ public class InAppPurchase {
 
 		mHelper.queryInventoryAsync(mGotInventoryListener);
 	}
-	
-	public String getPrice(String item)
-	{
-		if(item.equals(ITEM_1))
-		{
+
+	public String getPrice(String item) {
+
+		if (item.equals(IAP.ITEM_1)) {
 			return item_1_price;
-		}
-		else
-		{
+		} else if (item.equals(IAP.ITEM_2)) {
+			return item_2_price;
+		} else if (item.equals(IAP.ITEM_3)) {
+			return item_3_price;
+		} else if (item.equals(IAP.ITEM_4)) {
+			return item_4_price;
+		} else if (item.equals(IAP.ITEM_5)) {
+			return item_5_price;
+		} else {
 			return "$0";
+		}
+	}
+
+	public String getDescription(String item) {
+		if (item.equals(IAP.ITEM_1)) {
+			return item_1_description;
+		} else if (item.equals(IAP.ITEM_2)) {
+			return item_2_description;
+		} else if (item.equals(IAP.ITEM_3)) {
+			return item_3_description;
+		} else if (item.equals(IAP.ITEM_4)) {
+			return item_4_description;
+		} else if (item.equals(IAP.ITEM_5)) {
+			return item_5_description;
+		} else {
+			return "0";
 		}
 	}
 

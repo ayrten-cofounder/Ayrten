@@ -13,7 +13,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
-public class DesktopLauncher implements AndroidInterface, IAP{
+public class DesktopLauncher implements AndroidInterface, IAP {
 	private static DesktopLauncher app;
 
 	public static void main(String[] arg) {
@@ -43,13 +43,13 @@ public class DesktopLauncher implements AndroidInterface, IAP{
 	@Override
 	public void gplay_signin() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void gplay_logout() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -60,19 +60,19 @@ public class DesktopLauncher implements AndroidInterface, IAP{
 
 	public void showLeadershipBoard() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void showAchievements() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void unlockAchievement(String name) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -90,19 +90,19 @@ public class DesktopLauncher implements AndroidInterface, IAP{
 	@Override
 	public void purchase(String item, IAPInterface callback) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void consume(String item, IAPInterface callback) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void queryPurchaseItems() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -120,12 +120,24 @@ public class DesktopLauncher implements AndroidInterface, IAP{
 	@Override
 	public void setGPlayManager(GPlayManager manager) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void setGPlayButton(Label button) {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public boolean retrievedItems() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public String getDescription(String item) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

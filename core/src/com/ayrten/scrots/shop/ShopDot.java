@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
 public class ShopDot {
 	private ShopScreen shop;
@@ -20,13 +21,19 @@ public class ShopDot {
 
 	public boolean unlocked;
 
-	private Table table;
 	public Table amountTable;
 	public Image dotImage;
 	public Image descriptionImage;
 	public TextField amountTextField;
+
+	// Unlocked
 	public Label priceLabel;
 	public Label totalCostLabel;
+
+	// Locked
+	public Label unlockPriceLabel;
+	public Label unlockBuyLabel;
+
 	private int totalCostToBuy = 0;
 	private int amountToBuy = 0;
 
@@ -61,9 +68,7 @@ public class ShopDot {
 	public ShopDot(DOT_TYPE dotType, ShopScreen shop) {
 		this.dotType = dotType;
 		this.shop = shop;
-		this.table = new Table();
 		this.amountTable = new Table();
-		table.setSkin(Assets.skin);
 		amountTable.setSkin(Assets.skin);
 
 		switch (dotType) {
@@ -89,11 +94,7 @@ public class ShopDot {
 			break;
 		}
 
-		if (unlocked) {
-			setUnlockedTable();
-		} else {
-			setLockedTable();
-		}
+		initilize();
 	}
 
 	public void buyDots() {
@@ -135,6 +136,7 @@ public class ShopDot {
 		} else {
 
 			Assets.points_manager.addPoints(-(cost));
+			unlocked = true;
 
 			switch (dotUnlock) {
 			case INVINCIBLE:
@@ -149,17 +151,19 @@ public class ShopDot {
 			}
 
 			shop.updatePoints();
-			setUnlockedTable();
+			shop.updateShopTable();
 		}
 	}
 
-	protected void setLockedTable() {
-		Label unlockPriceLabel = new Label(
+	protected void initilize() {
+
+		// Locked Labels
+		unlockPriceLabel = new Label(
 				String.valueOf(dotUnlock.price()),
 				Assets.prefs.getString("bg_color").equals("Black") ? Assets.style_font_32_white
 						: Assets.style_font_32_black);
-		Label unlockBuyLabel = new Label("Unlock", Assets.prefs.getString(
-				"bg_color").equals("Black") ? Assets.style_font_32_white
+		unlockBuyLabel = new Label("Unlock", Assets.prefs.getString("bg_color")
+				.equals("Black") ? Assets.style_font_32_white
 				: Assets.style_font_32_black);
 
 		unlockBuyLabel.addListener(new InputListener() {
@@ -174,13 +178,7 @@ public class ShopDot {
 			}
 		});
 
-		table.clear();
-		table.add(dotImage);
-		table.add(unlockPriceLabel);
-		table.add(unlockBuyLabel);
-	}
-
-	protected void setUnlockedTable() {
+		// Unlocked Labels
 		priceLabel = new Label(
 				String.valueOf(dotType.price()),
 				Assets.prefs.getString("bg_color").equals("Black") ? Assets.style_font_32_white
@@ -246,15 +244,7 @@ public class ShopDot {
 				Assets.prefs.getString("bg_color").equals("Black") ? Assets.style_font_32_white
 						: Assets.style_font_32_black);
 
-		table.clear();
-		table.add(dotImage);
-		table.add(descriptionImage);
-		table.add(priceLabel);
-		table.add(amountTextField).height(25).width(Assets.width / 5);
-		table.stack(addTable, minusTable).height(priceLabel.getHeight())
-				.width(55);
-		table.add(totalCostLabel).width(Assets.width / 5);
-
+		amountTable.clear();
 		amountTable.add(amountTextField).height(25).width(Assets.width / 5);
 		amountTable.stack(addTable, minusTable).height(priceLabel.getHeight())
 				.width(55);
@@ -303,14 +293,15 @@ public class ShopDot {
 
 					@Override
 					public void buttonPressed() {
-						// TODO Auto-generated method stub
-
 					}
 				});
 	}
 
-	public Table getTable() {
-		return table;
+	public void clear() {
+		totalCostToBuy = 0;
+		amountToBuy = 0;
+
+		initilize();
 	}
 
 	public int getTotalCost() {
