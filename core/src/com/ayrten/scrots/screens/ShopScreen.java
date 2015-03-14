@@ -10,14 +10,16 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
 public class ShopScreen extends ScrotsScreen {
-	private static final int SPACE = 50;
+	private static final int PAD = 20;
 
 	private int points = 0;
 
+	private ScrollPane scroll_view;
 	private Table table;
 	private Table bottom_bar_table;
 
@@ -33,21 +35,17 @@ public class ShopScreen extends ScrotsScreen {
 	public ShopScreen(Screen bscreen) {
 		super(bscreen, true);
 
-		table = new Table();
-		table.setFillParent(true);
-		table.setSkin(Assets.skin);
-
 		points = Assets.points_manager.getTotalPoints();
 
 		setupStage();
-		setUpShopTable();
 		setUpShopScreen();
+		setUpShopTable();
 		updatePoints();
 
 		stage.addActor(points_label);
 		stage.addActor(premium_label);
-		// stage.addActor(bottom_bar_table);
-		stage.addActor(table);
+		stage.addActor(bottom_bar_table);
+		stage.addActor(scroll_view);
 	}
 
 	private void notEnoughtPointsWindow() {
@@ -134,6 +132,26 @@ public class ShopScreen extends ScrotsScreen {
 	}
 
 	private void setUpShopScreen() {
+
+		// Set init the table and set positions
+		bottom_bar_table = new Table();
+		bottom_bar_table.setSize(Assets.width,
+				Assets.style_font_32_white.font.getLineHeight());
+		bottom_bar_table.setSkin(Assets.skin);
+
+		bottom_bar_table.setPosition(0, 0 + bottom_bar_table.getHeight());
+
+		table = new Table();
+		table.setSize(Assets.width,
+				Assets.height - bottom_bar_table.getHeight() - back.getHeight());
+		table.setSkin(Assets.skin);
+
+		scroll_view = new ScrollPane(table);
+		scroll_view.setSize(Assets.width, Assets.height - back.getHeight()
+				- bottom_bar_table.getHeight());
+		// scroll_view.setPosition(0, Assets.height - back.getHeight());
+		scroll_view.setPosition(0, 0 + bottom_bar_table.getHeight() + PAD);
+
 		// Total Points Label
 		points_label = new Label(
 				"Points: " + String.valueOf(points),
@@ -167,11 +185,13 @@ public class ShopScreen extends ScrotsScreen {
 				String.valueOf(total_price),
 				Assets.prefs.getString("bg_color").equals("Black") ? Assets.style_font_32_white
 						: Assets.style_font_32_black);
+		total_price_label.setAlignment(Align.center);
 
 		// Buy Label
 		buy_label = new Label("Buy", Assets.prefs.getString("bg_color").equals(
 				"Black") ? Assets.style_font_32_white
 				: Assets.style_font_32_black);
+		buy_label.setAlignment(Align.center);
 
 		buy_label.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y,
@@ -189,6 +209,7 @@ public class ShopScreen extends ScrotsScreen {
 		clear_label = new Label("Clear", Assets.prefs.getString("bg_color")
 				.equals("Black") ? Assets.style_font_32_white
 				: Assets.style_font_32_black);
+		clear_label.setAlignment(Align.center);
 
 		clear_label.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y,
@@ -203,18 +224,14 @@ public class ShopScreen extends ScrotsScreen {
 		});
 
 		// Bottom Bar Table
-		bottom_bar_table = new Table();
-		bottom_bar_table.setSkin(Assets.skin);
-
-		bottom_bar_table.setWidth(Assets.width);
-		bottom_bar_table.setHeight(total_price_label.getHeight());
-
-		bottom_bar_table.setPosition(0, 0 + bottom_bar_table.getHeight());
-
-		bottom_bar_table.add(clear_label).width(clear_label.getWidth() + SPACE);
-		bottom_bar_table.add(buy_label).width(buy_label.getWidth() + SPACE);
-		bottom_bar_table.add(total_price_label).width(
-				total_price_label.getWidth());
+		bottom_bar_table.row().pad(PAD);
+		bottom_bar_table.add(new Label("", Assets.style_font_32_white)).width(
+				Assets.width / 6);
+		bottom_bar_table.add(new Label("", Assets.style_font_32_white)).width(
+				Assets.width / 6);
+		bottom_bar_table.add(clear_label).width(Assets.width / 6);
+		bottom_bar_table.add(buy_label).width(Assets.width / 6);
+		bottom_bar_table.add(total_price_label).width(Assets.width / 6);
 	}
 
 	private void setUpShopTable() {
@@ -231,6 +248,8 @@ public class ShopScreen extends ScrotsScreen {
 			dots.add(magnetDot);
 			dots.add(invincibleDot);
 			dots.add(rainbowDot);
+
+			// dots.add(magnetDot2);
 		}
 
 		Label p = new Label("Power Dot", Assets.prefs.getString("bg_color")
@@ -262,10 +281,10 @@ public class ShopScreen extends ScrotsScreen {
 		table.add(t).width(Assets.width / 6);
 
 		for (ShopDot d : dots) {
-			table.row().pad(20);
+			table.row().pad(PAD);
 
 			if (d.unlocked) {
-				table.add(d.dotImage);
+				table.add(d.dotImage).height(d.dotImage.getHeight());
 				table.add(d.descriptionImage);
 				table.add(d.priceLabel);
 				table.add(d.amountTable);
@@ -278,12 +297,12 @@ public class ShopScreen extends ScrotsScreen {
 			}
 		}
 
-		table.row().pad(20);
-		table.add();
-		table.add();
-		table.add(clear_label);
-		table.add(buy_label);
-		table.add(total_price_label);
+		// table.row().pad(20);
+		// table.add();
+		// table.add();
+		// table.add(clear_label);
+		// table.add(buy_label);
+		// table.add(total_price_label);
 	}
 
 	public void updateShopTable() {

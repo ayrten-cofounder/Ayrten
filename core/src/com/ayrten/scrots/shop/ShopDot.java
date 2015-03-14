@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
 public class ShopDot {
 	private ShopScreen shop;
@@ -201,7 +200,7 @@ public class ShopDot {
 		amountTextField.getStyle().background = Assets.gray_box;
 		amountTextField.setWidth(Assets.width / 5);
 
-		Image add = new Image(Assets.gray_box);
+		Image add = new Image(Assets.up_button);
 		add.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
@@ -214,7 +213,7 @@ public class ShopDot {
 			}
 		});
 
-		Image minus = new Image(Assets.invincible_dot);
+		Image minus = new Image(Assets.down_button);
 		minus.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
@@ -229,14 +228,14 @@ public class ShopDot {
 
 		Table addTable = new Table();
 		addTable.setSkin(Assets.skin);
-		addTable.setSize(55, priceLabel.getHeight());
-		addTable.add(add).height(priceLabel.getHeight() / 2);
+		addTable.setSize(55, dotImage.getHeight());
+		addTable.add(add).height((dotImage.getHeight() / 2) - 10);
 		addTable.top();
 
 		Table minusTable = new Table();
 		minusTable.setSkin(Assets.skin);
-		minusTable.setSize(55, priceLabel.getHeight());
-		minusTable.add(minus).height(priceLabel.getHeight() / 2);
+		minusTable.setSize(55, dotImage.getHeight());
+		minusTable.add(minus).height((dotImage.getHeight() / 2) - 10);
 		minusTable.bottom();
 
 		totalCostLabel = new Label(
@@ -245,8 +244,9 @@ public class ShopDot {
 						: Assets.style_font_32_black);
 
 		amountTable.clear();
-		amountTable.add(amountTextField).height(25).width(Assets.width / 5);
-		amountTable.stack(addTable, minusTable).height(priceLabel.getHeight())
+		amountTable.add(amountTextField).height(dotImage.getHeight())
+				.width(Assets.width / 5);
+		amountTable.stack(addTable, minusTable).height(dotImage.getHeight())
 				.width(55);
 	}
 

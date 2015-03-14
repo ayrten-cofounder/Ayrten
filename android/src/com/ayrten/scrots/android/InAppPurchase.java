@@ -3,6 +3,7 @@ package com.ayrten.scrots.android;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Intent;
 
 import com.ayrten.scrots.android.util.IabHelper;
 import com.ayrten.scrots.android.util.IabResult;
@@ -61,7 +62,7 @@ public class InAppPurchase {
 							if (result.isFailure()) {
 								return;
 							}
-							
+
 							item_1_price = inventory.getSkuDetails(IAP.ITEM_1)
 									.getPrice();
 							item_1_description = inventory.getSkuDetails(
@@ -86,7 +87,7 @@ public class InAppPurchase {
 									.getPrice();
 							item_5_description = inventory.getSkuDetails(
 									IAP.ITEM_5).getDescription();
-							
+
 							retrievedItems = true;
 						}
 					};
@@ -120,8 +121,12 @@ public class InAppPurchase {
 			}
 		};
 
-		mHelper.launchPurchaseFlow(activity, item, REQUEST_CODE,
-				mPurchaseFinishedListener, "testing");
+		try {
+			mHelper.launchPurchaseFlow(activity, item, REQUEST_CODE,
+					mPurchaseFinishedListener, "testing");
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void consumeItem(Purchase purchase, final IAPInterface callback) {
@@ -184,6 +189,12 @@ public class InAppPurchase {
 			return item_5_description;
 		} else {
 			return "0";
+		}
+	}
+
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == REQUEST_CODE) {
+			mHelper.handleActivityResult(requestCode, resultCode, data);
 		}
 	}
 

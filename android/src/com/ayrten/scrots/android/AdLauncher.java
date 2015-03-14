@@ -53,10 +53,9 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface,
 	private boolean mSignInClicked = false;
 
 	protected HashMap<String, Integer> achievement_list;
-	
+
 	// Pointer to ScrotsGame objects.
 	private Label gplay_status;
-
 
 	protected Handler handler = new Handler() {
 		@Override
@@ -208,7 +207,7 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface,
 	public boolean isConnected() {
 		return iap.isConnected;
 	}
-	
+
 	@Override
 	public boolean retrievedItems() {
 		return iap.retrievedItems;
@@ -253,7 +252,7 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface,
 	public void onConnectionFailed(ConnectionResult result) {
 		// if(scrots.main_menu != null)
 		// scrots.main_menu.update_gplay_status(false);
-		if(gplay_status != null)
+		if (gplay_status != null)
 			gplay_status.setText("Sign in");
 
 		if (mResolvingConnectionFailure) {
@@ -285,7 +284,7 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface,
 	@Override
 	public void onConnected(Bundle connectionHint) {
 		// scrots.main_menu.update_gplay_status(true);
-		if(gplay_status != null)
+		if (gplay_status != null)
 			gplay_status.setText("Logout");
 	}
 
@@ -296,7 +295,9 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface,
 	}
 
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {		
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		iap.onActivityResult(requestCode, resultCode, data);
+
 		if (requestCode == RC_SIGN_IN) {
 			mSignInClicked = false;
 			mResolvingConnectionFailure = false;
@@ -388,7 +389,8 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface,
 	}
 
 	@Override
-	public void setGPlayManager(GPlayManager manager) {}
+	public void setGPlayManager(GPlayManager manager) {
+	}
 
 	@Override
 	public void setGPlayButton(Label button) {

@@ -29,12 +29,12 @@ public class Assets {
 	public static final float TIME_ADD = (float) 2.6; // seconds
 	public static final float TIME_OFF = (float) -5.0;
 	public static final String GPLAY_FILE = "gplay_status.txt";
-	
+
 	// Power Dot Descriptions
 	public static final String magnet_dot_description = "Attracts negative dots for 8 seconds.";
 	public static final String invincible_dot_description = "Negative dots won't affect you for 5 seconds.";
 	public static final String rainbow_dot_description = "Removes negative dots for 5 seconds.";
-	
+
 	// Shop
 	public static PowerDotManager power_dot_manager;
 	public static PointsManager points_manager;
@@ -59,7 +59,7 @@ public class Assets {
 	public static LabelStyle style_font_64_red;
 	public static LabelStyle style_font_64_orange;
 	public static LabelStyle style_font_64_white;
-	
+
 	public static LabelStyle style_font_32_white;
 	public static LabelStyle style_font_32_black;
 	public static LabelStyle style_font_32_light_gray;
@@ -68,7 +68,7 @@ public class Assets {
 	public static LabelStyle style_font_32_blue;
 
 	public static LabelStyle style_font_0_white;
-	
+
 	// Sounds
 	public static Sound button_pop;
 	public static Sound level_clear;
@@ -92,7 +92,10 @@ public class Assets {
 
 	// Textures
 	public static Texture transparent_background;
-	
+
+	public static Texture up_button;
+	public static Texture down_button;
+
 	public static Texture regDot_1; // Regular dot (ie. green)
 	public static Texture regDot_2; // Regular dot (ie. babay blue)
 	public static Texture regDot_3; // Exploding dot
@@ -142,24 +145,25 @@ public class Assets {
 		font_0 = generate_BitMapFont(0, font_ratio);
 
 		// Height and Width
-		// game_height = Gdx.graphics.getHeight() - (Gdx.graphics.getHeight() / 5);
+		// game_height = Gdx.graphics.getHeight() - (Gdx.graphics.getHeight() /
+		// 5);
 		height = Gdx.graphics.getHeight();
 		width = Gdx.graphics.getWidth();
 		game_height = height - font_32.getLineHeight() * 2;
 		powerdot_thresh = height - game_height;
-		
+
 		// Managers
 		power_dot_manager = new PowerDotManager();
 		points_manager = new PointsManager();
-		
+
 		Json json = new Json();
 		String text = Assets.readFile(GPLAY_FILE);
-		if(text.isEmpty())
+		if (text.isEmpty())
 			gplay_manager = new GPlayManager();
 		else {
 			gplay_manager = json.fromJson(GPlayManager.class, text);
 		}
-		
+
 		stats_manager = new StatisticsManager();
 
 		// Drawable
@@ -167,7 +171,6 @@ public class Assets {
 				Gdx.files.internal("data/gray_box.9.png"))));
 		transparent_box = new NinePatchDrawable(new NinePatch(new Texture(
 				Gdx.files.internal("data/transparent_box.9.png"))));
-
 
 		// Style
 		style_font_64_black = new LabelStyle();
@@ -177,7 +180,7 @@ public class Assets {
 		style_font_64_light_gray = new LabelStyle();
 		style_font_64_light_gray.font = font_64;
 		style_font_64_light_gray.fontColor = Color.LIGHT_GRAY;
-		
+
 		style_font_64_blue = new LabelStyle();
 		style_font_64_blue.font = font_64;
 		style_font_64_blue.fontColor = Color.valueOf("7A80E0");
@@ -193,15 +196,15 @@ public class Assets {
 		style_font_64_white = new LabelStyle();
 		style_font_64_white.font = font_64;
 		style_font_64_white.fontColor = Color.WHITE;
-		
+
 		style_font_32_white = new LabelStyle();
 		style_font_32_white.font = font_32;
 		style_font_32_white.fontColor = Color.WHITE;
-		
+
 		style_font_32_black = new LabelStyle();
 		style_font_32_black.font = font_32;
 		style_font_32_black.fontColor = Color.BLACK;
-		
+
 		style_font_32_light_gray = new LabelStyle();
 		style_font_32_light_gray.font = font_32;
 		style_font_32_light_gray.fontColor = Color.LIGHT_GRAY;
@@ -217,7 +220,7 @@ public class Assets {
 		style_font_32_blue = new LabelStyle();
 		style_font_32_blue.font = font_32;
 		style_font_32_blue.fontColor = Color.valueOf("7A80E0");
-		
+
 		style_font_0_white = new LabelStyle();
 		style_font_0_white.font = font_0;
 		style_font_0_white.fontColor = Color.WHITE;
@@ -291,9 +294,14 @@ public class Assets {
 	}
 
 	public static void loadDotTextures() {
-		transparent_background = new Texture(Gdx.files.internal("data/transparent_gray.png"));
-		transparent_background.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		
+		transparent_background = new Texture(
+				Gdx.files.internal("data/transparent_gray.png"));
+		transparent_background.setFilter(TextureFilter.Linear,
+				TextureFilter.Linear);
+
+		up_button = new Texture(Gdx.files.internal("data/button_up.png"));
+		down_button = new Texture(Gdx.files.internal("data/button_down.png"));
+
 		if (!prefs.getBoolean("color_blind", false))
 			penDot_1 = new Texture(Gdx.files.internal("data/red_dot.png"));
 		else
@@ -349,18 +357,16 @@ public class Assets {
 				Gdx.files.internal("data/dots/invincible_dot.png"));
 		invincible_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
-		magnet_dot = new Texture(
-				Gdx.files.internal("data/dots/magnet_dot.png"));
+		magnet_dot = new Texture(Gdx.files.internal("data/dots/magnet_dot.png"));
 		magnet_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
 		rainbow_dot = new Texture(
 				Gdx.files.internal("data/dots/rainbow_dot.png"));
 		rainbow_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		
-		pause_dot = new Texture(
-				Gdx.files.internal("data/dots/pause_dot.png"));
+
+		pause_dot = new Texture(Gdx.files.internal("data/dots/pause_dot.png"));
 		pause_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		
+
 		lvl_bubble = dwdPenDot_1;
 		time_bubble = pause_dot;
 	}
@@ -397,7 +403,7 @@ public class Assets {
 		// Miscellaneous
 		// Make the changes persist. (ie. saves an XML file for Windows in
 		// Windows: /Users/<user>/.prefs/
-		// OS X: ~/.prefs/My Preferences 
+		// OS X: ~/.prefs/My Preferences
 		prefs.flush();
 		gplay_manager.dispose();
 	}
@@ -415,7 +421,7 @@ public class Assets {
 		font_gen.dispose();
 		return (font);
 	}
-	
+
 	public static void writeFile(String fileName, String s) {
 		FileHandle file = Gdx.files.local(fileName);
 		file.writeString(com.badlogic.gdx.utils.Base64Coder.encodeString(s),
