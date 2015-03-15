@@ -18,8 +18,8 @@ public class DesktopLauncher implements AndroidInterface, IAP {
 
 	public static void main(String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 1920;
-		config.height = 1080;
+		config.width = 1280;
+		config.height = 768;
 
 		app = new DesktopLauncher();
 		new LwjglApplication(new ScrotsGame(app, app), config);

@@ -23,6 +23,7 @@ import com.badlogic.gdx.utils.Json;
 public class Assets {
 	// Height and Width
 	public static float game_height;
+	public static float game_width;
 	public static float powerdot_thresh;
 	public static int height;
 	public static int width;
@@ -44,6 +45,8 @@ public class Assets {
 	// Drawables
 	public static NinePatchDrawable gray_box;
 	public static NinePatchDrawable transparent_box;
+
+	public static NinePatchDrawable table_background;
 
 	// Fonts
 	public static BitmapFont font_120;
@@ -95,6 +98,7 @@ public class Assets {
 
 	public static Texture up_button;
 	public static Texture down_button;
+	public static Texture rounded_rect;
 
 	public static Texture regDot_1; // Regular dot (ie. green)
 	public static Texture regDot_2; // Regular dot (ie. babay blue)
@@ -149,7 +153,8 @@ public class Assets {
 		// 5);
 		height = Gdx.graphics.getHeight();
 		width = Gdx.graphics.getWidth();
-		game_height = height - font_32.getLineHeight() * 2;
+		game_height = height - font_32.getLineHeight() * 3;
+		game_width = width - (height - game_height);
 		powerdot_thresh = height - game_height;
 
 		// Managers
@@ -171,6 +176,10 @@ public class Assets {
 				Gdx.files.internal("data/gray_box.9.png"))));
 		transparent_box = new NinePatchDrawable(new NinePatch(new Texture(
 				Gdx.files.internal("data/transparent_box.9.png"))));
+
+		table_background = new NinePatchDrawable(new NinePatch(new Texture(
+				Gdx.files.internal("data/rounded_rectangle.png")), 50, 50, 50,
+				50));
 
 		// Style
 		style_font_64_black = new LabelStyle();
@@ -301,6 +310,8 @@ public class Assets {
 
 		up_button = new Texture(Gdx.files.internal("data/button_up.png"));
 		down_button = new Texture(Gdx.files.internal("data/button_down.png"));
+		rounded_rect = new Texture(
+				Gdx.files.internal("data/rounded_rectangle.9.png"));
 
 		if (!prefs.getBoolean("color_blind", false))
 			penDot_1 = new Texture(Gdx.files.internal("data/red_dot.png"));

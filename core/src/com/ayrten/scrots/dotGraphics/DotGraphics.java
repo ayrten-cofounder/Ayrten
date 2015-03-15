@@ -40,7 +40,8 @@ public class DotGraphics {
 	protected void move_v3() {
 		float x = dot.getX();
 		float y = dot.getY();
-		float maxX = Gdx.graphics.getWidth();
+		// float maxX = Gdx.graphics.getWidth();
+		float maxX = Assets.game_width;
 		float maxY = Assets.game_height;
 
 		if (slopeX >= 0f && slopeY >= 0f) {
@@ -88,7 +89,7 @@ public class DotGraphics {
 			randSlopeV3();
 		}
 	}
-	
+
 	public void resetRatio() {
 		size_ratio = dot.random.nextBoolean() ? MAX_SIZE_RATIO : MIN_SIZE_RATIO;
 	}
@@ -111,12 +112,11 @@ public class DotGraphics {
 	}
 
 	public void draw(Batch batch, float alpha, boolean magnetized) {
-		
-		if(!magnetized)
-		{
+
+		if (!magnetized) {
 			changePosition();
 		}
-		
+
 		setSize();
 		dot.setBounds(dot.getX(), dot.getY(), curr_width, curr_height);
 		batch.draw(dot.dot, dot.getX(), dot.getY(), curr_width, curr_height);

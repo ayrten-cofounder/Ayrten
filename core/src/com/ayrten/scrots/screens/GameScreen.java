@@ -62,7 +62,7 @@ public class GameScreen extends ScrotsScreen {
 	protected boolean should_clear_stage;
 	protected ArrayList<Level> all_levels = new ArrayList<Level>();
 
-//	protected Table slots;
+	// protected Table slots;
 	protected Table top_table;
 	protected Table corner_table;
 	protected Table side_table;
@@ -71,8 +71,7 @@ public class GameScreen extends ScrotsScreen {
 	protected ArrayList<Label> powDots_time;
 	protected ArrayList<Label> powDot_num;
 	protected ArrayList<Image> radial_timers;
-	
-	
+
 	protected ScrollPane pause_scroll;
 
 	protected Pool<MoveToAction> pool;
@@ -127,46 +126,57 @@ public class GameScreen extends ScrotsScreen {
 		};
 
 		initializePauseMenu();
-		
+
 		top_table = new Table(Assets.skin);
-		top_table.setPosition(0, Assets.game_height);
+		top_table.setPosition(0 + 10, Assets.game_height);
 		top_table.setWidth(Assets.width);
-		top_table.setHeight(Assets.height - Assets.game_height);
+		top_table.setHeight(Assets.height - Assets.game_height - 10);
 		top_table.align(Align.left);
-		top_table.add(pause);
-		
+		top_table.add(pause).width(top_table.getHeight());
+
 		corner_table = new Table(Assets.skin);
-		corner_table.setHeight(top_table.getHeight()/2 * 3);
-		corner_table.setWidth(top_table.getHeight()/2 * 3);
-		corner_table.setPosition(Assets.width - corner_table.getWidth(), Assets.height - corner_table.getHeight());
-		
+		corner_table.setHeight(top_table.getHeight() / 2 * 3);
+		corner_table.setWidth(top_table.getHeight() / 2 * 3);
+		corner_table.setPosition(Assets.width - corner_table.getWidth() - 10,
+				Assets.height - corner_table.getHeight() - 10);
+
 		Table temp = new Table(Assets.skin);
 		temp.add(level);
-		
+
 		Table lvl_table = new Table(Assets.skin);
 		lvl_table.setHeight(corner_table.getHeight());
 		lvl_table.setWidth(corner_table.getWidth());
 		Image lvl_bubble = new Image(Assets.lvl_bubble);
-		lvl_table.stack(lvl_bubble, temp).height(corner_table.getHeight()/2).width(corner_table.getWidth()/2);
+		lvl_table.stack(lvl_bubble, temp).height(corner_table.getHeight() / 2)
+				.width(corner_table.getWidth() / 2);
 		lvl_table.top().right();
-		
+
 		temp = new Table(Assets.skin);
 		temp.add(time);
-		
+
 		Table time_table = new Table(Assets.skin);
 		time_table.setHeight(corner_table.getHeight());
 		time_table.setWidth(corner_table.getWidth());
 		Image time_bubble = new Image(Assets.time_bubble);
-		time_table.stack(time_bubble, temp).height(corner_table.getHeight()/4 * 3).width(corner_table.getWidth()/4 * 3);
-		time_table.bottom().left();
-		
-		corner_table.stack(time_table, lvl_table).height(corner_table.getHeight()).width(corner_table.getWidth());
-		
+		time_table.stack(time_bubble, temp)
+				.height(corner_table.getHeight() / 4 * 3)
+				.width(corner_table.getWidth() / 4 * 3);
+		time_table.bottom().right().padRight(30);
+
+		corner_table.stack(time_table, lvl_table)
+				.height(corner_table.getHeight())
+				.width(corner_table.getWidth());
+
 		side_table = new Table(Assets.skin_window);
-		side_table.setHeight(Assets.height - corner_table.getHeight());
-		side_table.setWidth(Assets.height - Assets.game_height);
-		side_table.setPosition(Assets.width - side_table.getWidth(), 0);
-		
+		side_table.setBackground(Assets.table_background);
+		side_table.setHeight(Assets.height - corner_table.getHeight() * 2);
+		side_table.setWidth(Assets.height - Assets.game_height - 10);
+		side_table.setPosition(Assets.width - side_table.getWidth() - 10,
+				0 + 10);
+		side_table.setCenterPosition(Assets.game_width
+				+ ((Assets.width - Assets.game_width) / 2),
+				(Assets.height - corner_table.getHeight()) / 2);
+
 		boolean use_default_height = false;
 		boolean should_check = true;
 		for (int i = 0; i < powDots.size(); i++) {
@@ -175,44 +185,47 @@ public class GameScreen extends ScrotsScreen {
 			Label powDotTime = powDots_time.get(i);
 			Image rTimer = radial_timers.get(i);
 			rTimer.setVisible(false);
-			
+
 			float width, height;
-			if(powDot.getWidth() > side_table.getWidth())
-				width = side_table.getWidth()/5 * 4;
+			if (powDot.getWidth() > side_table.getWidth())
+				width = side_table.getWidth() / 5 * 4;
 			else
 				width = powDot.getWidth();
-			
-			if(should_check)
-			{
-				if(side_table.getHeight() / powDots.size() > width)
+
+			if (should_check) {
+				if (side_table.getHeight() / powDots.size() > width)
 					use_default_height = true;
 				should_check = false;
 			}
-			
-			if(use_default_height)
+
+			if (use_default_height)
 				height = width;
 			else
 				height = powDot.getHeight();
-			
+
 			temp = new Table(Assets.skin);
 			temp.setWidth(side_table.getWidth());
 			temp.setHeight(side_table.getWidth());
 			temp.add(powDotNum);
 			temp.top().right();
-			
+
 			Table timer_table = new Table(Assets.skin);
 			timer_table.add(powDotTime);
 
-			side_table.stack(powDot, rTimer, timer_table, temp).width(side_table.getWidth())
-					.height(side_table.getWidth()).left();
+			side_table.add().width(10);
+			side_table.stack(powDot, rTimer, timer_table, temp)
+					.width(side_table.getWidth() - 20)
+					.height(side_table.getWidth() - 20).left();
+			side_table.add().width(10);
 			if (i != powDots.size() - 1)
 				side_table.row();
-			
+
 			TextureRegion region = new TextureRegion();
 			region.getU2();
 		}
 
-		// Problem: dots are over the timer and lvl and power dots. However, you need to put the
+		// Problem: dots are over the timer and lvl and power dots. However, you
+		// need to put the
 		// pause_scroll at the bottom or else you can't touch the dots.
 		stage.addActor(pause_scroll);
 		curr_level = gamemode.gen_curr_level();
@@ -226,6 +239,10 @@ public class GameScreen extends ScrotsScreen {
 				: Assets.style_font_32_black);
 
 		time = new Label("60.0", Assets.prefs.getString("bg_color").equals(
+				"Black") ? Assets.style_font_32_white
+				: Assets.style_font_32_black);
+
+		points = new Label("0", Assets.prefs.getString("bg_color").equals(
 				"Black") ? Assets.style_font_32_white
 				: Assets.style_font_32_black);
 	}
@@ -267,19 +284,16 @@ public class GameScreen extends ScrotsScreen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				if (Assets.prefs.getBoolean("sound_effs"))
-					Assets.button_pop.play();				
-				if(gm.getGameState() == Manager.game_state.ONGOING)
-				{
+					Assets.button_pop.play();
+				if (gm.getGameState() == Manager.game_state.ONGOING) {
 					gm.setGameState(Manager.game_state.PAUSED);
 					gm.pauseGame();
 					side_table.setTouchable(Touchable.disabled);
-					for(int i = 0; i < powDots.size(); i++)
+					for (int i = 0; i < powDots.size(); i++)
 						powDots.get(i).pauseTime();
 					pause_scroll.scrollTo(0, Assets.game_height * 2,
-					pause_scroll.getWidth(), pause_scroll.getHeight());
-				}
-				else if (gm.getGameState() == Manager.game_state.PAUSED)
-				{
+							pause_scroll.getWidth(), pause_scroll.getHeight());
+				} else if (gm.getGameState() == Manager.game_state.PAUSED) {
 					gm.setGameState(Manager.game_state.ONGOING);
 					new Timer().scheduleTask(new Task() {
 						@Override
@@ -298,7 +312,7 @@ public class GameScreen extends ScrotsScreen {
 				}
 			}
 		});
-		
+
 		TextButton pause_quit = new TextButton("", Assets.skin);
 		pause_quit.add(new Label("Quit", buttonStyle));
 		pause_quit.setBounds(pause_quit.getX(), pause_quit.getY(),
@@ -349,7 +363,7 @@ public class GameScreen extends ScrotsScreen {
 		addPowDots();
 		addPowDotsNum();
 		addRadialTimers();
-		for(int i = 0; i < powDots.size(); i++) {
+		for (int i = 0; i < powDots.size(); i++) {
 			powDots.get(i).setNumLabel(powDot_num.get(i));
 			powDots.get(i).setRadialTimer(radial_timers.get(i));
 		}
@@ -422,9 +436,9 @@ public class GameScreen extends ScrotsScreen {
 	private void addPowDotsNum() {
 		LabelStyle dot_count_style = new LabelStyle();
 		dot_count_style.font = Assets.font_16;
-		dot_count_style.fontColor = Assets.prefs.getString("bg_color")
-				.equals("Black") ? Color.WHITE : Color.BLACK;
-		
+		dot_count_style.fontColor = Assets.prefs.getString("bg_color").equals(
+				"Black") ? Color.WHITE : Color.BLACK;
+
 		powDot_num = new ArrayList<Label>();
 		Label powDot_1_num = new Label("x0", dot_count_style);
 		Label powDot_2_num = new Label("x0", dot_count_style);
@@ -436,26 +450,25 @@ public class GameScreen extends ScrotsScreen {
 		powDot_num.add(powDot_1_num);
 		powDot_num.add(powDot_2_num);
 		powDot_num.add(powDot_3_num);
-		
-//		for (int i = 0; i < powDots.size(); i++) {
-//			powDots.get(i).setNumLabel(powDot_num.get(i));
-//		}
+
+		// for (int i = 0; i < powDots.size(); i++) {
+		// powDots.get(i).setNumLabel(powDot_num.get(i));
+		// }
 	}
-	
-	private void addRadialTimers()
-	{
+
+	private void addRadialTimers() {
 		TextureRegion tr = new TextureRegion(Assets.question_mark);
 		RadialSprite rs = new RadialSprite(tr);
 		Image image1 = new Image(rs);
-		
+
 		tr = new TextureRegion(Assets.question_mark);
 		rs = new RadialSprite(tr);
 		Image image2 = new Image(rs);
-		
+
 		tr = new TextureRegion(Assets.question_mark);
 		rs = new RadialSprite(tr);
 		Image image3 = new Image(rs);
-		
+
 		radial_timers = new ArrayList<Image>();
 		radial_timers.add(image1);
 		radial_timers.add(image2);
@@ -520,8 +533,8 @@ public class GameScreen extends ScrotsScreen {
 
 	public void showGameOverWithHighScore() {
 		MessageScreen message = new MessageScreen(stage);
-		message.makeGameOverWithHighScore(this, "Game Over!", "Replay", "Main Menu",
-				new ButtonInterface() {
+		message.makeGameOverWithHighScore(this, "Game Over!", "Replay",
+				"Main Menu", new ButtonInterface() {
 					@Override
 					public void buttonPressed() {
 						replay();
@@ -538,20 +551,20 @@ public class GameScreen extends ScrotsScreen {
 	public void dispose() {
 		// gamemode.dispose();
 	}
-	
+
 	SpriteBatch sprite_batch = new SpriteBatch();
 	TextureRegion tr = new TextureRegion(Assets.question_mark);
 	RadialSprite rs = new RadialSprite(tr);
 
 	@Override
-	public void render(float delta) {		
+	public void render(float delta) {
 		if (Assets.prefs.getString("bg_color").equals("Black"))
 			Gdx.gl.glClearColor(0, 0, 0, 0);
 		else
 			Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stage.act(Gdx.graphics.getDeltaTime());
-		
+
 		sprite_batch.begin();
 		sprite_batch.end();
 
@@ -560,7 +573,7 @@ public class GameScreen extends ScrotsScreen {
 		} else {
 			level();
 			time();
-//			points();
+			points();
 
 			stage.draw();
 			if (curr_level.level_clear()) {
