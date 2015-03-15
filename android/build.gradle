@@ -18,7 +18,6 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.google.android.gms:play-services:5.+'
-    compile project(':BaseGameUtils')
 }
 
 // needed to add JNI shared libraries to APK when compiling on CLI
