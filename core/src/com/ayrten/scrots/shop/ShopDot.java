@@ -245,9 +245,9 @@ public class ShopDot {
 
 		amountTable.clear();
 		amountTable.add(amountTextField).height(dotImage.getHeight())
-				.width(Assets.width / 5);
+				.width(Assets.width / 12);
 		amountTable.stack(addTable, minusTable).height(dotImage.getHeight())
-				.width(55);
+				.width(Assets.width / 12);
 	}
 
 	protected void addAmountToBuy(int amount) {

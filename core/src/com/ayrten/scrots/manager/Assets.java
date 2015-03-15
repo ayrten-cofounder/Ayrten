@@ -98,7 +98,6 @@ public class Assets {
 
 	public static Texture up_button;
 	public static Texture down_button;
-	public static Texture rounded_rect;
 
 	public static Texture regDot_1; // Regular dot (ie. green)
 	public static Texture regDot_2; // Regular dot (ie. babay blue)
@@ -130,7 +129,7 @@ public class Assets {
 	public static Texture lvl_bubble;
 	public static Texture time_bubble;
 	public static Texture timer_ring;
-//	public static Texture gray_timer_bg;
+	// public static Texture gray_timer_bg;
 
 	public static Image powDot1_image;
 	public static Image powDot2_image;
@@ -179,7 +178,7 @@ public class Assets {
 		gray_box = new NinePatchDrawable(new NinePatch(new Texture(
 				Gdx.files.internal("data/gray_box.9.png"))));
 		transparent_box = new NinePatchDrawable(new NinePatch(new Texture(
-				Gdx.files.internal("data/transparent_box.9.png"))));  
+				Gdx.files.internal("data/transparent_box.9.png"))));
 
 		table_background = new NinePatchDrawable(new NinePatch(new Texture(
 				Gdx.files.internal("data/rounded_rectangle.png")), 50, 50, 50,
@@ -280,8 +279,9 @@ public class Assets {
 		play_button = new Texture(Gdx.files.internal("data/dots/play_dot.png"));
 		play_button.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		timer_ring = new Texture(Gdx.files.internal("data/timer_ring.png"));
-//		gray_timer_bg = new Texture(Gdx.files.internal("data/gray_timer_bg.png"));
-		
+		// gray_timer_bg = new
+		// Texture(Gdx.files.internal("data/gray_timer_bg.png"));
+
 		lvl_bubble = dwdPenDot_1;
 		time_bubble = pause_button;
 
@@ -324,8 +324,6 @@ public class Assets {
 
 		up_button = new Texture(Gdx.files.internal("data/button_up.png"));
 		down_button = new Texture(Gdx.files.internal("data/button_down.png"));
-		rounded_rect = new Texture(
-				Gdx.files.internal("data/rounded_rectangle.9.png"));
 
 		if (!prefs.getBoolean("color_blind", false))
 			penDot_1 = new Texture(Gdx.files.internal("data/red_dot.png"));

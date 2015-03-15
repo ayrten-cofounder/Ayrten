@@ -24,18 +24,13 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
-import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.CheckBox.CheckBoxStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
-import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.SelectBox.SelectBoxStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -229,18 +224,17 @@ public class GameScreen extends ScrotsScreen {
 			Table timer_table = new Table(Assets.skin);
 			timer_table.add(powDotTime);
 
-			side_table.add().width(10);
+			side_table.add().width(5);
 			side_table.stack(powDot, rTimer, timer_table, temp)
-					.width(side_table.getWidth() - 20)
-					.height(side_table.getWidth() - 20).left();
-			side_table.add().width(10);
+					.width(side_table.getWidth() - 10)
+					.height(side_table.getWidth() - 10).left();
+			side_table.add().width(5);
 			if (i != powDots.size() - 1)
 				side_table.row();
 
 			TextureRegion region = new TextureRegion();
 			region.getU2();
 		}
-		side_table.setBackground(Assets.gray_box);
 
 		// Problem: dots are over the timer and lvl and power dots. However, you
 		// need to put the
