@@ -38,7 +38,7 @@ public class ShopScreen extends ScrotsScreen {
 		table = new Table();
 		table.setFillParent(true);
 		table.setSkin(Assets.skin);
-
+		
 		points = Assets.points_manager.getTotalPoints();
 
 		setupStage();

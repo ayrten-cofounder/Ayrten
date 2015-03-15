@@ -146,8 +146,6 @@ public class RadialSprite implements Drawable {
 		if (height < 0) { scaleY = -1f; height = -height; }
 		calculate(x, y, width, height, angle, u1, v1, u2, v2);
 		batch.draw(texture, verts, 0, 20*draw);
-//		for(int i = 0; i < verts.length; i++)
-//			System.out.println(i + ": " + verts[i]);
 	}
 	
 	public void draw(final Batch batch, final float x, final float y, final float angle) {

@@ -116,10 +116,14 @@ public class Assets {
 
 	public static Texture question_mark;
 
+	// Game Screen
 	public static Texture slot_switch;
-	public static Texture pause_dot;
+	public static Texture pause_button;
+	public static Texture play_button;
 	public static Texture lvl_bubble;
 	public static Texture time_bubble;
+	public static Texture timer_ring;
+//	public static Texture gray_timer_bg;
 
 	public static Image powDot1_image;
 	public static Image powDot2_image;
@@ -166,7 +170,7 @@ public class Assets {
 		gray_box = new NinePatchDrawable(new NinePatch(new Texture(
 				Gdx.files.internal("data/gray_box.9.png"))));
 		transparent_box = new NinePatchDrawable(new NinePatch(new Texture(
-				Gdx.files.internal("data/transparent_box.9.png"))));
+				Gdx.files.internal("data/transparent_box.9.png"))));  
 
 
 		// Style
@@ -258,6 +262,16 @@ public class Assets {
 
 		loadDotTextures();
 		slot_switch = explosion_dot;
+		pause_button = new Texture(
+				Gdx.files.internal("data/dots/pause_dot.png"));
+		pause_button.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		play_button = new Texture(Gdx.files.internal("data/dots/play_dot.png"));
+		play_button.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		timer_ring = new Texture(Gdx.files.internal("data/timer_ring.png"));
+//		gray_timer_bg = new Texture(Gdx.files.internal("data/gray_timer_bg.png"));
+		
+		lvl_bubble = dwdPenDot_1;
+		time_bubble = pause_button;
 
 		powDot1_image = new Image(regDot_1);
 		powDot2_image = new Image(regDot_1);
@@ -356,13 +370,6 @@ public class Assets {
 		rainbow_dot = new Texture(
 				Gdx.files.internal("data/dots/rainbow_dot.png"));
 		rainbow_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		
-		pause_dot = new Texture(
-				Gdx.files.internal("data/dots/pause_dot.png"));
-		pause_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		
-		lvl_bubble = dwdPenDot_1;
-		time_bubble = pause_dot;
 	}
 
 	public static void dispose() {
