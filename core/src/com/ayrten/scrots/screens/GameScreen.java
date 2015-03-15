@@ -24,22 +24,28 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox.CheckBoxStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox.SelectBoxStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 
 public class GameScreen extends ScrotsScreen {
 	// Widgets
-	protected Image pause;
+	protected Image menu_button;
 
 	protected Label level_title;
 	protected Label level;
@@ -72,6 +78,9 @@ public class GameScreen extends ScrotsScreen {
 	protected ArrayList<Label> powDot_num;
 	protected ArrayList<Image> radial_timers;
 
+	// protected ArrayList<Image> gray_timer_bg;
+	protected TextureRegionDrawable[] trd;
+
 	protected ScrollPane pause_scroll;
 
 	protected Pool<MoveToAction> pool;
@@ -89,6 +98,12 @@ public class GameScreen extends ScrotsScreen {
 		this.batch.enableBlending();
 		this.batch.setBlendFunction(GL20.GL_LINEAR_MIPMAP_NEAREST,
 				GL20.GL_NEAREST);
+
+		trd = new TextureRegionDrawable[2];
+		trd[0] = new TextureRegionDrawable(
+				new TextureRegion(Assets.play_button));
+		trd[1] = new TextureRegionDrawable(new TextureRegion(
+				Assets.pause_button));
 
 		initializePointsTime();
 
@@ -132,7 +147,7 @@ public class GameScreen extends ScrotsScreen {
 		top_table.setWidth(Assets.width);
 		top_table.setHeight(Assets.height - Assets.game_height - 10);
 		top_table.align(Align.left);
-		top_table.add(pause).width(top_table.getHeight());
+		top_table.add(menu_button).width(top_table.getHeight());
 
 		corner_table = new Table(Assets.skin);
 		corner_table.setHeight(top_table.getHeight() / 2 * 3);
@@ -184,6 +199,8 @@ public class GameScreen extends ScrotsScreen {
 			Label powDotNum = powDot_num.get(i);
 			Label powDotTime = powDots_time.get(i);
 			Image rTimer = radial_timers.get(i);
+			// Image gray_bg = gray_timer_bg.get(i);
+
 			rTimer.setVisible(false);
 
 			float width, height;
@@ -223,6 +240,7 @@ public class GameScreen extends ScrotsScreen {
 			TextureRegion region = new TextureRegion();
 			region.getU2();
 		}
+		side_table.setBackground(Assets.gray_box);
 
 		// Problem: dots are over the timer and lvl and power dots. However, you
 		// need to put the
@@ -275,12 +293,12 @@ public class GameScreen extends ScrotsScreen {
 				.equals("Black")) ? Assets.style_font_64_white
 				: Assets.style_font_64_black;
 
-		pause = new Image(Assets.pause_dot);
-		pause.setHeight(Assets.height - Assets.game_height);
-		pause.setWidth(Assets.height - Assets.game_height);
-		pause.setBounds(pause.getX(), pause.getY(), pause.getWidth(),
-				pause.getHeight());
-		pause.addListener(new ClickListener() {
+		menu_button = new Image(Assets.pause_button);
+		menu_button.setHeight(Assets.height - Assets.game_height);
+		menu_button.setWidth(Assets.height - Assets.game_height);
+		menu_button.setBounds(menu_button.getX(), menu_button.getY(),
+				menu_button.getWidth(), menu_button.getHeight());
+		menu_button.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				if (Assets.prefs.getBoolean("sound_effs"))
@@ -293,22 +311,24 @@ public class GameScreen extends ScrotsScreen {
 						powDots.get(i).pauseTime();
 					pause_scroll.scrollTo(0, Assets.game_height * 2,
 							pause_scroll.getWidth(), pause_scroll.getHeight());
+					menu_button.setDrawable(trd[0]);
 				} else if (gm.getGameState() == Manager.game_state.PAUSED) {
 					gm.setGameState(Manager.game_state.ONGOING);
 					new Timer().scheduleTask(new Task() {
 						@Override
 						public void run() {
 							gm.startGame();
-							pause.setTouchable(Touchable.enabled);
+							menu_button.setTouchable(Touchable.enabled);
 							side_table.setTouchable(Touchable.enabled);
 							for (int i = 0; i < powDots.size(); i++)
 								powDots.get(i).resumeTime();
+							menu_button.setDrawable(trd[1]);
 						}
 					}, 1);
 
 					pause_scroll.scrollTo(0, 0, pause_scroll.getWidth(),
 							pause_scroll.getHeight());
-					pause.setTouchable(Touchable.disabled);
+					menu_button.setTouchable(Touchable.disabled);
 				}
 			}
 		});
@@ -363,9 +383,11 @@ public class GameScreen extends ScrotsScreen {
 		addPowDots();
 		addPowDotsNum();
 		addRadialTimers();
+		addGrayTimerBg();
 		for (int i = 0; i < powDots.size(); i++) {
 			powDots.get(i).setNumLabel(powDot_num.get(i));
 			powDots.get(i).setRadialTimer(radial_timers.get(i));
+			// powDots.get(i).setGrayBg(gray_timer_bg.get(i));
 		}
 
 		ArrayList<Actor> opts = new ArrayList<Actor>();
@@ -457,15 +479,13 @@ public class GameScreen extends ScrotsScreen {
 	}
 
 	private void addRadialTimers() {
-		TextureRegion tr = new TextureRegion(Assets.question_mark);
+		TextureRegion tr = new TextureRegion(Assets.timer_ring);
 		RadialSprite rs = new RadialSprite(tr);
 		Image image1 = new Image(rs);
 
-		tr = new TextureRegion(Assets.question_mark);
 		rs = new RadialSprite(tr);
 		Image image2 = new Image(rs);
 
-		tr = new TextureRegion(Assets.question_mark);
 		rs = new RadialSprite(tr);
 		Image image3 = new Image(rs);
 
@@ -473,6 +493,12 @@ public class GameScreen extends ScrotsScreen {
 		radial_timers.add(image1);
 		radial_timers.add(image2);
 		radial_timers.add(image3);
+	}
+
+	private void addGrayTimerBg() {
+		// gray_timer_bg = new ArrayList<Image>();
+		// for(int i = 0; i < 3; i++)
+		// gray_timer_bg.add(new Image(Assets.gray_timer_bg));
 	}
 
 	public void setHighScoreName(String name) {

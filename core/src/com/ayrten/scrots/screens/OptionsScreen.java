@@ -41,7 +41,7 @@ public class OptionsScreen extends ScrotsScreen {
 		// Set the font size of all the items in the list.
 		mode.getList().getStyle().font = Assets.font_32;
 
-		sound_effs = new CheckBox("", Assets.skin);
+		sound_effs = new CheckBox("", Assets.skin); 
 		sound_effs.setChecked(true);
 		sound_effs.getCells().get(0).size(Assets.font_32.getLineHeight() / 2,
 				Assets.font_32.getLineHeight() / 2);
