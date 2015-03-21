@@ -82,7 +82,7 @@ public class GameScreen extends ScrotsScreen {
 
 	public GameScreen() {
 		super(null, false);
-		createBackLabel();
+		createBackLabelAndInitNavBar();
 
 		w = Gdx.graphics.getWidth();
 		h = Gdx.graphics.getHeight();
@@ -178,7 +178,7 @@ public class GameScreen extends ScrotsScreen {
 				.width(corner_table.getWidth());
 
 		side_table = new Table(Assets.skin_window);
-		side_table.setBackground(Assets.table_background);
+		side_table.setBackground(Assets.rounded_rectangle_gray);
 		side_table.setHeight(Assets.height - corner_table.getHeight() * 2);
 		side_table.setWidth(Assets.height - Assets.game_height - 10);
 		side_table.setPosition(Assets.width - side_table.getWidth() - 10,

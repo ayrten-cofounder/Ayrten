@@ -27,6 +27,7 @@ public class Assets {
 	public static float powerdot_thresh;
 	public static int height;
 	public static int width;
+	public static final float PAD = 20;
 	public static final float TIME_ADD = (float) 2.6; // seconds
 	public static final float TIME_OFF = (float) -5.0;
 	public static final String GPLAY_FILE = "gplay_status.txt";
@@ -46,7 +47,9 @@ public class Assets {
 	public static NinePatchDrawable gray_box;
 	public static NinePatchDrawable transparent_box;
 
-	public static NinePatchDrawable table_background;
+	public static NinePatchDrawable rounded_rectangle_gray;
+	public static NinePatchDrawable rounded_rectangle_blue;
+	public static NinePatchDrawable rounded_rectangle_red;
 
 	// Fonts
 	public static BitmapFont font_120;
@@ -180,9 +183,17 @@ public class Assets {
 		transparent_box = new NinePatchDrawable(new NinePatch(new Texture(
 				Gdx.files.internal("data/transparent_box.9.png"))));
 
-		table_background = new NinePatchDrawable(new NinePatch(new Texture(
-				Gdx.files.internal("data/rounded_rectangle.png")), 50, 50, 50,
-				50));
+		rounded_rectangle_gray = new NinePatchDrawable(new NinePatch(
+				new Texture(Gdx.files.internal("data/rounded_rectangle.png")),
+				50, 50, 50, 50));
+		rounded_rectangle_blue = new NinePatchDrawable(new NinePatch(
+				new Texture(
+						Gdx.files.internal("data/rounded_rectangle_blue.png")),
+				50, 50, 50, 50));
+		rounded_rectangle_red = new NinePatchDrawable(new NinePatch(
+				new Texture(
+						Gdx.files.internal("data/rounded_rectangle_red.png")),
+				50, 50, 50, 50));
 
 		// Style
 		style_font_64_black = new LabelStyle();

@@ -16,7 +16,7 @@ public class ContactScreen extends ScrotsScreen
 	public ContactScreen(Screen bscreen) 
 	{
 		super(bscreen, false);
-		createBackLabel();
+		createBackLabelAndInitNavBar();
 
 		Table table = new Table(Assets.skin);
 		table.left().top();

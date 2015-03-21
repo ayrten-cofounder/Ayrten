@@ -20,8 +20,7 @@ public class ShopScreen extends ScrotsScreen {
 	private int points = 0;
 
 	private ScrollPane scroll_view;
-	private Table table;
-	private Table bottom_bar_table;
+//	private Table table;
 
 	private Label points_label;
 	private Label total_price_label;
@@ -42,9 +41,10 @@ public class ShopScreen extends ScrotsScreen {
 		setUpShopTable();
 		updatePoints();
 
-		stage.addActor(points_label);
-		stage.addActor(premium_label);
-		stage.addActor(table);
+		showTableScreen();
+		// stage.addActor(points_label);
+		// stage.addActor(premium_label);
+//		stage.addActor(table);
 		// stage.addActor(bottom_bar_table);
 		// stage.addActor(scroll_view);
 	}
@@ -134,18 +134,12 @@ public class ShopScreen extends ScrotsScreen {
 
 	private void setUpShopScreen() {
 
-		// Set init the table and set positions
-		bottom_bar_table = new Table();
-		bottom_bar_table.setSize(Assets.width,
-				Assets.style_font_32_white.font.getLineHeight());
-		bottom_bar_table.setSkin(Assets.skin);
-
-		bottom_bar_table.setPosition(0, 0 + bottom_bar_table.getHeight());
-
-		table = new Table();
-		table.setSize(Assets.width,
-				Assets.height - bottom_bar_table.getHeight() - back.getHeight());
-		table.setSkin(Assets.skin);
+//		table = new Table();
+//		table.setSize(Assets.width - (PAD * 2),
+//				Assets.height - back.getHeight() - (PAD * 2));
+//		table.setPosition(PAD * 2 / 2, PAD * 2 / 2);
+//		table.setSkin(Assets.skin);
+//		table.setBackground(Assets.rounded_rectangle_red);
 
 		// scroll_view = new ScrollPane(table);
 		// scroll_view.setSize(Assets.width, Assets.height - back.getHeight()
@@ -158,16 +152,16 @@ public class ShopScreen extends ScrotsScreen {
 				"Points: " + String.valueOf(points),
 				Assets.prefs.getString("bg_color").equals("Black") ? Assets.style_font_32_white
 						: Assets.style_font_32_black);
-		points_label.setCenterPosition(Assets.width / 2, Assets.height
-				- points_label.getHeight());
+		// points_label.setCenterPosition(Assets.width / 2, Assets.height
+		// - points_label.getHeight());
 
 		// Premium Label
 		premium_label = new Label("Buy Points!", Assets.prefs.getString(
 				"bg_color").equals("Black") ? Assets.style_font_64_white
 				: Assets.style_font_64_black);
 
-		premium_label.setPosition(Assets.width - premium_label.getWidth(),
-				Assets.height - premium_label.getHeight());
+		// premium_label.setPosition(Assets.width - premium_label.getWidth(),
+		// Assets.height - premium_label.getHeight());
 
 		premium_label.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y,
@@ -180,6 +174,9 @@ public class ShopScreen extends ScrotsScreen {
 				goToPremiumShop();
 			}
 		});
+
+		addToNavBar(points_label);
+		addToNavBar(premium_label);
 
 		// Total Price Label
 		total_price_label = new Label(
@@ -223,16 +220,6 @@ public class ShopScreen extends ScrotsScreen {
 				clear();
 			}
 		});
-
-		// Bottom Bar Table
-		bottom_bar_table.row().pad(PAD);
-		bottom_bar_table.add(new Label("", Assets.style_font_32_white)).width(
-				Assets.width / 6);
-		bottom_bar_table.add(new Label("", Assets.style_font_32_white)).width(
-				Assets.width / 6);
-		bottom_bar_table.add(clear_label).width(Assets.width / 6);
-		bottom_bar_table.add(buy_label).width(Assets.width / 6);
-		bottom_bar_table.add(total_price_label).width(Assets.width / 6);
 	}
 
 	private void setUpShopTable() {
@@ -284,8 +271,8 @@ public class ShopScreen extends ScrotsScreen {
 		tempt.setWidth(Assets.width);
 		tempt.setSkin(Assets.skin);
 
-//		tempt.debug();
-//		table.debug();
+		// tempt.debug();
+		// table.debug();
 
 		tempt.row();
 		tempt.add().width(Assets.width / 6);
