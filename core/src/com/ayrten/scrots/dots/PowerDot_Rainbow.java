@@ -13,7 +13,7 @@ public class PowerDot_Rainbow extends PowerDot {
 		
 		ACTIVE_TIME = 5;
 //		num = Assets.power_dot_manager.getRainbowDots();
-		num = 99;
+		num = 10;
 	}
 	
 	@Override

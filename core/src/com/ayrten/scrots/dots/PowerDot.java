@@ -4,8 +4,12 @@ import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
@@ -25,10 +29,18 @@ public class PowerDot extends Dot {
 	protected InputListener powerdot_listener;
 	protected float origX, origY;
 
+	protected Image rs;
+	protected SpriteBatch batch;
+	float angle;
+//	protected Image gray_timer_bg;
 
 	public PowerDot(Texture dot, Manager gm, Sound pop) {
 		super(dot, gm, pop);
 		timer = new Timer();
+
+		angle = 0;
+
+		batch = new SpriteBatch();
 
 		powerdot_listener = new InputListener(){
 			@Override
@@ -38,20 +50,19 @@ public class PowerDot extends Dot {
 				origY = event.getTarget().getY();
 				return true;
 			}
-			
+
 			@Override
 			public void touchDragged(InputEvent event, float x, float y, int pointer) {
 				if(event.getTarget().getX() + x < origX)
 					event.getTarget().setX(event.getTarget().getX() + x);
 			}
-			
+
 			@Override
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 				super.touchUp(event, x, y, pointer, button);
 				// If x position exceeds a threshold, then activate the effect.
 				if (origX - event.getTarget().getX() > Assets.powerdot_thresh && num > 0) 
 					touchedByAnAngel();
-				event.getTarget().setPosition(origX, origY);
 			}
 		};
 
@@ -67,6 +78,14 @@ public class PowerDot extends Dot {
 	public void setNumLabel(Label label) {
 		num_label = label;
 		updateNumLabel();
+	}
+
+	public void setRadialTimer(Image image) {
+		rs = image;
+	}
+	
+	public void setGrayBg(Image gray_bg) {
+//		gray_timer_bg = gray_bg;
 	}
 
 	public void updateNumLabel() {
@@ -87,17 +106,25 @@ public class PowerDot extends Dot {
 
 	// Action to do before timer starts.
 	public void beforeAction() {
-
+		rs.setVisible(true);
+//		gray_timer_bg.setVisible(true);
+		setVisible(false);
 	}
 
 	// Action to do during the timer
 	public void duringAction() {
-
+		angle = 360 * (1 - time/ACTIVE_TIME);
+		batch.begin();
+		((RadialSprite) rs.getDrawable()).draw(batch, rs.getX(), rs.getY(), angle);
+		batch.end();
 	}
 
 	// Action to do after timer ends
 	public void afterAction() {
-
+		angle = 0;
+		rs.setVisible(false);
+//		gray_timer_bg.setVisible(false);
+		setVisible(true);
 	}
 
 	public void startTime() {
