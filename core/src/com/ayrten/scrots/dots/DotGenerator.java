@@ -108,6 +108,8 @@ public class DotGenerator {
 	public void setRandPositions(Dot target) {
 		int range = (int) (width - target.getWidth());
 		int w = random.nextInt(range);
+		if (gm.get_game_mode() != GameMode.MAIN_MENU_BACKGROUND_MODE)
+			w += Assets.width - width;
 		float h = random.nextFloat() * Assets.game_height;
 
 		if (w == 0) {
