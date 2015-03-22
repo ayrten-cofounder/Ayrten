@@ -7,7 +7,6 @@ import com.ayrten.scrots.scoreboard.Scoreboard;
 import com.ayrten.scrots.scoreboard.Scoreboard.Scores;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -16,8 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
@@ -26,10 +23,8 @@ public class ScoresScreen extends ScrotsScreen {
 	private float pad_right = (float) 5.5;
 	private int height = 75;
 
-	private Table table;
 	private SelectBox<String> mode;
 	private Label clear;
-	private Window confirm_clear;
 
 	LabelStyle style_big;
 	LabelStyle style_small;
@@ -37,9 +32,8 @@ public class ScoresScreen extends ScrotsScreen {
 	public ScoresScreen(Screen bscreen) {
 		super(bscreen, true);
 
-		table = new Table();
-		table.setFillParent(true);
-		table.setSkin(Assets.skin);
+		setupStage();
+		showTableScreen();
 
 		style_big = new LabelStyle();
 		style_big.font = Assets.font_64;
@@ -59,17 +53,18 @@ public class ScoresScreen extends ScrotsScreen {
 				if (Assets.prefs.getBoolean("sound_effs"))
 					Assets.button_pop.play();
 				MessageScreen message = new MessageScreen(stage);
-				message.makeWindow("Clear Highscores?", "Yes", "No", new ButtonInterface() {
-					
-					@Override
-					public void buttonPressed() {
-						clearScoreboard();
-					}
-				}, new ButtonInterface() {
-					@Override
-					public void buttonPressed() {
-					}
-				});
+				message.makeWindow("Clear Highscores?", "Yes", "No",
+						new ButtonInterface() {
+
+							@Override
+							public void buttonPressed() {
+								clearScoreboard();
+							}
+						}, new ButtonInterface() {
+							@Override
+							public void buttonPressed() {
+							}
+						});
 			}
 		});
 
@@ -88,56 +83,17 @@ public class ScoresScreen extends ScrotsScreen {
 			}
 		});
 
-		TextButton proceed = new TextButton("", Assets.skin);
-		proceed.add(new Label("Proceed", new LabelStyle(Assets.font_32,
-				Color.WHITE)));
-		proceed.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				clearScoreboard();
-				confirm_clear.setVisible(false);
-			};
-		});
-
-		TextButton cancel = new TextButton("", Assets.skin);
-		cancel.add(new Label("Cancel", new LabelStyle(Assets.font_32,
-				Color.WHITE)));
-		cancel.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				confirm_clear.setVisible(false);
-			};
-		});
-
-		confirm_clear = new Window("Clear scores?", Assets.skin);
-		confirm_clear.getStyle().titleFont = Assets.font_64;
-
-		confirm_clear.add(proceed);
-		confirm_clear.row();
-		confirm_clear.add("").height(Gdx.graphics.getHeight() / 100);
-		confirm_clear.row();
-		confirm_clear.add(cancel);
-		confirm_clear.setPosition(
-				stage.getWidth() / 2 - confirm_clear.getWidth() / 2,
-				stage.getHeight() / 2 - confirm_clear.getHeight() / 2);
-		// confirm_clear.pack();
-		confirm_clear.setMovable(false);
-		confirm_clear.setVisible(false);
-
 		setHighScoreTable(table);
-		setupStage();
-		stage.addActor(table);
-		stage.addActor(confirm_clear);
 	}
 
 	public void clearScoreboard() {
-		//		if (mode.getSelected().equals("Normal")) {
+		// if (mode.getSelected().equals("Normal")) {
 		NormalScoreboard scoreboard = new NormalScoreboard();
 		scoreboard.clearScoreboard();
-		//		} else {
-		//			ChallengeScoreboard scoreboard = new ChallengeScoreboard();
-		//			scoreboard.clearScoreboard();
-		//		}
+		// } else {
+		// ChallengeScoreboard scoreboard = new ChallengeScoreboard();
+		// scoreboard.clearScoreboard();
+		// }
 		switchHighScoreTable();
 	}
 
@@ -157,13 +113,13 @@ public class ScoresScreen extends ScrotsScreen {
 	}
 
 	private void setHighScoreTable(Table table) {
-		//		if (mode.getSelected().equals("Normal")) {
+		// if (mode.getSelected().equals("Normal")) {
 		NormalScoreboard scoreboard = new NormalScoreboard();
 		fillInHighScore(scoreboard, table);
-		//		} else {
-		//			ChallengeScoreboard scoreboard = new ChallengeScoreboard();
-		//			fillInHighScore(scoreboard, table);
-		//		}
+		// } else {
+		// ChallengeScoreboard scoreboard = new ChallengeScoreboard();
+		// fillInHighScore(scoreboard, table);
+		// }
 	}
 
 	private void fillInHighScore(Scoreboard scoreboard, Table table) {
@@ -180,34 +136,34 @@ public class ScoresScreen extends ScrotsScreen {
 		innerTable.add("").height(Gdx.graphics.getHeight() / height);
 		innerTable.row();
 		innerTable.add(new Label(scores.first_name, style_small)).left()
-		.padRight((float) (Gdx.graphics.getWidth() / pad_left));
+				.padRight((float) (Gdx.graphics.getWidth() / pad_left));
 		innerTable.add(new Label(String.valueOf(scores.first), style_small))
-		.right().padLeft(Gdx.graphics.getWidth() / pad_right)
-		.height(style_small.font.getLineHeight());
+				.right().padLeft(Gdx.graphics.getWidth() / pad_right)
+				.height(style_small.font.getLineHeight());
 		innerTable.row();
 		innerTable.add(new Label(scores.second_name, style_small)).left()
-		.padRight((float) (Gdx.graphics.getWidth() / pad_left));
+				.padRight((float) (Gdx.graphics.getWidth() / pad_left));
 		innerTable.add(new Label(String.valueOf(scores.second), style_small))
-		.right().padLeft(Gdx.graphics.getWidth() / pad_right)
-		.height(style_small.font.getLineHeight());
+				.right().padLeft(Gdx.graphics.getWidth() / pad_right)
+				.height(style_small.font.getLineHeight());
 		innerTable.row();
 		innerTable.add(new Label(scores.third_name, style_small)).left()
-		.padRight((float) (Gdx.graphics.getWidth() / pad_left));
+				.padRight((float) (Gdx.graphics.getWidth() / pad_left));
 		innerTable.add(new Label(String.valueOf(scores.third), style_small))
-		.right().padLeft(Gdx.graphics.getWidth() / pad_right)
-		.height(style_small.font.getLineHeight());
+				.right().padLeft(Gdx.graphics.getWidth() / pad_right)
+				.height(style_small.font.getLineHeight());
 		innerTable.row();
 		innerTable.add(new Label(scores.fourth_name, style_small)).left()
-		.padRight((float) (Gdx.graphics.getWidth() / pad_left));
+				.padRight((float) (Gdx.graphics.getWidth() / pad_left));
 		innerTable.add(new Label(String.valueOf(scores.fourth), style_small))
-		.right().padLeft(Gdx.graphics.getWidth() / pad_right)
-		.height(style_small.font.getLineHeight());
+				.right().padLeft(Gdx.graphics.getWidth() / pad_right)
+				.height(style_small.font.getLineHeight());
 		innerTable.row();
 		innerTable.add(new Label(scores.fifth_name, style_small)).left()
-		.padRight((float) (Gdx.graphics.getWidth() / pad_left));
+				.padRight((float) (Gdx.graphics.getWidth() / pad_left));
 		innerTable.add(new Label(String.valueOf(scores.fifth), style_small))
-		.right().padLeft(Gdx.graphics.getWidth() / pad_right)
-		.height(style_small.font.getLineHeight());
+				.right().padLeft(Gdx.graphics.getWidth() / pad_right)
+				.height(style_small.font.getLineHeight());
 		innerTable.row();
 
 		table.add(innerTable);

@@ -105,11 +105,16 @@ public class ScrotsScreen implements Screen {
 
 		// Init Nav Bar
 		navagation_bar = new Table();
-		navagation_bar.setSize(Assets.width - Assets.PAD, back.getHeight());
-		navagation_bar.setPosition(Assets.PAD * 3, Assets.height
+		// navagation_bar.setSize(Assets.width - Assets.PAD, back.getHeight());
+		// navagation_bar.setPosition(Assets.PAD / 2, Assets.height
+		// - navagation_bar.getHeight() - (Assets.PAD / 2));
+
+		navagation_bar.setSize(Assets.width, back.getHeight());
+		navagation_bar.setPosition(Assets.PAD * 2 / 2, Assets.height
 				- navagation_bar.getHeight() - (Assets.PAD / 2));
+
 		navagation_bar.setSkin(Assets.skin);
-//		navagation_bar.setBackground(Assets.rounded_rectangle_blue);
+		navagation_bar.setBackground(Assets.rounded_rectangle_blue);
 		navagation_bar.align(Align.left);
 
 		addToNavBar(back);
@@ -168,8 +173,10 @@ public class ScrotsScreen implements Screen {
 	}
 
 	public void setActorsTouchable(Touchable touchable) {
-		for (Actor actor : actors)
-			actor.setTouchable(touchable);
+		for (Actor actor : actors) {
+			if (actor != null)
+				actor.setTouchable(touchable);
+		}
 	}
 
 	@Override

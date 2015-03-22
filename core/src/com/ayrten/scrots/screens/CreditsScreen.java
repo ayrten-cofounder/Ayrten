@@ -15,8 +15,10 @@ public class CreditsScreen extends ScrotsScreen
 {	
 	public CreditsScreen(Screen bscreen) 
 	{
-		super(bscreen, false);
-		createBackLabelAndInitNavBar();
+		super(bscreen, true);
+
+		setupStage();
+		showTableScreen();
 		
 		Label created = new Label("", Assets.style_font_32_orange);
 		created.setWrap(true);
