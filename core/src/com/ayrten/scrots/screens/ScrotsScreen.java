@@ -109,7 +109,7 @@ public class ScrotsScreen implements Screen {
 		navagation_bar.setPosition(Assets.PAD * 3, Assets.height
 				- navagation_bar.getHeight() - (Assets.PAD / 2));
 		navagation_bar.setSkin(Assets.skin);
-		navagation_bar.setBackground(Assets.rounded_rectangle_blue);
+//		navagation_bar.setBackground(Assets.rounded_rectangle_blue);
 		navagation_bar.align(Align.left);
 
 		addToNavBar(back);
