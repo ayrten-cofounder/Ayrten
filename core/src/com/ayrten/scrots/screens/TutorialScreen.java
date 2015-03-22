@@ -15,7 +15,7 @@ public class TutorialScreen extends ScrotsScreen
 	public TutorialScreen(Screen bscreen)
 	{
 		super(bscreen, false);
-		createBackLabel();
+		createBackLabelAndInitNavBar();
 		
 		Table table = new Table(Assets.skin);
 		table.padLeft(back.getWidth()/5).padRight(back.getWidth()/5);

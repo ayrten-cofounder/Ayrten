@@ -82,7 +82,7 @@ public class GameScreen extends ScrotsScreen {
 
 	public GameScreen() {
 		super(null, false);
-		createBackLabel();
+		createBackLabelAndInitNavBar();
 
 		w = Gdx.graphics.getWidth();
 		h = Gdx.graphics.getHeight();
@@ -142,7 +142,7 @@ public class GameScreen extends ScrotsScreen {
 		top_table.setWidth(Assets.width);
 		top_table.setHeight(Assets.height - Assets.game_height - 10);
 		top_table.align(Align.left);
-		top_table.add(menu_button).width(top_table.getHeight());
+		top_table.add(menu_button).width(top_table.getHeight()).height(top_table.getHeight());
 
 		corner_table = new Table(Assets.skin);
 		corner_table.setHeight(top_table.getHeight() / 2 * 3);
@@ -178,11 +178,10 @@ public class GameScreen extends ScrotsScreen {
 				.width(corner_table.getWidth());
 
 		side_table = new Table(Assets.skin_window);
-		side_table.setBackground(Assets.table_background);
-		side_table.setHeight(Assets.height - corner_table.getHeight() * 2);
+		side_table.setBackground(Assets.rounded_rectangle_gray);
+		side_table.setHeight(corner_table.getY() - 20);
 		side_table.setWidth(Assets.width - Assets.game_width - 10);
-		side_table.setPosition(Assets.width - side_table.getWidth() - 10,
-				0 + 10);
+		side_table.setPosition(Assets.width - side_table.getWidth() - 10, 10);
 		side_table.setCenterPosition(Assets.game_width
 				+ ((Assets.width - Assets.game_width) / 2),
 				(Assets.height - corner_table.getHeight()) / 2);
@@ -232,7 +231,7 @@ public class GameScreen extends ScrotsScreen {
 			side_table.add().width(10);
 			side_table.add(cell_table).height(side_table.getHeight() / powDots.size());
 			side_table.add().width(10);
-			if (i != powDots.size() - 1)
+			if(i != powDots.size() - 1)
 				side_table.row();
 		}
 

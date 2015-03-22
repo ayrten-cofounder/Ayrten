@@ -27,6 +27,7 @@ public class Assets {
 	public static float powerdot_thresh;
 	public static int height;
 	public static int width;
+	public static final float PAD = 20;
 	public static final float TIME_ADD = (float) 2.6; // seconds
 	public static final float TIME_OFF = (float) 5.0;
 	public static final String GPLAY_FILE = "gplay_status.txt";
@@ -46,7 +47,9 @@ public class Assets {
 	public static NinePatchDrawable gray_box;
 	public static NinePatchDrawable transparent_box;
 
-	public static NinePatchDrawable table_background;
+	public static NinePatchDrawable rounded_rectangle_gray;
+	public static NinePatchDrawable rounded_rectangle_blue;
+	public static NinePatchDrawable rounded_rectangle_red;
 
 	// Fonts
 	public static BitmapFont font_120;
@@ -98,7 +101,6 @@ public class Assets {
 
 	public static Texture up_button;
 	public static Texture down_button;
-	public static Texture rounded_rect;
 
 	public static Texture regDot_1; // Regular dot (ie. green)
 	public static Texture regDot_2; // Regular dot (ie. babay blue)
@@ -130,7 +132,7 @@ public class Assets {
 	public static Texture lvl_bubble;
 	public static Texture time_bubble;
 	public static Texture timer_ring;
-//	public static Texture gray_timer_bg;
+	// public static Texture gray_timer_bg;
 
 	public static Image powDot1_image;
 	public static Image powDot2_image;
@@ -179,11 +181,19 @@ public class Assets {
 		gray_box = new NinePatchDrawable(new NinePatch(new Texture(
 				Gdx.files.internal("data/gray_box.9.png"))));
 		transparent_box = new NinePatchDrawable(new NinePatch(new Texture(
-				Gdx.files.internal("data/transparent_box.9.png"))));  
+				Gdx.files.internal("data/transparent_box.9.png"))));
 
-		table_background = new NinePatchDrawable(new NinePatch(new Texture(
-				Gdx.files.internal("data/rounded_rectangle.png")), 50, 50, 50,
-				50));
+		rounded_rectangle_gray = new NinePatchDrawable(new NinePatch(
+				new Texture(Gdx.files.internal("data/rounded_rectangle.png")),
+				50, 50, 50, 50));
+		rounded_rectangle_blue = new NinePatchDrawable(new NinePatch(
+				new Texture(
+						Gdx.files.internal("data/rounded_rectangle_blue.png")),
+				50, 50, 50, 50));
+		rounded_rectangle_red = new NinePatchDrawable(new NinePatch(
+				new Texture(
+						Gdx.files.internal("data/rounded_rectangle_red.png")),
+				50, 50, 50, 50));
 
 		// Style
 		style_font_64_black = new LabelStyle();
@@ -324,8 +334,6 @@ public class Assets {
 
 		up_button = new Texture(Gdx.files.internal("data/button_up.png"));
 		down_button = new Texture(Gdx.files.internal("data/button_down.png"));
-		rounded_rect = new Texture(
-				Gdx.files.internal("data/rounded_rectangle.9.png"));
 
 		if (!prefs.getBoolean("color_blind", false))
 			penDot_1 = new Texture(Gdx.files.internal("data/red_dot.png"));
