@@ -48,8 +48,9 @@ public class GameScreen extends ScrotsScreen {
 	protected Label time;
 	protected Label time_end;
 
-	protected Label points_title;
+//	protected Label points_title;
 	protected Label points;
+	protected Table points_table;
 
 	protected GameMode gamemode;
 	protected Manager gm;
@@ -176,6 +177,20 @@ public class GameScreen extends ScrotsScreen {
 		corner_table.stack(time_table, lvl_table)
 				.height(corner_table.getHeight())
 				.width(corner_table.getWidth());
+		
+		Label points_title = new Label("Pts", Assets.prefs.getString("bg_color").equals(
+				"Black") ? Assets.style_font_32_white
+				: Assets.style_font_32_black);
+		
+		points_table = new Table(Assets.skin);
+		points_table.setBackground(Assets.rounded_rectangle_red);
+		points_table.setWidth(Assets.width / 4 + corner_table.getWidth());
+		points_table.setPosition(Assets.width - points_table.getWidth() - corner_table.getWidth() / 4 - 10, 
+				Assets.height - corner_table.getHeight() / 8 - 10 - points.getStyle().font.getLineHeight());
+		points_table.setHeight(points.getStyle().font.getLineHeight());
+		points_table.add(points);
+		points_table.add(points_title);
+		points_table.left();
 
 		side_table = new Table(Assets.skin_window);
 		side_table.setBackground(Assets.rounded_rectangle_gray);
@@ -637,6 +652,7 @@ public class GameScreen extends ScrotsScreen {
 
 	private void addStageActors() {
 		stage.addActor(top_table);
+		stage.addActor(points_table);
 		stage.addActor(corner_table);
 		stage.addActor(side_table);
 	}
