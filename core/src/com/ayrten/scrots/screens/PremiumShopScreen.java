@@ -10,21 +10,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class PremiumShopScreen extends ScrotsScreen {
 
-	private Table table;
-
 	private ArrayList<ShopPremiumables> premiumables;
 
 	public PremiumShopScreen(Screen bscreen) {
 		super(bscreen, true);
 
-		table = new Table();
-		table.setFillParent(true);
-		table.setSkin(Assets.skin);
-
 		setupStage();
 		setPremiumTable();
 
-		stage.addActor(table);
+		showTableScreen();
 	}
 
 	public void setPremiumTable() {

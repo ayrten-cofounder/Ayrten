@@ -20,16 +20,12 @@ public class OptionsScreen extends ScrotsScreen {
 	protected CheckBox auto_gplay_signin;
 	protected CheckBox color_blind;
 
-	private float label_pad_left = (float) 5.5; // Lower # = more left
+	private float label_pad_left = (float) 35; // Lower # = more left
 
 	public OptionsScreen(Screen bscreen) {
 		super(bscreen, true);
 
 		setupStage();
-
-		// Table table = new Table();
-		// table.setFillParent(true);
-		// table.setSkin(Assets.skin);
 
 		LabelStyle style = new LabelStyle();
 		style.font = Assets.font_32;
@@ -82,23 +78,25 @@ public class OptionsScreen extends ScrotsScreen {
 			bg_color.setSelected("White");
 		}
 
-		table.row();
-		table.add("").height(Gdx.graphics.getHeight() / 5 * 2);
 		// table.row();
-		// table.add(new Label("Game Mode: ", style)).left().padLeft((float)
-		// (Gdx.graphics.getWidth()/label_pad_left));
+		// table.add("").height(Gdx.graphics.getHeight() / 5 * 2);
+		// // table.row();
+		// // table.add(new Label("Game Mode: ", style)).left().padLeft((float)
+		// // (Gdx.graphics.getWidth()/label_pad_left));
+		// //
 		// table.add(mode).center().padLeft(Gdx.graphics.getWidth()/6).height(style.font.getLineHeight());
+		// // table.row();
+		// // table.add("").height(Gdx.graphics.getHeight()/50);
 		// table.row();
-		// table.add("").height(Gdx.graphics.getHeight()/50);
-		table.row();
-		table.add(new Label("Background: ", Assets.style_font_32_orange)).left()
-				.padLeft((float) (Gdx.graphics.getWidth() / label_pad_left));
+
+		table.add(new Label("Background: ", Assets.style_font_32_orange))
+				.left().padLeft((float) (table.getWidth() / label_pad_left));
 		table.add(bg_color).center().padLeft(Gdx.graphics.getWidth() / 6);
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / 50);
 		table.row();
-		table.add(new Label("Sound Effects: ", Assets.style_font_32_orange)).left()
-				.padLeft((float) (Gdx.graphics.getWidth() / label_pad_left));
+		table.add(new Label("Sound Effects: ", Assets.style_font_32_orange))
+				.left().padLeft((float) (table.getWidth() / label_pad_left));
 		table.add(sound_effs).center().padLeft(Gdx.graphics.getWidth() / 6);
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / 50);
@@ -108,22 +106,14 @@ public class OptionsScreen extends ScrotsScreen {
 		table.add("").height(Gdx.graphics.getHeight() / 50);
 		table.row();
 		table.add(new Label("Color Blind Mode: ", Assets.style_font_32_orange))
-				.left()
-				.padLeft((float) (Gdx.graphics.getWidth() / label_pad_left));
+				.left().padLeft((float) (table.getWidth() / label_pad_left));
 		;
-		table.add(color_blind).center().padLeft(Gdx.graphics.getWidth() / 6);
+		table.add(color_blind).center().padLeft(table.getWidth() / 6);
 
 		table.left().top();
 
 		// setupStage();
 		showTableScreen();
-		// stage.addActor(table);
-		// When user initially touch drop-down list, it shows a scroll instead
-		// of
-		// expanding fully. This expands the list beforehand so when user
-		// interacts
-		// with drop-down list for first time, it will expand fully.
-		// mode.showList();
 	}
 
 	@Override

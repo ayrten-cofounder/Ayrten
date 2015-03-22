@@ -20,7 +20,7 @@ public class ShopScreen extends ScrotsScreen {
 	private int points = 0;
 
 	private ScrollPane scroll_view;
-//	private Table table;
+	// private Table table;
 
 	private Label points_label;
 	private Label total_price_label;
@@ -44,7 +44,7 @@ public class ShopScreen extends ScrotsScreen {
 		showTableScreen();
 		// stage.addActor(points_label);
 		// stage.addActor(premium_label);
-//		stage.addActor(table);
+		// stage.addActor(table);
 		// stage.addActor(bottom_bar_table);
 		// stage.addActor(scroll_view);
 	}
@@ -134,12 +134,12 @@ public class ShopScreen extends ScrotsScreen {
 
 	private void setUpShopScreen() {
 
-//		table = new Table();
-//		table.setSize(Assets.width - (PAD * 2),
-//				Assets.height - back.getHeight() - (PAD * 2));
-//		table.setPosition(PAD * 2 / 2, PAD * 2 / 2);
-//		table.setSkin(Assets.skin);
-//		table.setBackground(Assets.rounded_rectangle_red);
+		// table = new Table();
+		// table.setSize(Assets.width - (PAD * 2),
+		// Assets.height - back.getHeight() - (PAD * 2));
+		// table.setPosition(PAD * 2 / 2, PAD * 2 / 2);
+		// table.setSkin(Assets.skin);
+		// table.setBackground(Assets.rounded_rectangle_red);
 
 		// scroll_view = new ScrollPane(table);
 		// scroll_view.setSize(Assets.width, Assets.height - back.getHeight()
@@ -238,8 +238,8 @@ public class ShopScreen extends ScrotsScreen {
 			dots.add(rainbowDot);
 		}
 
-		Label p = new Label("Power Dot", Assets.prefs.getString("bg_color")
-				.equals("Black") ? Assets.style_font_32_white
+		Label p = new Label("Item", Assets.prefs.getString("bg_color").equals(
+				"Black") ? Assets.style_font_32_white
 				: Assets.style_font_32_black);
 		Label des = new Label("Description", Assets.prefs.getString("bg_color")
 				.equals("Black") ? Assets.style_font_32_white
@@ -270,6 +270,7 @@ public class ShopScreen extends ScrotsScreen {
 		Table tempt = new Table();
 		tempt.setWidth(Assets.width);
 		tempt.setSkin(Assets.skin);
+		// tempt.setBackground(Assets.gray_box);
 
 		// tempt.debug();
 		// table.debug();
@@ -283,6 +284,11 @@ public class ShopScreen extends ScrotsScreen {
 
 		for (ShopDot d : dots) {
 			tempt.row().padBottom(PAD);
+			
+//			Table row = new Table();
+//			row.setWidth(tempt.getWidth());
+//			row.setSkin(Assets.skin);
+//			row.setBackground(Assets.rounded_rectangle_blue);
 
 			if (d.unlocked) {
 				tempt.add(d.dotImage).height(d.dotImage.getHeight());
@@ -300,6 +306,7 @@ public class ShopScreen extends ScrotsScreen {
 
 		scroll_view = new ScrollPane(tempt);
 		scroll_view.setScrollingDisabled(true, false);
+		scroll_view.getStyle().background = Assets.gray_box;
 
 		table.row().padBottom(PAD);
 		table.add(scroll_view).colspan(5).fill();
