@@ -2,6 +2,7 @@ package com.ayrten.scrots.dots;
 
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -46,23 +47,25 @@ public class PowerDot extends Dot {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
-				origX = event.getTarget().getX();
-				origY = event.getTarget().getY();
+				origX = event.getTarget().getCenterX();
+				origY = event.getTarget().getCenterY();
+				event.getTarget().setCenterPosition(Gdx.input.getX(pointer), event.getTarget().getCenterY());
 				return true;
 			}
 
 			@Override
 			public void touchDragged(InputEvent event, float x, float y, int pointer) {
-				if(event.getTarget().getX() + x < origX)
-					event.getTarget().setX(event.getTarget().getX() + x);
+				if(Gdx.input.getX(pointer) > origX)
+					event.getTarget().setCenterPosition(Gdx.input.getX(pointer), event.getTarget().getCenterY());
 			}
 
 			@Override
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 				super.touchUp(event, x, y, pointer, button);
 				// If x position exceeds a threshold, then activate the effect.
-				if (origX - event.getTarget().getX() > Assets.powerdot_thresh && num > 0) 
+				if (Math.abs(origX - event.getTarget().getCenterX()) > Assets.powerdot_thresh) 
 					touchedByAnAngel();
+				event.getTarget().setCenterPosition(origX, origY);
 			}
 		};
 
@@ -109,6 +112,7 @@ public class PowerDot extends Dot {
 		rs.setVisible(true);
 //		gray_timer_bg.setVisible(true);
 		setVisible(false);
+		
 	}
 
 	// Action to do during the timer

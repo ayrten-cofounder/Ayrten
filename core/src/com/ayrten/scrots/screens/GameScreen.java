@@ -139,17 +139,16 @@ public class GameScreen extends ScrotsScreen {
 		initializePauseMenu();
 
 		top_table = new Table(Assets.skin);
-		top_table.setPosition(0 + 10, Assets.game_height);
-		top_table.setWidth(Assets.width);
+		top_table.setPosition(10, Assets.game_height);
+		top_table.setWidth(Assets.width - 20);
 		top_table.setHeight(Assets.height - Assets.game_height - 10);
-		top_table.align(Align.left);
+		top_table.align(Align.right);
 		top_table.add(menu_button).width(top_table.getHeight()).height(top_table.getHeight());
 
 		corner_table = new Table(Assets.skin);
 		corner_table.setHeight(top_table.getHeight() / 2 * 3);
 		corner_table.setWidth(top_table.getHeight() / 2 * 3);
-		corner_table.setPosition(Assets.width - corner_table.getWidth() - 10,
-				Assets.height - corner_table.getHeight() - 10);
+		corner_table.setPosition(10, Assets.height - corner_table.getHeight() - 10);
 
 		Table temp = new Table(Assets.skin);
 		temp.add(level);
@@ -160,7 +159,7 @@ public class GameScreen extends ScrotsScreen {
 		Image lvl_bubble = new Image(Assets.lvl_bubble);
 		lvl_table.stack(lvl_bubble, temp).height(corner_table.getHeight() / 2)
 				.width(corner_table.getWidth() / 2);
-		lvl_table.top().right();
+		lvl_table.top().left();
 
 		temp = new Table(Assets.skin);
 		temp.add(time);
@@ -172,7 +171,7 @@ public class GameScreen extends ScrotsScreen {
 		time_table.stack(time_bubble, temp)
 				.height(corner_table.getHeight() / 4 * 3)
 				.width(corner_table.getWidth() / 4 * 3);
-		time_table.bottom().right().padRight(30);
+		time_table.bottom().right();
 
 		corner_table.stack(time_table, lvl_table)
 				.height(corner_table.getHeight())
@@ -184,22 +183,20 @@ public class GameScreen extends ScrotsScreen {
 		
 		points_table = new Table(Assets.skin);
 		points_table.setBackground(Assets.rounded_rectangle_red);
-		points_table.setWidth(Assets.width / 4 + corner_table.getWidth());
-		points_table.setPosition(Assets.width - points_table.getWidth() - corner_table.getWidth() / 4 - 10, 
-				Assets.height - corner_table.getHeight() / 8 - 10 - points.getStyle().font.getLineHeight());
+		points_table.setWidth(points.getStyle().font.getBounds("999999999+").width 
+				+ points_title.getWidth() + corner_table.getWidth() + 10);
+		points_table.setPosition(corner_table.getWidth() / 4 + 10, 
+		Assets.height - corner_table.getHeight() / 8 - 10 - points.getStyle().font.getLineHeight());
 		points_table.setHeight(points.getStyle().font.getLineHeight());
 		points_table.add(points);
 		points_table.add(points_title);
-		points_table.left();
+		points_table.right();
 
 		side_table = new Table(Assets.skin_window);
 		side_table.setBackground(Assets.rounded_rectangle_gray);
 		side_table.setHeight(corner_table.getY() - 20);
 		side_table.setWidth(Assets.width - Assets.game_width - 10);
-		side_table.setPosition(Assets.width - side_table.getWidth() - 10, 10);
-		side_table.setCenterPosition(Assets.game_width
-				+ ((Assets.width - Assets.game_width) / 2),
-				(Assets.height - corner_table.getHeight()) / 2);
+		side_table.setPosition(10, 10);
 
 		boolean use_default_height = false;
 		boolean should_check = true;
@@ -617,7 +614,10 @@ public class GameScreen extends ScrotsScreen {
 	}
 
 	public void points() {
-		points.setText(String.valueOf(Assets.points_manager.getTotalPoints()));
+		if(Assets.points_manager.getTotalPoints() > Assets.MAX_POINTS)
+			points.setText("999999999+");
+		else
+			points.setText(String.valueOf(Assets.points_manager.getTotalPoints()));
 	}
 
 	public void level() {

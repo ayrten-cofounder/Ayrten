@@ -30,6 +30,7 @@ public class Assets {
 	public static final float PAD = 20;
 	public static final float TIME_ADD = (float) 2.6; // seconds
 	public static final float TIME_OFF = (float) 5.0;
+	public static final int   MAX_POINTS = 999999999;
 	public static final String GPLAY_FILE = "gplay_status.txt";
 
 	// Power Dot Descriptions
@@ -155,11 +156,9 @@ public class Assets {
 		font_0 = generate_BitMapFont(0, font_ratio);
 
 		// Height and Width
-		// game_height = Gdx.graphics.getHeight() - (Gdx.graphics.getHeight() /
-		// 5);
 		height = Gdx.graphics.getHeight();
 		width = Gdx.graphics.getWidth();
-		game_height = height - font_32.getLineHeight() * 3;
+		game_height = height * 0.85f;
 		game_width = width - (height - game_height);
 		powerdot_thresh = height - game_height;
 
