@@ -26,6 +26,7 @@ public class OptionsScreen extends ScrotsScreen {
 		super(bscreen, true);
 
 		setupStage();
+		showTableScreen();
 
 		LabelStyle style = new LabelStyle();
 		style.font = Assets.font_32;
@@ -78,17 +79,6 @@ public class OptionsScreen extends ScrotsScreen {
 			bg_color.setSelected("White");
 		}
 
-		// table.row();
-		// table.add("").height(Gdx.graphics.getHeight() / 5 * 2);
-		// // table.row();
-		// // table.add(new Label("Game Mode: ", style)).left().padLeft((float)
-		// // (Gdx.graphics.getWidth()/label_pad_left));
-		// //
-		// table.add(mode).center().padLeft(Gdx.graphics.getWidth()/6).height(style.font.getLineHeight());
-		// // table.row();
-		// // table.add("").height(Gdx.graphics.getHeight()/50);
-		// table.row();
-
 		table.add(new Label("Background: ", Assets.style_font_32_orange))
 				.left().padLeft((float) (table.getWidth() / label_pad_left));
 		table.add(bg_color).center().padLeft(Gdx.graphics.getWidth() / 6);
@@ -107,13 +97,7 @@ public class OptionsScreen extends ScrotsScreen {
 		table.row();
 		table.add(new Label("Color Blind Mode: ", Assets.style_font_32_orange))
 				.left().padLeft((float) (table.getWidth() / label_pad_left));
-		;
 		table.add(color_blind).center().padLeft(table.getWidth() / 6);
-
-		table.left().top();
-
-		// setupStage();
-		showTableScreen();
 	}
 
 	@Override
