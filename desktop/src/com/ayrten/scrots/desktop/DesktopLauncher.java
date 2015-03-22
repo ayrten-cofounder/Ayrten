@@ -3,9 +3,7 @@ package com.ayrten.scrots.desktop;
 import java.util.HashMap;
 
 import com.ayrten.scrots.manager.AndroidInterface;
-import com.ayrten.scrots.manager.ButtonInterface;
 import com.ayrten.scrots.manager.GPlayManager;
-import com.ayrten.scrots.screens.GameScreen;
 import com.ayrten.scrots.screens.ScrotsGame;
 import com.ayrten.scrots.shop.IAP;
 import com.ayrten.scrots.shop.IAPInterface;
@@ -18,9 +16,11 @@ public class DesktopLauncher implements AndroidInterface, IAP {
 
 	public static void main(String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 1280;
-		config.height = 768;
-
+		config.width = 1920;
+		config.height = 1080;
+//		config.width = 1280;
+//		config.height = 720;
+		
 		app = new DesktopLauncher();
 		new LwjglApplication(new ScrotsGame(app, app), config);
 	}
