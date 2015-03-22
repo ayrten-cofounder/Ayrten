@@ -41,7 +41,8 @@ public class DotGraphics {
 		float x = dot.getX();
 		float y = dot.getY();
 		// float maxX = Gdx.graphics.getWidth();
-		float maxX = Assets.game_width;
+		float minX = Assets.width - Assets.game_width;
+		float maxX = Assets.width;
 		float maxY = Assets.game_height;
 
 		if (slopeX >= 0f && slopeY >= 0f) {
@@ -52,13 +53,13 @@ public class DotGraphics {
 				randSlopeV3();
 			}
 		} else if (slopeX <= 0f && slopeY <= 0f) {
-			if (slopeX + x > 0 && slopeY + y > 0) {
+			if (slopeX + x > minX && slopeY + y > 0) {
 				dot.setPosition(x + slopeX, y + slopeY);
 			} else {
 				randSlopeV3();
 			}
 		} else if (slopeX <= 0f && slopeY >= 0f) {
-			if (slopeX + x > 0 && slopeY + y + curr_height < maxY) {
+			if (slopeX + x > minX && slopeY + y + curr_height < maxY) {
 				dot.setPosition(x + slopeX, y + slopeY);
 			} else {
 				randSlopeV3();
