@@ -41,6 +41,13 @@ public class Time
 	{
 		second += secondDelta;
 	}
+	
+	public void subtractTime(float secondDelta)
+	{
+		second -= secondDelta;
+		if(second < 0)
+			second = 0;
+	}
 
 	// I was thinking about using a runnable class but lets try their Timer
 	// class first.

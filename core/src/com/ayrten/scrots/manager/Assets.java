@@ -28,7 +28,7 @@ public class Assets {
 	public static int height;
 	public static int width;
 	public static final float TIME_ADD = (float) 2.6; // seconds
-	public static final float TIME_OFF = (float) -5.0;
+	public static final float TIME_OFF = (float) 5.0;
 	public static final String GPLAY_FILE = "gplay_status.txt";
 
 	// Power Dot Descriptions
@@ -282,8 +282,8 @@ public class Assets {
 		timer_ring = new Texture(Gdx.files.internal("data/timer_ring.png"));
 //		gray_timer_bg = new Texture(Gdx.files.internal("data/gray_timer_bg.png"));
 		
-		lvl_bubble = dwdPenDot_1;
-		time_bubble = pause_button;
+		lvl_bubble = new Texture(Gdx.files.internal("data/dots/lvl_bubble.png"));
+		time_bubble = new Texture(Gdx.files.internal("data/dots/time_bubble.png"));
 
 		powDot1_image = new Image(regDot_1);
 		powDot2_image = new Image(regDot_1);

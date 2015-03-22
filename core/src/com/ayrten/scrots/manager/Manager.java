@@ -216,6 +216,10 @@ public class Manager {
 	public void addTime(float x) {
 		time.addTime(x);
 	}
+	
+	public void subtractTime(float x) {
+		time.subtractTime(x);
+	}
 
 	public boolean isGameOver() {
 		return game_over;
