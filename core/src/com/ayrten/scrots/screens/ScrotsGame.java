@@ -32,10 +32,9 @@ public class ScrotsGame extends Game
 		
 		// Screens
 		main_menu = new MainMenuScreen();		
-		LoadingScreen loading_screen = new LoadingScreen();
 		
 		Assets.playMenuBGM();
-		setScreen(loading_screen);
+		setScreen(new LoadingScreen());
 		
 		// Catches when the user presses the back button. Has no effects on desktop.
 		Gdx.input.setCatchBackKey(true);

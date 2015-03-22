@@ -88,7 +88,6 @@ public class GPlayManager {
 	}
 
 	public void unlockLevelAchievement(int lvl) {
-		System.out.println(String.format(LVL_REGEXP, lvl));
 		unlockAchievement(String.format(LVL_REGEXP, lvl));
 	}
 

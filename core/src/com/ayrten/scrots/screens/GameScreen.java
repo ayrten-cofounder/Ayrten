@@ -182,7 +182,7 @@ public class GameScreen extends ScrotsScreen {
 				: Assets.style_font_32_black);
 		
 		points_table = new Table(Assets.skin);
-		points_table.setBackground(Assets.rounded_rectangle_red);
+		points_table.setBackground(Assets.rounded_rectangle_blue);
 		points_table.setWidth(points.getStyle().font.getBounds("999999999+").width 
 				+ points_title.getWidth() + corner_table.getWidth() + 10);
 		points_table.setPosition(corner_table.getWidth() / 4 + 10, 

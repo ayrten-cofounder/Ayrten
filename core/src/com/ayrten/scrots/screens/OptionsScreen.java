@@ -14,10 +14,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class OptionsScreen extends ScrotsScreen {
 	// Actors
-	private SelectBox<String> mode;
-	private SelectBox<String> bg_color;
-	private CheckBox sound_effs;
-	private CheckBox color_blind;
+	protected SelectBox<String> mode;
+	protected SelectBox<String> bg_color;
+	protected CheckBox sound_effs;
+	protected CheckBox auto_gplay_signin;
+	protected CheckBox color_blind;
 
 	private float label_pad_left = (float) 5.5; // Lower # = more left
 
@@ -25,7 +26,7 @@ public class OptionsScreen extends ScrotsScreen {
 		super(bscreen, true);
 
 		setupStage();
-		
+
 		// Table table = new Table();
 		// table.setFillParent(true);
 		// table.setSkin(Assets.skin);
@@ -52,6 +53,11 @@ public class OptionsScreen extends ScrotsScreen {
 						Assets.font_32.getLineHeight() / 2);
 		if (Assets.prefs.getBoolean("sound_effs", true) == false)
 			sound_effs.setChecked(false);
+
+		auto_gplay_signin = new CheckBox("", Assets.skin);
+		auto_gplay_signin.setChecked(true);
+		if (Assets.prefs.getBoolean("auto_gplay_signin", true) == false)
+			auto_gplay_signin.setChecked(false);
 
 		color_blind = new CheckBox("", Assets.skin);
 		color_blind.setChecked(false);
@@ -85,18 +91,20 @@ public class OptionsScreen extends ScrotsScreen {
 		// table.row();
 		// table.add("").height(Gdx.graphics.getHeight()/50);
 		table.row();
-		table.add(new Label("Background: ", Assets.style_font_32_orange))
-				.left()
+		table.add(new Label("Background: ", Assets.style_font_32_orange)).left()
 				.padLeft((float) (Gdx.graphics.getWidth() / label_pad_left));
 		table.add(bg_color).center().padLeft(Gdx.graphics.getWidth() / 6);
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / 50);
 		table.row();
-		table.add(new Label("Sound Effects: ", Assets.style_font_32_orange))
-				.left()
+		table.add(new Label("Sound Effects: ", Assets.style_font_32_orange)).left()
 				.padLeft((float) (Gdx.graphics.getWidth() / label_pad_left));
 		table.add(sound_effs).center().padLeft(Gdx.graphics.getWidth() / 6);
 		table.row();
+		table.add("").height(Gdx.graphics.getHeight() / 50);
+		table.row();
+		table.add(new Label("Auto Google Signin", Assets.style_font_32_orange)).left();
+		table.add(auto_gplay_signin);
 		table.add("").height(Gdx.graphics.getHeight() / 50);
 		table.row();
 		table.add(new Label("Color Blind Mode: ", Assets.style_font_32_orange))
@@ -107,7 +115,7 @@ public class OptionsScreen extends ScrotsScreen {
 
 		table.left().top();
 
-//		setupStage();
+		// setupStage();
 		showTableScreen();
 		// stage.addActor(table);
 		// When user initially touch drop-down list, it shows a scroll instead
@@ -157,6 +165,7 @@ public class OptionsScreen extends ScrotsScreen {
 		Assets.prefs.putString("bg_color", bg_color.getSelected());
 		Assets.prefs.putBoolean("sound_effs", sound_effs.isChecked());
 		Assets.prefs.putBoolean("color_blind", color_blind.isChecked());
+		Assets.prefs.putBoolean("auto_gplay_signin", auto_gplay_signin.isChecked());
 	}
 
 	public void setActorsColor(Color color) {

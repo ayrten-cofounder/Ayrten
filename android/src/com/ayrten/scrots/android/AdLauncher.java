@@ -237,12 +237,6 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface,
 	}
 
 	@Override
-	protected void onStart() {
-		super.onStart();
-		mGoogleApiClient.connect();
-	}
-
-	@Override
 	protected void onStop() {
 		super.onStop();
 		mGoogleApiClient.disconnect();

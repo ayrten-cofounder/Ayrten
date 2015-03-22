@@ -31,6 +31,8 @@ public class LoadingScreen implements Screen {
 									loadUpdateScreen();
 								else {
 									Assets.game.setScreen(Assets.game.main_menu);
+									if(Assets.prefs.getBoolean("auto_gplay_signin", true))
+										Assets.game.apk_intf.gplay_signin();
 								}
 							}
 						})));
@@ -62,6 +64,8 @@ public class LoadingScreen implements Screen {
 				Assets.prefs.putFloat("app_version", Assets.game.apk_intf.getAppVersion());
 				Assets.prefs.flush();
 				Assets.game.setScreen(Assets.game.main_menu);
+				if(Assets.prefs.getBoolean("auto_gplay_signin", true))
+					Assets.game.apk_intf.gplay_signin();
 			}
 		};
 		Assets.game.setScreen(update_screen);
