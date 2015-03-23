@@ -145,6 +145,7 @@ public class ScrotsScreen implements Screen {
 		setActorsTouchable(Touchable.disabled);
 	}
 
+	// Call this function AFTER setUpStage() is called
 	public void showTableScreen() {
 		stage.addActor(table);
 	}
