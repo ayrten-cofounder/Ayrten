@@ -9,6 +9,7 @@ import com.ayrten.scrots.android.util.IabHelper;
 import com.ayrten.scrots.android.util.IabResult;
 import com.ayrten.scrots.android.util.Inventory;
 import com.ayrten.scrots.android.util.Purchase;
+import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.shop.IAP;
 import com.ayrten.scrots.shop.IAPInterface;
 
@@ -88,6 +89,122 @@ public class InAppPurchase {
 							item_5_description = inventory.getSkuDetails(
 									IAP.ITEM_5).getDescription();
 
+							if (inventory.hasPurchase(IAP.ITEM_1)) {
+								consumeItem(inventory.getPurchase(IAP.ITEM_1),
+										new IAPInterface() {
+
+											@Override
+											public void purchaseSuccess() {
+											}
+
+											@Override
+											public void purchaseFailed() {
+											}
+
+											@Override
+											public void consumeSuccess() {
+												Assets.points_manager.addPoints(Integer
+														.valueOf(item_1_description));
+											}
+
+											@Override
+											public void consumeFailed() {
+											}
+										});
+							}
+							if (inventory.hasPurchase(IAP.ITEM_2)) {
+								consumeItem(inventory.getPurchase(IAP.ITEM_2),
+										new IAPInterface() {
+
+											@Override
+											public void purchaseSuccess() {
+											}
+
+											@Override
+											public void purchaseFailed() {
+											}
+
+											@Override
+											public void consumeSuccess() {
+												Assets.points_manager.addPoints(Integer
+														.valueOf(item_2_description));
+											}
+
+											@Override
+											public void consumeFailed() {
+											}
+										});
+							}
+							if (inventory.hasPurchase(IAP.ITEM_3)) {
+								consumeItem(inventory.getPurchase(IAP.ITEM_3),
+										new IAPInterface() {
+
+											@Override
+											public void purchaseSuccess() {
+											}
+
+											@Override
+											public void purchaseFailed() {
+											}
+
+											@Override
+											public void consumeSuccess() {
+												Assets.points_manager.addPoints(Integer
+														.valueOf(item_3_description));
+											}
+
+											@Override
+											public void consumeFailed() {
+											}
+										});
+							}
+							if (inventory.hasPurchase(IAP.ITEM_4)) {
+								consumeItem(inventory.getPurchase(IAP.ITEM_4),
+										new IAPInterface() {
+
+											@Override
+											public void purchaseSuccess() {
+											}
+
+											@Override
+											public void purchaseFailed() {
+											}
+
+											@Override
+											public void consumeSuccess() {
+												Assets.points_manager.addPoints(Integer
+														.valueOf(item_4_description));
+											}
+
+											@Override
+											public void consumeFailed() {
+											}
+										});
+							}
+							if (inventory.hasPurchase(IAP.ITEM_5)) {
+								consumeItem(inventory.getPurchase(IAP.ITEM_5),
+										new IAPInterface() {
+
+											@Override
+											public void purchaseSuccess() {
+											}
+
+											@Override
+											public void purchaseFailed() {
+											}
+
+											@Override
+											public void consumeSuccess() {
+												Assets.points_manager.addPoints(Integer
+														.valueOf(item_5_description));
+											}
+
+											@Override
+											public void consumeFailed() {
+											}
+										});
+							}
+
 							retrievedItems = true;
 						}
 					};
@@ -114,7 +231,7 @@ public class InAppPurchase {
 					return;
 				} else if (purchase.getSku().equals(item)) {
 					// consume the gas and update the UI
-					callback.purchaseSuccess();
+					// callback.purchaseSuccess();
 
 					consumeItem(purchase, callback);
 				}
