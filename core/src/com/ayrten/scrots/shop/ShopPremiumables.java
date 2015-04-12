@@ -79,29 +79,6 @@ public class ShopPremiumables {
 
 			@Override
 			public void purchaseSuccess() {
-				consume();
-			}
-
-			@Override
-			public void purchaseFailed() {
-			}
-
-			@Override
-			public void consumeSuccess() {
-			}
-
-			@Override
-			public void consumeFailed() {
-			}
-		});
-	}
-
-	// Consume the item, then give points after successful consume.
-	public void consume() {
-		Assets.game.iap_inft.consume(item, new IAPInterface() {
-
-			@Override
-			public void purchaseSuccess() {
 			}
 
 			@Override
