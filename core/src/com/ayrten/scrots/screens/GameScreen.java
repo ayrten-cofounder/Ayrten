@@ -381,7 +381,7 @@ public class GameScreen extends ScrotsScreen {
 		final Table pause_table = new Table(Assets.skin);
 		pause_table.setWidth(Assets.width);
 		pause_table.setHeight(Assets.game_height * 2);
-		pause_table.left();
+		pause_table.right().padRight(10);
 		Table dotTable = new Table(Assets.skin);
 		dotTable.align(Align.right);
 
@@ -405,13 +405,15 @@ public class GameScreen extends ScrotsScreen {
 		for (int i = 0; i < opts.size(); i++) {
 			Table temp = new Table(Assets.skin);
 			temp.add(opts.get(i));
-			opTable.add(temp).height(Assets.game_height / opts.size());
+			opTable.add(temp).height(Assets.game_height / opts.size()).right();
 			if (i != opts.size() - 1)
 				opTable.row();
 		}
 
-		pause_table.add().height(Assets.game_height * 2);
-		pause_table.add(opTable).top();
+		// TODO: Add something in the middle of pause menu
+		pause_table.add(opTable);
+		pause_table.row();
+		pause_table.add().height(Assets.game_height);
 		pause_table.setVisible(false);
 
 		pause_scroll = new ScrollPane(pause_table);

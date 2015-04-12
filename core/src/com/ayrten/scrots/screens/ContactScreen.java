@@ -1,9 +1,15 @@
 package com.ayrten.scrots.screens;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 import com.ayrten.scrots.manager.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -57,91 +63,47 @@ public class ContactScreen extends ScrotsScreen {
 			generalTable.add(general).width(general.getWidth()).left();
 			generalTable.add(generalURL).width(generalURL.getWidth()).left();
 		}
-
-		Label facebook = new Label("Facebook: ", Assets.style_font_32_orange);
-		facebook.setWrap(true);
-
-		Label facebookURL = new Label("https://www.facebook.com/AyrtenMobile",
-				Assets.style_font_32_blue);
-		facebookURL.setBounds(facebookURL.getX(), facebookURL.getY(),
-				facebookURL.getWidth(), facebookURL.getHeight());
-		facebookURL.setWrap(true);
-		facebookURL.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				Gdx.net.openURI("https://www.facebook.com/AyrtenMobile");
-			}
-		});
-
-		Table facebookTable = new Table(Assets.skin);
-		facebookTable.left();
-		if (facebook.getWidth() + facebookURL.getWidth() > Gdx.graphics
-				.getWidth() - back.getWidth() / 5 * 2) {
-			facebookTable.add(facebook)
-					.width(Gdx.graphics.getWidth() - back.getWidth() / 5 * 2)
-					.left();
-			facebookTable.row();
-			facebookTable.add(facebookURL).width(
-					Gdx.graphics.getWidth() - back.getWidth() / 5 * 2);
-		} else {
-			facebookTable.add(facebook).width(facebook.getWidth());
-			facebookTable.add(facebookURL).width(facebookURL.getWidth()).left();
-		}
-
-		Label twitter = new Label("Twitter: ", Assets.style_font_32_orange);
-		twitter.setWrap(true);
-
-		Label twitterURL = new Label("https://twitter.com/AyrtenMobile",
-				Assets.style_font_32_blue);
-		twitterURL.setWrap(true);
-		twitterURL.setBounds(twitterURL.getX(), twitterURL.getY(),
-				twitterURL.getWidth(), twitterURL.getHeight());
-		twitterURL.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				Gdx.net.openURI("https://twitter.com/AyrtenMobile");
-			}
-		});
-
-		Table twitterTable = new Table(Assets.skin);
-		twitterTable.left();
-		if (twitter.getWidth() + twitterURL.getWidth() > Gdx.graphics
-				.getWidth() - back.getWidth() / 5 * 2) {
-			twitterTable.add(twitter)
-					.width(Gdx.graphics.getWidth() - back.getWidth() / 5 * 2)
-					.left();
-			twitterTable.row();
-			twitterTable.add(twitterURL).width(
-					Gdx.graphics.getWidth() - back.getWidth() / 5 * 2);
-		} else {
-			twitterTable.add(twitter).width(twitter.getWidth()).left();
-			twitterTable.add(twitterURL).width(twitterURL.getWidth()).left();
+		
+		Table social_media = new Table(Assets.skin);
+		social_media.setWidth(Assets.width);
+		
+		HashMap<String, String> icon_list = new HashMap<String, String>();
+		icon_list.put("data/facebook.png", "https://www.facebook.com/AyrtenMobile");
+		icon_list.put("data/google+.png", "");
+		icon_list.put("data/twitter.png", "https://twitter.com/AyrtenMobile");
+		
+		Iterator<?> it = icon_list.entrySet().iterator();
+		while(it.hasNext()) {
+			final Map.Entry<String, String> pair = (Map.Entry<String, String>) it.next();
+			Image image = new Image(new Texture(Gdx.files.internal(pair.getKey())));
+			image.addListener(new ClickListener(){
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					Gdx.net.openURI(pair.getValue());
+				}
+			});
+			image.setBounds(image.getX(), image.getY(), image.getWidth(), image.getHeight());
+			social_media.add(image).width(image.getWidth()).height(image.getHeight());
 		}
 
 		float width = table.getWidth() - Assets.PAD * 4;
 
-		Table tempt = new Table();
-		tempt.setSkin(Assets.skin);
-		tempt.setWidth(width);
+		Table contacts_table = new Table();
+		contacts_table.setSkin(Assets.skin);
+		contacts_table.setWidth(width);
 
-		tempt.row();
-		tempt.add().height(back.getStyle().font.getLineHeight() / 2);
-		tempt.row();
-		tempt.add(msg).width(width).padLeft(Assets.PAD);
-		tempt.row();
-		tempt.add().height(back.getStyle().font.getLineHeight() / 2);
-		tempt.row();
-		tempt.add(generalTable).width(width).padLeft(Assets.PAD).left();
-		tempt.row();
-		tempt.add().height(back.getStyle().font.getLineHeight() / 2);
-		tempt.row();
-		tempt.add(facebookTable).left().width(width).padLeft(Assets.PAD).left();
-		tempt.row();
-		tempt.add().height(back.getStyle().font.getLineHeight() / 2);
-		tempt.row();
-		tempt.add(twitterTable).left().width(width).padLeft(Assets.PAD).left();
+		contacts_table.row();
+		contacts_table.add().height(back.getStyle().font.getLineHeight() / 2);
+		contacts_table.row();
+		contacts_table.add(msg).width(width).padLeft(Assets.PAD);
+		contacts_table.row();
+		contacts_table.add().height(back.getStyle().font.getLineHeight() / 2);
+		contacts_table.row();		
+		contacts_table.add(generalTable).width(width).padLeft(Assets.PAD).left();
+		contacts_table.row();
+		contacts_table.add(social_media);
 
-		scroll_view = new ScrollPane(tempt);
+		scroll_view = new ScrollPane(contacts_table);
 		scroll_view.setScrollingDisabled(true, false);
 
 		table.add(scroll_view);

@@ -5,8 +5,10 @@ import com.ayrten.scrots.manager.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Timer;
@@ -27,7 +29,8 @@ public class LoadingScreen implements Screen {
 							@Override
 							public void run() {
 								stage.dispose();
-								if (Assets.game.apk_intf.getAppVersion() != Assets.prefs.getFloat("app_version", 0))
+								if (true)
+//								if (Assets.game.apk_intf.getAppVersion() != Assets.prefs.getFloat("app_version", 0))
 									loadUpdateScreen();
 								else {
 									Assets.game.setScreen(Assets.game.main_menu);
@@ -51,12 +54,22 @@ public class LoadingScreen implements Screen {
 
 	private void loadUpdateScreen() {
 		int pages = 3;
+		float display_height = Assets.height - Assets.style_font_64_orange.font.getLineHeight();
+
 		Table top_table = new Table(Assets.skin);
-		top_table.setWidth(Assets.width * pages);
-		top_table.add("first").width(Assets.width);
-		top_table.add("middle").width(Assets.width);
-		top_table.add("last").width(Assets.width);
 		
+		// Make the tutorial Drawables.
+		Image image = new Image(new Texture(Gdx.files.internal("data/update1.png")));
+		Table page_one = new Table(Assets.skin);
+		page_one.setHeight(display_height);
+		page_one.setWidth(Assets.width);
+		page_one.add(image).width(Assets.width).height(display_height);
+		
+		top_table.setWidth(Assets.width * pages);
+		top_table.add(page_one).width(Assets.width).height(display_height);
+		top_table.add("second").width(Assets.width).height(display_height);
+		top_table.add("last").width(Assets.width);
+		top_table.left();
 		// Use the slideshow version of MessageScreen.
 		MessageScreen update_screen = new MessageScreen(top_table, pages){
 			@Override

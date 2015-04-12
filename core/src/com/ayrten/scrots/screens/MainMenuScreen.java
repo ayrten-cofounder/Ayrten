@@ -148,8 +148,9 @@ public class MainMenuScreen extends ScrotsScreen
 					Assets.game.apk_intf.gplay_signin();
 			}
 		});
-		gplay_log.setPosition(0, Assets.height - gplay_log.getStyle().font.getLineHeight());
+		 gplay_log.setPosition(0 + gplay_log.getStyle().font.getSpaceWidth(), Assets.height - gplay_log.getHeight());
 
+		
 		Manager gm = new Manager(0, Gdx.graphics.getWidth(),
 				Gdx.graphics.getHeight(), stage);
 		gm.setMode(GameMode.MAIN_MENU_BACKGROUND_MODE);

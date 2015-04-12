@@ -19,13 +19,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class MessageScreen extends ScrotsScreen {
-	private Table table;
-
-	private Image background_overlay;
-	private Label message;
-	private Label negative_button;
-	private Label positive_button;
-
+	protected Image background_overlay;
+	protected Label message;
+	protected Label negative_button;
+	protected Label positive_button;
+	
 	private boolean clicked = false;
 
 	// Used as an overlay window.
@@ -100,23 +98,28 @@ public class MessageScreen extends ScrotsScreen {
 		table.add(message_scroll).height(
 				Assets.height - next.getStyle().font.getLineHeight());
 		table.row();
+		
+		Table bottom_table = new Table(Assets.skin);
+		bottom_table.setWidth(Assets.width);
 
 		Table temp = new Table(Assets.skin);
 		temp.add(previous);
-		table.add(temp).width(Assets.width / 2);
+		bottom_table.add(temp).width(Assets.width / 2);
 
 		temp = new Table(Assets.skin);
 		temp.add(next);
-		table.add(temp).width(Assets.width / 2);
+		bottom_table.add(temp).width(Assets.width / 2);
+		
+		table.add(bottom_table);
+		top_table.debug();
+		table.debug();
 
 		stage.addActor(table);
 	}
 
 	// Needs to be overridden, should be called when transitioning from
-	// MessageScreen
-	// to another screen.
-	public void transition() {
-	}
+	// MessageScreen to another screen.
+	public void transition() {}
 
 	public void makeWindow(String title, String positive_title,
 			String negative_title, final ButtonInterface yes_interface,
@@ -181,6 +184,13 @@ public class MessageScreen extends ScrotsScreen {
 		stage.addActor(background_overlay);
 		stage.addActor(table);
 		Assets.game.apk_intf.shouldShowAd(true);
+	}
+	
+	@Override
+	public void render(float delta) {
+		// TODO Auto-generated method stub
+		super.render(delta);
+		Table.drawDebug(stage);
 	}
 
 	public void makeSingleButtonWindow(String title, String positive_title,
