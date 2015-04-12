@@ -11,7 +11,9 @@ public interface AndroidInterface {
 
 	public void copyTextToClipboard(String text);
 	
-	public void showLeadershipBoard();
+	public void showLeaderboard(Assets.LeaderboardType lb_type);
+	
+	public void submitLeaderboardScore(Assets.LeaderboardType lb_type, long score);
 	
 	public void showAchievements();
 

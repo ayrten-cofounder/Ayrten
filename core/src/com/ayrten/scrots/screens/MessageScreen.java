@@ -47,7 +47,7 @@ public class MessageScreen extends ScrotsScreen {
 	}
 
 	// This type of message screen is formatted as a slideshow.
-	public MessageScreen(Table top_table, int pages) {
+	public MessageScreen(Table top_table, final int pages) {
 		stage = new Stage();
 		actors = new ArrayList<Actor>();
 
@@ -58,7 +58,7 @@ public class MessageScreen extends ScrotsScreen {
 		next.setBounds(next.getX(), next.getY(), next.getWidth(),
 				next.getHeight());
 		next.addListener(new ClickListener() {
-			private int max_x = Assets.width * 2;
+			private int max_x = Assets.width * (pages - 1);
 
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -66,6 +66,9 @@ public class MessageScreen extends ScrotsScreen {
 					if (message_scroll.getScrollX() + Assets.width == max_x) {
 						next.setText("Done");
 					}
+					
+					if(Assets.prefs.getBoolean("sound_effs"))
+						Assets.button_pop.play();
 
 					message_scroll.scrollTo(message_scroll.getScrollX()
 							+ Assets.width, 0, message_scroll.getWidth(),
@@ -84,6 +87,9 @@ public class MessageScreen extends ScrotsScreen {
 			public void clicked(InputEvent event, float x, float y) {
 				if (message_scroll.getScrollX() != 0) {
 					next.setText("Next");
+					
+					if(Assets.prefs.getBoolean("sound_effs"))
+						Assets.button_pop.play();
 
 					message_scroll.scrollTo(message_scroll.getScrollX()
 							- Assets.width, 0, message_scroll.getWidth(),

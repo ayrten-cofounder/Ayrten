@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.ayrten.scrots.manager.AndroidInterface;
+import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.GPlayManager;
 import com.ayrten.scrots.screens.ScrotsGame;
 import com.ayrten.scrots.shop.IAP;
@@ -319,13 +320,23 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface,
 	}
 
 	@Override
-	public void showLeadershipBoard() {
-		if (mGoogleApiClient != null && mGoogleApiClient.isConnected())
-			startActivityForResult(
-					Games.Leaderboards
-							.getAllLeaderboardsIntent(mGoogleApiClient),
-					789);
-		else
+	public void showLeaderboard(Assets.LeaderboardType lb_type) {
+		if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
+			// startActivityForResult(
+			// Games.Leaderboards
+			// .getAllLeaderboardsIntent(mGoogleApiClient),
+			// 789);
+			if (lb_type == Assets.LeaderboardType.TIME)
+				startActivityForResult(Games.Leaderboards.getLeaderboardIntent(
+						mGoogleApiClient,
+						this.getResources()
+								.getString(R.string.leaderboard_time)), 789);
+			else if (lb_type == Assets.LeaderboardType.SURVIVAL)
+				startActivityForResult(Games.Leaderboards.getLeaderboardIntent(
+						mGoogleApiClient,
+						this.getResources().getString(
+								R.string.leaderboard_survival)), 789);
+		} else
 			showToast("Failed to show Leaderboard: not signed-in!");
 	}
 
@@ -389,5 +400,16 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface,
 	@Override
 	public void setGPlayButton(Label button) {
 		gplay_status = button;
+	}
+
+	@Override
+	public void submitLeaderboardScore(Assets.LeaderboardType lb_type, long score) {
+		if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
+			if (lb_type == Assets.LeaderboardType.TIME)
+				Games.Leaderboards
+				.submitScore(mGoogleApiClient, this.getResources()
+						.getString(R.string.leaderboard_time), score);
+			else if (lb_type == Assets.LeaderboardType.SURVIVAL) {}
+		}
 	}
 }

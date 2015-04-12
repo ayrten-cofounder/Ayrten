@@ -636,9 +636,13 @@ public class GameScreen extends ScrotsScreen {
 	}
 
 	public void gameOver() {
-		Assets.stats_manager.writePlayerStatsToFile();
+//		Assets.stats_manager.writePlayerStatsToFile();
+//		Assets.game.apk_intf.submitLeaderboardScore(Assets.LeaderboardType.TIME, gm.get_player_score());
 
 		if (should_clear_stage) {
+			Assets.stats_manager.writePlayerStatsToFile();
+			Assets.game.apk_intf.submitLeaderboardScore(Assets.LeaderboardType.TIME, gm.get_player_score());
+			
 			stage.clear();
 			should_clear_stage = false;
 			addStageActors();

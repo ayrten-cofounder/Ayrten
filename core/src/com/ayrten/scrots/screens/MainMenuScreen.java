@@ -2,7 +2,6 @@ package com.ayrten.scrots.screens;
 
 import java.util.ArrayList;
 
-import com.ayrten.scrots.dots.RadialSprite;
 import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.game.MainMenuBackgroundGameMode;
 import com.ayrten.scrots.manager.Assets;
@@ -11,8 +10,6 @@ import com.ayrten.scrots.scoreboard.NormalScoreboard;
 import com.ayrten.scrots.scoreboard.Scoreboard;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;

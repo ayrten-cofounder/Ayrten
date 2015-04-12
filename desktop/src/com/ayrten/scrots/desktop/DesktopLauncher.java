@@ -3,6 +3,8 @@ package com.ayrten.scrots.desktop;
 import java.util.HashMap;
 
 import com.ayrten.scrots.manager.AndroidInterface;
+import com.ayrten.scrots.manager.Assets;
+import com.ayrten.scrots.manager.Assets.LeaderboardType;
 import com.ayrten.scrots.manager.GPlayManager;
 import com.ayrten.scrots.screens.ScrotsGame;
 import com.ayrten.scrots.shop.IAP;
@@ -56,11 +58,6 @@ public class DesktopLauncher implements AndroidInterface, IAP {
 	public boolean is_gplay_signedin() {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	public void showLeadershipBoard() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -139,5 +136,15 @@ public class DesktopLauncher implements AndroidInterface, IAP {
 	public String getDescription(String item) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void showLeaderboard(LeaderboardType lb_type) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void submitLeaderboardScore(LeaderboardType lb_type, long score) {
 	}
 }

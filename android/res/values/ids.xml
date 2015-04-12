@@ -15,5 +15,6 @@
    	<string name="passed_lvl15">CgkIxpik37gbEAIQDQ</string>
    	
    	<!-- Leaderboards -->
-   	<string name="leaderboard">CgkIxpik37gbEAIQAQ</string>
+   	<string name="leaderboard_time">CgkIxpik37gbEAIQAQ</string>
+   	<string name="leaderboard_survival"></string>
 </resources>
