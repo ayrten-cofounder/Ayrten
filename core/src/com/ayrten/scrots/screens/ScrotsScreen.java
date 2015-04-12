@@ -30,7 +30,7 @@ public class ScrotsScreen implements Screen {
 
 	// Nav Bar
 	// Navagation bar should probably be a different class...maybe
-	protected Table navagation_bar;
+	protected Table navigation_bar;
 	protected LinkedList<Actor> navBarItems = new LinkedList<Actor>();
 
 	// Table Screen
@@ -104,18 +104,18 @@ public class ScrotsScreen implements Screen {
 		});
 
 		// Init Nav Bar
-		navagation_bar = new Table();
+		navigation_bar = new Table();
 		// navagation_bar.setSize(Assets.width - Assets.PAD, back.getHeight());
 		// navagation_bar.setPosition(Assets.PAD / 2, Assets.height
 		// - navagation_bar.getHeight() - (Assets.PAD / 2));
 
-		navagation_bar.setSize(Assets.width, back.getHeight());
-		navagation_bar.setPosition(Assets.PAD * 2 / 2, Assets.height
-				- navagation_bar.getHeight() - (Assets.PAD / 2));
+		navigation_bar.setSize(Assets.width, back.getHeight());
+		navigation_bar.setPosition(Assets.PAD * 2 / 2, Assets.height
+				- navigation_bar.getHeight() - (Assets.PAD / 2));
 
-		navagation_bar.setSkin(Assets.skin);
-		navagation_bar.setBackground(Assets.rounded_rectangle_blue);
-		navagation_bar.align(Align.left);
+		navigation_bar.setSkin(Assets.skin);
+		navigation_bar.setBackground(Assets.rounded_rectangle_blue);
+		navigation_bar.align(Align.left);
 
 		addToNavBar(back);
 	}
@@ -138,7 +138,7 @@ public class ScrotsScreen implements Screen {
 			// Gdx.graphics.getHeight()
 			// - back.getHeight());
 			// stage.addActor(back);
-			stage.addActor(navagation_bar);
+			stage.addActor(navigation_bar);
 		}
 
 		addActors();
@@ -151,19 +151,19 @@ public class ScrotsScreen implements Screen {
 	}
 
 	public void addToNavBar(Actor actor) {
-		navagation_bar.clear();
-		navagation_bar.row();
+		navigation_bar.clear();
+		navigation_bar.row();
 
 		navBarItems.add(actor);
-		int width = (int) (navagation_bar.getWidth() / navBarItems.size());
+		int width = (int) (navigation_bar.getWidth() / navBarItems.size());
 		for (Actor a : navBarItems) {
-			navagation_bar.add(a).width(width);
+			navigation_bar.add(a).width(width);
 		}
 	}
 
 	public void addActors() {
-		if (back != null && navagation_bar != null && table != null) {
-			actors.add(navagation_bar);
+		if (back != null && navigation_bar != null && table != null) {
+			actors.add(navigation_bar);
 			actors.add(back);
 			actors.add(table);
 		}
