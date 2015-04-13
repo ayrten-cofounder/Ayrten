@@ -13,6 +13,7 @@ import com.ayrten.scrots.dots.DWD_PenDot2;
 import com.ayrten.scrots.dots.Dot;
 import com.ayrten.scrots.dots.PenDot1;
 import com.ayrten.scrots.dots.PenDot2;
+import com.ayrten.scrots.dots.PowerDot_Magnet;
 import com.ayrten.scrots.level.Level;
 import com.ayrten.scrots.scoreboard.Scoreboard;
 import com.ayrten.scrots.time.Time;
@@ -35,6 +36,9 @@ public class Manager {
 	private float slot_width;
 	
 	private boolean isRainbowState;
+	private boolean isMagnetState;
+	
+	private PowerDot_Magnet magnet;
 
 	// True if player loses
 	private boolean game_over = false;
@@ -69,9 +73,25 @@ public class Manager {
 		return isRainbowState;
 	}
 	
+	public boolean isMagnetState()
+	{
+		return isMagnetState;
+	}
+	
+	public PowerDot_Magnet getMagnet()
+	{
+		return magnet;
+	}
+	
 	public void setRainbowState(boolean state)
 	{
 		isRainbowState = state;
+	}
+	
+	public void setMagnetState(boolean state, PowerDot_Magnet magnet)
+	{
+		isMagnetState = state;
+		this.magnet = magnet;
 	}
 	
 	public int getCurrentSlot()

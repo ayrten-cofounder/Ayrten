@@ -11,14 +11,13 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class PowerDot_Magnet extends PowerDot {
 	private static final float DURATION = 2f; // Time in seconds it takes the
 												// dots to move to the magnet
 
 	private DotGenerator generator;
-	private Dot magnet;
+	private PowerDot_Magnet magnet;
 
 	public PowerDot_Magnet(Texture dot, final Manager gm, Sound pop) {
 		super(dot, gm, pop);
@@ -34,11 +33,12 @@ public class PowerDot_Magnet extends PowerDot {
 
 		Assets.power_dot_manager.setMagnetDotAmount(--num);
 		updateNumLabel();
-		
+
 		magnet = generator.genPowerDotMagnet();
 		magnet.setTouchable(Touchable.disabled);
+		gm.setMagnetState(true, magnet);
 		gm.getStage().addActor(magnet);
-		checkRadius(gm.curr_level.get_all_dots());
+		magnet();
 		Assets.stats_manager.getPlayerStats().power_dot_magnet.popped++;
 	}
 
@@ -47,7 +47,12 @@ public class PowerDot_Magnet extends PowerDot {
 		super.afterAction();
 
 		magnet.remove();
+		gm.setMagnetState(false, null);
 		unmagnet();
+	}
+
+	public void magnet() {
+		checkRadius(gm.curr_level.get_all_dots());
 	}
 
 	private void checkRadius(LinkedList<ArrayList<Dot>> linkedList) {
@@ -62,9 +67,8 @@ public class PowerDot_Magnet extends PowerDot {
 						|| dot.getClass() == DWD_PenDot1.class
 						|| dot.getClass() == DWD_PenDot2.class) {
 
-					dot.addAction(Actions.moveTo(magnet.getX(),
-							magnet.getY(), DURATION,
-							Interpolation.circleIn));
+					dot.addAction(Actions.moveTo(magnet.getX(), magnet.getY(),
+							DURATION, Interpolation.circleIn));
 					dot.magneted = true;
 				}
 

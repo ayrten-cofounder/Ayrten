@@ -68,6 +68,8 @@ public class GameScreen extends ScrotsScreen {
 	protected Table top_table;
 	protected Table corner_table;
 	protected Table side_table;
+	
+	protected PowerDot_Magnet magnet;
 
 	protected ArrayList<PowerDot> powDots;
 	protected ArrayList<Label> powDots_time;
@@ -451,8 +453,9 @@ public class GameScreen extends ScrotsScreen {
 				Assets.reg_pop_1);
 		PowerDot powDot_2 = new PowerDot_Invincible(Assets.invincible_dot, gm,
 				Assets.reg_pop_1);
-		PowerDot powDot_3 = new PowerDot_Magnet(Assets.magnet_dot, gm,
+		magnet = new PowerDot_Magnet(Assets.magnet_dot, gm,
 				Assets.reg_pop_1);
+		PowerDot powDot_3 = magnet;
 		powDots.add(powDot_1);
 		powDots.add(powDot_2);
 		powDots.add(powDot_3);
@@ -668,8 +671,12 @@ public class GameScreen extends ScrotsScreen {
 		stage.clear();
 		gm.plusOnePoint();
 		stage.addActor(pause_scroll);
-		curr_level = gamemode.gen_curr_level();
+		curr_level = gamemode.gen_curr_level();		
 		addStageActors();
+		
+		if(gm.isMagnetState())
+			magnet.magnet();
+		
 		Assets.level_clear.play();
 	}
 
