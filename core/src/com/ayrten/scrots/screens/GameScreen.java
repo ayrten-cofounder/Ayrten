@@ -281,9 +281,7 @@ public class GameScreen extends ScrotsScreen {
 	}
 
 	private void initializePauseMenu() {
-		LabelStyle buttonStyle = (Assets.prefs.getString("bg_color")
-				.equals("Black")) ? Assets.style_font_64_white
-				: Assets.style_font_64_black;
+		LabelStyle buttonStyle = Assets.style_font_64_orange;
 
 		menu_button = new Image(Assets.pause_button);
 		menu_button.setHeight(Assets.height - Assets.game_height);
@@ -361,6 +359,7 @@ public class GameScreen extends ScrotsScreen {
 			public void clicked(InputEvent event, float x, float y) {
 				Assets.game.main_menu.options_screen.setBackScreen(Assets.game
 						.getScreen());
+				Assets.game.main_menu.options_screen.enableNonGameOptions(false);
 				Assets.game.setScreen(Assets.game.main_menu.options_screen);
 			}
 		});

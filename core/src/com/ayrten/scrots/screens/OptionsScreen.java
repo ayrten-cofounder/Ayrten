@@ -19,6 +19,8 @@ public class OptionsScreen extends ScrotsScreen {
 	protected CheckBox sound_effs;
 	protected CheckBox auto_gplay_signin;
 	protected CheckBox color_blind;
+	
+	protected Table game_options;
 
 	private float label_pad_left = (float) 35; // Lower # = more left
 
@@ -78,26 +80,38 @@ public class OptionsScreen extends ScrotsScreen {
 			Gdx.gl.glClearColor(1, 1, 1, 1);
 			bg_color.setSelected("White");
 		}
+		
+		Table non_game_options = new Table(Assets.skin);
 
-		table.add(new Label("Background: ", Assets.style_font_32_orange))
+		// When adding options, keep non-game options at the bottom.
+		non_game_options.add(new Label("Background: ", Assets.style_font_32_orange))
 				.left().padLeft((float) (table.getWidth() / label_pad_left));
-		table.add(bg_color).center().padLeft(Gdx.graphics.getWidth() / 6);
+		non_game_options.add(bg_color).center().padLeft(Gdx.graphics.getWidth() / 6);
+		non_game_options.row();
+		non_game_options.add("").height(Gdx.graphics.getHeight() / 50);
+		non_game_options.row();
+		non_game_options.add(new Label("Sound Effects: ", Assets.style_font_32_orange))
+				.left().padLeft((float) (table.getWidth() / label_pad_left));
+		non_game_options.add(sound_effs).center().padLeft(Gdx.graphics.getWidth() / 6);
+		
+		game_options = new Table(Assets.skin);
+		game_options.add(new Label("Auto Google Signin", Assets.style_font_32_orange)).left();
+		game_options.add(auto_gplay_signin);
+		game_options.add("").height(Gdx.graphics.getHeight() / 50);
+		game_options.row();
+		game_options.add(new Label("Color Blind Mode: ", Assets.style_font_32_orange))
+		.left().padLeft((float) (table.getWidth() / label_pad_left));
+		game_options.add(color_blind).center().padLeft(table.getWidth() / 6);
+		
+		table.add(non_game_options).center().padLeft(Assets.width / 6);
 		table.row();
 		table.add("").height(Gdx.graphics.getHeight() / 50);
 		table.row();
-		table.add(new Label("Sound Effects: ", Assets.style_font_32_orange))
-				.left().padLeft((float) (table.getWidth() / label_pad_left));
-		table.add(sound_effs).center().padLeft(Gdx.graphics.getWidth() / 6);
-		table.row();
-		table.add("").height(Gdx.graphics.getHeight() / 50);
-		table.row();
-		table.add(new Label("Auto Google Signin", Assets.style_font_32_orange)).left();
-		table.add(auto_gplay_signin);
-		table.add("").height(Gdx.graphics.getHeight() / 50);
-		table.row();
-		table.add(new Label("Color Blind Mode: ", Assets.style_font_32_orange))
-				.left().padLeft((float) (table.getWidth() / label_pad_left));
-		table.add(color_blind).center().padLeft(table.getWidth() / 6);
+		table.add(game_options).center().padLeft(Assets.width / 6);
+	}
+	
+	public void enableNonGameOptions(boolean enable) {
+		game_options.setVisible(enable);
 	}
 
 	@Override

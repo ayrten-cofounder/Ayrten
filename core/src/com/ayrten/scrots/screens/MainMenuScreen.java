@@ -226,5 +226,6 @@ public class MainMenuScreen extends ScrotsScreen
 		super.show();
 		Assets.game.apk_intf.setGPlayButton(gplay_log);
 		gplay_log.setText((Assets.game.apk_intf.is_gplay_signedin()) ? "Logout" : "Sign in");
+		options_screen.enableNonGameOptions(true);
 	}
 }

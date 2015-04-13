@@ -214,7 +214,8 @@ public class Assets {
 
 		style_font_64_orange = new LabelStyle();
 		style_font_64_orange.font = font_64;
-		style_font_64_orange.fontColor = Color.valueOf("ffcd55");
+//		style_font_64_orange.fontColor = Color.valueOf("ffcd55");
+		style_font_64_orange.fontColor = ORANGE;
 
 		style_font_64_red = new LabelStyle();
 		style_font_64_red.font = font_64;
@@ -286,6 +287,14 @@ public class Assets {
 		prefs = Gdx.app.getPreferences("com.ayrten.scrots-preferences");
 		game = sg;
 
+		transparent_background = new Texture(
+				Gdx.files.internal("data/transparent_gray.png"));
+		transparent_background.setFilter(TextureFilter.Linear,
+				TextureFilter.Linear);
+
+		up_button = new Texture(Gdx.files.internal("data/button_up.png"));
+		down_button = new Texture(Gdx.files.internal("data/button_down.png"));
+		
 		loadDotTextures();
 		explosion_dot = new Texture(
 				Gdx.files.internal("data/dots/explosion_dot.png"));
@@ -351,15 +360,8 @@ public class Assets {
 		}
 	}
 
+	// Function used to switch to color blind version textures dynamically.
 	public static void loadDotTextures() {
-		transparent_background = new Texture(
-				Gdx.files.internal("data/transparent_gray.png"));
-		transparent_background.setFilter(TextureFilter.Linear,
-				TextureFilter.Linear);
-
-		up_button = new Texture(Gdx.files.internal("data/button_up.png"));
-		down_button = new Texture(Gdx.files.internal("data/button_down.png"));
-
 		if (!prefs.getBoolean("color_blind", false))
 			penDot_1 = new Texture(Gdx.files.internal("data/red_dot.png"));
 		else
