@@ -145,6 +145,10 @@ public class GameMode {
 		
 		if(gm.isRainbowState())
 			gm.changePenalityDotVisibility(false);
+		
+		if(gm.isMagnetState())
+			stage.addActor(gm.getMagnet());
+		
 		return curr_level;
 	}	
 }
