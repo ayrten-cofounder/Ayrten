@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
@@ -25,10 +26,11 @@ public class ScoresScreen extends ScrotsScreen {
 	private int height = 75;
 
 	//	private SelectBox<String> mode;
-	private Label clear;
+	protected Label clear;
 
-	LabelStyle style_big;
-	LabelStyle style_small;
+	protected LabelStyle style_big;
+	protected LabelStyle style_small;
+
 
 	public ScoresScreen(Screen bscreen) {
 		super(bscreen, true);
@@ -119,6 +121,10 @@ public class ScoresScreen extends ScrotsScreen {
 		leaderboard_table.add(time_mode);
 		score_table.add(leaderboard_table).width(Assets.width);
 
+		final Image highscore_tab = new Image(Assets.transparent_background);
+		final Image leaderboard_tab = new Image(Assets.transparent_background);
+		leaderboard_tab.setVisible(false);
+
 		Label leaderboard = new Label("Leaderboard", style_big);
 		leaderboard.setBounds(leaderboard.getX(), leaderboard.getY(), leaderboard.getWidth(), leaderboard.getHeight());
 		leaderboard.addListener(new ClickListener() {
@@ -127,8 +133,11 @@ public class ScoresScreen extends ScrotsScreen {
 				if(score_scroll.getScrollX() != Assets.width * (pages - 1)) {
 					if(Assets.prefs.getBoolean("sound_effs"))
 						Assets.button_pop.play();
-					score_scroll.scrollTo(score_scroll.getScaleX() + Assets.width, 0, score_scroll.getWidth(), score_scroll.getHeight());
+					score_scroll.scrollTo(score_scroll.getScrollX() + Assets.width, 0, score_scroll.getWidth(), score_scroll.getHeight());
 				}
+				
+				highscore_tab.setVisible(false);
+				leaderboard_tab.setVisible(true);
 			}
 		});
 
@@ -142,15 +151,31 @@ public class ScoresScreen extends ScrotsScreen {
 						Assets.button_pop.play();
 					score_scroll.scrollTo(score_scroll.getScrollX() - Assets.width, 0, score_scroll.getWidth(), score_scroll.getHeight());
 				}
+				
+				highscore_tab.setVisible(true);
+				leaderboard_tab.setVisible(false);
 			}
 		});
+				
+		float length = Assets.width / 2 + highscore.getWidth() / 2;
+		float tab_width = (length / 2 > leaderboard.getWidth()) ? length / 2 : leaderboard.getWidth();
+		
+		Table tab_table = new Table(Assets.skin);
+		Table center_table = new Table(Assets.skin);
+		center_table.add(highscore);
+		tab_table.stack(highscore_tab, center_table).width(tab_width);
+		center_table = new Table(Assets.skin);
+		center_table.add(leaderboard);
+		tab_table.stack(leaderboard_tab, center_table).width(tab_width);
 
-		addToNavBar(highscore);
-		addToNavBar(leaderboard);
-
+		
+		navigation_bar.clear();
+		navigation_bar.add(back).width(navigation_bar.getWidth() - tab_width * 2 - 50 - Assets.PAD);
+		navigation_bar.add(tab_table).width(tab_width * 2);
+		
 		stage.addActor(score_scroll);
 	}
-
+	
 	public void clearScoreboard() {
 		// if (mode.getSelected().equals("Normal")) {
 		NormalScoreboard scoreboard = new NormalScoreboard();
