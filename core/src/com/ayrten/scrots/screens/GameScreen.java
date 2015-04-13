@@ -2,7 +2,6 @@ package com.ayrten.scrots.screens;
 
 import java.util.ArrayList;
 
-import com.ayrten.scrots.dots.Dot;
 import com.ayrten.scrots.dots.PowerDot;
 import com.ayrten.scrots.dots.PowerDot_Invincible;
 import com.ayrten.scrots.dots.PowerDot_Magnet;
@@ -75,6 +74,7 @@ public class GameScreen extends ScrotsScreen {
 	protected ArrayList<Label> powDots_time;
 	protected ArrayList<Label> powDot_num;
 	protected ArrayList<Image> radial_timers;
+	protected ArrayList<Image> powDots_gray;
 
 	// protected ArrayList<Image> gray_timer_bg;
 	protected TextureRegionDrawable[] trd;
@@ -200,33 +200,18 @@ public class GameScreen extends ScrotsScreen {
 		side_table.setWidth(Assets.width - Assets.game_width - 10);
 		side_table.setPosition(10, 10);
 
-		boolean use_default_height = false;
-		boolean should_check = true;
 		for (int i = 0; i < powDots.size(); i++) {
-			Dot powDot = powDots.get(i);
+			PowerDot powDot = powDots.get(i);
 			Label powDotNum = powDot_num.get(i);
 			Label powDotTime = powDots_time.get(i);
 			Image rTimer = radial_timers.get(i);
-			// Image gray_bg = gray_timer_bg.get(i);
+			Image gray_dot_image = powDots_gray.get(i);
 
 			rTimer.setVisible(false);
-
-			float width, height;
-			if (powDot.getWidth() > side_table.getWidth())
-				width = side_table.getWidth();
+			if(!powDot.isUnlocked())
+				powDot.setVisible(false);
 			else
-				width = powDot.getWidth();
-
-			if (should_check) {
-				if (side_table.getHeight() / powDots.size() > width)
-					use_default_height = true;
-				should_check = false;
-			}
-
-			if (use_default_height)
-				height = width;
-			else
-				height = powDot.getHeight();
+				gray_dot_image.setVisible(false);
 
 			temp = new Table(Assets.skin);
 			temp.setWidth(side_table.getWidth());
@@ -239,7 +224,7 @@ public class GameScreen extends ScrotsScreen {
 			
 			Table cell_table = new Table(Assets.skin);
 			cell_table.setSize(side_table.getWidth() - 10, side_table.getHeight() / powDots.size());
-			cell_table.stack(powDot, rTimer, timer_table, temp).width(side_table.getWidth() - 10)
+			cell_table.stack(powDot, gray_dot_image, rTimer, timer_table, temp).width(side_table.getWidth() - 10)
 			.height(side_table.getWidth() - 10);
 
 			side_table.add().width(10);
@@ -459,9 +444,15 @@ public class GameScreen extends ScrotsScreen {
 		powDots.add(powDot_1);
 		powDots.add(powDot_2);
 		powDots.add(powDot_3);
-
+		
+		powDots_gray = new ArrayList<Image>();
+		powDots_gray.add(new Image(Assets.rainbow_dot_gray));
+		powDots_gray.add(new Image(Assets.invincible_dot_gray));
+		powDots_gray.add(new Image(Assets.magnet_dot_gray));
+		
 		for (int i = 0; i < powDots.size(); i++) {
 			powDots.get(i).setTimeLabel(powDots_time.get(i));
+			powDots.get(i).setGrayImage(powDots_gray.get(i));
 		}
 	}
 

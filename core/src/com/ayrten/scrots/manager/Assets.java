@@ -123,6 +123,9 @@ public class Assets {
 	public static Texture invincible_dot;
 	public static Texture magnet_dot;
 	public static Texture rainbow_dot;
+	public static Texture invincible_dot_gray;
+	public static Texture magnet_dot_gray;
+	public static Texture rainbow_dot_gray;
 
 	public static Texture question_mark;
 
@@ -284,6 +287,25 @@ public class Assets {
 		game = sg;
 
 		loadDotTextures();
+		explosion_dot = new Texture(
+				Gdx.files.internal("data/dots/explosion_dot.png"));
+		explosion_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
+		invincible_dot = new Texture(
+				Gdx.files.internal("data/dots/invincible_dot.png"));
+		invincible_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
+		magnet_dot = new Texture(Gdx.files.internal("data/dots/magnet_dot.png"));
+		magnet_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
+		rainbow_dot = new Texture(
+				Gdx.files.internal("data/dots/rainbow_dot.png"));
+		rainbow_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		
+		invincible_dot_gray = new Texture(Gdx.files.internal("data/dots/invincible_dot_gray.png"));
+		magnet_dot_gray = new Texture(Gdx.files.internal("data/dots/magnet_dot_gray.png"));
+		rainbow_dot_gray = new Texture(Gdx.files.internal("data/dots/rainbow_dot_gray.png"));
+		
 		slot_switch = explosion_dot;
 		pause_button = new Texture(
 				Gdx.files.internal("data/dots/pause_dot.png"));
@@ -384,21 +406,6 @@ public class Assets {
 		dwdRegDot_2 = new Texture(
 				Gdx.files.internal("data/dots/orange_dot.png"));
 		dwdRegDot_2.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-
-		explosion_dot = new Texture(
-				Gdx.files.internal("data/dots/explosion_dot.png"));
-		explosion_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-
-		invincible_dot = new Texture(
-				Gdx.files.internal("data/dots/invincible_dot.png"));
-		invincible_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-
-		magnet_dot = new Texture(Gdx.files.internal("data/dots/magnet_dot.png"));
-		magnet_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-
-		rainbow_dot = new Texture(
-				Gdx.files.internal("data/dots/rainbow_dot.png"));
-		rainbow_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 	}
 
 	public static void dispose() {

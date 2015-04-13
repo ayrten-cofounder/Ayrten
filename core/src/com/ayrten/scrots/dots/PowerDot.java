@@ -6,10 +6,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Timer;
@@ -32,8 +30,8 @@ public class PowerDot extends Dot {
 
 	protected Image rs;
 	protected SpriteBatch batch;
-	float angle;
-//	protected Image gray_timer_bg;
+	protected float angle;
+	protected Image gray_dot_image;
 
 	public PowerDot(Texture dot, Manager gm, Sound pop) {
 		super(dot, gm, pop);
@@ -44,18 +42,20 @@ public class PowerDot extends Dot {
 		batch = new SpriteBatch();
 
 		powerdot_listener = new InputListener(){
+			
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
 				origX = event.getTarget().getCenterX();
 				origY = event.getTarget().getCenterY();
-				event.getTarget().setCenterPosition(Gdx.input.getX(pointer), event.getTarget().getCenterY());
+				if(Gdx.input.getX(pointer) > origX && num > 0)
+				  event.getTarget().setCenterPosition(Gdx.input.getX(pointer), event.getTarget().getCenterY());
 				return true;
 			}
 
 			@Override
 			public void touchDragged(InputEvent event, float x, float y, int pointer) {
-				if(Gdx.input.getX(pointer) > origX)
+				if(Gdx.input.getX(pointer) > origX && num > 0)
 					event.getTarget().setCenterPosition(Gdx.input.getX(pointer), event.getTarget().getCenterY());
 			}
 
@@ -87,12 +87,18 @@ public class PowerDot extends Dot {
 		rs = image;
 	}
 	
-	public void setGrayBg(Image gray_bg) {
-//		gray_timer_bg = gray_bg;
+	public void setGrayImage(Image gray_image) {
+		gray_dot_image = gray_image;
 	}
 
 	public void updateNumLabel() {
 		num_label.setText("x" + String.valueOf(num));
+	}
+	
+	public boolean isUnlocked() {
+		Gdx.app.error("POWERDOT", this.getClass().toString() + " did not override isUnlocked() function!");
+		Gdx.app.exit();
+		return false;
 	}
 
 	@Override
@@ -110,7 +116,7 @@ public class PowerDot extends Dot {
 	// Action to do before timer starts.
 	public void beforeAction() {
 		rs.setVisible(true);
-//		gray_timer_bg.setVisible(true);
+		gray_dot_image.setVisible(true);
 		setVisible(false);
 		
 	}
@@ -127,7 +133,7 @@ public class PowerDot extends Dot {
 	public void afterAction() {
 		angle = 0;
 		rs.setVisible(false);
-//		gray_timer_bg.setVisible(false);
+		gray_dot_image.setVisible(false);
 		setVisible(true);
 	}
 

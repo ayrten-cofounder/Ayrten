@@ -38,4 +38,9 @@ public class PowerDot_Invincible extends PowerDot {
 	public void draw(Batch batch, float alpha) {
 		batch.draw(dot, getX(), getY(), getWidth(), getHeight());
 	}
+	
+	@Override
+	public boolean isUnlocked() {
+		return (Assets.power_dot_manager.isInvincibleDotUnlocked());
+	}
 }
