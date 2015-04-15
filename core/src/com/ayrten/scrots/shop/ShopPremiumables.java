@@ -38,17 +38,11 @@ public class ShopPremiumables {
 		description = Assets.game.iap_inft.getDescription(item) + " points";
 		pointValue = Integer.valueOf(Assets.game.iap_inft.getDescription(item));
 
-		cost_label = new Label(cost, Assets.prefs.getString("bg_color").equals(
-				"Black") ? Assets.style_font_32_white
-				: Assets.style_font_32_black);
+		cost_label = new Label(cost, Assets.style_font_32_white);
 
-		description_label = new Label(description, Assets.prefs.getString(
-				"bg_color").equals("Black") ? Assets.style_font_32_white
-				: Assets.style_font_32_black);
+		description_label = new Label(description, Assets.style_font_32_white);
 
-		buy_label = new Label("Buy", Assets.prefs.getString("bg_color").equals(
-				"Black") ? Assets.style_font_32_white
-				: Assets.style_font_32_black);
+		buy_label = new Label("Buy", Assets.style_font_32_white);
 
 		buy_label.addListener(new InputListener() {
 

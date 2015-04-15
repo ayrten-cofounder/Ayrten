@@ -24,12 +24,12 @@ public class ContactScreen extends ScrotsScreen {
 		setupStage();
 		showTableScreen();
 
-		Label msg = new Label("", Assets.style_font_32_orange);
+		Label msg = new Label("", Assets.style_font_32_white);
 		msg.setText("Want to make a suggestion to improve the game? Got a bug to report? We at Ayrten strive to provide"
 				+ " quick and responsive support. We would like to sincerely thank you for playing Scrots.");
 		msg.setWrap(true);
 
-		Label general = new Label("", Assets.style_font_32_orange);
+		Label general = new Label("", Assets.style_font_32_white);
 		general.setText("Please send all inquiries/comments to: ");
 		general.setWrap(true);
 		general.setWidth(general.getStyle().font
@@ -115,6 +115,8 @@ public class ContactScreen extends ScrotsScreen {
 		contacts_table.row();
 		contacts_table.add(generalTable).width(width).padLeft(Assets.PAD)
 				.left();
+		contacts_table.row();
+		contacts_table.add().height(Assets.PAD);
 		contacts_table.row();
 		contacts_table.add(social_media).width(width);
 

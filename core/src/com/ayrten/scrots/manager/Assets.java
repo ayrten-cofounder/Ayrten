@@ -232,7 +232,6 @@ public class Assets {
 		style_font_64_orange.font = font_64;
 		// style_font_64_orange.fontColor = Color.valueOf("ffcd55");
 		style_font_64_orange.fontColor = ORANGE;
-//		style_font_64_orange.fontColor = Color.WHITE;
 
 		style_font_64_red = new LabelStyle();
 		style_font_64_red.font = font_64;
@@ -261,7 +260,6 @@ public class Assets {
 		style_font_32_orange = new LabelStyle();
 		style_font_32_orange.font = font_32;
 		style_font_32_orange.fontColor = ORANGE;
-//		style_font_32_orange.fontColor = Color.WHITE;
 
 		style_font_32_blue = new LabelStyle();
 		style_font_32_blue.font = font_32;

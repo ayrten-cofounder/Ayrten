@@ -2,6 +2,7 @@ package com.ayrten.scrots.screens;
 
 import com.ayrten.scrots.manager.Assets;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -25,7 +26,7 @@ public class OthersScreen extends ScrotsScreen {
 
 		LabelStyle labelStyle = new LabelStyle();
 		labelStyle.font = Assets.font_64;
-		labelStyle.fontColor = Assets.ORANGE;
+		labelStyle.fontColor = Color.WHITE;
 
 		Label achievements = new Label("Achievements", labelStyle);
 		achievements.setBounds(achievements.getX(), achievements.getY(),

@@ -7,6 +7,7 @@ import com.ayrten.scrots.manager.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -81,7 +82,7 @@ public class ScrotsScreen implements Screen {
 		// Init back label
 		LabelStyle labelStyle = new LabelStyle();
 		labelStyle.font = Assets.font_64;
-		labelStyle.fontColor = Assets.ORANGE;
+		labelStyle.fontColor = Color.WHITE;
 
 		back = new Label("Back", labelStyle);
 		back.setBounds(back.getX(), back.getY(), back.getWidth(),

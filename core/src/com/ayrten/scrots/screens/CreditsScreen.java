@@ -18,23 +18,23 @@ public class CreditsScreen extends ScrotsScreen {
 		setupStage();
 		showTableScreen();
 
-		Label created = new Label("", Assets.style_font_32_orange);
+		Label created = new Label("", Assets.style_font_32_white);
 		created.setWrap(true);
 		created.setText("Created by");
-		created.setWidth(Assets.style_font_32_orange.font
+		created.setWidth(Assets.style_font_32_white.font
 				.getBounds("Created by").width);
 
-		Label createdNames = new Label("", Assets.style_font_32_orange);
+		Label createdNames = new Label("", Assets.style_font_32_white);
 		createdNames.setWrap(true);
 		createdNames.setText("Andy Yeung and Tony Doan");
 
-		Label thanks = new Label("", Assets.style_font_32_orange);
+		Label thanks = new Label("", Assets.style_font_32_white);
 		thanks.setWrap(true);
 		thanks.setText("Special thanks to");
 		thanks.setWidth(Assets.style_font_32_orange.font
 				.getBounds("Special thanks to").width);
 
-		Label thanksName = new Label("", Assets.style_font_32_orange);
+		Label thanksName = new Label("", Assets.style_font_32_white);
 		thanksName.setWrap(true);
 		thanksName.setText("Family and friends who supported us");
 		thanksName.setWidth(Assets.style_font_32_orange.font
@@ -49,27 +49,27 @@ public class CreditsScreen extends ScrotsScreen {
 		thanks_table.add(thanksName);
 		for (int i = 0; i < thanks_list.size(); i++) {
 			Label thank_person = new Label(thanks_list.get(i),
-					Assets.style_font_32_orange);
+					Assets.style_font_32_white);
 			thank_person.setWrap(true);
-			thank_person.setWidth(Assets.style_font_32_orange.font
+			thank_person.setWidth(Assets.style_font_32_white.font
 					.getBounds(thanks_list.get(i)).width);
 			thanks_table.row();
 			thanks_table.add(thank_person);
 		}
 
-		Label publish = new Label("", Assets.style_font_32_orange);
+		Label publish = new Label("", Assets.style_font_32_white);
 		publish.setWrap(true);
 		publish.setText("Published by");
-		publish.setWidth(Assets.style_font_32_orange.font
+		publish.setWidth(Assets.style_font_32_white.font
 				.getBounds("Published by").width);
 
-		Label publishName = new Label("", Assets.style_font_32_orange);
+		Label publishName = new Label("", Assets.style_font_32_white);
 		publishName.setWrap(true);
 		publishName.setText("Ayrten");
-		publishName.setWidth(Assets.style_font_32_orange.font
+		publishName.setWidth(Assets.style_font_32_white.font
 				.getBounds("Ayrten").width);
 
-		Label misc = new Label("", Assets.style_font_32_orange);
+		Label misc = new Label("", Assets.style_font_32_white);
 		misc.setWrap(true);
 		misc.setText("Assets are used according to terms described in the Creative Commons 3.0 Attribution"
 				+ " License. Giving credit and thanks to the following:");

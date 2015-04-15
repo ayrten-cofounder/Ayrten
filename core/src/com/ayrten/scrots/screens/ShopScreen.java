@@ -148,17 +148,13 @@ public class ShopScreen extends ScrotsScreen {
 		// scroll_view.setPosition(0, 0 + bottom_bar_table.getHeight() + PAD);
 
 		// Total Points Label
-		points_label = new Label(
-				"Points: " + String.valueOf(points),
-				Assets.prefs.getString("bg_color").equals("Black") ? Assets.style_font_32_white
-						: Assets.style_font_32_black);
+		points_label = new Label("Points: " + String.valueOf(points),
+				Assets.style_font_32_white);
 		// points_label.setCenterPosition(Assets.width / 2, Assets.height
 		// - points_label.getHeight());
 
 		// Premium Label
-		premium_label = new Label("Buy Points!", Assets.prefs.getString(
-				"bg_color").equals("Black") ? Assets.style_font_64_white
-				: Assets.style_font_64_black);
+		premium_label = new Label("Buy Points!", Assets.style_font_32_white);
 
 		// premium_label.setPosition(Assets.width - premium_label.getWidth(),
 		// Assets.height - premium_label.getHeight());
@@ -179,16 +175,12 @@ public class ShopScreen extends ScrotsScreen {
 		addToNavBar(premium_label);
 
 		// Total Price Label
-		total_price_label = new Label(
-				String.valueOf(total_price),
-				Assets.prefs.getString("bg_color").equals("Black") ? Assets.style_font_32_white
-						: Assets.style_font_32_black);
+		total_price_label = new Label(String.valueOf(total_price),
+				Assets.style_font_32_white);
 		total_price_label.setAlignment(Align.center);
 
 		// Buy Label
-		buy_label = new Label("Buy", Assets.prefs.getString("bg_color").equals(
-				"Black") ? Assets.style_font_32_white
-				: Assets.style_font_32_black);
+		buy_label = new Label("Buy", Assets.style_font_32_white);
 		buy_label.setAlignment(Align.center);
 
 		buy_label.addListener(new InputListener() {
@@ -204,9 +196,7 @@ public class ShopScreen extends ScrotsScreen {
 		});
 
 		// Clear Label
-		clear_label = new Label("Clear", Assets.prefs.getString("bg_color")
-				.equals("Black") ? Assets.style_font_32_white
-				: Assets.style_font_32_black);
+		clear_label = new Label("Clear", Assets.style_font_32_white);
 		clear_label.setAlignment(Align.center);
 
 		clear_label.addListener(new InputListener() {
@@ -238,21 +228,11 @@ public class ShopScreen extends ScrotsScreen {
 			dots.add(rainbowDot);
 		}
 
-		Label p = new Label("Item", Assets.prefs.getString("bg_color").equals(
-				"Black") ? Assets.style_font_32_white
-				: Assets.style_font_32_black);
-		Label des = new Label("Description", Assets.prefs.getString("bg_color")
-				.equals("Black") ? Assets.style_font_32_white
-				: Assets.style_font_32_black);
-		Label c = new Label("Cost", Assets.prefs.getString("bg_color").equals(
-				"Black") ? Assets.style_font_32_white
-				: Assets.style_font_32_black);
-		Label a = new Label("Amount", Assets.prefs.getString("bg_color")
-				.equals("Black") ? Assets.style_font_32_white
-				: Assets.style_font_32_black);
-		Label t = new Label("Total", Assets.prefs.getString("bg_color").equals(
-				"Black") ? Assets.style_font_32_white
-				: Assets.style_font_32_black);
+		Label p = new Label("Item", Assets.style_font_32_white);
+		Label des = new Label("Description", Assets.style_font_32_white);
+		Label c = new Label("Cost", Assets.style_font_32_white);
+		Label a = new Label("Amount", Assets.style_font_32_white);
+		Label t = new Label("Total", Assets.style_font_32_white);
 
 		p.setAlignment(Align.center);
 		des.setAlignment(Align.center);
@@ -284,11 +264,11 @@ public class ShopScreen extends ScrotsScreen {
 
 		for (ShopDot d : dots) {
 			tempt.row().padBottom(PAD);
-			
-//			Table row = new Table();
-//			row.setWidth(tempt.getWidth());
-//			row.setSkin(Assets.skin);
-//			row.setBackground(Assets.rounded_rectangle_blue);
+
+			// Table row = new Table();
+			// row.setWidth(tempt.getWidth());
+			// row.setSkin(Assets.skin);
+			// row.setBackground(Assets.rounded_rectangle_blue);
 
 			if (d.unlocked) {
 				tempt.add(d.dotImage).height(d.dotImage.getHeight());

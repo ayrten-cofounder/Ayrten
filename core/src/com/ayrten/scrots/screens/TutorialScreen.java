@@ -17,7 +17,7 @@ public class TutorialScreen extends ScrotsScreen {
 		setupStage();
 		showTableScreen();
 
-		Label intent = new Label("", Assets.style_font_32_orange);
+		Label intent = new Label("", Assets.style_font_32_white);
 		intent.setWrap(true);
 		intent.setText("The goal of the game is pop all the greens on screen as fast"
 				+ " as you can! When all green dots are popped, you gain a point and"
@@ -30,20 +30,20 @@ public class TutorialScreen extends ScrotsScreen {
 		Image babyBlueDot = new Image(Assets.regDot_2);
 		Image questionDot = new Image(Assets.question_mark);
 
-		Label greenDesc = new Label("", Assets.style_font_32_orange);
+		Label greenDesc = new Label("", Assets.style_font_32_white);
 		greenDesc.setWrap(true);
 		greenDesc.setText("Requires popping in order to advance");
 
-		Label redDesc = new Label("", Assets.style_font_32_orange);
+		Label redDesc = new Label("", Assets.style_font_32_white);
 
 		redDesc.setWrap(true);
 		redDesc.setText("Immediate GAME OVER!");
 
-		Label blueDesc = new Label("", Assets.style_font_32_orange);
+		Label blueDesc = new Label("", Assets.style_font_32_white);
 		blueDesc.setWrap(true);
 		blueDesc.setText("Decreases time limit by 5 seconds so BE CAREFUL!");
 
-		Label babyBlueDesc = new Label("", Assets.style_font_32_orange);
+		Label babyBlueDesc = new Label("", Assets.style_font_32_white);
 		babyBlueDesc.setWrap(true);
 		babyBlueDesc.setText("Increased time limit by 2.5 seconds");
 		babyBlueDesc.addListener(new ClickListener() {
@@ -54,7 +54,7 @@ public class TutorialScreen extends ScrotsScreen {
 			}
 		});
 
-		Label questionDesc = new Label("", Assets.style_font_32_orange);
+		Label questionDesc = new Label("", Assets.style_font_32_white);
 		questionDesc.setWrap(true);
 		questionDesc.setText("More to come!");
 

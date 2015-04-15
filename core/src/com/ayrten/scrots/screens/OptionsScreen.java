@@ -70,9 +70,9 @@ public class OptionsScreen extends ScrotsScreen {
 
 		bg_color = new SelectBox<String>(Assets.skin);
 		bg_color.setItems("White", "Black");
-		bg_color.getStyle().fontColor = Assets.ORANGE;
-		bg_color.getStyle().listStyle.fontColorSelected = Assets.ORANGE;
-		bg_color.getStyle().listStyle.fontColorUnselected = Assets.ORANGE;
+		bg_color.getStyle().fontColor = Color.WHITE;
+		bg_color.getStyle().listStyle.fontColorSelected = Color.WHITE;
+		bg_color.getStyle().listStyle.fontColorUnselected = Color.WHITE;
 		if (Assets.prefs.getString("bg_color", "White").equals("Black")) {
 			Gdx.gl.glClearColor(0, 0, 0, 0);
 			bg_color.setSelected("Black");
@@ -84,22 +84,22 @@ public class OptionsScreen extends ScrotsScreen {
 		Table non_game_options = new Table(Assets.skin);
 
 		// When adding options, keep non-game options at the bottom.
-		non_game_options.add(new Label("Background: ", Assets.style_font_32_orange))
+		non_game_options.add(new Label("Background: ", Assets.style_font_32_white))
 				.left().padLeft((float) (table.getWidth() / label_pad_left));
 		non_game_options.add(bg_color).center().padLeft(Gdx.graphics.getWidth() / 6);
 		non_game_options.row();
 		non_game_options.add("").height(Gdx.graphics.getHeight() / 50);
 		non_game_options.row();
-		non_game_options.add(new Label("Sound Effects: ", Assets.style_font_32_orange))
+		non_game_options.add(new Label("Sound Effects: ", Assets.style_font_32_white))
 				.left().padLeft((float) (table.getWidth() / label_pad_left));
 		non_game_options.add(sound_effs).center().padLeft(Gdx.graphics.getWidth() / 6);
 		
 		game_options = new Table(Assets.skin);
-		game_options.add(new Label("Auto Google Signin", Assets.style_font_32_orange)).left();
+		game_options.add(new Label("Auto Google Signin", Assets.style_font_32_white)).left();
 		game_options.add(auto_gplay_signin);
 		game_options.add("").height(Gdx.graphics.getHeight() / 50);
 		game_options.row();
-		game_options.add(new Label("Color Blind Mode: ", Assets.style_font_32_orange))
+		game_options.add(new Label("Color Blind Mode: ", Assets.style_font_32_white))
 		.left().padLeft((float) (table.getWidth() / label_pad_left));
 		game_options.add(color_blind).center().padLeft(table.getWidth() / 6);
 		
