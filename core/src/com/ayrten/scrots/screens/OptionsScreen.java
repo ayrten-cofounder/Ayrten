@@ -140,7 +140,7 @@ public class OptionsScreen extends ScrotsScreen {
 			Assets.loadDotTextures();
 		} else
 			Assets.prefs.putBoolean("color_blind", color_blind.isChecked());
-
+		Assets.prefs.putBoolean("auto_gplay_signin", auto_gplay_signin.isChecked());
 		Assets.prefs.flush();
 		if (backScreen.getClass() == MainMenuScreen.class)
 			Assets.playMenuBGM();
