@@ -7,6 +7,7 @@ import com.ayrten.scrots.scoreboard.Scoreboard;
 import com.ayrten.scrots.scoreboard.Scoreboard.Scores;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -40,11 +41,11 @@ public class ScoresScreen extends ScrotsScreen {
 
 		style_big = new LabelStyle();
 		style_big.font = Assets.font_64;
-		style_big.fontColor = Assets.ORANGE;
+		style_big.fontColor = Color.WHITE;
 
 		style_small = new LabelStyle();
 		style_small.font = Assets.font_64;
-		style_small.fontColor = Assets.ORANGE;
+		style_small.fontColor = Color.WHITE;
 
 		// switchFontColor();
 
@@ -106,7 +107,7 @@ public class ScoresScreen extends ScrotsScreen {
 
 		LabelStyle labelStyle = new LabelStyle();
 		labelStyle.font = Assets.font_64;
-		labelStyle.fontColor = Assets.ORANGE;
+		labelStyle.fontColor = Color.WHITE;
 
 		Label time_mode = new Label("Time Mode", labelStyle);
 		time_mode.setBounds(time_mode.getX(), time_mode.getY(), time_mode.getWidth(), time_mode.getHeight());

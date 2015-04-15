@@ -48,9 +48,12 @@ public class Assets {
 	public static NinePatchDrawable gray_box;
 	public static NinePatchDrawable transparent_box;
 
+	public static NinePatchDrawable rounded_rectangle_dark_gray;
 	public static NinePatchDrawable rounded_rectangle_gray;
 	public static NinePatchDrawable rounded_rectangle_blue;
 	public static NinePatchDrawable rounded_rectangle_red;
+
+	public static NinePatchDrawable rounded_rectangle_border;
 
 	// Fonts
 	public static BitmapFont font_120;
@@ -98,6 +101,7 @@ public class Assets {
 	public static Skin skin_window;
 
 	// Textures
+	public static Texture bkg;
 	public static Texture transparent_background;
 
 	public static Texture up_button;
@@ -146,8 +150,10 @@ public class Assets {
 	public static Preferences prefs;
 	public static ScrotsGame game;
 	public static final Color ORANGE = Color.valueOf("ff9f38");
-	
-	public static enum LeaderboardType { TIME, SURVIVAL };
+
+	public static enum LeaderboardType {
+		TIME, SURVIVAL
+	};
 
 	public static void load(ScrotsGame sg) {
 		int ref_width = 800;
@@ -187,6 +193,11 @@ public class Assets {
 		transparent_box = new NinePatchDrawable(new NinePatch(new Texture(
 				Gdx.files.internal("data/transparent_box.9.png"))));
 
+		rounded_rectangle_dark_gray = new NinePatchDrawable(
+				new NinePatch(new Texture(Gdx.files
+						.internal("data/rounded_rectangle_dark_gray.png")), 50,
+						50, 50, 50));
+
 		rounded_rectangle_gray = new NinePatchDrawable(new NinePatch(
 				new Texture(Gdx.files.internal("data/rounded_rectangle.png")),
 				50, 50, 50, 50));
@@ -197,6 +208,11 @@ public class Assets {
 		rounded_rectangle_red = new NinePatchDrawable(new NinePatch(
 				new Texture(
 						Gdx.files.internal("data/rounded_rectangle_red.png")),
+				50, 50, 50, 50));
+
+		rounded_rectangle_border = new NinePatchDrawable(new NinePatch(
+				new Texture(
+						Gdx.files.internal("data/rounded_rectangle_bordered.png")),
 				50, 50, 50, 50));
 
 		// Style
@@ -214,7 +230,7 @@ public class Assets {
 
 		style_font_64_orange = new LabelStyle();
 		style_font_64_orange.font = font_64;
-//		style_font_64_orange.fontColor = Color.valueOf("ffcd55");
+		// style_font_64_orange.fontColor = Color.valueOf("ffcd55");
 		style_font_64_orange.fontColor = ORANGE;
 
 		style_font_64_red = new LabelStyle();
@@ -286,6 +302,11 @@ public class Assets {
 		// Miscellaneous
 		prefs = Gdx.app.getPreferences("com.ayrten.scrots-preferences");
 		game = sg;
+		
+		bkg = new Texture(
+				Gdx.files.internal("data/bkg.png"));
+		bkg.setFilter(TextureFilter.Linear,
+				TextureFilter.Linear);
 
 		transparent_background = new Texture(
 				Gdx.files.internal("data/transparent_gray.png"));
@@ -294,7 +315,7 @@ public class Assets {
 
 		up_button = new Texture(Gdx.files.internal("data/button_up.png"));
 		down_button = new Texture(Gdx.files.internal("data/button_down.png"));
-		
+
 		loadDotTextures();
 		explosion_dot = new Texture(
 				Gdx.files.internal("data/dots/explosion_dot.png"));
@@ -310,11 +331,14 @@ public class Assets {
 		rainbow_dot = new Texture(
 				Gdx.files.internal("data/dots/rainbow_dot.png"));
 		rainbow_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		
-		invincible_dot_gray = new Texture(Gdx.files.internal("data/dots/invincible_dot_gray.png"));
-		magnet_dot_gray = new Texture(Gdx.files.internal("data/dots/magnet_dot_gray.png"));
-		rainbow_dot_gray = new Texture(Gdx.files.internal("data/dots/rainbow_dot_gray.png"));
-		
+
+		invincible_dot_gray = new Texture(
+				Gdx.files.internal("data/dots/invincible_dot_gray.png"));
+		magnet_dot_gray = new Texture(
+				Gdx.files.internal("data/dots/magnet_dot_gray.png"));
+		rainbow_dot_gray = new Texture(
+				Gdx.files.internal("data/dots/rainbow_dot_gray.png"));
+
 		slot_switch = explosion_dot;
 		pause_button = new Texture(
 				Gdx.files.internal("data/dots/pause_dot.png"));

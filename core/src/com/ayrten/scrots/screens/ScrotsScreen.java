@@ -7,12 +7,14 @@ import com.ayrten.scrots.manager.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -36,6 +38,9 @@ public class ScrotsScreen implements Screen {
 	// Table Screen
 	// The table for the screen
 	protected Table table;
+
+	// Background
+	protected Table bkg;
 
 	protected boolean createBack;
 	protected boolean backStage;
@@ -77,7 +82,7 @@ public class ScrotsScreen implements Screen {
 		// Init back label
 		LabelStyle labelStyle = new LabelStyle();
 		labelStyle.font = Assets.font_64;
-		labelStyle.fontColor = Assets.ORANGE;
+		labelStyle.fontColor = Color.WHITE;
 
 		back = new Label("Back", labelStyle);
 		back.setBounds(back.getX(), back.getY(), back.getWidth(),
@@ -126,7 +131,16 @@ public class ScrotsScreen implements Screen {
 				Assets.height - back.getHeight() - (Assets.PAD * 2));
 		table.setPosition(Assets.PAD * 2 / 2, Assets.PAD * 2 / 2);
 		table.setSkin(Assets.skin);
-		table.setBackground(Assets.rounded_rectangle_red);
+		table.setBackground(Assets.rounded_rectangle_border);
+
+		bkg = new Table();
+		bkg.setSize(Assets.width, Assets.height);
+		bkg.setFillParent(true);
+		bkg.setPosition(0, 0);
+		bkg.setSkin(Assets.skin);
+
+		bkg.row();
+		bkg.add(new Image(Assets.bkg)).width(Assets.width).height(Assets.height);
 	}
 
 	// This must be called near the end of the constructor.
@@ -138,6 +152,7 @@ public class ScrotsScreen implements Screen {
 			// Gdx.graphics.getHeight()
 			// - back.getHeight());
 			// stage.addActor(back);
+			stage.addActor(bkg);
 			stage.addActor(navigation_bar);
 		}
 
@@ -191,6 +206,8 @@ public class ScrotsScreen implements Screen {
 
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
+		
+//		Table.drawDebug(stage);
 	}
 
 	@Override
