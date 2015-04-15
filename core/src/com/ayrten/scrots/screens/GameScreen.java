@@ -195,7 +195,7 @@ public class GameScreen extends ScrotsScreen {
 		points_table.right();
 
 		side_table = new Table(Assets.skin_window);
-		side_table.setBackground(Assets.rounded_rectangle_gray);
+		side_table.setBackground(Assets.rounded_rectangle_dark_gray);
 		side_table.setHeight(corner_table.getY() - 20);
 		side_table.setWidth(Assets.width - Assets.game_width - 10);
 		side_table.setPosition(10, 10);
@@ -458,8 +458,7 @@ public class GameScreen extends ScrotsScreen {
 	private void addPowDotsNum() {
 		LabelStyle dot_count_style = new LabelStyle();
 		dot_count_style.font = Assets.font_16;
-		dot_count_style.fontColor = Assets.prefs.getString("bg_color").equals(
-				"Black") ? Color.WHITE : Color.BLACK;
+		dot_count_style.fontColor = Color.WHITE;
 
 		powDot_num = new ArrayList<Label>();
 		Label powDot_1_num = new Label("x0", dot_count_style);
