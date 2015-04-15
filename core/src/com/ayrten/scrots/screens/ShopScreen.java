@@ -154,7 +154,7 @@ public class ShopScreen extends ScrotsScreen {
 		// - points_label.getHeight());
 
 		// Premium Label
-		premium_label = new Label("Buy Points!", Assets.style_font_32_white);
+		premium_label = new Label("Buy Points!", Assets.style_font_64_orange);
 
 		// premium_label.setPosition(Assets.width - premium_label.getWidth(),
 		// Assets.height - premium_label.getHeight());
@@ -239,13 +239,32 @@ public class ShopScreen extends ScrotsScreen {
 		c.setAlignment(Align.center);
 		a.setAlignment(Align.center);
 		t.setAlignment(Align.center);
+		
+		Table column = new Table();
+		column.setWidth(Assets.width);
+		column.setSkin(Assets.skin);
+		column.setBackground(Assets.rounded_rectangle_border);
+		column.add(p).width(Assets.width / 6);
+		column.add(des).width(Assets.width / 6);
+		column.add(c).width(Assets.width / 6);
+		column.add(a).width(Assets.width / 6);
+		column.add(t).width(Assets.width / 6);
 
 		table.row().padTop(PAD);
-		table.add(p).width(Assets.width / 6);
-		table.add(des).width(Assets.width / 6);
-		table.add(c).width(Assets.width / 6);
-		table.add(a).width(Assets.width / 6);
-		table.add(t).width(Assets.width / 6);
+//		table.add(p).width(Assets.width / 6);
+//		table.add(des).width(Assets.width / 6);
+//		table.add(c).width(Assets.width / 6);
+//		table.add(a).width(Assets.width / 6);
+//		table.add(t).width(Assets.width / 6);
+		
+		table.add().width(Assets.width / 6);
+		table.add().width(Assets.width / 6);
+		table.add().width(Assets.width / 6);
+		table.add().width(Assets.width / 6);
+		table.add().width(Assets.width / 6);
+		
+		table.row();
+		table.add(column).colspan(5).height(100).fill();
 
 		Table tempt = new Table();
 		tempt.setWidth(Assets.width);
@@ -286,7 +305,8 @@ public class ShopScreen extends ScrotsScreen {
 
 		scroll_view = new ScrollPane(tempt);
 		scroll_view.setScrollingDisabled(true, false);
-		scroll_view.getStyle().background = Assets.gray_box;
+		// scroll_view.getStyle().background = Assets.gray_box;
+		scroll_view.getStyle().background = Assets.rounded_rectangle_border;
 
 		table.row().padBottom(PAD);
 		table.add(scroll_view).colspan(5).fill();
