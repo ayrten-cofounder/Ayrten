@@ -33,6 +33,9 @@ public class Assets {
 	public static final int MAX_POINTS = 999999999;
 	public static final String GPLAY_FILE = "gplay_status.txt";
 
+	// If in Game
+	public static boolean inGameMusic = false;
+
 	// Power Dot Descriptions
 	public static final String magnet_dot_description = "Attracts negative dots for 8 seconds.";
 	public static final String invincible_dot_description = "Negative dots won't affect you for 5 seconds.";
@@ -210,10 +213,10 @@ public class Assets {
 						Gdx.files.internal("data/rounded_rectangle_red.png")),
 				50, 50, 50, 50));
 
-		rounded_rectangle_border = new NinePatchDrawable(new NinePatch(
-				new Texture(
-						Gdx.files.internal("data/rounded_rectangle_bordered.png")),
-				50, 50, 50, 50));
+		rounded_rectangle_border = new NinePatchDrawable(
+				new NinePatch(new Texture(Gdx.files
+						.internal("data/rounded_rectangle_bordered.png")), 50,
+						50, 50, 50));
 
 		// Style
 		style_font_64_black = new LabelStyle();
@@ -302,11 +305,9 @@ public class Assets {
 		// Miscellaneous
 		prefs = Gdx.app.getPreferences("com.ayrten.scrots-preferences");
 		game = sg;
-		
-		bkg = new Texture(
-				Gdx.files.internal("data/bkg.png"));
-		bkg.setFilter(TextureFilter.Linear,
-				TextureFilter.Linear);
+
+		bkg = new Texture(Gdx.files.internal("data/bkg.png"));
+		bkg.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
 		transparent_background = new Texture(
 				Gdx.files.internal("data/transparent_gray.png"));
@@ -361,6 +362,13 @@ public class Assets {
 	}
 
 	public static void playGameBGM() {
+		inGameMusic = true;
+
+		if (prefs.getBoolean("bkg_music", true) == false) {
+			stopBKGMusic();
+			return;
+		}
+
 		if (menu_bgm_black.isPlaying())
 			menu_bgm_black.stop();
 		else
@@ -369,6 +377,13 @@ public class Assets {
 	}
 
 	public static void playMenuBGM() {
+		inGameMusic = false;
+
+		if (prefs.getBoolean("bkg_music", true) == false) {
+			stopBKGMusic();
+			return;
+		}
+
 		if (game_bgm.isPlaying())
 			game_bgm.stop();
 		if (prefs.getString("bg_color", "White").equals("White")) {
@@ -382,6 +397,22 @@ public class Assets {
 			if (menu_bgm_white.isPlaying())
 				menu_bgm_white.stop();
 		}
+	}
+
+	public static void startBKGMusic() {
+		if (inGameMusic)
+			playGameBGM();
+		else
+			playMenuBGM();
+	}
+
+	public static void stopBKGMusic() {
+		if (game_bgm.isPlaying())
+			game_bgm.stop();
+		if (menu_bgm_white.isPlaying())
+			menu_bgm_white.stop();
+		if (menu_bgm_black.isPlaying())
+			menu_bgm_black.stop();
 	}
 
 	// Function used to switch to color blind version textures dynamically.
