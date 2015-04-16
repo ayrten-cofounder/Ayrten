@@ -6,6 +6,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -19,10 +21,9 @@ public class OptionsScreen extends ScrotsScreen {
 	protected CheckBox sound_effs;
 	protected CheckBox auto_gplay_signin;
 	protected CheckBox color_blind;
-	
-	protected Table game_options;
+	protected CheckBox bkg_music;
 
-	private float label_pad_left = (float) 35; // Lower # = more left
+	protected Table game_options;
 
 	public OptionsScreen(Screen bscreen) {
 		super(bscreen, true);
@@ -43,6 +44,33 @@ public class OptionsScreen extends ScrotsScreen {
 		// Set the font size of all the items in the list.
 		mode.getList().getStyle().font = Assets.font_32;
 
+		bkg_music = new CheckBox("", Assets.skin);
+		bkg_music.addListener(new InputListener() {
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
+				if (bkg_music.isChecked()) {
+					Assets.prefs.putBoolean("bkg_music", true);
+					Assets.startBKGMusic();
+				} else {
+					Assets.prefs.putBoolean("bkg_music", false);
+					Assets.stopBKGMusic();
+				}
+			}
+
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				return true;
+			};
+		});
+		bkg_music.setChecked(true);
+		bkg_music
+				.getCells()
+				.get(0)
+				.size(Assets.font_32.getLineHeight() / 2,
+						Assets.font_32.getLineHeight() / 2);
+		if (Assets.prefs.getBoolean("bkg_music", true) == false)
+			bkg_music.setChecked(false);
+
 		sound_effs = new CheckBox("", Assets.skin);
 		sound_effs.setChecked(true);
 		sound_effs
@@ -55,6 +83,11 @@ public class OptionsScreen extends ScrotsScreen {
 
 		auto_gplay_signin = new CheckBox("", Assets.skin);
 		auto_gplay_signin.setChecked(true);
+		auto_gplay_signin
+				.getCells()
+				.get(0)
+				.size(Assets.font_32.getLineHeight() / 2,
+						Assets.font_32.getLineHeight() / 2);
 		if (Assets.prefs.getBoolean("auto_gplay_signin", true) == false)
 			auto_gplay_signin.setChecked(false);
 
@@ -80,36 +113,48 @@ public class OptionsScreen extends ScrotsScreen {
 			Gdx.gl.glClearColor(1, 1, 1, 1);
 			bg_color.setSelected("White");
 		}
-		
+
 		Table non_game_options = new Table(Assets.skin);
+		non_game_options.setWidth(table.getWidth());
+		float width = table.getWidth() / 3;
 
 		// When adding options, keep non-game options at the bottom.
-		non_game_options.add(new Label("Background: ", Assets.style_font_32_white))
-				.left().padLeft((float) (table.getWidth() / label_pad_left));
-		non_game_options.add(bg_color).center().padLeft(Gdx.graphics.getWidth() / 6);
+		non_game_options
+				.add(new Label("Background: ", Assets.style_font_32_white))
+				.width(width).left();
+		non_game_options.add(bg_color).width(width).right();
 		non_game_options.row();
 		non_game_options.add("").height(Gdx.graphics.getHeight() / 50);
 		non_game_options.row();
-		non_game_options.add(new Label("Sound Effects: ", Assets.style_font_32_white))
-				.left().padLeft((float) (table.getWidth() / label_pad_left));
-		non_game_options.add(sound_effs).center().padLeft(Gdx.graphics.getWidth() / 6);
-		
+		non_game_options
+				.add(new Label("Sound Effects: ", Assets.style_font_32_white))
+				.width(width).left();
+		non_game_options.add(sound_effs).width(width).right();
+		non_game_options.row();
+		non_game_options
+				.add(new Label("Background Music: ", Assets.style_font_32_white))
+				.width(width).left();
+		non_game_options.add(bkg_music).width(width).right();
+
 		game_options = new Table(Assets.skin);
-		game_options.add(new Label("Auto Google Signin", Assets.style_font_32_white)).left();
-		game_options.add(auto_gplay_signin);
+		game_options.setWidth(table.getWidth());
+
+		game_options
+				.add(new Label("Auto Google Signin: ",
+						Assets.style_font_32_white)).width(width).left();
+		game_options.add(auto_gplay_signin).width(width).right();
 		game_options.add("").height(Gdx.graphics.getHeight() / 50);
 		game_options.row();
-		game_options.add(new Label("Color Blind Mode: ", Assets.style_font_32_white))
-		.left().padLeft((float) (table.getWidth() / label_pad_left));
-		game_options.add(color_blind).center().padLeft(table.getWidth() / 6);
-		
-		table.add(non_game_options).center().padLeft(Assets.width / 6);
+		game_options
+				.add(new Label("Color Blind Mode: ", Assets.style_font_32_white))
+				.width(width).left();
+		game_options.add(color_blind).width(width).right();
+
+		table.add(non_game_options).left();
 		table.row();
-		table.add("").height(Gdx.graphics.getHeight() / 50);
-		table.row();
-		table.add(game_options).center().padLeft(Assets.width / 6);
+		table.add(game_options).left();
 	}
-	
+
 	public void enableNonGameOptions(boolean enable) {
 		game_options.setVisible(enable);
 	}
@@ -153,7 +198,8 @@ public class OptionsScreen extends ScrotsScreen {
 		Assets.prefs.putString("bg_color", bg_color.getSelected());
 		Assets.prefs.putBoolean("sound_effs", sound_effs.isChecked());
 		Assets.prefs.putBoolean("color_blind", color_blind.isChecked());
-		Assets.prefs.putBoolean("auto_gplay_signin", auto_gplay_signin.isChecked());
+		Assets.prefs.putBoolean("auto_gplay_signin",
+				auto_gplay_signin.isChecked());
 	}
 
 	public void setActorsColor(Color color) {

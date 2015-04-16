@@ -47,7 +47,7 @@ public class GameScreen extends ScrotsScreen {
 	protected Label time;
 	protected Label time_end;
 
-//	protected Label points_title;
+	// protected Label points_title;
 	protected Label points;
 	protected Table points_table;
 
@@ -67,7 +67,7 @@ public class GameScreen extends ScrotsScreen {
 	protected Table top_table;
 	protected Table corner_table;
 	protected Table side_table;
-	
+
 	protected PowerDot_Magnet magnet;
 
 	protected ArrayList<PowerDot> powDots;
@@ -145,12 +145,14 @@ public class GameScreen extends ScrotsScreen {
 		top_table.setWidth(Assets.width - 20);
 		top_table.setHeight(Assets.height - Assets.game_height - 10);
 		top_table.align(Align.right);
-		top_table.add(menu_button).width(top_table.getHeight()).height(top_table.getHeight());
+		top_table.add(menu_button).width(top_table.getHeight())
+				.height(top_table.getHeight());
 
 		corner_table = new Table(Assets.skin);
 		corner_table.setHeight(top_table.getHeight() / 2 * 3);
 		corner_table.setWidth(top_table.getHeight() / 2 * 3);
-		corner_table.setPosition(10, Assets.height - corner_table.getHeight() - 10);
+		corner_table.setPosition(10, Assets.height - corner_table.getHeight()
+				- 10);
 
 		Table temp = new Table(Assets.skin);
 		temp.add(level);
@@ -178,17 +180,22 @@ public class GameScreen extends ScrotsScreen {
 		corner_table.stack(time_table, lvl_table)
 				.height(corner_table.getHeight())
 				.width(corner_table.getWidth());
-		
-		Label points_title = new Label("Pts", Assets.prefs.getString("bg_color").equals(
-				"Black") ? Assets.style_font_32_white
-				: Assets.style_font_32_black);
-		
+
+		Label points_title = new Label(
+				"Pts",
+				Assets.prefs.getString("bg_color").equals("Black") ? Assets.style_font_32_white
+						: Assets.style_font_32_black);
+
 		points_table = new Table(Assets.skin);
 		points_table.setBackground(Assets.rounded_rectangle_blue);
-		points_table.setWidth(points.getStyle().font.getBounds("999999999+").width 
-				+ points_title.getWidth() + corner_table.getWidth() + 10);
-		points_table.setPosition(corner_table.getWidth() / 4 + 10, 
-		Assets.height - corner_table.getHeight() / 8 - 10 - points.getStyle().font.getLineHeight());
+		points_table
+				.setWidth(points.getStyle().font.getBounds("999999999+").width
+						+ points_title.getWidth() + corner_table.getWidth()
+						+ 10);
+		points_table.setPosition(
+				corner_table.getWidth() / 4 + 10,
+				Assets.height - corner_table.getHeight() / 8 - 10
+						- points.getStyle().font.getLineHeight());
 		points_table.setHeight(points.getStyle().font.getLineHeight());
 		points_table.add(points);
 		points_table.add(points_title);
@@ -208,7 +215,7 @@ public class GameScreen extends ScrotsScreen {
 			Image gray_dot_image = powDots_gray.get(i);
 
 			rTimer.setVisible(false);
-			if(!powDot.isUnlocked())
+			if (!powDot.isUnlocked())
 				powDot.setVisible(false);
 			else
 				gray_dot_image.setVisible(false);
@@ -221,16 +228,19 @@ public class GameScreen extends ScrotsScreen {
 
 			Table timer_table = new Table(Assets.skin);
 			timer_table.add(powDotTime);
-			
+
 			Table cell_table = new Table(Assets.skin);
-			cell_table.setSize(side_table.getWidth() - 10, side_table.getHeight() / powDots.size());
-			cell_table.stack(powDot, gray_dot_image, rTimer, timer_table, temp).width(side_table.getWidth() - 10)
-			.height(side_table.getWidth() - 10);
+			cell_table.setSize(side_table.getWidth() - 10,
+					side_table.getHeight() / powDots.size());
+			cell_table.stack(powDot, gray_dot_image, rTimer, timer_table, temp)
+					.width(side_table.getWidth() - 10)
+					.height(side_table.getWidth() - 10);
 
 			side_table.add().width(10);
-			side_table.add(cell_table).height(side_table.getHeight() / powDots.size());
+			side_table.add(cell_table).height(
+					side_table.getHeight() / powDots.size());
 			side_table.add().width(10);
-			if(i != powDots.size() - 1)
+			if (i != powDots.size() - 1)
 				side_table.row();
 		}
 
@@ -244,17 +254,11 @@ public class GameScreen extends ScrotsScreen {
 	}
 
 	private void initializePointsTime() {
-		level = new Label("00", Assets.prefs.getString("bg_color").equals(
-				"Black") ? Assets.style_font_32_white
-				: Assets.style_font_32_black);
+		level = new Label("00", Assets.style_font_32_white);
 
-		time = new Label("60.0", Assets.prefs.getString("bg_color").equals(
-				"Black") ? Assets.style_font_32_white
-				: Assets.style_font_32_black);
+		time = new Label("60.0", Assets.style_font_32_white);
 
-		points = new Label("0", Assets.prefs.getString("bg_color").equals(
-				"Black") ? Assets.style_font_32_white
-				: Assets.style_font_32_black);
+		points = new Label("0", Assets.style_font_32_white);
 	}
 
 	public Manager getManager() {
@@ -359,7 +363,8 @@ public class GameScreen extends ScrotsScreen {
 			public void clicked(InputEvent event, float x, float y) {
 				Assets.game.main_menu.options_screen.setBackScreen(Assets.game
 						.getScreen());
-				Assets.game.main_menu.options_screen.enableNonGameOptions(false);
+				Assets.game.main_menu.options_screen
+						.enableNonGameOptions(false);
 				Assets.game.setScreen(Assets.game.main_menu.options_screen);
 			}
 		});
@@ -437,18 +442,17 @@ public class GameScreen extends ScrotsScreen {
 				Assets.reg_pop_1);
 		PowerDot powDot_2 = new PowerDot_Invincible(Assets.invincible_dot, gm,
 				Assets.reg_pop_1);
-		magnet = new PowerDot_Magnet(Assets.magnet_dot, gm,
-				Assets.reg_pop_1);
+		magnet = new PowerDot_Magnet(Assets.magnet_dot, gm, Assets.reg_pop_1);
 		PowerDot powDot_3 = magnet;
 		powDots.add(powDot_1);
 		powDots.add(powDot_2);
 		powDots.add(powDot_3);
-		
+
 		powDots_gray = new ArrayList<Image>();
 		powDots_gray.add(new Image(Assets.rainbow_dot_gray));
 		powDots_gray.add(new Image(Assets.invincible_dot_gray));
 		powDots_gray.add(new Image(Assets.magnet_dot_gray));
-		
+
 		for (int i = 0; i < powDots.size(); i++) {
 			powDots.get(i).setTimeLabel(powDots_time.get(i));
 			powDots.get(i).setGrayImage(powDots_gray.get(i));
@@ -608,10 +612,11 @@ public class GameScreen extends ScrotsScreen {
 	}
 
 	public void points() {
-		if(Assets.points_manager.getTotalPoints() > Assets.MAX_POINTS)
+		if (Assets.points_manager.getTotalPoints() > Assets.MAX_POINTS)
 			points.setText("999999999+");
 		else
-			points.setText(String.valueOf(Assets.points_manager.getTotalPoints()));
+			points.setText(String.valueOf(Assets.points_manager
+					.getTotalPoints()));
 	}
 
 	public void level() {
@@ -628,13 +633,15 @@ public class GameScreen extends ScrotsScreen {
 	}
 
 	public void gameOver() {
-//		Assets.stats_manager.writePlayerStatsToFile();
-//		Assets.game.apk_intf.submitLeaderboardScore(Assets.LeaderboardType.TIME, gm.get_player_score());
+		// Assets.stats_manager.writePlayerStatsToFile();
+		// Assets.game.apk_intf.submitLeaderboardScore(Assets.LeaderboardType.TIME,
+		// gm.get_player_score());
 
 		if (should_clear_stage) {
 			Assets.stats_manager.writePlayerStatsToFile();
-			Assets.game.apk_intf.submitLeaderboardScore(Assets.LeaderboardType.TIME, gm.get_player_score());
-			
+			Assets.game.apk_intf.submitLeaderboardScore(
+					Assets.LeaderboardType.TIME, gm.get_player_score());
+
 			stage.clear();
 			should_clear_stage = false;
 			addStageActors();
@@ -660,12 +667,12 @@ public class GameScreen extends ScrotsScreen {
 		stage.clear();
 		gm.plusOnePoint();
 		stage.addActor(pause_scroll);
-		curr_level = gamemode.gen_curr_level();		
+		curr_level = gamemode.gen_curr_level();
 		addStageActors();
-		
-		if(gm.isMagnetState())
+
+		if (gm.isMagnetState())
 			magnet.magnet();
-		
+
 		Assets.level_clear.play();
 	}
 
