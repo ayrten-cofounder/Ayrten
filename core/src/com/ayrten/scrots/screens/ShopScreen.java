@@ -5,14 +5,20 @@ import java.util.ArrayList;
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.ButtonInterface;
 import com.ayrten.scrots.shop.ShopDot;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class ShopScreen extends ScrotsScreen {
 	private static final int PAD = 20;
@@ -179,26 +185,25 @@ public class ShopScreen extends ScrotsScreen {
 				Assets.style_font_32_white);
 		total_price_label.setAlignment(Align.center);
 
-		// Buy Label
-		buy_label = new Label("Buy", Assets.style_font_32_white);
-		buy_label.setAlignment(Align.center);
-
-		buy_label.addListener(new InputListener() {
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
-				return true;
-			}
-
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
-				confirmBuyWindow();
-			}
-		});
+		int left = (int) ((int) Assets.width * 0.015);
+		int right = left;
+		int top = (int) ((int) Assets.height * 0.02);
+		int bottom = top;
 
 		// Clear Label
-		clear_label = new Label("Clear", Assets.style_font_32_white);
-		clear_label.setAlignment(Align.center);
+		NinePatchDrawable rounded_rectangle_red;
+		rounded_rectangle_red = new NinePatchDrawable(new NinePatch(
+				new Texture(
+						Gdx.files.internal("data/rounded_rectangle_red.png")),
+				left, right, top, bottom));
 
+		LabelStyle clear_style = new LabelStyle();
+		clear_style.font = Assets.font_32;
+		clear_style.fontColor = Color.WHITE;
+		clear_style.background = rounded_rectangle_red;
+
+		clear_label = new Label("Clear", clear_style);
+		clear_label.setAlignment(Align.center);
 		clear_label.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
@@ -208,6 +213,32 @@ public class ShopScreen extends ScrotsScreen {
 			public void touchUp(InputEvent event, float x, float y,
 					int pointer, int button) {
 				clear();
+			}
+		});
+
+		NinePatchDrawable rounded_rectangle_green = new NinePatchDrawable(
+				new NinePatch(new Texture(Gdx.files
+						.internal("data/rounded_rectangle_green.png")), left,
+						right, top, bottom));
+		;
+
+		LabelStyle buy_style = new LabelStyle();
+		buy_style.font = Assets.font_32;
+		buy_style.fontColor = Color.WHITE;
+		buy_style.background = rounded_rectangle_green;
+
+		// Buy Label
+		buy_label = new Label("Buy", buy_style);
+		buy_label.setAlignment(Align.center);
+		buy_label.addListener(new InputListener() {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				return true;
+			}
+
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
+				confirmBuyWindow();
 			}
 		});
 	}
@@ -239,7 +270,7 @@ public class ShopScreen extends ScrotsScreen {
 		c.setAlignment(Align.center);
 		a.setAlignment(Align.center);
 		t.setAlignment(Align.center);
-		
+
 		Table column = new Table();
 		column.setWidth(Assets.width);
 		column.setSkin(Assets.skin);
@@ -250,21 +281,21 @@ public class ShopScreen extends ScrotsScreen {
 		column.add(a).width(Assets.width / 6);
 		column.add(t).width(Assets.width / 6);
 
-		table.row().padTop(PAD);
-//		table.add(p).width(Assets.width / 6);
-//		table.add(des).width(Assets.width / 6);
-//		table.add(c).width(Assets.width / 6);
-//		table.add(a).width(Assets.width / 6);
-//		table.add(t).width(Assets.width / 6);
-		
+		// table.row().padTop(PAD);
+		// table.add(p).width(Assets.width / 6);
+		// table.add(des).width(Assets.width / 6);
+		// table.add(c).width(Assets.width / 6);
+		// table.add(a).width(Assets.width / 6);
+		// table.add(t).width(Assets.width / 6);
+
 		table.add().width(Assets.width / 6);
 		table.add().width(Assets.width / 6);
 		table.add().width(Assets.width / 6);
 		table.add().width(Assets.width / 6);
 		table.add().width(Assets.width / 6);
-		
+
 		table.row();
-		table.add(column).colspan(5).height(100).fill();
+		table.add(column).colspan(5).height(100).fill().top();
 
 		Table tempt = new Table();
 		tempt.setWidth(Assets.width);
@@ -291,21 +322,21 @@ public class ShopScreen extends ScrotsScreen {
 
 			if (d.unlocked) {
 				tempt.add(d.dotImage).height(d.dotImage.getHeight());
-				tempt.add(d.descriptionImage);
-				tempt.add(d.priceLabel);
-				tempt.add(d.amountTable);
-				tempt.add(d.totalCostLabel);
+				tempt.add(d.descriptionImage).center();
+				tempt.add(d.priceLabel).center();
+				tempt.add(d.amountTable).center();
+				tempt.add(d.totalCostLabel).center();
 			} else {
-				tempt.add(d.dotImage);
-				tempt.add(d.descriptionImage);
-				tempt.add(d.unlockPriceLabel);
-				tempt.add(d.unlockBuyLabel).colspan(2);
+				tempt.add(d.dotImage).center();
+				tempt.add(d.descriptionImage).center();
+				tempt.add(d.unlockPriceLabel).center();
+				tempt.add(d.unlockBuyLabel).colspan(2).center();
 			}
 		}
 
+		tempt.left();
 		scroll_view = new ScrollPane(tempt);
 		scroll_view.setScrollingDisabled(true, false);
-		// scroll_view.getStyle().background = Assets.gray_box;
 		scroll_view.getStyle().background = Assets.rounded_rectangle_border;
 
 		table.row().padBottom(PAD);
@@ -314,9 +345,12 @@ public class ShopScreen extends ScrotsScreen {
 		table.row().padBottom(PAD);
 		table.add();
 		table.add();
-		table.add(clear_label);
-		table.add(buy_label);
+		table.add(clear_label).width(clear_label.getWidth());
+		table.add(buy_label).width(clear_label.getWidth());
 		table.add(total_price_label);
+
+		table.debug();
+		tempt.debug();
 
 		// table.row().pad(20);
 		// table.add();
@@ -388,13 +422,4 @@ public class ShopScreen extends ScrotsScreen {
 		updatePoints();
 		clear();
 	}
-
-	@Override
-	public void render(float delta) {
-		// TODO Auto-generated method stub
-		super.render(delta);
-
-		Table.drawDebug(stage);
-	}
-
 }

@@ -4,12 +4,14 @@ import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.ButtonInterface;
 import com.ayrten.scrots.screens.MessageScreen;
 import com.ayrten.scrots.screens.ShopScreen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
 public class ShopDot {
 	private ShopScreen shop;
@@ -178,10 +180,8 @@ public class ShopDot {
 		});
 
 		// Unlocked Labels
-		priceLabel = new Label(
-				String.valueOf(dotType.price()),
-				Assets.prefs.getString("bg_color").equals("Black") ? Assets.style_font_32_white
-						: Assets.style_font_32_black);
+		priceLabel = new Label(String.valueOf(dotType.price()),
+				Assets.style_font_32_white);
 
 		descriptionImage = new Image(Assets.question_mark);
 		descriptionImage.addListener(new InputListener() {
@@ -196,8 +196,11 @@ public class ShopDot {
 			}
 		});
 
-		amountTextField = new TextField("", Assets.skin);
+		amountTextField = new TextField("0", Assets.skin);
 		amountTextField.getStyle().background = Assets.gray_box;
+		amountTextField.getStyle().font = Assets.font_32;
+		amountTextField.getStyle().fontColor = Color.WHITE;
+		amountTextField.setAlignment(Align.center);
 		amountTextField.setWidth(Assets.width / 5);
 
 		Image add = new Image(Assets.up_button);
@@ -238,10 +241,8 @@ public class ShopDot {
 		minusTable.add(minus).height((dotImage.getHeight() / 2) - 10);
 		minusTable.bottom();
 
-		totalCostLabel = new Label(
-				String.valueOf(totalCostToBuy),
-				Assets.prefs.getString("bg_color").equals("Black") ? Assets.style_font_32_white
-						: Assets.style_font_32_black);
+		totalCostLabel = new Label(String.valueOf(totalCostToBuy),
+				Assets.style_font_32_white);
 
 		amountTable.clear();
 		amountTable.add(amountTextField).height(dotImage.getHeight())

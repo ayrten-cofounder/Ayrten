@@ -51,7 +51,6 @@ public class Assets {
 	public static NinePatchDrawable rounded_rectangle_dark_gray;
 	public static NinePatchDrawable rounded_rectangle_gray;
 	public static NinePatchDrawable rounded_rectangle_blue;
-	public static NinePatchDrawable rounded_rectangle_red;
 
 	public static NinePatchDrawable rounded_rectangle_border;
 
@@ -205,15 +204,12 @@ public class Assets {
 				new Texture(
 						Gdx.files.internal("data/rounded_rectangle_blue.png")),
 				50, 50, 50, 50));
-		rounded_rectangle_red = new NinePatchDrawable(new NinePatch(
-				new Texture(
-						Gdx.files.internal("data/rounded_rectangle_red.png")),
-				50, 50, 50, 50));
 
-		rounded_rectangle_border = new NinePatchDrawable(new NinePatch(
-				new Texture(
-						Gdx.files.internal("data/rounded_rectangle_bordered.png")),
-				50, 50, 50, 50));
+
+		rounded_rectangle_border = new NinePatchDrawable(
+				new NinePatch(new Texture(Gdx.files
+						.internal("data/rounded_rectangle_bordered.png")), 50,
+						50, 50, 50));
 
 		// Style
 		style_font_64_black = new LabelStyle();
@@ -302,11 +298,9 @@ public class Assets {
 		// Miscellaneous
 		prefs = Gdx.app.getPreferences("com.ayrten.scrots-preferences");
 		game = sg;
-		
-		bkg = new Texture(
-				Gdx.files.internal("data/bkg.png"));
-		bkg.setFilter(TextureFilter.Linear,
-				TextureFilter.Linear);
+
+		bkg = new Texture(Gdx.files.internal("data/bkg.png"));
+		bkg.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
 		transparent_background = new Texture(
 				Gdx.files.internal("data/transparent_gray.png"));

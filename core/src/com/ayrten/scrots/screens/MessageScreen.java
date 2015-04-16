@@ -191,13 +191,6 @@ public class MessageScreen extends ScrotsScreen {
 		stage.addActor(table);
 		Assets.game.apk_intf.shouldShowAd(true);
 	}
-	
-	@Override
-	public void render(float delta) {
-		// TODO Auto-generated method stub
-		super.render(delta);
-		Table.drawDebug(stage);
-	}
 
 	public void makeSingleButtonWindow(String title, String positive_title,
 			final ButtonInterface yes_interface) {

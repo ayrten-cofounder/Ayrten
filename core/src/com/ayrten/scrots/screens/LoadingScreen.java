@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 
@@ -45,11 +46,11 @@ public class LoadingScreen implements Screen {
 		Label.LabelStyle style = new Label.LabelStyle();
 		style.font = Assets.font_120;
 		style.fontColor = Assets.ORANGE;
-		Label scrots = new Label("Ayrten", style);
-		scrots.setCenterPosition(Gdx.graphics.getWidth() / 2,
-				Gdx.graphics.getHeight() / 2);
+		Label ayrten = new Label("Ayrten", style);
+		ayrten.setPosition(Assets.width / 2, Assets.height / 2, Align.center);
+		
 
-		stage.addActor(scrots);
+		stage.addActor(ayrten);
 	}
 
 	private void loadUpdateScreen() {

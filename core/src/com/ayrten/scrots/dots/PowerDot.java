@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 
@@ -46,26 +47,26 @@ public class PowerDot extends Dot {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
-				origX = event.getTarget().getCenterX();
-				origY = event.getTarget().getCenterY();
+				origX = event.getTarget().getX(Align.center);
+				origY = event.getTarget().getY(Align.center);
 				if(Gdx.input.getX(pointer) > origX && num > 0)
-				  event.getTarget().setCenterPosition(Gdx.input.getX(pointer), event.getTarget().getCenterY());
+				  event.getTarget().setPosition(Gdx.input.getX(pointer), event.getTarget().getY(Align.center), Align.center);
 				return true;
 			}
 
 			@Override
 			public void touchDragged(InputEvent event, float x, float y, int pointer) {
 				if(Gdx.input.getX(pointer) > origX && num > 0)
-					event.getTarget().setCenterPosition(Gdx.input.getX(pointer), event.getTarget().getCenterY());
+					event.getTarget().setPosition(Gdx.input.getX(pointer), event.getTarget().getY(Align.center), Align.center);
 			}
 
 			@Override
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 				super.touchUp(event, x, y, pointer, button);
 				// If x position exceeds a threshold, then activate the effect.
-				if (Math.abs(origX - event.getTarget().getCenterX()) > Assets.powerdot_thresh) 
+				if (Math.abs(origX - event.getTarget().getX(Align.center)) > Assets.powerdot_thresh) 
 					touchedByAnAngel();
-				event.getTarget().setCenterPosition(origX, origY);
+				event.getTarget().setPosition(origX, origY, Align.center);
 			}
 		};
 

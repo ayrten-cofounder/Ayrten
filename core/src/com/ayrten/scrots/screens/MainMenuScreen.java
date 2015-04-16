@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class MainMenuScreen extends ScrotsScreen 
@@ -53,8 +54,7 @@ public class MainMenuScreen extends ScrotsScreen
 		title_style.font = Assets.font_120;
 		title_style.fontColor = Color.valueOf("9f38ff");
 		Label scrots = new Label("Scrots", title_style);
-		scrots.setCenterPosition(Gdx.graphics.getWidth() / 2,
-				Gdx.graphics.getHeight() / 3 * 2);
+		scrots.setPosition(Assets.width / 2, Assets.height / 3 * 2, Align.center);
 		
 		LabelStyle style = new LabelStyle();
 		style.font = Assets.font_64;
