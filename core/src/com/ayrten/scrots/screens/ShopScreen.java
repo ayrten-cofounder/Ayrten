@@ -356,8 +356,8 @@ public class ShopScreen extends ScrotsScreen {
 				.padRight(buy_label.getStyle().font.getSpaceWidth());
 		table.add(total_price_label);
 
-		table.debug();
-		tempt.debug();
+//		table.debug();
+//		tempt.debug();
 
 		// table.row().pad(20);
 		// table.add();

@@ -372,18 +372,6 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static int useViewLifecycle=0x7f010013;
-        /**  Defines the set of transition to be used between activities 
-         <p>Must be one of the following constant values.</p>
-<table>
-<colgroup align="left" />
-<colgroup align="left" />
-<colgroup align="left" />
-<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
-<tr><td><code>slide</code></td><td>1</td><td></td></tr>
-<tr><td><code>none</code></td><td>2</td><td></td></tr>
-</table>
-         */
-        public static int windowTransitionStyle=0x7f010025;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -484,7 +472,6 @@ containing a value of this type.
         public static int sandbox=0x7f08000a;
         public static int satellite=0x7f080005;
         public static int selectionDetails=0x7f08000d;
-        public static int slide=0x7f080017;
         public static int strict_sandbox=0x7f08000b;
         public static int terrain=0x7f080006;
         public static int wrap_content=0x7f08000f;
@@ -497,7 +484,7 @@ containing a value of this type.
     }
     public static final class string {
         public static int accept=0x7f050002;
-        public static int app_misconfigured=0x7f05002b;
+        public static int app_misconfigured=0x7f050028;
         /**   Text for notification shown when the Android Wear apps needs to be updated. Only shown on the wearable. [CHAR LIMIT=NONE] 
          */
         public static int common_android_wear_notification_needs_update_text=0x7f050009;
@@ -567,12 +554,6 @@ containing a value of this type.
         /**   Title for notification shown when GooglePlayServices is unavailable [CHAR LIMIT=42] 
          */
         public static int common_google_play_services_notification_ticker=0x7f050006;
-        /**  Message in confirmation dialog informing the user that the account could not be signed in. [CHAR LIMIT=NONE] 
-         */
-        public static int common_google_play_services_sign_in_failed_text=0x7f050024;
-        /**  Title of confirmation dialog informing the user that the account could not be signed in. [CHAR LIMIT=40] 
-         */
-        public static int common_google_play_services_sign_in_failed_title=0x7f050023;
         /**  Message in confirmation dialog informing user there is an unknown issue in Google Play
         services [CHAR LIMIT=NONE] 
          */
@@ -603,25 +584,22 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static int common_signin_button_text_long=0x7f050020;
-        /**  Message in confirmation dialog informing the user that one of the APIs they attepmt to access is not available. [CHAR LIMIT=NONE] 
-         */
-        public static int commono_google_play_services_api_unavailable_text=0x7f050022;
         public static int create_calendar_message=0x7f050005;
         public static int create_calendar_title=0x7f050004;
         public static int decline=0x7f050003;
-        public static int gamehelper_app_misconfigured=0x7f050027;
-        public static int gamehelper_license_failed=0x7f050028;
-        public static int gamehelper_sign_in_failed=0x7f050026;
-        public static int gamehelper_unknown_error=0x7f050029;
-        public static int license_failed=0x7f05002c;
-        public static int sign_in_failed=0x7f05002a;
+        public static int gamehelper_app_misconfigured=0x7f050024;
+        public static int gamehelper_license_failed=0x7f050025;
+        public static int gamehelper_sign_in_failed=0x7f050023;
+        public static int gamehelper_unknown_error=0x7f050026;
+        public static int license_failed=0x7f050029;
+        public static int sign_in_failed=0x7f050027;
         public static int store_picture_message=0x7f050001;
         public static int store_picture_title=0x7f050000;
-        public static int unknown_error=0x7f05002d;
+        public static int unknown_error=0x7f05002a;
         /**  Text on a placeholder buy button when Google Play services is not
          available or up-to-date 
          */
-        public static int wallet_buy_button_place_holder=0x7f050025;
+        public static int wallet_buy_button_place_holder=0x7f050022;
     }
     public static final class style {
         public static int Theme_IAPTheme=0x7f040000;
@@ -711,38 +689,6 @@ containing a value of this type.
           @attr name com.google.example.games.basegameutils:adUnitId
         */
         public static int AdsAttrs_adUnitId = 2;
-        /**  Attributes that can be specified to define a custom theme 
-           <p>Includes the following attributes:</p>
-           <table>
-           <colgroup align="left" />
-           <colgroup align="left" />
-           <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #CustomWalletTheme_windowTransitionStyle com.google.example.games.basegameutils:windowTransitionStyle}</code></td><td> Defines the set of transition to be used between activities </td></tr>
-           </table>
-           @see #CustomWalletTheme_windowTransitionStyle
-         */
-        public static final int[] CustomWalletTheme = {
-            0x7f010025
-        };
-        /**
-          <p>
-          @attr description
-           Defines the set of transition to be used between activities 
-
-
-          <p>Must be one of the following constant values.</p>
-<table>
-<colgroup align="left" />
-<colgroup align="left" />
-<colgroup align="left" />
-<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
-<tr><td><code>slide</code></td><td>1</td><td></td></tr>
-<tr><td><code>none</code></td><td>2</td><td></td></tr>
-</table>
-          <p>This is a private symbol.
-          @attr name com.google.example.games.basegameutils:windowTransitionStyle
-        */
-        public static int CustomWalletTheme_windowTransitionStyle = 0;
         /**  Attributes for LoadingImageView 
            <p>Includes the following attributes:</p>
            <table>

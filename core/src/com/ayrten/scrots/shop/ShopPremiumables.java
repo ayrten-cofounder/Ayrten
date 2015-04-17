@@ -35,7 +35,11 @@ public class ShopPremiumables {
 		}
 
 		cost = Assets.game.iap_inft.getPrice(item);
-		description = Assets.game.iap_inft.getDescription(item) + " points";
+		description = Assets.game.iap_inft.getDescription(item);
+
+		if (item != IAP.REMOVE_ADS)
+			description += " points";
+
 		pointValue = Integer.valueOf(Assets.game.iap_inft.getDescription(item));
 
 		cost_label = new Label(cost, Assets.style_font_32_white);
@@ -73,6 +77,8 @@ public class ShopPremiumables {
 
 			@Override
 			public void purchaseSuccess() {
+				if (item == IAP.REMOVE_ADS)
+					Assets.prefs.putBoolean(Assets.PREFS_NO_ADS, true);
 			}
 
 			@Override
@@ -81,7 +87,8 @@ public class ShopPremiumables {
 
 			@Override
 			public void consumeSuccess() {
-				Assets.points_manager.addPoints(pointValue);
+				if (item != IAP.REMOVE_ADS)
+					Assets.points_manager.addPoints(pointValue);
 			}
 
 			@Override
