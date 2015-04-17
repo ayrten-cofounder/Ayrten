@@ -39,6 +39,9 @@ public class InAppPurchase {
 	public String item_5_price;
 	public String item_5_description;
 
+	public String no_ads_prics;
+	public String no_ads_description;
+
 	public InAppPurchase(Activity activity) {
 		this.activity = activity;
 
@@ -88,6 +91,11 @@ public class InAppPurchase {
 									.getPrice();
 							item_5_description = inventory.getSkuDetails(
 									IAP.ITEM_5).getDescription();
+
+							no_ads_prics = inventory.getSkuDetails(
+									IAP.REMOVE_ADS).getPrice();
+							no_ads_description = inventory.getSkuDetails(
+									IAP.REMOVE_ADS).getDescription();
 
 							if (inventory.hasPurchase(IAP.ITEM_1)) {
 								consumeItem(inventory.getPurchase(IAP.ITEM_1),
@@ -204,6 +212,9 @@ public class InAppPurchase {
 											}
 										});
 							}
+							if (inventory.hasPurchase(IAP.REMOVE_ADS)) {
+								Assets.prefs.putBoolean(IAP.REMOVE_ADS, true);
+							}
 
 							retrievedItems = true;
 						}
@@ -215,6 +226,7 @@ public class InAppPurchase {
 					additionalSkuList.add(IAP.ITEM_3);
 					additionalSkuList.add(IAP.ITEM_4);
 					additionalSkuList.add(IAP.ITEM_5);
+					additionalSkuList.add(IAP.REMOVE_ADS);
 					mHelper.queryInventoryAsync(true, additionalSkuList,
 							mQueryFinishedListener);
 				}
@@ -231,7 +243,10 @@ public class InAppPurchase {
 					return;
 				} else if (purchase.getSku().equals(item)) {
 					// consume the gas and update the UI
-					// callback.purchaseSuccess();
+					callback.purchaseSuccess();
+
+					if (purchase.getSku().equals(IAP.REMOVE_ADS))
+						return;
 
 					consumeItem(purchase, callback);
 				}
@@ -288,6 +303,8 @@ public class InAppPurchase {
 			return item_4_price;
 		} else if (item.equals(IAP.ITEM_5)) {
 			return item_5_price;
+		} else if (item.equals(IAP.REMOVE_ADS)) {
+			return no_ads_prics;
 		} else {
 			return "$0";
 		}
@@ -304,6 +321,8 @@ public class InAppPurchase {
 			return item_4_description;
 		} else if (item.equals(IAP.ITEM_5)) {
 			return item_5_description;
+		} else if (item.equals(IAP.REMOVE_ADS)) {
+			return no_ads_description;
 		} else {
 			return "0";
 		}

@@ -21,6 +21,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Json;
 
 public class Assets {
+	public static final String VERSION = "2.00.01";
+	public static final String PREFS_NO_ADS = "noAds";
+	
 	// Height and Width
 	public static float game_height;
 	public static float game_width;
@@ -76,6 +79,7 @@ public class Assets {
 	public static LabelStyle style_font_32_black;
 	public static LabelStyle style_font_32_light_gray;
 	public static LabelStyle style_font_32_red;
+	public static LabelStyle style_font_32_timer_red;
 	public static LabelStyle style_font_32_orange;
 	public static LabelStyle style_font_32_blue;
 
@@ -254,6 +258,10 @@ public class Assets {
 		style_font_32_red = new LabelStyle();
 		style_font_32_red.font = font_32;
 		style_font_32_red.fontColor = Color.valueOf("e07a80");
+		
+		style_font_32_timer_red = new LabelStyle();
+		style_font_32_timer_red.font = font_32;
+		style_font_32_timer_red.fontColor = Color.RED;
 
 		style_font_32_orange = new LabelStyle();
 		style_font_32_orange.font = font_32;

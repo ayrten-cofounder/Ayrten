@@ -117,12 +117,15 @@ public class OptionsScreen extends ScrotsScreen {
 		Table non_game_options = new Table(Assets.skin);
 		non_game_options.setWidth(table.getWidth());
 		float width = table.getWidth() / 3;
+		
+		Table temp = new Table(Assets.skin);
+		temp.add(bg_color);
 
 		// When adding options, keep non-game options at the bottom.
 		non_game_options
 				.add(new Label("Background: ", Assets.style_font_32_white))
 				.width(width).left();
-		non_game_options.add(bg_color).width(width).right();
+		non_game_options.add(temp).width(width).right();
 		non_game_options.row();
 		non_game_options.add("").height(Gdx.graphics.getHeight() / 50);
 		non_game_options.row();

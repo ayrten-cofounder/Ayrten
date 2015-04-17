@@ -29,7 +29,6 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
-import com.google.android.gms.internal.gp;
 import com.google.example.games.basegameutils.BaseGameUtils;
 
 @SuppressLint("NewApi")
@@ -147,7 +146,8 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface,
 	}
 
 	public void shouldShowAd(boolean show) {
-		System.out.println(handler);
+		if (Assets.prefs.getBoolean(Assets.PREFS_NO_ADS, false))
+			return;
 		handler.sendEmptyMessage(show ? SHOW_ADS : HIDE_ADS);
 	}
 
@@ -403,13 +403,15 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface,
 	}
 
 	@Override
-	public void submitLeaderboardScore(Assets.LeaderboardType lb_type, long score) {
+	public void submitLeaderboardScore(Assets.LeaderboardType lb_type,
+			long score) {
 		if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
 			if (lb_type == Assets.LeaderboardType.TIME)
-				Games.Leaderboards
-				.submitScore(mGoogleApiClient, this.getResources()
-						.getString(R.string.leaderboard_time), score);
-			else if (lb_type == Assets.LeaderboardType.SURVIVAL) {}
+				Games.Leaderboards.submitScore(mGoogleApiClient, this
+						.getResources().getString(R.string.leaderboard_time),
+						score);
+			else if (lb_type == Assets.LeaderboardType.SURVIVAL) {
+			}
 		}
 	}
 }

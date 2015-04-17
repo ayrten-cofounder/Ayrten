@@ -38,6 +38,8 @@ import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 
 public class GameScreen extends ScrotsScreen {
+	protected static final float TIME_TO_RED = 10f;
+	
 	// Widgets
 	protected Image menu_button;
 
@@ -629,6 +631,15 @@ public class GameScreen extends ScrotsScreen {
 	}
 
 	public void time() {
+		if(Float.valueOf(gm.getTime()) < TIME_TO_RED)
+		{
+			time.setStyle(Assets.style_font_32_timer_red);
+		}
+		else
+		{
+			time.setStyle(Assets.style_font_32_white);
+		}
+		
 		time.setText(gm.getTime().substring(0, 4));
 	}
 

@@ -18,6 +18,12 @@ public class CreditsScreen extends ScrotsScreen {
 		setupStage();
 		showTableScreen();
 
+		Label version = new Label("Version " + Assets.VERSION,
+				Assets.style_font_32_white);
+		version.setWrap(true);
+		version.setWidth(Assets.style_font_32_white.font.getBounds("Version "
+				+ Assets.VERSION).width);
+
 		Label created = new Label("", Assets.style_font_32_white);
 		created.setWrap(true);
 		created.setText("Created by");
@@ -43,6 +49,8 @@ public class CreditsScreen extends ScrotsScreen {
 		ArrayList<String> thanks_list = new ArrayList<String>();
 		thanks_list.add("Trina Dao");
 		thanks_list.add("Emily Do");
+		thanks_list.add("Kevin Szeto");
+		thanks_list.add("Baker Ngan");
 
 		Table thanks_table = new Table(Assets.skin);
 		thanks_table.left();
@@ -113,6 +121,8 @@ public class CreditsScreen extends ScrotsScreen {
 		});
 
 		Table upperTable = new Table(Assets.skin);
+		upperTable.add(version).left().top();
+		upperTable.row();
 		upperTable.add(created).left().top()
 				.padLeft(Gdx.graphics.getWidth() / 2 - created.getWidth())
 				.width(created.getWidth());
