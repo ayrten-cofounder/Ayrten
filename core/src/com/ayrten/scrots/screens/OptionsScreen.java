@@ -4,7 +4,6 @@ import com.ayrten.scrots.manager.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -13,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class OptionsScreen extends ScrotsScreen {
 	// Actors
@@ -78,6 +78,12 @@ public class OptionsScreen extends ScrotsScreen {
 				.get(0)
 				.size(Assets.font_32.getLineHeight() / 2,
 						Assets.font_32.getLineHeight() / 2);
+		sound_effs.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Assets.prefs.putBoolean("sound_effs", sound_effs.isChecked());
+			}
+		});
 		if (Assets.prefs.getBoolean("sound_effs", true) == false)
 			sound_effs.setChecked(false);
 
@@ -117,12 +123,15 @@ public class OptionsScreen extends ScrotsScreen {
 		Table non_game_options = new Table(Assets.skin);
 		non_game_options.setWidth(table.getWidth());
 		float width = table.getWidth() / 3;
+		
+		Table temp = new Table(Assets.skin);
+		temp.add(bg_color);
 
 		// When adding options, keep non-game options at the bottom.
 		non_game_options
 				.add(new Label("Background: ", Assets.style_font_32_white))
 				.width(width).left();
-		non_game_options.add(bg_color).width(width).right();
+		non_game_options.add(temp).width(width).right();
 		non_game_options.row();
 		non_game_options.add("").height(Gdx.graphics.getHeight() / 50);
 		non_game_options.row();
@@ -161,17 +170,13 @@ public class OptionsScreen extends ScrotsScreen {
 
 	@Override
 	public void render(float delta) {
+		super.render(delta);
+		
 		if (bg_color.getSelected().equals("White")) {
 			Gdx.gl.glClearColor(1, 1, 1, 1);
 		} else {
 			Gdx.gl.glClearColor(0, 0, 0, 0);
 		}
-
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
-		stage.draw();
-
-		Assets.prefs.putBoolean("sound_effs", sound_effs.isChecked());
 	}
 
 	public void hide() {

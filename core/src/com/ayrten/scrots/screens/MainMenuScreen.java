@@ -29,6 +29,12 @@ public class MainMenuScreen extends ScrotsScreen
 	protected OptionsScreen 	options_screen;
 	protected ContactScreen		contact_screen;
 
+	protected Label shop;
+	protected Label play;
+	protected Label scores;
+	protected Label options;
+	protected Label contacts;
+	protected Label others;
 	protected Label gplay_log;
 
 	public NormalScoreboard nsb;
@@ -60,7 +66,7 @@ public class MainMenuScreen extends ScrotsScreen
 		style.font = Assets.font_64;
 		style.fontColor = Assets.ORANGE;
 		
-		Label shop = new Label("Shop", style);
+		shop = new Label("Shop", style);
 		shop.setBounds(shop.getX(), shop.getY(), shop.getWidth(), shop.getHeight());
 		shop.addListener(new ClickListener() {
 			@Override
@@ -70,7 +76,7 @@ public class MainMenuScreen extends ScrotsScreen
 			}
 		});
 		
-		Label play = new Label("Play", style);
+		play = new Label("Play", style);
 		play.setBounds(play.getX(), play.getY(), play.getWidth(),
 				play.getHeight());
 		play.addListener(new ClickListener() {
@@ -87,7 +93,7 @@ public class MainMenuScreen extends ScrotsScreen
 			}
 		});
 
-		Label scores = new Label("Scores", style);
+		scores = new Label("Scores", style);
 		scores.setBounds(scores.getX(), scores.getY(),
 				scores.getWidth(), scores.getHeight());
 		scores.addListener(new ClickListener() {
@@ -98,7 +104,7 @@ public class MainMenuScreen extends ScrotsScreen
 			}
 		});
 		
-		Label options = new Label("Options", style);
+		options = new Label("Options", style);
 		options.setBounds(options.getX(), options.getY(), options.getWidth(), options.getHeight());
 		options.addListener(new ClickListener(){
 			@Override
@@ -111,7 +117,7 @@ public class MainMenuScreen extends ScrotsScreen
 			}
 		});
 		
-		Label contacts = new Label("Contacts", style);
+		contacts = new Label("Contacts", style);
 		contacts.setBounds(contacts.getX(), contacts.getY(), contacts.getWidth(), contacts.getHeight());
 		contacts.addListener(new ClickListener() {
 			@Override
@@ -123,7 +129,7 @@ public class MainMenuScreen extends ScrotsScreen
 			}
 		});
 
-		Label others = new Label("Others", style);
+		others = new Label("Others", style);
 		others.setBounds(others.getX(), others.getY(), others.getWidth(),
 				others.getHeight());
 		others.addListener(new ClickListener() {
@@ -195,6 +201,18 @@ public class MainMenuScreen extends ScrotsScreen
 		
 		stage.addActor(gplay_log);
 		stage.addActor(main_table);
+	}
+	
+	@Override
+	public void addActors() {
+		super.addActors();
+		actors.add(shop);
+		actors.add(play);
+		actors.add(scores);
+		actors.add(options);
+		actors.add(contacts);
+		actors.add(others);
+		actors.add(gplay_log);
 	}
 	
 	private void loadTutorialScreen()

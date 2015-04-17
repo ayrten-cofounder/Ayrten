@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
@@ -185,7 +186,7 @@ public class ShopScreen extends ScrotsScreen {
 				Assets.style_font_32_white);
 		total_price_label.setAlignment(Align.center);
 
-		int left = (int) ((int) Assets.width * 0.015);
+		int left = (int) ((int) Assets.width * 0.02);
 		int right = left;
 		int top = (int) ((int) Assets.height * 0.02);
 		int bottom = top;
@@ -312,6 +313,8 @@ public class ShopScreen extends ScrotsScreen {
 		tempt.add().width(Assets.width / 6);
 		tempt.add().width(Assets.width / 6);
 
+		float cell_wh = (float) (Assets.height * 0.14);
+
 		for (ShopDot d : dots) {
 			tempt.row().padBottom(PAD);
 
@@ -321,15 +324,15 @@ public class ShopScreen extends ScrotsScreen {
 			// row.setBackground(Assets.rounded_rectangle_blue);
 
 			if (d.unlocked) {
-				tempt.add(d.dotImage).height(d.dotImage.getHeight());
-				tempt.add(d.descriptionImage).center();
-				tempt.add(d.priceLabel).center();
-				tempt.add(d.amountTable).center();
-				tempt.add(d.totalCostLabel).center();
+				tempt.add(d.dotImage).height(cell_wh).width(cell_wh);
+				tempt.add(d.descriptionImage).height(cell_wh).width(cell_wh);
+				tempt.add(d.priceLabel).height(cell_wh).width(cell_wh).center();
+				tempt.add(d.amountTable).height(cell_wh).width(cell_wh).center();
+				tempt.add(d.totalCostLabel).height(cell_wh).width(cell_wh).center();
 			} else {
-				tempt.add(d.dotImage).center();
-				tempt.add(d.descriptionImage).center();
-				tempt.add(d.unlockPriceLabel).center();
+				tempt.add(d.dotImage).height(cell_wh).width(cell_wh).center();
+				tempt.add(d.descriptionImage).height(cell_wh).width(cell_wh).center();
+				tempt.add(d.unlockPriceLabel).height(cell_wh).width(cell_wh).center();
 				tempt.add(d.unlockBuyLabel).colspan(2).center();
 			}
 		}
@@ -345,8 +348,12 @@ public class ShopScreen extends ScrotsScreen {
 		table.row().padBottom(PAD);
 		table.add();
 		table.add();
-		table.add(clear_label).width(clear_label.getWidth());
-		table.add(buy_label).width(clear_label.getWidth());
+		table.add(clear_label).fill()
+				.padLeft(clear_label.getStyle().font.getSpaceWidth())
+				.padRight(clear_label.getStyle().font.getSpaceWidth());
+		table.add(buy_label).fill()
+				.padLeft(buy_label.getStyle().font.getSpaceWidth())
+				.padRight(buy_label.getStyle().font.getSpaceWidth());
 		table.add(total_price_label);
 
 		table.debug();

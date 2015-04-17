@@ -95,7 +95,7 @@ public class ShopDot {
 			break;
 		}
 
-		initilize();
+		initialize();
 	}
 
 	public void buyDots() {
@@ -156,17 +156,14 @@ public class ShopDot {
 		}
 	}
 
-	protected void initilize() {
+	protected void initialize() {
 
 		// Locked Labels
-		unlockPriceLabel = new Label(
-				String.valueOf(dotUnlock.price()),
-				Assets.prefs.getString("bg_color").equals("Black") ? Assets.style_font_32_white
-						: Assets.style_font_32_black);
-		unlockBuyLabel = new Label("Unlock", Assets.prefs.getString("bg_color")
-				.equals("Black") ? Assets.style_font_32_white
-				: Assets.style_font_32_black);
-
+		unlockPriceLabel = new Label(String.valueOf(dotUnlock.price()),
+				Assets.style_font_32_white);
+		unlockPriceLabel.setAlignment(Align.center);
+		
+		unlockBuyLabel = new Label("Unlock", Assets.style_font_32_white);
 		unlockBuyLabel.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
@@ -178,10 +175,12 @@ public class ShopDot {
 				unlockDot();
 			}
 		});
+		unlockBuyLabel.setAlignment(Align.center);
 
 		// Unlocked Labels
 		priceLabel = new Label(String.valueOf(dotType.price()),
 				Assets.style_font_32_white);
+		priceLabel.setAlignment(Align.center);
 
 		descriptionImage = new Image(Assets.question_mark);
 		descriptionImage.addListener(new InputListener() {
@@ -229,26 +228,31 @@ public class ShopDot {
 			}
 		});
 
+		// Same as the in ShopScreen.
+		float cell_wh = (float) (Assets.height * 0.14);
+		float spacing = (float) (Assets.height * 0.01);
+
 		Table addTable = new Table();
 		addTable.setSkin(Assets.skin);
 		addTable.setSize(55, dotImage.getHeight());
-		addTable.add(add).height((dotImage.getHeight() / 2) - 10);
+		addTable.add(add).height(cell_wh / 2 - spacing);
 		addTable.top();
 
 		Table minusTable = new Table();
 		minusTable.setSkin(Assets.skin);
 		minusTable.setSize(55, dotImage.getHeight());
-		minusTable.add(minus).height((dotImage.getHeight() / 2) - 10);
+		minusTable.add(minus).height(cell_wh / 2 - spacing);
 		minusTable.bottom();
 
 		totalCostLabel = new Label(String.valueOf(totalCostToBuy),
 				Assets.style_font_32_white);
+		totalCostLabel.setAlignment(Align.center);
 
 		amountTable.clear();
-		amountTable.add(amountTextField).height(dotImage.getHeight())
+		amountTable.add(amountTextField).height(cell_wh)
 				.width(Assets.width / 12);
-		amountTable.stack(addTable, minusTable).height(dotImage.getHeight())
-				.width(Assets.width / 12);
+		amountTable.stack(addTable, minusTable).height(cell_wh)
+				.width(Assets.width / 12).padLeft(spacing * 2);
 	}
 
 	protected void addAmountToBuy(int amount) {
@@ -302,7 +306,7 @@ public class ShopDot {
 		totalCostToBuy = 0;
 		amountToBuy = 0;
 
-		initilize();
+		initialize();
 	}
 
 	public int getTotalCost() {
