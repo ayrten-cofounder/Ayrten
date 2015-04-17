@@ -146,8 +146,9 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface,
 	}
 
 	public void shouldShowAd(boolean show) {
-		if (Assets.prefs.getBoolean(Assets.PREFS_NO_ADS, false))
-			return;
+		if (Assets.prefs != null)
+			if (Assets.prefs.getBoolean(Assets.PREFS_NO_ADS, false))
+				return;
 		handler.sendEmptyMessage(show ? SHOW_ADS : HIDE_ADS);
 	}
 
