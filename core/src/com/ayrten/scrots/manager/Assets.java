@@ -23,7 +23,7 @@ import com.badlogic.gdx.utils.Json;
 public class Assets {
 	public static final String VERSION = "2.00.01";
 	public static final String PREFS_NO_ADS = "noAds";
-	
+
 	// Height and Width
 	public static float game_height;
 	public static float game_width;
@@ -57,8 +57,11 @@ public class Assets {
 	public static NinePatchDrawable rounded_rectangle_dark_gray;
 	public static NinePatchDrawable rounded_rectangle_gray;
 	public static NinePatchDrawable rounded_rectangle_blue;
+	public static NinePatchDrawable rounded_rectangle_blue_small;
 
 	public static NinePatchDrawable rounded_rectangle_border;
+	public static NinePatchDrawable rounded_rectangle_border_blue;
+	public static NinePatchDrawable rounded_rectangle_border_dark_gray;
 
 	// Fonts
 	public static BitmapFont font_120;
@@ -211,11 +214,29 @@ public class Assets {
 				new Texture(
 						Gdx.files.internal("data/rounded_rectangle_blue.png")),
 				50, 50, 50, 50));
-
+		rounded_rectangle_blue_small = new NinePatchDrawable(new NinePatch(
+				new Texture(
+						Gdx.files.internal("data/rounded_rectangle_blue_small.png")),
+				20, 20, 20, 20));
+ 
 		rounded_rectangle_border = new NinePatchDrawable(
 				new NinePatch(new Texture(Gdx.files
 						.internal("data/rounded_rectangle_bordered.png")), 50,
 						50, 50, 50));
+		
+		rounded_rectangle_border_blue = new NinePatchDrawable(
+				new NinePatch(
+						new Texture(
+								Gdx.files
+										.internal("data/rounded_rectangle_bordered_blue.png")),
+						20, 20, 20, 20));
+
+		rounded_rectangle_border_dark_gray = new NinePatchDrawable(
+				new NinePatch(
+						new Texture(
+								Gdx.files
+										.internal("data/rounded_rectangle_bordered_dark_gray.png")),
+						20, 20, 20, 20));
 
 		// Style
 		style_font_64_black = new LabelStyle();
@@ -258,7 +279,7 @@ public class Assets {
 		style_font_32_red = new LabelStyle();
 		style_font_32_red.font = font_32;
 		style_font_32_red.fontColor = Color.valueOf("e07a80");
-		
+
 		style_font_32_timer_red = new LabelStyle();
 		style_font_32_timer_red.font = font_32;
 		style_font_32_timer_red.fontColor = Color.RED;
