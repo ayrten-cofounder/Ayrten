@@ -36,7 +36,7 @@ public class ContactScreen extends ScrotsScreen {
 				.getBounds("Please send all inquiries/comments to: ").width);
 
 		Label generalURL = new Label("android.ayrten@gmail.com",
-				Assets.style_font_32_blue);
+				Assets.style_font_32_orange);
 		generalURL.setWrap(true);
 		generalURL.setBounds(generalURL.getX(), generalURL.getY(),
 				generalURL.getWidth(), generalURL.getHeight());

@@ -13,7 +13,6 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
@@ -49,11 +48,6 @@ public class ShopScreen extends ScrotsScreen {
 		updatePoints();
 
 		showTableScreen();
-		// stage.addActor(points_label);
-		// stage.addActor(premium_label);
-		// stage.addActor(table);
-		// stage.addActor(bottom_bar_table);
-		// stage.addActor(scroll_view);
 	}
 
 	private void notEnoughtPointsWindow() {
@@ -282,13 +276,6 @@ public class ShopScreen extends ScrotsScreen {
 		column.add(a).width(Assets.width / 6);
 		column.add(t).width(Assets.width / 6);
 
-		// table.row().padTop(PAD);
-		// table.add(p).width(Assets.width / 6);
-		// table.add(des).width(Assets.width / 6);
-		// table.add(c).width(Assets.width / 6);
-		// table.add(a).width(Assets.width / 6);
-		// table.add(t).width(Assets.width / 6);
-
 		table.add().width(Assets.width / 6);
 		table.add().width(Assets.width / 6);
 		table.add().width(Assets.width / 6);
@@ -301,10 +288,6 @@ public class ShopScreen extends ScrotsScreen {
 		Table tempt = new Table();
 		tempt.setWidth(Assets.width);
 		tempt.setSkin(Assets.skin);
-		// tempt.setBackground(Assets.gray_box);
-
-		// tempt.debug();
-		// table.debug();
 
 		tempt.row();
 		tempt.add().width(Assets.width / 6);
@@ -317,11 +300,6 @@ public class ShopScreen extends ScrotsScreen {
 
 		for (ShopDot d : dots) {
 			tempt.row().padBottom(PAD);
-
-			// Table row = new Table();
-			// row.setWidth(tempt.getWidth());
-			// row.setSkin(Assets.skin);
-			// row.setBackground(Assets.rounded_rectangle_blue);
 
 			if (d.unlocked) {
 				tempt.add(d.dotImage).height(cell_wh).width(cell_wh);
@@ -343,9 +321,9 @@ public class ShopScreen extends ScrotsScreen {
 		scroll_view.getStyle().background = Assets.rounded_rectangle_border;
 
 		table.row().padBottom(PAD);
-		table.add(scroll_view).colspan(5).fill();
+		table.add(scroll_view).colspan(5).fill().expandY();
 
-		table.row().padBottom(PAD);
+		table.row();
 		table.add();
 		table.add();
 		table.add(clear_label).fill()
@@ -356,15 +334,8 @@ public class ShopScreen extends ScrotsScreen {
 				.padRight(buy_label.getStyle().font.getSpaceWidth());
 		table.add(total_price_label);
 
-//		table.debug();
-//		tempt.debug();
-
-		// table.row().pad(20);
-		// table.add();
-		// table.add();
-		// table.add(clear_label);
-		// table.add(buy_label);
-		// table.add(total_price_label);
+		table.debug();
+		tempt.debug();
 	}
 
 	public void updateShopTable() {

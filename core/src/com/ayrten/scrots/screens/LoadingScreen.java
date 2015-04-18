@@ -44,7 +44,7 @@ public class LoadingScreen implements Screen {
 		}, 2.5f);
 
 		Label.LabelStyle style = new Label.LabelStyle();
-		style.font = Assets.font_120;
+		style.font = Assets.font_200;
 		style.fontColor = Assets.ORANGE;
 		Label ayrten = new Label("Ayrten", style);
 		ayrten.setPosition(Assets.width / 2, Assets.height / 2, Align.center);

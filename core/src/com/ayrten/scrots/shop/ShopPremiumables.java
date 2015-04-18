@@ -2,9 +2,9 @@ package com.ayrten.scrots.shop;
 
 import com.ayrten.scrots.manager.Assets;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 // Basic premiumables
 
@@ -37,10 +37,12 @@ public class ShopPremiumables {
 		cost = Assets.game.iap_inft.getPrice(item);
 		description = Assets.game.iap_inft.getDescription(item);
 
-		if (item != IAP.REMOVE_ADS)
+		if (item != IAP.REMOVE_ADS) {
 			description += " points";
 
-		pointValue = Integer.valueOf(Assets.game.iap_inft.getDescription(item));
+			pointValue = Integer.valueOf(Assets.game.iap_inft
+					.getDescription(item));
+		}
 
 		cost_label = new Label(cost, Assets.style_font_32_white);
 
@@ -48,21 +50,11 @@ public class ShopPremiumables {
 
 		buy_label = new Label("Buy", Assets.style_font_32_white);
 
-		buy_label.addListener(new InputListener() {
-
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
-				return true;
-			}
-
+		buy_label.addListener(new ClickListener(){
 			@Override
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
-				super.touchUp(event, x, y, pointer, button);
-
+			public void clicked(InputEvent event, float x, float y) {
 				purchase();
 			}
-
 		});
 
 		cost_label.setAlignment(Align.center);

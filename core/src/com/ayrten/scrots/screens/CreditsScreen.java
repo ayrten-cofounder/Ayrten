@@ -85,7 +85,7 @@ public class CreditsScreen extends ScrotsScreen {
 				misc.getHeight());
 
 		Label miscMem0 = new Label("http://audionautix.com",
-				Assets.style_font_32_blue);
+				Assets.style_font_32_orange);
 		miscMem0.setWrap(true);
 		miscMem0.setBounds(miscMem0.getX(), miscMem0.getY(),
 				miscMem0.getWidth(), miscMem0.getHeight());
@@ -97,7 +97,7 @@ public class CreditsScreen extends ScrotsScreen {
 		});
 
 		Label miscMem1 = new Label("http://www.bensound.com",
-				Assets.style_font_32_blue);
+				Assets.style_font_32_orange);
 		miscMem1.setWrap(true);
 		miscMem1.setBounds(miscMem1.getX(), miscMem1.getY(),
 				miscMem1.getWidth(), miscMem1.getHeight());
@@ -109,7 +109,7 @@ public class CreditsScreen extends ScrotsScreen {
 		});
 
 		Label miscMem2 = new Label("https://www.freesound.org",
-				Assets.style_font_32_blue);
+				Assets.style_font_32_orange);
 		miscMem2.setWrap(true);
 		miscMem2.setBounds(miscMem2.getX(), miscMem2.getY(),
 				miscMem2.getWidth(), miscMem2.getHeight());

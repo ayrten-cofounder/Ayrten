@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
 public class ShopDot {
@@ -109,18 +110,18 @@ public class ShopDot {
 			switch (dotType) {
 			case INVINCIBLE:
 				Assets.power_dot_manager
-						.setInvincibleDotAmount(Assets.power_dot_manager
-								.getInvincibleDots() + amountToBuy);
+				.setInvincibleDotAmount(Assets.power_dot_manager
+						.getInvincibleDots() + amountToBuy);
 				break;
 			case MAGNET:
 				Assets.power_dot_manager
-						.setMagnetDotAmount(Assets.power_dot_manager
-								.getMagnetDots() + amountToBuy);
+				.setMagnetDotAmount(Assets.power_dot_manager
+						.getMagnetDots() + amountToBuy);
 				break;
 			case RAINBOW:
 				Assets.power_dot_manager
-						.setRainbowDotAmount(Assets.power_dot_manager
-								.getRainbowDots() + amountToBuy);
+				.setRainbowDotAmount(Assets.power_dot_manager
+						.getRainbowDots() + amountToBuy);
 				break;
 			}
 
@@ -162,7 +163,7 @@ public class ShopDot {
 		unlockPriceLabel = new Label(String.valueOf(dotUnlock.price()),
 				Assets.style_font_32_white);
 		unlockPriceLabel.setAlignment(Align.center);
-		
+
 		unlockBuyLabel = new Label("Unlock", Assets.style_font_32_white);
 		unlockBuyLabel.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y,
@@ -201,6 +202,19 @@ public class ShopDot {
 		amountTextField.getStyle().fontColor = Color.WHITE;
 		amountTextField.setAlignment(Align.center);
 		amountTextField.setWidth(Assets.width / 5);
+		amountTextField.setTextFieldFilter(new TextField.TextFieldFilter.DigitsOnlyFilter());
+		amountTextField.setMaxLength(4);
+		amountTextField.setTextFieldListener(new TextFieldListener() {
+			@Override
+			public void keyTyped(TextField textField, char c) {
+				if(c == '\n' || c == '\r') {
+					if(!textField.getText().equals("")) {
+						amountToBuy = Integer.valueOf(textField.getText());
+						setTotalCost();
+					}
+				}
+			}
+		});
 
 		Image add = new Image(Assets.up_button);
 		add.addListener(new InputListener() {
@@ -250,13 +264,16 @@ public class ShopDot {
 
 		amountTable.clear();
 		amountTable.add(amountTextField).height(cell_wh)
-				.width(Assets.width / 12);
+		.width(Assets.width / 12);
 		amountTable.stack(addTable, minusTable).height(cell_wh)
-				.width(Assets.width / 12).padLeft(spacing * 2);
+		.width(Assets.width / 12).padLeft(spacing * 2);
 	}
 
 	protected void addAmountToBuy(int amount) {
-		amountToBuy++;
+		if (amountToBuy + amount > 9999)
+			amountToBuy = 9999;
+		else
+			amountToBuy += amount;
 		setTotalCost();
 	}
 
@@ -296,10 +313,10 @@ public class ShopDot {
 		message.makeSingleButtonWindow(description, "Ok",
 				new ButtonInterface() {
 
-					@Override
-					public void buttonPressed() {
-					}
-				});
+			@Override
+			public void buttonPressed() {
+			}
+		});
 	}
 
 	public void clear() {

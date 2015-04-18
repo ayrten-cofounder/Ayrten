@@ -25,6 +25,7 @@ public class PremiumShopScreen extends ScrotsScreen {
 		table.clear();
 
 		premiumables = new ArrayList<ShopPremiumables>();
+		premiumables.add(new ShopPremiumables(IAP.REMOVE_ADS));
 		premiumables.add(new ShopPremiumables(IAP.ITEM_1));
 		premiumables.add(new ShopPremiumables(IAP.ITEM_2));
 		premiumables.add(new ShopPremiumables(IAP.ITEM_3));

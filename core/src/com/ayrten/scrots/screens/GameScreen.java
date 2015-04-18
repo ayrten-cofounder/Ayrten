@@ -108,7 +108,7 @@ public class GameScreen extends ScrotsScreen {
 		initializePointsTime();
 
 		Label.LabelStyle overStyle = new Label.LabelStyle();
-		overStyle.font = Assets.font_120;
+		overStyle.font = Assets.font_200;
 
 		TextFieldStyle textStyle = new TextFieldStyle();
 		textStyle.font = Assets.font_64;
@@ -708,6 +708,7 @@ public class GameScreen extends ScrotsScreen {
 
 	@Override
 	public void hide() {
-
+		super.hide();
+		Assets.game.main_menu.options_screen.enableNonGameOptions(true);
 	}
 }
