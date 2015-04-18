@@ -28,11 +28,19 @@ public class TutorialScreen extends ScrotsScreen {
 		Image redDot = new Image(Assets.penDot_1);
 		Image blueDot = new Image(Assets.penDot_2);
 		Image babyBlueDot = new Image(Assets.regDot_2);
+		Image explosion_dot = new Image(Assets.explosion_dot);
+		Image dwd_regDot1 = new Image(Assets.dwdRegDot_1);
+		Image dwd_regDot2 = new Image(Assets.dwdRegDot_2);
+		Image dwd_penDot1 = new Image(Assets.dwdPenDot_1);
+		Image dwd_penDot2 = new Image(Assets.dwdPenDot_2);
+		Image powerDot_Invincible = new Image(Assets.invincible_dot);
+		Image powerDot_Rainbow = new Image(Assets.rainbow_dot);
+		Image powerDot_Magnet = new Image(Assets.magnet_dot);
 		Image questionDot = new Image(Assets.question_mark);
 
 		Label greenDesc = new Label("", Assets.style_font_32_white);
 		greenDesc.setWrap(true);
-		greenDesc.setText("Requires popping in order to advance");
+		greenDesc.setText("Requires popping in order to advance.");
 
 		Label redDesc = new Label("", Assets.style_font_32_white);
 
@@ -45,14 +53,47 @@ public class TutorialScreen extends ScrotsScreen {
 
 		Label babyBlueDesc = new Label("", Assets.style_font_32_white);
 		babyBlueDesc.setWrap(true);
-		babyBlueDesc.setText("Increased time limit by 2.5 seconds");
-		babyBlueDesc.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				// TODO Auto-generated method stub
-				super.clicked(event, x, y);
-			}
-		});
+		babyBlueDesc.setText("Increases time limit by 2.5 seconds.");
+
+		Label explosion_dot_desc = new Label("", Assets.style_font_32_white);
+		explosion_dot_desc.setWrap(true);
+		explosion_dot_desc.setText("Pops all dots around the explosion dot.");
+
+		Label dwd_regDot1_desc = new Label("", Assets.style_font_32_white);
+		dwd_regDot1_desc.setWrap(true);
+		dwd_regDot1_desc
+				.setText("3 to 4 green dots will appear. An explosion dot may appear.");
+
+		Label dwd_regDot2_desc = new Label("", Assets.style_font_32_white);
+		dwd_regDot2_desc.setWrap(true);
+		dwd_regDot2_desc
+				.setText("2 blue dots will appear. Increases time limit by 1 second.");
+
+		Label dwd_penDot1_desc = new Label("", Assets.style_font_32_white);
+		dwd_penDot1_desc.setWrap(true);
+		dwd_penDot1_desc
+				.setText("4 red dots will appear. Decreases time limit by half.");
+
+		Label dwd_penDot2_desc = new Label("", Assets.style_font_32_white);
+		dwd_penDot2_desc.setWrap(true);
+		dwd_penDot2_desc
+				.setText("2 purple dots will appear. Decreases time limit by 3 seconds.");
+
+		Label powerDot_Invincible_desc = new Label("",
+				Assets.style_font_32_white);
+		powerDot_Invincible_desc.setWrap(true);
+		powerDot_Invincible_desc
+				.setText("Penality dots will have no effect for 5 seconds.");
+
+		Label powerDot_Rainbow_desc = new Label("", Assets.style_font_32_white);
+		powerDot_Rainbow_desc.setWrap(true);
+		powerDot_Rainbow_desc
+				.setText("Removes penality dots from the game for 5 seconds");
+
+		Label powerDot_Magnet_desc = new Label("", Assets.style_font_32_white);
+		powerDot_Magnet_desc.setWrap(true);
+		powerDot_Magnet_desc
+				.setText("Attracts all penality dots to the magnet for 8 seconds.");
 
 		Label questionDesc = new Label("", Assets.style_font_32_white);
 		questionDesc.setWrap(true);
@@ -89,6 +130,84 @@ public class TutorialScreen extends ScrotsScreen {
 		innerTable.add(babyBlueDesc)
 				.width(Gdx.graphics.getWidth() / 2 - back.getWidth() / 5 * 2)
 				.padLeft(back.getWidth() / 5);
+		innerTable.row();
+		innerTable.add("").height(back.getStyle().font.getLineHeight());
+		innerTable.row();
+		innerTable.add(explosion_dot).width(babyBlueDot.getWidth())
+				.height(explosion_dot.getHeight());
+		innerTable.add(explosion_dot_desc)
+				.width(Gdx.graphics.getWidth() / 2 - back.getWidth() / 5 * 2)
+				.padLeft(back.getWidth() / 5);
+
+		// DWD Dots
+
+		innerTable.row();
+		innerTable.add("").height(back.getStyle().font.getLineHeight());
+		innerTable.row();
+		innerTable.add(dwd_regDot1).width(questionDot.getWidth())
+				.height(dwd_regDot1.getHeight());
+		innerTable.add(dwd_regDot1_desc)
+				.width(Gdx.graphics.getWidth() / 2 - back.getWidth() / 5 * 2)
+				.padLeft(back.getWidth() / 5);
+
+		innerTable.row();
+		innerTable.add("").height(back.getStyle().font.getLineHeight());
+		innerTable.row();
+		innerTable.add(dwd_regDot2).width(questionDot.getWidth())
+				.height(dwd_regDot2.getHeight());
+		innerTable.add(dwd_regDot2_desc)
+				.width(Gdx.graphics.getWidth() / 2 - back.getWidth() / 5 * 2)
+				.padLeft(back.getWidth() / 5);
+
+		innerTable.row();
+		innerTable.add("").height(back.getStyle().font.getLineHeight());
+		innerTable.row();
+		innerTable.add(dwd_penDot1).width(questionDot.getWidth())
+				.height(dwd_penDot1.getHeight());
+		innerTable.add(dwd_penDot1_desc)
+				.width(Gdx.graphics.getWidth() / 2 - back.getWidth() / 5 * 2)
+				.padLeft(back.getWidth() / 5);
+
+		innerTable.row();
+		innerTable.add("").height(back.getStyle().font.getLineHeight());
+		innerTable.row();
+		innerTable.add(dwd_penDot2).width(questionDot.getWidth())
+				.height(dwd_penDot2.getHeight());
+		innerTable.add(dwd_penDot2_desc)
+				.width(Gdx.graphics.getWidth() / 2 - back.getWidth() / 5 * 2)
+				.padLeft(back.getWidth() / 5);
+
+		// Power Dots
+
+		innerTable.row();
+		innerTable.add("").height(back.getStyle().font.getLineHeight());
+		innerTable.row();
+		innerTable.add(powerDot_Invincible).width(questionDot.getWidth())
+				.height(powerDot_Invincible.getHeight());
+		innerTable.add(powerDot_Invincible_desc)
+				.width(Gdx.graphics.getWidth() / 2 - back.getWidth() / 5 * 2)
+				.padLeft(back.getWidth() / 5);
+
+		innerTable.row();
+		innerTable.add("").height(back.getStyle().font.getLineHeight());
+		innerTable.row();
+		innerTable.add(powerDot_Rainbow).width(questionDot.getWidth())
+				.height(powerDot_Rainbow.getHeight());
+		innerTable.add(powerDot_Rainbow_desc)
+				.width(Gdx.graphics.getWidth() / 2 - back.getWidth() / 5 * 2)
+				.padLeft(back.getWidth() / 5);
+
+		innerTable.row();
+		innerTable.add("").height(back.getStyle().font.getLineHeight());
+		innerTable.row();
+		innerTable.add(powerDot_Magnet).width(questionDot.getWidth())
+				.height(powerDot_Magnet.getHeight());
+		innerTable.add(powerDot_Magnet_desc)
+				.width(Gdx.graphics.getWidth() / 2 - back.getWidth() / 5 * 2)
+				.padLeft(back.getWidth() / 5);
+
+		// Question Dot
+
 		innerTable.row();
 		innerTable.add("").height(back.getStyle().font.getLineHeight());
 		innerTable.row();

@@ -167,11 +167,11 @@ public class OptionsScreen extends ScrotsScreen {
 						Assets.style_font_32_white)).width(width).left();
 		game_options.add(auto_gplay_signin).width(width).right();
 		game_options.add("").height(Gdx.graphics.getHeight() / 50);
-		game_options.row();
-		game_options
-				.add(new Label("Color Blind Mode: ", Assets.style_font_32_white))
-				.width(width).left();
-		game_options.add(color_blind).width(width).right();
+//		game_options.row();
+//		game_options
+//				.add(new Label("Color Blind Mode: ", Assets.style_font_32_white))
+//				.width(width).left();
+//		game_options.add(color_blind).width(width).right();
 
 		table.add(non_game_options).left();
 		table.row();
