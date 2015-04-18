@@ -31,7 +31,7 @@ public class PremiumShopScreen extends ScrotsScreen {
 		premiumables.add(new ShopPremiumables(IAP.ITEM_3));
 		premiumables.add(new ShopPremiumables(IAP.ITEM_4));
 		premiumables.add(new ShopPremiumables(IAP.ITEM_5));
-
+		
 		for (ShopPremiumables s : premiumables) {
 			if (!s.retrievedItemInfo) {
 				break;

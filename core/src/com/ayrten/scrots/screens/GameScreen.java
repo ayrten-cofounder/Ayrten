@@ -39,7 +39,7 @@ import com.badlogic.gdx.utils.Timer.Task;
 
 public class GameScreen extends ScrotsScreen {
 	protected static final float TIME_TO_RED = 10f;
-	
+
 	// Widgets
 	protected Image menu_button;
 
@@ -183,13 +183,10 @@ public class GameScreen extends ScrotsScreen {
 				.height(corner_table.getHeight())
 				.width(corner_table.getWidth());
 
-		Label points_title = new Label(
-				"Pts",
-				Assets.prefs.getString("bg_color").equals("Black") ? Assets.style_font_32_white
-						: Assets.style_font_32_black);
+		Label points_title = new Label("Pts", Assets.style_font_32_white);
 
 		points_table = new Table(Assets.skin);
-		points_table.setBackground(Assets.rounded_rectangle_blue);
+		points_table.setBackground(Assets.rounded_rectangle_blue_small);
 		points_table
 				.setWidth(points.getStyle().font.getBounds("999999999+").width
 						+ points_title.getWidth() + corner_table.getWidth()
@@ -204,7 +201,7 @@ public class GameScreen extends ScrotsScreen {
 		points_table.right();
 
 		side_table = new Table(Assets.skin_window);
-		side_table.setBackground(Assets.rounded_rectangle_dark_gray);
+		side_table.setBackground(Assets.rounded_rectangle_border_blue);
 		side_table.setHeight(corner_table.getY() - 20);
 		side_table.setWidth(Assets.width - Assets.game_width - 10);
 		side_table.setPosition(10, 10);
@@ -238,10 +235,10 @@ public class GameScreen extends ScrotsScreen {
 					.width(side_table.getWidth() - 10)
 					.height(side_table.getWidth() - 10);
 
-			side_table.add().width(10);
+			side_table.add().width(20);
 			side_table.add(cell_table).height(
 					side_table.getHeight() / powDots.size());
-			side_table.add().width(10);
+			side_table.add().width(20);
 			if (i != powDots.size() - 1)
 				side_table.row();
 		}
@@ -631,15 +628,12 @@ public class GameScreen extends ScrotsScreen {
 	}
 
 	public void time() {
-		if(Float.valueOf(gm.getTime()) < TIME_TO_RED)
-		{
+		if (Float.valueOf(gm.getTime()) < TIME_TO_RED) {
 			time.setStyle(Assets.style_font_32_timer_red);
-		}
-		else
-		{
+		} else {
 			time.setStyle(Assets.style_font_32_white);
 		}
-		
+
 		time.setText(gm.getTime().substring(0, 4));
 	}
 

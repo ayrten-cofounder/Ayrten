@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class OptionsScreen extends ScrotsScreen {
+	protected static final float CHECKBOX_SIZE = 40f;
 	// Actors
 	protected SelectBox<String> mode;
 	protected SelectBox<String> bg_color;
@@ -119,6 +120,19 @@ public class OptionsScreen extends ScrotsScreen {
 			Gdx.gl.glClearColor(1, 1, 1, 1);
 			bg_color.setSelected("White");
 		}
+		
+		// Set size of checkboxes
+		bkg_music.getCells().get(0).size(CHECKBOX_SIZE, CHECKBOX_SIZE);
+		bkg_music.setHeight(CHECKBOX_SIZE);
+		
+		sound_effs.getCells().get(0).size(CHECKBOX_SIZE, CHECKBOX_SIZE);
+		sound_effs.setHeight(CHECKBOX_SIZE);
+		
+		auto_gplay_signin.getCells().get(0).size(CHECKBOX_SIZE, CHECKBOX_SIZE);
+		auto_gplay_signin.setHeight(CHECKBOX_SIZE);
+		
+		color_blind.getCells().get(0).size(CHECKBOX_SIZE, CHECKBOX_SIZE);
+		color_blind.setHeight(CHECKBOX_SIZE);
 
 		Table non_game_options = new Table(Assets.skin);
 		non_game_options.setWidth(table.getWidth());

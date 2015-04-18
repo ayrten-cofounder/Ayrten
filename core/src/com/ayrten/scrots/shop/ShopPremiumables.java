@@ -39,7 +39,6 @@ public class ShopPremiumables {
 
 		if (item != IAP.REMOVE_ADS) {
 			description += " points";
-
 			pointValue = Integer.valueOf(Assets.game.iap_inft
 					.getDescription(item));
 		}
