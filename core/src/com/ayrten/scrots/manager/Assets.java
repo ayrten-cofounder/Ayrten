@@ -57,7 +57,7 @@ public class Assets {
 	public static NinePatchDrawable rounded_rectangle_dark_gray;
 	public static NinePatchDrawable rounded_rectangle_gray;
 	public static NinePatchDrawable rounded_rectangle_blue;
-	public static NinePatchDrawable rounded_rectangle_blue_small;
+//	public static NinePatchDrawable rounded_rectangle_blue_small;
 
 	public static NinePatchDrawable rounded_rectangle_border;
 	public static NinePatchDrawable rounded_rectangle_border_blue;
@@ -214,10 +214,10 @@ public class Assets {
 				new Texture(
 						Gdx.files.internal("data/rounded_rectangle_blue.png")),
 				50, 50, 50, 50));
-		rounded_rectangle_blue_small = new NinePatchDrawable(new NinePatch(
-				new Texture(
-						Gdx.files.internal("data/rounded_rectangle_blue_small.png")),
-				20, 20, 20, 20));
+//		rounded_rectangle_blue_small = new NinePatchDrawable(new NinePatch(
+//				new Texture(
+//						Gdx.files.internal("data/rounded_rectangle_blue_small.png")),
+//				20, 20, 20, 20));
  
 		rounded_rectangle_border = new NinePatchDrawable(
 				new NinePatch(new Texture(Gdx.files

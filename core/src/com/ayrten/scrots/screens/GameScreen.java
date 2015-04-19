@@ -16,6 +16,8 @@ import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -32,6 +34,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Timer;
@@ -183,10 +186,20 @@ public class GameScreen extends ScrotsScreen {
 				.height(corner_table.getHeight())
 				.width(corner_table.getWidth());
 
+		int points_top = (int) (Assets.height * 0.02);
+		int points_bottom = points_top;
+		int points_left = (int) (Assets.width * 0.015);
+		int points_right = points_left;
+
 		Label points_title = new Label("Pts", Assets.style_font_32_white);
+		points_title.setAlignment(Align.right);
+		NinePatchDrawable rounded_rectangle_blue_small = new NinePatchDrawable(
+				new NinePatch(new Texture(Gdx.files
+						.internal("data/rounded_rectangle_blue_small.png")),
+						points_top, points_bottom, points_left, points_right));
 
 		points_table = new Table(Assets.skin);
-		points_table.setBackground(Assets.rounded_rectangle_blue_small);
+		points_table.setBackground(rounded_rectangle_blue_small);
 		points_table
 				.setWidth(points.getStyle().font.getBounds("999999999+").width
 						+ points_title.getWidth() + corner_table.getWidth()
@@ -678,7 +691,8 @@ public class GameScreen extends ScrotsScreen {
 		if (gm.isMagnetState())
 			magnet.magnet();
 
-		Assets.level_clear.play();
+		if (Assets.prefs.getBoolean("sound_effs", true))
+			Assets.level_clear.play();
 	}
 
 	@Override

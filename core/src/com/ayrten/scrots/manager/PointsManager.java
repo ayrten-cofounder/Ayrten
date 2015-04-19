@@ -22,7 +22,6 @@ public class PointsManager {
 		if (!file.isEmpty()) {
 			Json json = new Json();
 			Points points = json.fromJson(Points.class, file);
-			points.points = 1000000000;
 			return (points.points);
 		}
 

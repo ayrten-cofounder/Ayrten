@@ -55,6 +55,8 @@ public class MessageScreen extends ScrotsScreen {
 		message_scroll.setFlickScroll(false);
 
 		final Label next = new Label("Next", Assets.style_font_64_orange);
+		final Label previous = new Label("Prev", Assets.style_font_64_orange);
+		
 		next.setBounds(next.getX(), next.getY(), next.getWidth(),
 				next.getHeight());
 		next.addListener(new ClickListener() {
@@ -74,12 +76,15 @@ public class MessageScreen extends ScrotsScreen {
 							+ Assets.width, 0, message_scroll.getWidth(),
 							message_scroll.getHeight());
 				} else {
+					next.setTouchable(Touchable.disabled);
+					previous.setTouchable(Touchable.disabled);
+					message_scroll.setTouchable(Touchable.disabled);
 					transition();
+					
 				}
 			}
 		});
 
-		Label previous = new Label("Prev", Assets.style_font_64_orange);
 		previous.setBounds(previous.getX(), previous.getY(),
 				previous.getWidth(), previous.getHeight());
 		previous.addListener(new ClickListener() {
