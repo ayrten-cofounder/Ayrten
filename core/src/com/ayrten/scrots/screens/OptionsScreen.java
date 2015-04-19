@@ -15,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class OptionsScreen extends ScrotsScreen {
-	protected static final float CHECKBOX_SIZE = 40f;
 	// Actors
 	protected SelectBox<String> mode;
 	protected SelectBox<String> bg_color;
@@ -24,7 +23,7 @@ public class OptionsScreen extends ScrotsScreen {
 	protected CheckBox color_blind;
 	protected CheckBox bkg_music;
 
-	protected Table game_options;
+	protected Table non_game_options;
 
 	public OptionsScreen(Screen bscreen) {
 		super(bscreen, true);
@@ -54,7 +53,7 @@ public class OptionsScreen extends ScrotsScreen {
 					Assets.startBKGMusic();
 				} else {
 					Assets.prefs.putBoolean("bkg_music", false);
-					Assets.stopBKGMusic();
+					Assets.pauseBKGMusic();
 				}
 			}
 
@@ -71,6 +70,13 @@ public class OptionsScreen extends ScrotsScreen {
 						Assets.font_32.getLineHeight() / 2);
 		if (Assets.prefs.getBoolean("bkg_music", true) == false)
 			bkg_music.setChecked(false);
+		bkg_music.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				if (Assets.prefs.getBoolean("sound_effs"))
+					Assets.button_pop.play();
+			}
+		});
 
 		sound_effs = new CheckBox("", Assets.skin);
 		sound_effs.setChecked(true);
@@ -83,6 +89,8 @@ public class OptionsScreen extends ScrotsScreen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				Assets.prefs.putBoolean("sound_effs", sound_effs.isChecked());
+				if (Assets.prefs.getBoolean("sound_effs"))
+					Assets.button_pop.play();
 			}
 		});
 		if (Assets.prefs.getBoolean("sound_effs", true) == false)
@@ -97,6 +105,13 @@ public class OptionsScreen extends ScrotsScreen {
 						Assets.font_32.getLineHeight() / 2);
 		if (Assets.prefs.getBoolean("auto_gplay_signin", true) == false)
 			auto_gplay_signin.setChecked(false);
+		auto_gplay_signin.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				if (Assets.prefs.getBoolean("sound_effs"))
+					Assets.button_pop.play();
+			}
+		});
 
 		color_blind = new CheckBox("", Assets.skin);
 		color_blind.setChecked(false);
@@ -107,6 +122,13 @@ public class OptionsScreen extends ScrotsScreen {
 						Assets.font_32.getLineHeight() / 2);
 		if (Assets.prefs.getBoolean("color_blind", false) == true)
 			color_blind.setChecked(true);
+		color_blind.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				if (Assets.prefs.getBoolean("sound_effs"))
+					Assets.button_pop.play();
+}
+		});
 
 		bg_color = new SelectBox<String>(Assets.skin);
 		bg_color.setItems("White", "Black");
@@ -121,6 +143,8 @@ public class OptionsScreen extends ScrotsScreen {
 			bg_color.setSelected("White");
 		}
 		
+		float CHECKBOX_SIZE = style.font.getLineHeight();
+		
 		// Set size of checkboxes
 		bkg_music.getCells().get(0).size(CHECKBOX_SIZE, CHECKBOX_SIZE);
 		bkg_music.setHeight(CHECKBOX_SIZE);
@@ -133,53 +157,57 @@ public class OptionsScreen extends ScrotsScreen {
 		
 		color_blind.getCells().get(0).size(CHECKBOX_SIZE, CHECKBOX_SIZE);
 		color_blind.setHeight(CHECKBOX_SIZE);
-
-		Table non_game_options = new Table(Assets.skin);
+		
+		non_game_options = new Table(Assets.skin);
 		non_game_options.setWidth(table.getWidth());
+
+		Table game_options = new Table(Assets.skin);
+		game_options.setWidth(table.getWidth());
 		float width = table.getWidth() / 3;
 		
 		Table temp = new Table(Assets.skin);
 		temp.add(bg_color);
 
 		// When adding options, keep non-game options at the bottom.
-		non_game_options
+		game_options
 				.add(new Label("Background: ", Assets.style_font_32_white))
 				.width(width).left();
-		non_game_options.add(temp).width(width).right();
-		non_game_options.row();
-		non_game_options.add("").height(Gdx.graphics.getHeight() / 50);
-		non_game_options.row();
-		non_game_options
+		game_options.add(temp).width(width).right();
+		game_options.row();
+		game_options.add("").height(Gdx.graphics.getHeight() / 50);
+		game_options.row();
+		game_options
 				.add(new Label("Sound Effects: ", Assets.style_font_32_white))
 				.width(width).left();
-		non_game_options.add(sound_effs).width(width).right();
-		non_game_options.row();
-		non_game_options
+		game_options.add(sound_effs).width(width).right();
+		game_options.row();
+		game_options.add("").height(Gdx.graphics.getHeight() / 50);
+		game_options.row();
+		game_options
 				.add(new Label("Background Music: ", Assets.style_font_32_white))
 				.width(width).left();
-		non_game_options.add(bkg_music).width(width).right();
+		game_options.add(bkg_music).width(width).right();
 
-		game_options = new Table(Assets.skin);
-		game_options.setWidth(table.getWidth());
 
-		game_options
+		non_game_options
 				.add(new Label("Auto Google Signin: ",
 						Assets.style_font_32_white)).width(width).left();
-		game_options.add(auto_gplay_signin).width(width).right();
-		game_options.add("").height(Gdx.graphics.getHeight() / 50);
+		non_game_options.add(auto_gplay_signin).width(width).right();
 //		game_options.row();
 //		game_options
 //				.add(new Label("Color Blind Mode: ", Assets.style_font_32_white))
 //				.width(width).left();
 //		game_options.add(color_blind).width(width).right();
 
-		table.add(non_game_options).left();
-		table.row();
 		table.add(game_options).left();
+		table.row();
+		table.add("").height(Gdx.graphics.getHeight() / 50);
+		table.row();
+		table.add(non_game_options).left();
 	}
 
 	public void enableNonGameOptions(boolean enable) {
-		game_options.setVisible(enable);
+		non_game_options.setVisible(enable);
 	}
 
 	@Override
@@ -208,6 +236,7 @@ public class OptionsScreen extends ScrotsScreen {
 		Assets.prefs.flush();
 		if (backScreen.getClass() == MainMenuScreen.class)
 			Assets.playMenuBGM();
+		enableNonGameOptions(true);
 	}
 
 	@Override

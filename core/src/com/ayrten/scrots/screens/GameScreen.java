@@ -713,10 +713,4 @@ public class GameScreen extends ScrotsScreen {
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
 	}
-
-	@Override
-	public void hide() {
-		super.hide();
-		Assets.game.main_menu.options_screen.enableNonGameOptions(true);
-	}
 }

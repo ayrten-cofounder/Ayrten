@@ -388,7 +388,7 @@ public class Assets {
 		inGameMusic = true;
 
 		if (prefs.getBoolean("bkg_music", true) == false) {
-			stopBKGMusic();
+			pauseBKGMusic();
 			return;
 		}
 
@@ -403,7 +403,7 @@ public class Assets {
 		inGameMusic = false;
 
 		if (prefs.getBoolean("bkg_music", true) == false) {
-			stopBKGMusic();
+			pauseBKGMusic();
 			return;
 		}
 
@@ -429,13 +429,13 @@ public class Assets {
 			playMenuBGM();
 	}
 
-	public static void stopBKGMusic() {
+	public static void pauseBKGMusic() {
 		if (game_bgm.isPlaying())
-			game_bgm.stop();
+			game_bgm.pause();
 		if (menu_bgm_white.isPlaying())
-			menu_bgm_white.stop();
+			menu_bgm_white.pause();
 		if (menu_bgm_black.isPlaying())
-			menu_bgm_black.stop();
+			menu_bgm_black.pause();
 	}
 
 	// Function used to switch to color blind version textures dynamically.
