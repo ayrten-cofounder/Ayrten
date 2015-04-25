@@ -6,7 +6,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -45,9 +44,13 @@ public class OptionsScreen extends ScrotsScreen {
 		mode.getList().getStyle().font = Assets.font_32;
 
 		bkg_music = new CheckBox("", Assets.skin);
-		bkg_music.addListener(new InputListener() {
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
+		bkg_music.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				if (Assets.prefs.getBoolean("sound_effs"))
+					Assets.button_pop.play();
+				Assets.prefs.putBoolean("bkg_music", bkg_music.isChecked());
+				Assets.prefs.flush();
 				if (bkg_music.isChecked()) {
 					Assets.prefs.putBoolean("bkg_music", true);
 					Assets.startBKGMusic();
@@ -56,11 +59,6 @@ public class OptionsScreen extends ScrotsScreen {
 					Assets.pauseBKGMusic();
 				}
 			}
-
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
-				return true;
-			};
 		});
 		bkg_music.setChecked(true);
 		bkg_music
@@ -70,13 +68,6 @@ public class OptionsScreen extends ScrotsScreen {
 						Assets.font_32.getLineHeight() / 2);
 		if (Assets.prefs.getBoolean("bkg_music", true) == false)
 			bkg_music.setChecked(false);
-		bkg_music.addListener(new ClickListener(){
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				if (Assets.prefs.getBoolean("sound_effs"))
-					Assets.button_pop.play();
-			}
-		});
 
 		sound_effs = new CheckBox("", Assets.skin);
 		sound_effs.setChecked(true);
@@ -89,7 +80,8 @@ public class OptionsScreen extends ScrotsScreen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				Assets.prefs.putBoolean("sound_effs", sound_effs.isChecked());
-				if (Assets.prefs.getBoolean("sound_effs"))
+				Assets.prefs.flush();
+				if (sound_effs.isChecked())
 					Assets.button_pop.play();
 			}
 		});

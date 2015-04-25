@@ -309,15 +309,8 @@ public class Assets {
 
 		// Music
 		game_bgm = Gdx.audio.newMusic(Gdx.files.internal("bgm/bgm1.mp3"));
-		game_bgm.setLooping(true);
 		menu_bgm_black = Gdx.audio.newMusic(Gdx.files.internal("bgm/bgm2.mp3"));
-		menu_bgm_black.setLooping(true);
 		menu_bgm_white = Gdx.audio.newMusic(Gdx.files.internal("bgm/bgm3.wav"));
-		menu_bgm_white.setLooping(true);
-
-		game_bgm.setLooping(true);
-		menu_bgm_black.setLooping(true);
-		menu_bgm_white.setLooping(true);
 
 		// Skin
 		skin = new Skin(Gdx.files.internal("data/uiskin.json"));
@@ -386,37 +379,34 @@ public class Assets {
 
 	public static void playGameBGM() {
 		inGameMusic = true;
-
-		if (prefs.getBoolean("bkg_music", true) == false) {
-			pauseBKGMusic();
+		menu_bgm_black.stop();
+		menu_bgm_white.stop();
+		
+		if (prefs.getBoolean("bkg_music", true) == false)
 			return;
-		}
-
-		if (menu_bgm_black.isPlaying())
-			menu_bgm_black.stop();
-		else
-			menu_bgm_white.stop();
 		game_bgm.play();
+		game_bgm.setLooping(true);
 	}
 
 	public static void playMenuBGM() {
 		inGameMusic = false;
-
-		if (prefs.getBoolean("bkg_music", true) == false) {
-			pauseBKGMusic();
+		game_bgm.stop();
+		
+		if (prefs.getBoolean("bkg_music", true) == false)
 			return;
-		}
-
-		if (game_bgm.isPlaying())
-			game_bgm.stop();
+		
 		if (prefs.getString("bg_color", "White").equals("White")) {
-			if (!menu_bgm_white.isPlaying())
+			if (!menu_bgm_white.isPlaying()) {
 				menu_bgm_white.play();
+				menu_bgm_white.setLooping(true);
+			}
 			if (menu_bgm_black.isPlaying())
 				menu_bgm_black.stop();
 		} else {
-			if (!menu_bgm_black.isPlaying())
+			if (!menu_bgm_black.isPlaying()) {
 				menu_bgm_black.play();
+				menu_bgm_black.setLooping(true);
+			}
 			if (menu_bgm_white.isPlaying())
 				menu_bgm_white.stop();
 		}
