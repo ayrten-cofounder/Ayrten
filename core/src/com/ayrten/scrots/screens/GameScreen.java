@@ -52,13 +52,11 @@ public class GameScreen extends ScrotsScreen {
 	protected Label time;
 	protected Label time_end;
 
-	// protected Label points_title;
 	protected Label points;
 	protected Table points_table;
 
 	protected GameMode gamemode;
 	protected Manager gm;
-	protected Stage stage;
 
 	protected int w;
 	protected int h;
@@ -68,7 +66,6 @@ public class GameScreen extends ScrotsScreen {
 	protected boolean should_clear_stage;
 	protected ArrayList<Level> all_levels = new ArrayList<Level>();
 
-	// protected Table slots;
 	protected Table top_table;
 	protected Table corner_table;
 	protected Table side_table;
@@ -81,7 +78,6 @@ public class GameScreen extends ScrotsScreen {
 	protected ArrayList<Image> radial_timers;
 	protected ArrayList<Image> powDots_gray;
 
-	// protected ArrayList<Image> gray_timer_bg;
 	protected TextureRegionDrawable[] trd;
 
 	protected ScrollPane pause_scroll;
@@ -391,11 +387,9 @@ public class GameScreen extends ScrotsScreen {
 		addPowDots();
 		addPowDotsNum();
 		addRadialTimers();
-		addGrayTimerBg();
 		for (int i = 0; i < powDots.size(); i++) {
 			powDots.get(i).setNumLabel(powDot_num.get(i));
 			powDots.get(i).setRadialTimer(radial_timers.get(i));
-			// powDots.get(i).setGrayBg(gray_timer_bg.get(i));
 		}
 
 		ArrayList<Actor> opts = new ArrayList<Actor>();
@@ -487,10 +481,6 @@ public class GameScreen extends ScrotsScreen {
 		powDot_num.add(powDot_1_num);
 		powDot_num.add(powDot_2_num);
 		powDot_num.add(powDot_3_num);
-
-		// for (int i = 0; i < powDots.size(); i++) {
-		// powDots.get(i).setNumLabel(powDot_num.get(i));
-		// }
 	}
 
 	private void addRadialTimers() {
@@ -508,12 +498,6 @@ public class GameScreen extends ScrotsScreen {
 		radial_timers.add(image1);
 		radial_timers.add(image2);
 		radial_timers.add(image3);
-	}
-
-	private void addGrayTimerBg() {
-		// gray_timer_bg = new ArrayList<Image>();
-		// for(int i = 0; i < 3; i++)
-		// gray_timer_bg.add(new Image(Assets.gray_timer_bg));
 	}
 
 	public void setHighScoreName(String name) {
@@ -589,25 +573,9 @@ public class GameScreen extends ScrotsScreen {
 	}
 
 	@Override
-	public void dispose() {
-		// gamemode.dispose();
-	}
-
-	SpriteBatch sprite_batch = new SpriteBatch();
-	TextureRegion tr = new TextureRegion(Assets.question_mark);
-	RadialSprite rs = new RadialSprite(tr);
-
-	@Override
 	public void render(float delta) {
-		if (Assets.prefs.getString("bg_color").equals("Black"))
-			Gdx.gl.glClearColor(0, 0, 0, 0);
-		else
-			Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stage.act(Gdx.graphics.getDeltaTime());
-
-		sprite_batch.begin();
-		sprite_batch.end();
 
 		if (gm.isGameOver()) {
 			gameOver();
@@ -693,20 +661,6 @@ public class GameScreen extends ScrotsScreen {
 
 		if (Assets.prefs.getBoolean("sound_effs", true))
 			Assets.level_clear.play();
-	}
-
-	@Override
-	public void resize(int width, int height) {
-
-	}
-
-	@Override
-	public void pause() {
-	}
-
-	@Override
-	public void resume() {
-
 	}
 
 	@Override

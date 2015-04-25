@@ -19,7 +19,7 @@ public class MainMenuBackgroundGameMode extends GameMode {
 	}
 
 	public Level gen_curr_level() {
-		Level curr_level = all_levels.remove(0);
+//		Level curr_level = all_levels.remove(0);
 		gm.setLevel(curr_level);
 		for (int i = 0; i < curr_level.get_baby_blue_dots().size(); i++) {
 			curr_level.get_baby_blue_dots().get(i).setTouchable(Touchable.disabled);

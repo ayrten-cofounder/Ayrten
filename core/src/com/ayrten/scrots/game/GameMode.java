@@ -1,7 +1,5 @@
 package com.ayrten.scrots.game;
 
-import java.util.ArrayList;
-
 import com.ayrten.scrots.dots.Dot;
 import com.ayrten.scrots.level.Level;
 import com.ayrten.scrots.level.MainMenuBackgroundLevel;
@@ -16,10 +14,10 @@ public class GameMode {
 
 	protected Stage stage;
 	protected Manager gm;
-	protected ArrayList<Level> all_levels = new ArrayList<Level>();
+	protected Level curr_level;
 	protected int w, h;
 	
-	private int levels_generated = 20;
+	private int levels_generated = 1;
 
 	public GameMode(Stage stage, Manager gm, int width,
 			int height) {
@@ -32,48 +30,24 @@ public class GameMode {
 		generate();
 	}
 
-	protected void generate() {
-		if(gm.get_game_mode() == GameMode.MAIN_MENU_BACKGROUND_MODE)
-		{
-			all_levels.add(new MainMenuBackgroundLevel(20, w, h, gm));
-			return;
-		}
-		
-		// Generate the first 20 levels.
-		for (int i = 1; i <= 20; i++) {
-			Level lvl = new Level(i, w, h, gm);
-			all_levels.add(lvl);
-		}
-	}
-	
-	protected void generate(final int level)
+	protected void generate()
 	{
 		new Thread(new Runnable()
 		{
 			   @Override
 			   public void run()
 			   {
-				   Level lvl = new Level(level, w, h, gm);
-				   all_levels.add(lvl);
+				   curr_level = new Level(levels_generated, w, h, gm);
 				   GameMode.this.levels_generated++;
 			   }
 			}).start();
 	}
 	
-	public ArrayList<Level> get_all_levels()
-	{
-		return all_levels;
-	}
-
 	public Level gen_curr_level()
 	{
-		if(all_levels.size() < 10)
-		{
-			generate(levels_generated);
-		}
-		
-		Level curr_level = all_levels.remove(0);
+		generate();
 		gm.setLevel(curr_level);
+		
 		for(int i = 0; i < curr_level.get_baby_blue_dots().size(); i++)
 		{
 			stage.addActor(curr_level.get_baby_blue_dots().get(i));
