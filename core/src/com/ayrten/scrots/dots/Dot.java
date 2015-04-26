@@ -35,12 +35,7 @@ public class Dot extends Actor {
 		random = new Random(System.nanoTime());
 		setBounds(getX(), getY(), dot.getWidth(), dot.getHeight());
 
-		if (gm.get_game_mode() == GameMode.NORMAL_MODE
-				|| gm.get_game_mode() == GameMode.CHALLENGE_MODE) {
-			graphics = new DotGraphics_NormalGameMode(this);
-		} else if (gm.get_game_mode() == GameMode.MAIN_MENU_BACKGROUND_MODE) {
-			graphics = new DotGraphics_MainMenuScreenBackground(this);
-		}
+		graphics = new DotGraphics(this);
 
 		// An InputListener is a subclass of EventListener
 		listener = new InputListener() {
@@ -78,15 +73,6 @@ public class Dot extends Actor {
 
 	public Texture getTexture() {
 		return dot;
-	}
-
-	public void setPosition(float x, float y) {
-		setX(x);
-		setY(y);
-	}
-
-	public void changePosition() {
-		graphics.move();
 	}
 
 	private void dotChange() {

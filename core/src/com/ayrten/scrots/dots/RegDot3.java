@@ -1,6 +1,5 @@
 package com.ayrten.scrots.dots;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 import com.ayrten.scrots.manager.Assets;
@@ -27,31 +26,29 @@ public class RegDot3 extends Dot {
 		Assets.stats_manager.getPlayerStats().reg_dot_3.popped++;
 	}
 
-	private void checkRadius(LinkedList<ArrayList<Dot>> linkedList) {
-		for (ArrayList<Dot> dotList : linkedList) {
-			for (Dot dot : dotList) {
-				if (circle.contains(dot.getX(Align.center) + dot.getWidth(),
-						dot.getY(Align.center))
-						|| circle.contains(dot.getX(Align.center) - dot.getWidth(),
-								dot.getY(Align.center))
-						|| circle.contains(dot.getX(Align.center), dot.getY(Align.center)
-								+ dot.getWidth())
-						|| circle.contains(dot.getX(Align.center), dot.getY(Align.center)
-								- dot.getWidth())
-						|| circle.contains(dot.getX(Align.center) + 1.414f,
-								dot.getY(Align.center) + 1.414f)
-						|| circle.contains(dot.getX(Align.center) - 1.414f,
-								dot.getY(Align.center) + 1.414f)
-						|| circle.contains(dot.getX(Align.center) + 1.414f,
-								dot.getY(Align.center) - 1.414f)
-						|| circle.contains(dot.getX(Align.center) - 1.414f,
-								dot.getY(Align.center) - 1.414f)) {
-					boolean removed = dot.remove();
-					if (dot.getClass() == RegDot1.class && removed)
-					{
-						gm.curr_level.minusGreenDot();
-						Assets.points_manager.addPoints(1);
-					}
+	private void checkRadius(LinkedList<Dot> linkedList) {
+		for (Dot dot : linkedList) {
+			if (circle.contains(dot.getX(Align.center) + dot.getWidth(),
+					dot.getY(Align.center))
+					|| circle.contains(dot.getX(Align.center) - dot.getWidth(),
+							dot.getY(Align.center))
+							|| circle.contains(dot.getX(Align.center), dot.getY(Align.center)
+									+ dot.getWidth())
+									|| circle.contains(dot.getX(Align.center), dot.getY(Align.center)
+											- dot.getWidth())
+											|| circle.contains(dot.getX(Align.center) + 1.414f,
+													dot.getY(Align.center) + 1.414f)
+													|| circle.contains(dot.getX(Align.center) - 1.414f,
+															dot.getY(Align.center) + 1.414f)
+															|| circle.contains(dot.getX(Align.center) + 1.414f,
+																	dot.getY(Align.center) - 1.414f)
+																	|| circle.contains(dot.getX(Align.center) - 1.414f,
+																			dot.getY(Align.center) - 1.414f)) {
+				boolean removed = dot.remove();
+				if (dot.getClass() == RegDot1.class && removed)
+				{
+					gm.curr_level.minusGreenDot();
+					Assets.points_manager.addPoints(1);
 				}
 			}
 		}

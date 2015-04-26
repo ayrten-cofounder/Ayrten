@@ -1,18 +1,12 @@
 package com.ayrten.scrots.screens;
 
-import java.util.ArrayList;
-
 import com.ayrten.scrots.manager.Assets;
-import com.ayrten.scrots.manager.ButtonInterface;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 
 public class ProfileScreen extends ScrotsScreen {
 
 	private Table table;
-	private Label points_label;
 
 	public ProfileScreen(Screen bscreen) {
 		super(bscreen, true);

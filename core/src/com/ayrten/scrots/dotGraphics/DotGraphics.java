@@ -1,7 +1,6 @@
 package com.ayrten.scrots.dotGraphics;
 
 import com.ayrten.scrots.dots.Dot;
-import com.ayrten.scrots.manager.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
@@ -23,6 +22,7 @@ public class DotGraphics {
 
 	public DotGraphics(Dot dot) {
 		this.dot = dot;
+		randSlopeV3();
 	}
 
 	public void move() {
@@ -40,10 +40,10 @@ public class DotGraphics {
 	protected void move_v3() {
 		float x = dot.getX();
 		float y = dot.getY();
-		// float maxX = Gdx.graphics.getWidth();
-		float minX = Assets.width - Assets.game_width;
-		float maxX = Assets.width;
-		float maxY = Assets.game_height;
+		
+		float minX = dot.gm.min_width;
+		float maxX = dot.gm.max_width;
+		float maxY = dot.gm.max_height;
 
 		if (slopeX >= 0f && slopeY >= 0f) {
 			if (slopeX + x + curr_width < maxX
@@ -109,15 +109,15 @@ public class DotGraphics {
 	}
 
 	public void changePosition() {
-		move();
+		move_v3();
 	}
-
+	
 	public void draw(Batch batch, float alpha, boolean magnetized) {
 
 		if (!magnetized) {
 			changePosition();
 		}
-
+		
 		setSize();
 		dot.setBounds(dot.getX(), dot.getY(), curr_width, curr_height);
 		batch.draw(dot.dot, dot.getX(), dot.getY(), curr_width, curr_height);

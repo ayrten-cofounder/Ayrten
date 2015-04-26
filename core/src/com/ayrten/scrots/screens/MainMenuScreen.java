@@ -2,12 +2,11 @@ package com.ayrten.scrots.screens;
 
 import java.util.ArrayList;
 
+
 import com.ayrten.scrots.game.GameMode;
-import com.ayrten.scrots.game.MainMenuBackgroundGameMode;
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.ayrten.scrots.scoreboard.NormalScoreboard;
-import com.ayrten.scrots.scoreboard.Scoreboard;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -162,8 +161,12 @@ public class MainMenuScreen extends ScrotsScreen {
 			}
 		});
 		others.setAlignment(Align.center);
+		
+		LabelStyle gplay_style = new LabelStyle();
+		gplay_style.font = Assets.font_64;
+		gplay_style.fontColor = Color.WHITE;
 
-		gplay_log = new Label("Sign in", style);
+		gplay_log = new Label("Sign in", gplay_style);
 		gplay_log.setWidth(gplay_log.getStyle().font.getBounds("Logout").width);
 		gplay_log.setBounds(gplay_log.getX(), gplay_log.getY(),
 				gplay_log.getWidth(), gplay_log.getHeight());
@@ -175,20 +178,10 @@ public class MainMenuScreen extends ScrotsScreen {
 					Assets.game.apk_intf.gplay_signin();
 			}
 		});
-		gplay_log.setAlignment(Align.center);
-		gplay_log.setPosition(0 + gplay_log.getStyle().font.getSpaceWidth(),
-				Assets.height - gplay_log.getHeight() - top);
-
-		Manager gm = new Manager(0, Gdx.graphics.getWidth(),
-				Gdx.graphics.getHeight(), stage);
-		gm.setMode(GameMode.MAIN_MENU_BACKGROUND_MODE);
-		gm.setScoreboard(new Scoreboard());
-		new MainMenuBackgroundGameMode(stage, gm, Gdx.graphics.getWidth(),
-				Gdx.graphics.getHeight()).gen_curr_level();
-		gm.changeDotSize();
-
+		gplay_log.setAlignment(Align.left);
+		
 		setupStage();
-
+		
 		Table upperTable = new Table(Assets.skin);
 		upperTable.add(scrots);
 
@@ -220,14 +213,22 @@ public class MainMenuScreen extends ScrotsScreen {
 			lowerTable.add(temp).width(cell_width).height(Assets.height / 5);
 		}
 
+		initializeNaviBar();
+		addToNavBar(gplay_log);
+		stage.addActor(navigation_bar);
+		
 		Table main_table = new Table(Assets.skin);
 		main_table.setFillParent(true);
 		main_table.add(upperTable).height(Assets.height / 5 * 3);
 		main_table.row();
 		main_table.add(lowerTable).height(Assets.height / 5 * 2)
 				.width(Assets.width);
-		
-		stage.addActor(gplay_log);
+
+		// For some reason, you can't add the dots first...
+		Manager gm = new Manager(0, 0, Assets.width, 0, navigation_bar.getY(), stage);
+		GameMode mainMenuMode = new GameMode(stage, gm);
+		mainMenuMode.gen_curr_level(15, Touchable.disabled);
+		gm.changeDotSize();
 		stage.addActor(main_table);
 	}
 

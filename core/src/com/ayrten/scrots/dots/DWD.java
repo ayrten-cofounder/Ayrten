@@ -2,7 +2,6 @@ package com.ayrten.scrots.dots;
 
 import java.util.ArrayList;
 
-import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -18,7 +17,7 @@ public class DWD extends Dot
 	{
 		super(dot, gm, pop);
 		
-		generator = new DotGenerator(Assets.width, Assets.game_height, gm);
+		generator = new DotGenerator(gm);
 	}
 
 	@Override

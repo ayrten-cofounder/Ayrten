@@ -58,9 +58,6 @@ public class GameScreen extends ScrotsScreen {
 	protected GameMode gamemode;
 	protected Manager gm;
 
-	protected int w;
-	protected int h;
-
 	protected Level curr_level;
 	protected SpriteBatch batch;
 	protected boolean should_clear_stage;
@@ -78,7 +75,10 @@ public class GameScreen extends ScrotsScreen {
 	protected ArrayList<Image> radial_timers;
 	protected ArrayList<Image> powDots_gray;
 
+	// Used for changing Drawable for menu button.
 	protected TextureRegionDrawable[] trd;
+	
+	protected int game_level = 1;
 
 	protected ScrollPane pause_scroll;
 
@@ -88,8 +88,6 @@ public class GameScreen extends ScrotsScreen {
 		super(null, false);
 		createBackLabelAndInitNavBar();
 
-		w = Gdx.graphics.getWidth();
-		h = Gdx.graphics.getHeight();
 		should_clear_stage = true;
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
@@ -121,11 +119,11 @@ public class GameScreen extends ScrotsScreen {
 			textStyle.fontColor = Color.WHITE;
 		}
 
-		gm = new Manager(0, w, h, stage); // Starts with 0 points
+		gm = new Manager(0, Assets.width - Assets.game_width, Assets.width, 0, Assets.game_height, stage); // Starts with 0 points
 		// if (Assets.prefs.getString("mode").equals("Normal")) {
-		gm.setMode(GameMode.NORMAL_MODE);
+//		gm.setMode(GameMode.NORMAL_MODE);
 		gm.setScoreboard(Assets.game.main_menu.nsb);
-		gamemode = new NormalGameMode(stage, gm, w, h);
+		gamemode = new NormalGameMode(stage, gm);
 		// } else {
 		// gm.setMode(GameMode.CHALLENGE_MODE);
 		// gm.setScoreboard(Assets.game.main_menu.csb);
@@ -256,7 +254,7 @@ public class GameScreen extends ScrotsScreen {
 		// need to put the
 		// pause_scroll at the bottom or else you can't touch the dots.
 		stage.addActor(pause_scroll);
-		curr_level = gamemode.gen_curr_level();
+		curr_level = gamemode.gen_curr_level(game_level);
 		addStageActors();
 		gm.startGame();
 	}
@@ -653,7 +651,8 @@ public class GameScreen extends ScrotsScreen {
 		stage.clear();
 		gm.plusOnePoint();
 		stage.addActor(pause_scroll);
-		curr_level = gamemode.gen_curr_level();
+		game_level++;
+		curr_level = gamemode.gen_curr_level(game_level);
 		addStageActors();
 
 		if (gm.isMagnetState())

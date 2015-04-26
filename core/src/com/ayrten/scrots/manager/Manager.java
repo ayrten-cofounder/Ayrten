@@ -6,8 +6,6 @@
 
 package com.ayrten.scrots.manager;
 
-import java.util.ArrayList;
-
 import com.ayrten.scrots.dots.DWD_PenDot1;
 import com.ayrten.scrots.dots.DWD_PenDot2;
 import com.ayrten.scrots.dots.Dot;
@@ -45,8 +43,12 @@ public class Manager {
 
 	// The score, time, etc. of the game
 	private int score;
+	
+	// Area of game play.
+	public float min_width, max_width;
+	public float min_height, max_height;
 
-	public Manager(int score, int w, int h, Stage stage) {
+	public Manager(int score, float min_w, float max_w, float min_h, float max_h, Stage stage) {
 		this.score = score;
 
 		time = new Time(this);
@@ -56,6 +58,11 @@ public class Manager {
 		slot_width = 0;
 		isRainbowState = false;
 		current_state = game_state.ONGOING;
+		
+		min_width = min_w;
+		max_width = max_w;
+		min_height = min_h;
+		max_height = max_h;
 	}
 	
 	public game_state getGameState()
@@ -159,38 +166,22 @@ public class Manager {
 	}
 
 	public void changeDotVisibility(boolean visible) {		
-		for(ArrayList<Dot> dotList: curr_level.get_all_dots())
-		{
-			for(Dot dot: dotList)
-			{
-				if(!isRainbowState || !isPenDot(dot))
-					dot.setVisible(visible);
-			}
-		}
+		for(Dot dot: curr_level.get_all_dots())
+			if(!isRainbowState || !isPenDot(dot))
+				dot.setVisible(visible);
 	}
 
-	public void changeDotSize() {		
-		for(ArrayList<Dot> dotList: curr_level.get_all_dots())
-		{
-			for(Dot dot: dotList)
-			{
-				dot.resetRatio();
-			}
-		}
+	public void changeDotSize() {
+		if(curr_level == null)
+			System.out.println("CURR LEVEL NULL");
+		for(Dot dot: curr_level.get_all_dots())
+			dot.resetRatio();
 	}
 	
-	public void changePenalityDotVisibility(boolean visible)
-	{
-		for(ArrayList<Dot> dotList: curr_level.get_all_dots())
-		{
-			for(Dot dot: dotList)
-			{
-				if(isPenDot(dot))
-				{
-					dot.setVisible(visible);
-				}
-			}
-		}
+	public void changePenalityDotVisibility(boolean visible) {
+		for(Dot dot: curr_level.get_all_dots())
+			if(isPenDot(dot))
+				dot.setVisible(visible);
 	}
 	
 	private boolean isPenDot(Dot dot)
@@ -210,7 +201,6 @@ public class Manager {
 	}
 
 	public void plusOnePoint() {
-//		int temp = score - 1;
 		if(Assets.gplay_manager.isAchievementLevel(score))
 			Assets.gplay_manager.unlockLevelAchievement(score);
 		score++;
