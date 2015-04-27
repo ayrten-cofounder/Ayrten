@@ -1,6 +1,5 @@
 package com.ayrten.scrots.screens;
 
-
 import com.ayrten.scrots.manager.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -31,11 +30,15 @@ public class LoadingScreen implements Screen {
 							public void run() {
 								stage.dispose();
 								if (true)
-//								if (Assets.game.apk_intf.getAppVersion() != Assets.prefs.getFloat("app_version", 0))
+									// if (Assets.game.apk_intf.getAppVersion()
+									// != Assets.prefs.getFloat("app_version",
+									// 0))
 									loadUpdateScreen();
 								else {
-									Assets.game.setScreen(Assets.game.main_menu);
-									if(Assets.prefs.getBoolean("auto_gplay_signin", true))
+									Assets.game
+											.setScreen(Assets.game.main_menu);
+									if (Assets.prefs.getBoolean(
+											"auto_gplay_signin", true))
 										Assets.game.apk_intf.gplay_signin();
 								}
 							}
@@ -44,41 +47,43 @@ public class LoadingScreen implements Screen {
 		}, 2.5f);
 
 		Label.LabelStyle style = new Label.LabelStyle();
-		style.font = Assets.font_200;
+		style.font = Assets.font_120;
 		style.fontColor = Assets.ORANGE;
 		Label ayrten = new Label("Ayrten", style);
 		ayrten.setPosition(Assets.width / 2, Assets.height / 2, Align.center);
-		
 
 		stage.addActor(ayrten);
 	}
 
 	private void loadUpdateScreen() {
 		int pages = 3;
-		float display_height = Assets.height - Assets.style_font_64_orange.font.getLineHeight();
+		float display_height = Assets.height
+				- Assets.style_font_64_orange.font.getLineHeight();
 
 		Table top_table = new Table(Assets.skin);
-		
+
 		// Make the tutorial Drawables.
-		Image image = new Image(new Texture(Gdx.files.internal("data/update1.png")));
+		Image image = new Image(new Texture(
+				Gdx.files.internal("data/update1.png")));
 		Table page_one = new Table(Assets.skin);
 		page_one.setHeight(display_height);
 		page_one.setWidth(Assets.width);
 		page_one.add(image).width(Assets.width).height(display_height);
-		
+
 		top_table.setWidth(Assets.width * pages);
 		top_table.add(page_one).width(Assets.width).height(display_height);
 		top_table.add("second").width(Assets.width).height(display_height);
 		top_table.add("last").width(Assets.width);
 		top_table.left();
 		// Use the slideshow version of MessageScreen.
-		MessageScreen update_screen = new MessageScreen(top_table, pages){
+		MessageScreen update_screen = new MessageScreen(top_table, pages) {
 			@Override
 			public void transition() {
-				Assets.prefs.putFloat("app_version", Assets.game.apk_intf.getAppVersion());
+				Assets.prefs.putFloat("app_version",
+						Assets.game.apk_intf.getAppVersion());
 				Assets.prefs.flush();
 				Assets.game.setScreen(Assets.game.main_menu);
-				if(Assets.prefs.getBoolean("auto_gplay_signin", true))
+				if (Assets.prefs.getBoolean("auto_gplay_signin", true))
 					Assets.game.apk_intf.gplay_signin();
 			}
 		};
