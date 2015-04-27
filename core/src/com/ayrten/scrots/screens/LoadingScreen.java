@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -29,16 +30,14 @@ public class LoadingScreen implements Screen {
 							@Override
 							public void run() {
 								stage.dispose();
-								if (true)
-									// if (Assets.game.apk_intf.getAppVersion()
-									// != Assets.prefs.getFloat("app_version",
-									// 0))
+
+								if (true) {
+//								if (Assets.game.apk_intf.getAppVersion() != Assets.prefs.getFloat("app_version", 0))
 									loadUpdateScreen();
-								else {
-									Assets.game
-											.setScreen(Assets.game.main_menu);
-									if (Assets.prefs.getBoolean(
-											"auto_gplay_signin", true))
+								} else {
+									Assets.game.main_menu.setActorsTouchable(Touchable.disabled);
+									Assets.game.setScreen(Assets.game.main_menu);
+									if(Assets.prefs.getBoolean("auto_gplay_signin", true))
 										Assets.game.apk_intf.gplay_signin();
 								}
 							}
@@ -51,7 +50,6 @@ public class LoadingScreen implements Screen {
 		style.fontColor = Assets.ORANGE;
 		Label ayrten = new Label("Ayrten", style);
 		ayrten.setPosition(Assets.width / 2, Assets.height / 2, Align.center);
-
 		stage.addActor(ayrten);
 	}
 
@@ -92,12 +90,7 @@ public class LoadingScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		if (Assets.prefs.getString("bg_color").equals("Black"))
-			Gdx.gl.glClearColor(0, 0, 0, 0);
-		else
-			Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
 	}
@@ -115,6 +108,10 @@ public class LoadingScreen implements Screen {
 	@Override
 	public void show() {
 		Assets.game.apk_intf.setGPlayManager(Assets.gplay_manager);
+		if (Assets.prefs.getString("bg_color").equals("Black"))
+			Gdx.gl.glClearColor(0, 0, 0, 0);
+		else
+			Gdx.gl.glClearColor(1, 1, 1, 1);
 		stage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(1f),
 				Actions.run(new Runnable() {
 					@Override

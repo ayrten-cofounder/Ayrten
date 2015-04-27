@@ -32,7 +32,7 @@ public class CreditsScreen extends ScrotsScreen {
 
 		Label createdNames = new Label("", Assets.style_font_32_white);
 		createdNames.setWrap(true);
-		createdNames.setText("Andy Yeung and Tony Doan");
+		createdNames.setText("Andy Yeung, Tony Doan, and Hai Huynhlam");
 
 		Label thanks = new Label("", Assets.style_font_32_white);
 		thanks.setWrap(true);

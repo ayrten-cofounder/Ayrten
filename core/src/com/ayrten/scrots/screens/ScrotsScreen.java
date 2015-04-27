@@ -108,21 +108,24 @@ public class ScrotsScreen implements Screen {
 			}
 		});
 
+		initializeNaviBar();
+		addToNavBar(back);
+	}
+	
+	public void initializeNaviBar() {
 		// Init Nav Bar
 		navigation_bar = new Table();
 		// navagation_bar.setSize(Assets.width - Assets.PAD, back.getHeight());
 		// navagation_bar.setPosition(Assets.PAD / 2, Assets.height
 		// - navagation_bar.getHeight() - (Assets.PAD / 2));
-
-		navigation_bar.setSize(Assets.width, back.getHeight());
+		
+		navigation_bar.setSize(Assets.width, Assets.font_64.getLineHeight());
 		navigation_bar.setPosition(Assets.PAD * 2 / 2, Assets.height
 				- navigation_bar.getHeight() - (Assets.PAD / 2));
 
 		navigation_bar.setSkin(Assets.skin);
 		navigation_bar.setBackground(Assets.rounded_rectangle_blue);
 		navigation_bar.align(Align.left);
-
-		addToNavBar(back);
 	}
 
 	public void createTableScreen() {

@@ -6,16 +6,6 @@ public class DotGraphics_NormalGameMode extends DotGraphics {
 
 	public DotGraphics_NormalGameMode(Dot dot) {
 		super(dot);
-		
-		randSlopeV3();
-//		if(dot.gm.get_player_score() >= 6 && dot.gm.get_player_score() < 9)
-//		{
-//			randSlopeV2();
-//		}
-//		else if(dot.gm.get_player_score() >= 9)
-//		{
-//			randSlopeV3();
-//		}
 	}
 
 	@Override

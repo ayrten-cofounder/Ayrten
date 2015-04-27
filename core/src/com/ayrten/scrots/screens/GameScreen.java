@@ -16,6 +16,8 @@ import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -32,6 +34,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Timer;
@@ -49,23 +52,17 @@ public class GameScreen extends ScrotsScreen {
 	protected Label time;
 	protected Label time_end;
 
-	// protected Label points_title;
 	protected Label points;
 	protected Table points_table;
 
 	protected GameMode gamemode;
 	protected Manager gm;
-	protected Stage stage;
-
-	protected int w;
-	protected int h;
 
 	protected Level curr_level;
 	protected SpriteBatch batch;
 	protected boolean should_clear_stage;
 	protected ArrayList<Level> all_levels = new ArrayList<Level>();
 
-	// protected Table slots;
 	protected Table top_table;
 	protected Table corner_table;
 	protected Table side_table;
@@ -78,8 +75,10 @@ public class GameScreen extends ScrotsScreen {
 	protected ArrayList<Image> radial_timers;
 	protected ArrayList<Image> powDots_gray;
 
-	// protected ArrayList<Image> gray_timer_bg;
+	// Used for changing Drawable for menu button.
 	protected TextureRegionDrawable[] trd;
+	
+	protected int game_level = 1;
 
 	protected ScrollPane pause_scroll;
 
@@ -89,8 +88,6 @@ public class GameScreen extends ScrotsScreen {
 		super(null, false);
 		createBackLabelAndInitNavBar();
 
-		w = Gdx.graphics.getWidth();
-		h = Gdx.graphics.getHeight();
 		should_clear_stage = true;
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
@@ -122,11 +119,11 @@ public class GameScreen extends ScrotsScreen {
 			textStyle.fontColor = Color.WHITE;
 		}
 
-		gm = new Manager(0, w, h, stage); // Starts with 0 points
+		gm = new Manager(0, Assets.width - Assets.game_width, Assets.width, 0, Assets.game_height, stage); // Starts with 0 points
 		// if (Assets.prefs.getString("mode").equals("Normal")) {
 		gm.setMode(GameMode.NORMAL_MODE);
 		gm.setScoreboard(Assets.game.main_menu.nsb);
-		gamemode = new NormalGameMode(stage, gm, w, h);
+		gamemode = new NormalGameMode(stage, gm);
 		// } else {
 		// gm.setMode(GameMode.CHALLENGE_MODE);
 		// gm.setScoreboard(Assets.game.main_menu.csb);
@@ -183,10 +180,20 @@ public class GameScreen extends ScrotsScreen {
 				.height(corner_table.getHeight())
 				.width(corner_table.getWidth());
 
+		int points_top = (int) (Assets.height * 0.02);
+		int points_bottom = points_top;
+		int points_left = (int) (Assets.width * 0.015);
+		int points_right = points_left;
+
 		Label points_title = new Label("Pts", Assets.style_font_32_white);
+		points_title.setAlignment(Align.right);
+		NinePatchDrawable rounded_rectangle_blue_small = new NinePatchDrawable(
+				new NinePatch(new Texture(Gdx.files
+						.internal("data/rounded_rectangle_blue_small.png")),
+						points_top, points_bottom, points_left, points_right));
 
 		points_table = new Table(Assets.skin);
-		points_table.setBackground(Assets.rounded_rectangle_blue_small);
+		points_table.setBackground(rounded_rectangle_blue_small);
 		points_table
 				.setWidth(points.getStyle().font.getBounds("999999999+").width
 						+ points_title.getWidth() + corner_table.getWidth()
@@ -247,7 +254,7 @@ public class GameScreen extends ScrotsScreen {
 		// need to put the
 		// pause_scroll at the bottom or else you can't touch the dots.
 		stage.addActor(pause_scroll);
-		curr_level = gamemode.gen_curr_level();
+		curr_level = gamemode.gen_curr_level(game_level);
 		addStageActors();
 		gm.startGame();
 	}
@@ -379,11 +386,9 @@ public class GameScreen extends ScrotsScreen {
 		addPowDots();
 		addPowDotsNum();
 		addRadialTimers();
-		addGrayTimerBg();
 		for (int i = 0; i < powDots.size(); i++) {
 			powDots.get(i).setNumLabel(powDot_num.get(i));
 			powDots.get(i).setRadialTimer(radial_timers.get(i));
-			// powDots.get(i).setGrayBg(gray_timer_bg.get(i));
 		}
 
 		ArrayList<Actor> opts = new ArrayList<Actor>();
@@ -475,10 +480,6 @@ public class GameScreen extends ScrotsScreen {
 		powDot_num.add(powDot_1_num);
 		powDot_num.add(powDot_2_num);
 		powDot_num.add(powDot_3_num);
-
-		// for (int i = 0; i < powDots.size(); i++) {
-		// powDots.get(i).setNumLabel(powDot_num.get(i));
-		// }
 	}
 
 	private void addRadialTimers() {
@@ -496,12 +497,6 @@ public class GameScreen extends ScrotsScreen {
 		radial_timers.add(image1);
 		radial_timers.add(image2);
 		radial_timers.add(image3);
-	}
-
-	private void addGrayTimerBg() {
-		// gray_timer_bg = new ArrayList<Image>();
-		// for(int i = 0; i < 3; i++)
-		// gray_timer_bg.add(new Image(Assets.gray_timer_bg));
 	}
 
 	public void setHighScoreName(String name) {
@@ -577,25 +572,9 @@ public class GameScreen extends ScrotsScreen {
 	}
 
 	@Override
-	public void dispose() {
-		// gamemode.dispose();
-	}
-
-	SpriteBatch sprite_batch = new SpriteBatch();
-	TextureRegion tr = new TextureRegion(Assets.question_mark);
-	RadialSprite rs = new RadialSprite(tr);
-
-	@Override
 	public void render(float delta) {
-		if (Assets.prefs.getString("bg_color").equals("Black"))
-			Gdx.gl.glClearColor(0, 0, 0, 0);
-		else
-			Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stage.act(Gdx.graphics.getDeltaTime());
-
-		sprite_batch.begin();
-		sprite_batch.end();
 
 		if (gm.isGameOver()) {
 			gameOver();
@@ -673,37 +652,19 @@ public class GameScreen extends ScrotsScreen {
 		stage.clear();
 		gm.plusOnePoint();
 		stage.addActor(pause_scroll);
-		curr_level = gamemode.gen_curr_level();
+		game_level++;
+		curr_level = gamemode.gen_curr_level(game_level);
 		addStageActors();
 
 		if (gm.isMagnetState())
 			magnet.magnet();
 
-		Assets.level_clear.play();
-	}
-
-	@Override
-	public void resize(int width, int height) {
-
-	}
-
-	@Override
-	public void pause() {
-	}
-
-	@Override
-	public void resume() {
-
+		if (Assets.prefs.getBoolean("sound_effs", true))
+			Assets.level_clear.play();
 	}
 
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
-	}
-
-	@Override
-	public void hide() {
-		super.hide();
-		Assets.game.main_menu.options_screen.enableNonGameOptions(true);
 	}
 }

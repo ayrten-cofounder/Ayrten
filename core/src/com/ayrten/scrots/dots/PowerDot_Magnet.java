@@ -1,6 +1,5 @@
 package com.ayrten.scrots.dots;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 import com.ayrten.scrots.manager.Assets;
@@ -24,7 +23,7 @@ public class PowerDot_Magnet extends PowerDot {
 
 		ACTIVE_TIME = 8;
 		num = Assets.power_dot_manager.getMagnetDots();
-		generator = new DotGenerator(Assets.width, Assets.game_height, gm);
+		generator = new DotGenerator(gm);
 	}
 
 	@Override
@@ -55,36 +54,32 @@ public class PowerDot_Magnet extends PowerDot {
 		checkRadius(gm.curr_level.get_all_dots());
 	}
 
-	private void checkRadius(LinkedList<ArrayList<Dot>> linkedList) {
-		for (ArrayList<Dot> dotList : linkedList) {
-			for (Dot dot : dotList) {
-				if (dot.magneted) {
-					dot.setPosition(getX(), getY());
-				}
-
-				if (dot.getClass() == PenDot1.class
-						|| dot.getClass() == PenDot2.class
-						|| dot.getClass() == DWD_PenDot1.class
-						|| dot.getClass() == DWD_PenDot2.class) {
-
-					dot.addAction(Actions.moveTo(magnet.getX(), magnet.getY(),
-							DURATION, Interpolation.circleIn));
-					dot.magneted = true;
-				}
-
+	private void checkRadius(LinkedList<Dot> linkedList) {
+		for (Dot dot : linkedList) {
+			if (dot.magneted) {
+				dot.setPosition(getX(), getY());
 			}
+
+			if (dot.getClass() == PenDot1.class
+					|| dot.getClass() == PenDot2.class
+					|| dot.getClass() == DWD_PenDot1.class
+					|| dot.getClass() == DWD_PenDot2.class) {
+
+				dot.addAction(Actions.moveTo(magnet.getX(), magnet.getY(),
+						DURATION, Interpolation.circleIn));
+				dot.magneted = true;
+			}
+
 		}
 	}
 
 	private void unmagnet() {
-		for (ArrayList<Dot> dotList : gm.curr_level.get_all_dots()) {
-			for (Dot dot : dotList) {
-				if (dot.getClass() == PenDot1.class
-						|| dot.getClass() == PenDot2.class
-						|| dot.getClass() == DWD_PenDot1.class
-						|| dot.getClass() == DWD_PenDot2.class) {
-					dot.magneted = false;
-				}
+		for (Dot dot : gm.curr_level.get_all_dots()) {
+			if (dot.getClass() == PenDot1.class
+					|| dot.getClass() == PenDot2.class
+					|| dot.getClass() == DWD_PenDot1.class
+					|| dot.getClass() == DWD_PenDot2.class) {
+				dot.magneted = false;
 			}
 		}
 	}

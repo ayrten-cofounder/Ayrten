@@ -2,28 +2,14 @@ package com.ayrten.scrots.dots;
 
 import java.util.Random;
 
-import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 
 public class DotGenerator {
 	private Random random = new Random();
-	// private Sound pop;
-
-	// Width and height of the game window
-	private float height;
-	private float width;
-
 	private Manager gm;
 
-	public DotGenerator(int width, float game_height, Manager gm) {
-		if (gm.get_game_mode() == GameMode.MAIN_MENU_BACKGROUND_MODE) {
-			this.height = game_height;
-			this.width = width;
-		} else {
-			this.height = Assets.game_height;
-			this.width = Assets.game_width;
-		}
+	public DotGenerator(Manager gm) {
 		this.gm = gm;
 	}
 
@@ -106,24 +92,12 @@ public class DotGenerator {
 	}
 
 	public void setRandPositions(Dot target) {
-		int range = (int) (width - target.getWidth());
-		int w = random.nextInt(range);
-		if (gm.get_game_mode() != GameMode.MAIN_MENU_BACKGROUND_MODE)
-			w += Assets.width - width;
-		float h = random.nextFloat() * Assets.game_height;
+		float range = gm.max_width - target.getWidth() - gm.min_width;
+		float x = gm.min_width + random.nextFloat() * range;
+		
+		range = gm.max_height - target.getHeight() - gm.min_height;
+		float y = gm.min_height + random.nextFloat() * range;
 
-		if (w == 0) {
-			w += target.getTexture().getWidth();
-		} else if (w + target.getTexture().getWidth() > width) {
-			w = (int) (width - target.getTexture().getWidth());
-		}
-
-		if (h == 0) {
-			h += target.getTexture().getWidth();
-		} else if (h + target.getTexture().getHeight() > height) {
-			h = height - target.getTexture().getHeight();
-		}
-
-		target.setPosition(w, h);
+		target.setPosition(x, y);
 	}
 }
