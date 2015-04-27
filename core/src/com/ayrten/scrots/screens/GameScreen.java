@@ -121,7 +121,7 @@ public class GameScreen extends ScrotsScreen {
 
 		gm = new Manager(0, Assets.width - Assets.game_width, Assets.width, 0, Assets.game_height, stage); // Starts with 0 points
 		// if (Assets.prefs.getString("mode").equals("Normal")) {
-//		gm.setMode(GameMode.NORMAL_MODE);
+		gm.setMode(GameMode.NORMAL_MODE);
 		gm.setScoreboard(Assets.game.main_menu.nsb);
 		gamemode = new NormalGameMode(stage, gm);
 		// } else {
