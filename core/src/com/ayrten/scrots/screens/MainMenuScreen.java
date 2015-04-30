@@ -58,11 +58,21 @@ public class MainMenuScreen extends ScrotsScreen {
 
 		LabelStyle title_style = new LabelStyle();
 		title_style.font = Assets.font_200;
-		title_style.fontColor = Color.valueOf("9f38ff");
+		// title_style.fontColor = Color.valueOf("9f38ff");
+		title_style.fontColor = Color.valueOf("0099cc");
+		 title_style.fontColor = Color.GRAY;
 		Label scrots = new Label("Scrots", title_style);
 		scrots.setPosition(Assets.width / 2, Assets.height / 3 * 2,
 				Align.center);
 		scrots.setAlignment(Align.center);
+
+		LabelStyle title_style2 = new LabelStyle();
+		title_style2.font = Assets.font_200;
+		title_style2.fontColor = Color.GRAY;
+		Label scrots2 = new Label("Scrots", title_style2);
+		scrots2.setPosition((Assets.width / 2) - 50, Assets.height / 3 * 2,
+				Align.center);
+		scrots2.setAlignment(Align.center);
 
 		LabelStyle style = new LabelStyle();
 		style.font = Assets.font_64;
@@ -172,7 +182,7 @@ public class MainMenuScreen extends ScrotsScreen {
 				gplay_log.getWidth(), gplay_log.getHeight());
 		gplay_log.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
-				if (Assets.game.apk_intf.is_gplay_signedin()) 
+				if (Assets.game.apk_intf.is_gplay_signedin())
 					Assets.game.apk_intf.gplay_logout();
 				else
 					Assets.game.apk_intf.gplay_signin();
@@ -183,7 +193,8 @@ public class MainMenuScreen extends ScrotsScreen {
 		setupStage();
 		
 		Table upperTable = new Table(Assets.skin);
-		upperTable.add(scrots);
+		upperTable.stack(scrots2, scrots);
+//		upperTable.add(scrots);
 
 		ArrayList<Actor> lowerTableActors = new ArrayList<Actor>();
 		lowerTableActors.add(shop);
@@ -223,6 +234,8 @@ public class MainMenuScreen extends ScrotsScreen {
 		main_table.row();
 		main_table.add(lowerTable).height(Assets.height / 5 * 2)
 				.width(Assets.width);
+
+		stage.addActor(gplay_log);
 
 		// For some reason, you can't add the dots first...
 		Manager gm = new Manager(0, 0, Assets.width, 0, navigation_bar.getY(), stage);

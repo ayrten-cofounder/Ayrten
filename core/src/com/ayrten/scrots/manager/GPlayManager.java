@@ -9,7 +9,6 @@ public class GPlayManager {
 	private final String DOT_REGEXP = "popped_%d_dots";
 	private final String CHECKLIST_NAME = "gplay_achievement_checklist";
 
-	private int dot_count;
 
 	// Achievement types.
 	private HashMap<Integer, String> level_achievements;
@@ -22,7 +21,6 @@ public class GPlayManager {
 	private HashMap<String, Integer> achievement_points;
 
 	public GPlayManager() {
-		dot_count = 0;
 		
 		initializeHashMaps();
 
@@ -118,9 +116,6 @@ public class GPlayManager {
 	}
 
 	public void increment_dot_count() {
-		dot_count++;
-		if (isDotAchievement(dot_count))
-			unlockDotAchievement(dot_count);
 	}
 
 	public void dispose() {

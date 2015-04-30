@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.ButtonInterface;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -14,9 +18,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class MessageScreen extends ScrotsScreen {
 	protected Image background_overlay;
@@ -54,8 +60,36 @@ public class MessageScreen extends ScrotsScreen {
 		final ScrollPane message_scroll = new ScrollPane(top_table);
 		message_scroll.setFlickScroll(false);
 
-		final Label next = new Label("Next", Assets.style_font_64_orange);
-		final Label previous = new Label("Prev", Assets.style_font_64_orange);
+		LabelStyle green_style = new LabelStyle();
+		green_style.font = Assets.font_32;
+		green_style.fontColor = Color.WHITE;
+		
+		int left = (int) ((int) Assets.width * 0.02);
+		int right = left;
+		int top = (int) ((int) Assets.height * 0.02);
+		int bottom = top;
+		
+		NinePatchDrawable rounded_rectangle_green = new NinePatchDrawable(
+				new NinePatch(new Texture(Gdx.files
+						.internal("data/rounded_rectangle_green.png")), left,
+						right, top, bottom));
+		
+		green_style.background = rounded_rectangle_green;
+		
+		LabelStyle orange_style = new LabelStyle();
+		orange_style.font = Assets.font_32;
+		orange_style.fontColor = Color.WHITE;
+		
+		NinePatchDrawable rounded_rectangle_orange = new NinePatchDrawable(
+				new NinePatch(new Texture(Gdx.files
+						.internal("data/rounded_rectangle_pale_orange.png")), left,
+						right, top, bottom));
+		
+		green_style.background = rounded_rectangle_green;
+		orange_style.background = rounded_rectangle_orange;
+		
+		final Label next = new Label("Next", green_style);
+		final Label previous = new Label("Prev", orange_style);
 		
 		next.setBounds(next.getX(), next.getY(), next.getWidth(),
 				next.getHeight());
@@ -82,6 +116,9 @@ public class MessageScreen extends ScrotsScreen {
 					transition();
 					
 				}
+				if (message_scroll.getScrollX() >= Assets.width){
+					previous.setVisible(true);
+				}
 			}
 		});
 
@@ -100,6 +137,9 @@ public class MessageScreen extends ScrotsScreen {
 							- Assets.width, 0, message_scroll.getWidth(),
 							message_scroll.getHeight());
 				}
+				if (message_scroll.getScrollX() == 0){
+					previous.setVisible(false);
+				}
 			}
 		});
 
@@ -107,7 +147,7 @@ public class MessageScreen extends ScrotsScreen {
 		table.setFillParent(true);
 
 		table.add(message_scroll).height(
-				Assets.height - next.getStyle().font.getLineHeight());
+				Assets.height - next.getHeight() - bottom);
 		table.row();
 		
 		Table bottom_table = new Table(Assets.skin);
@@ -124,6 +164,8 @@ public class MessageScreen extends ScrotsScreen {
 		table.add(bottom_table);
 		top_table.debug();
 		table.debug();
+		
+		previous.setVisible(false);
 
 		stage.addActor(table);
 	}

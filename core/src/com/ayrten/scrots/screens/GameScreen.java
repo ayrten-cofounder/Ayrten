@@ -285,6 +285,7 @@ public class GameScreen extends ScrotsScreen {
 	}
 
 	private void main_menu() {
+		Assets.stats_manager.writePlayerStatsToFile();
 		Assets.game.main_menu.game_screen.dispose();
 		Assets.playMenuBGM();
 		Assets.game.setScreen(Assets.game.main_menu);

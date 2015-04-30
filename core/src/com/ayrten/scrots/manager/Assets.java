@@ -64,7 +64,9 @@ public class Assets {
 	public static NinePatchDrawable rounded_rectangle_border_dark_gray;
 
 	// Fonts
+	public static BitmapFont font_220;
 	public static BitmapFont font_200;
+	public static BitmapFont font_120;
 	public static BitmapFont font_64;
 	public static BitmapFont font_32;
 	public static BitmapFont font_16;
@@ -169,7 +171,9 @@ public class Assets {
 		float font_ratio = Gdx.graphics.getWidth() / ref_width;
 
 		// Fonts
+		font_220 = generate_BitMapFont(220, font_ratio);
 		font_200 = generate_BitMapFont(200, font_ratio);
+		font_120 = generate_BitMapFont(120, font_ratio);
 		font_64 = generate_BitMapFont(64, font_ratio);
 		font_32 = generate_BitMapFont(32, font_ratio);
 		font_16 = generate_BitMapFont(16, font_ratio);
