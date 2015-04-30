@@ -115,6 +115,8 @@ public class MessageScreen extends ScrotsScreen {
 					message_scroll.setTouchable(Touchable.disabled);
 					transition();
 					
+					if(Assets.prefs.getBoolean("sound_effs"))
+						Assets.button_pop.play();
 				}
 				if (message_scroll.getScrollX() >= Assets.width){
 					previous.setVisible(true);
