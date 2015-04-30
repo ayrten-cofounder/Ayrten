@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class ContactScreen extends ScrotsScreen {
@@ -102,13 +103,9 @@ public class ContactScreen extends ScrotsScreen {
 			count++;
 		}
 
-		Table contacts_table = new Table();
-		contacts_table.setSkin(Assets.skin);
+		Table contacts_table = new Table(Assets.skin);
 		contacts_table.setWidth(width);
 
-		contacts_table.row();
-		contacts_table.add().height(back.getStyle().font.getLineHeight() / 2);
-		contacts_table.row();
 		contacts_table.add(msg).width(width).padLeft(Assets.PAD);
 		contacts_table.row();
 		contacts_table.add().height(back.getStyle().font.getLineHeight() / 2);
@@ -116,7 +113,7 @@ public class ContactScreen extends ScrotsScreen {
 		contacts_table.add(generalTable).width(width).padLeft(Assets.PAD)
 				.left();
 		contacts_table.row();
-		contacts_table.add().height(Assets.PAD);
+		contacts_table.add().height(back.getStyle().font.getLineHeight() / 2);
 		contacts_table.row();
 		contacts_table.add(social_media).width(width);
 

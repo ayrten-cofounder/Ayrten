@@ -63,10 +63,9 @@ public class Dot extends Actor {
 
 	// This class shall be overriddent by the real dots
 	public void touchedByAnAngel() {
-		if (Assets.prefs.getBoolean("sound_effs", true)) {
+		if (Assets.prefs.getBoolean("sound_effs", true))
 			pop.play();
-			Assets.gplay_manager.increment_dot_count();
-		}
+		Assets.gplay_manager.increment_dot_count();
 	}
 
 	public void setTexture(Texture dot) {
