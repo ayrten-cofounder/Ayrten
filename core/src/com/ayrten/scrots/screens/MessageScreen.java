@@ -148,6 +148,7 @@ public class MessageScreen extends ScrotsScreen {
 
 		table = new Table(Assets.skin);
 		table.setFillParent(true);
+		table.setBackground(Assets.red_backgroud);
 
 		table.add(message_scroll).height(
 				Assets.height - next.getHeight() - bottom);

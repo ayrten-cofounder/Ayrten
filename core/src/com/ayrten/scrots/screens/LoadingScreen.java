@@ -31,10 +31,9 @@ public class LoadingScreen implements Screen {
 							public void run() {
 								stage.dispose();
 
-								if (true) {
-//								if (Assets.game.apk_intf.getAppVersion() != Assets.prefs.getFloat("app_version", 0))
+								if (Assets.game.apk_intf.getAppVersion() != Assets.prefs.getFloat("app_version", 0))
 									loadUpdateScreen();
-								} else {
+								else {
 									Assets.game.main_menu.setActorsTouchable(Touchable.disabled);
 									Assets.game.setScreen(Assets.game.main_menu);
 									if(Assets.prefs.getBoolean("auto_gplay_signin", true))

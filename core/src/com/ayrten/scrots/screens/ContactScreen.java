@@ -14,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class ContactScreen extends ScrotsScreen {
@@ -80,6 +79,7 @@ public class ContactScreen extends ScrotsScreen {
 		int count = 0;
 		Iterator<?> it = icon_list.entrySet().iterator();
 		while (it.hasNext()) {
+			@SuppressWarnings("unchecked")
 			final Map.Entry<String, String> pair = (Map.Entry<String, String>) it
 					.next();
 			Texture imageTexture = new Texture(
