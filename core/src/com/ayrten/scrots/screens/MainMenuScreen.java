@@ -60,7 +60,7 @@ public class MainMenuScreen extends ScrotsScreen {
 		title_style.font = Assets.font_200;
 		// title_style.fontColor = Color.valueOf("9f38ff");
 		title_style.fontColor = Color.valueOf("0099cc");
-		// title_style.fontColor = Color.GRAY;
+		 title_style.fontColor = Color.GRAY;
 		Label scrots = new Label("Scrots", title_style);
 		scrots.setPosition(Assets.width / 2, Assets.height / 3 * 2,
 				Align.center);

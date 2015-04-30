@@ -30,9 +30,22 @@ public class CreditsScreen extends ScrotsScreen {
 		created.setWidth(Assets.style_font_32_white.font
 				.getBounds("Created by").width);
 
-		Label createdNames = new Label("", Assets.style_font_32_white);
-		createdNames.setWrap(true);
-		createdNames.setText("Andy Yeung, Tony Doan, and Hai Huynhlam");
+		ArrayList<String> created_list = new ArrayList<String>();
+		created_list.add("Andy Yeung");
+		created_list.add("Hai Huynhlam");
+		created_list.add("Tony Doan");
+
+		Table created_table = new Table(Assets.skin);
+		created_table.left();
+		for (int i = 0; i < created_list.size(); i++) {
+			Label thank_person = new Label(created_list.get(i),
+					Assets.style_font_32_white);
+			thank_person.setWrap(true);
+			thank_person.setWidth(Assets.style_font_32_white.font
+					.getBounds(created_list.get(i)).width);
+			created_table.row();
+			created_table.add(thank_person);
+		}
 
 		Label thanks = new Label("", Assets.style_font_32_white);
 		thanks.setWrap(true);
@@ -126,7 +139,7 @@ public class CreditsScreen extends ScrotsScreen {
 		upperTable.add(created).left().top()
 				.padLeft(Gdx.graphics.getWidth() / 2 - created.getWidth())
 				.width(created.getWidth());
-		upperTable.add(createdNames).left().padLeft(back.getWidth() / 5)
+		upperTable.add(created_table).left().padLeft(back.getWidth() / 5)
 				.width(Gdx.graphics.getWidth() / 2 - back.getWidth() / 5 * 2);
 		upperTable.row();
 		upperTable.add("").height(back.getStyle().font.getLineHeight());
@@ -161,7 +174,6 @@ public class CreditsScreen extends ScrotsScreen {
 
 		Table tempt = new Table(Assets.skin);
 		tempt.left().top();
-		tempt.padLeft(back.getWidth() / 5).padRight(back.getWidth() / 5);
 
 		tempt.add(upperTable);
 		tempt.row();
@@ -172,6 +184,9 @@ public class CreditsScreen extends ScrotsScreen {
 		ScrollPane scroll_view = new ScrollPane(tempt);
 		scroll_view.setScrollingDisabled(true, false);
 
+		upperTable.debug();
+		bottomTable.debug();
+		table.debug();
 		table.add(scroll_view);
 	}
 }
