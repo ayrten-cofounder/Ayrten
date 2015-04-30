@@ -92,8 +92,7 @@ public class CreditsScreen extends ScrotsScreen {
 
 		Label misc = new Label("", Assets.style_font_32_white);
 		misc.setWrap(true);
-		misc.setText("Assets are used according to terms described in the Creative Commons 3.0 Attribution"
-				+ " License. Giving credit and thanks to the following:");
+		misc.setText("Assets are used according to terms described in the Creative Commons 3.0 Attribution License. Giving credit and thanks to the following:");
 		misc.setBounds(misc.getX(), misc.getY(), misc.getWidth(),
 				misc.getHeight());
 
@@ -137,7 +136,7 @@ public class CreditsScreen extends ScrotsScreen {
 		upperTable.add(version).left().top();
 		upperTable.row();
 		upperTable.add(created).left().top()
-				.padLeft(Gdx.graphics.getWidth() / 2 - created.getWidth())
+				.padLeft(Gdx.graphics.getWidth() / 3 - created.getWidth())
 				.width(created.getWidth());
 		upperTable.add(created_table).left().padLeft(back.getWidth() / 5)
 				.width(Gdx.graphics.getWidth() / 2 - back.getWidth() / 5 * 2);
@@ -145,32 +144,34 @@ public class CreditsScreen extends ScrotsScreen {
 		upperTable.add("").height(back.getStyle().font.getLineHeight());
 		upperTable.row();
 		upperTable.add(thanks).left().top()
-				.padLeft(Gdx.graphics.getWidth() / 2 - thanks.getWidth());
+				.padLeft(Gdx.graphics.getWidth() / 3 - thanks.getWidth());
 		upperTable.add(thanks_table).left().padLeft(back.getWidth() / 5)
 				.width(Gdx.graphics.getWidth() / 2 - back.getWidth() / 5 * 2);
 		upperTable.row();
 		upperTable.add("").height(back.getStyle().font.getLineHeight());
 		upperTable.row();
 		upperTable.add(publish).left().top()
-				.padLeft(Gdx.graphics.getWidth() / 2 - publish.getWidth());
+				.padLeft(Gdx.graphics.getWidth() / 3 - publish.getWidth());
 		upperTable.add(publishName).left().padLeft(back.getWidth() / 5)
 				.width(Gdx.graphics.getWidth() / 2 - back.getWidth() / 5);
 
 		Table bottomTable = new Table(Assets.skin);
 		bottomTable.left().top();
 		bottomTable.add(misc).left()
-				.width(Gdx.graphics.getWidth() - back.getWidth() / 5);
+				.width(Assets.width - (Assets.PAD * 2) - (Assets.PAD * 3));
 		bottomTable.row();
 		bottomTable.add(miscMem0).left()
-				.width(Gdx.graphics.getWidth() - back.getWidth() / 5 * 2);
+				.width(Assets.width - (Assets.PAD * 2) - (Assets.PAD * 3));
 		bottomTable.row();
 		bottomTable.add(miscMem1).left()
-				.width(Gdx.graphics.getWidth() - back.getWidth() / 5 * 2);
+				.width(Assets.width - (Assets.PAD * 2) - (Assets.PAD * 3));
 		bottomTable.row();
 		bottomTable.add(miscMem2).left()
-				.width(Gdx.graphics.getWidth() - back.getWidth() / 5 * 2);
+				.width(Assets.width - (Assets.PAD * 2) - (Assets.PAD * 3));
 		bottomTable.row();
 		bottomTable.add("").height(back.getStyle().font.getLineHeight());
+		bottomTable.layout();
+		bottomTable.layout();
 
 		Table tempt = new Table(Assets.skin);
 		tempt.left().top();
@@ -179,14 +180,11 @@ public class CreditsScreen extends ScrotsScreen {
 		tempt.row();
 		tempt.add("").height(back.getStyle().font.getLineHeight());
 		tempt.row();
-		tempt.add(bottomTable);
+		tempt.add(bottomTable).left().width(Assets.width - (Assets.PAD * 3));
 
 		ScrollPane scroll_view = new ScrollPane(tempt);
 		scroll_view.setScrollingDisabled(true, false);
 
-		upperTable.debug();
-		bottomTable.debug();
-		table.debug();
 		table.add(scroll_view);
 	}
 }

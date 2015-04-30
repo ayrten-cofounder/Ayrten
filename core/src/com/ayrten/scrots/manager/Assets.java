@@ -53,6 +53,7 @@ public class Assets {
 	// Drawables
 	public static NinePatchDrawable gray_box;
 	public static NinePatchDrawable transparent_box;
+	public static NinePatchDrawable red_backgroud;
 
 	public static NinePatchDrawable rounded_rectangle_dark_gray;
 	public static NinePatchDrawable rounded_rectangle_gray;
@@ -205,6 +206,8 @@ public class Assets {
 				Gdx.files.internal("data/gray_box.9.png"))));
 		transparent_box = new NinePatchDrawable(new NinePatch(new Texture(
 				Gdx.files.internal("data/transparent_box.9.png"))));
+		red_backgroud = new NinePatchDrawable(new NinePatch(new Texture(
+				Gdx.files.internal("data/RedBackground.png"))));
 
 		rounded_rectangle_dark_gray = new NinePatchDrawable(
 				new NinePatch(new Texture(Gdx.files
