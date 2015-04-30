@@ -144,6 +144,7 @@ public class MessageScreen extends ScrotsScreen {
 				}
 			}
 		});
+		previous.setVisible(false);
 
 		table = new Table(Assets.skin);
 		table.setFillParent(true);
@@ -164,11 +165,6 @@ public class MessageScreen extends ScrotsScreen {
 		bottom_table.add(temp).width(Assets.width / 2);
 		
 		table.add(bottom_table);
-		top_table.debug();
-		table.debug();
-		
-		previous.setVisible(false);
-
 		stage.addActor(table);
 	}
 

@@ -58,7 +58,6 @@ public class MainMenuScreen extends ScrotsScreen {
 
 		LabelStyle title_style = new LabelStyle();
 		title_style.font = Assets.font_200;
-		// title_style.fontColor = Color.valueOf("9f38ff");
 		title_style.fontColor = Color.valueOf("0099cc");
 		 title_style.fontColor = Color.GRAY;
 		Label scrots = new Label("Scrots", title_style);
@@ -68,7 +67,7 @@ public class MainMenuScreen extends ScrotsScreen {
 
 		LabelStyle title_style2 = new LabelStyle();
 		title_style2.font = Assets.font_200;
-		title_style2.fontColor = Color.GRAY;
+		title_style2.fontColor = Color.LIGHT_GRAY;
 		Label scrots2 = new Label("Scrots", title_style2);
 		scrots2.setPosition((Assets.width / 2) - 50, Assets.height / 3 * 2,
 				Align.center);
@@ -234,8 +233,6 @@ public class MainMenuScreen extends ScrotsScreen {
 		main_table.row();
 		main_table.add(lowerTable).height(Assets.height / 5 * 2)
 				.width(Assets.width);
-
-		stage.addActor(gplay_log);
 
 		// For some reason, you can't add the dots first...
 		Manager gm = new Manager(0, 0, Assets.width, 0, navigation_bar.getY(), stage);
