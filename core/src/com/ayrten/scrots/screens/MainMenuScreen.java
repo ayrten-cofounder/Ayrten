@@ -2,7 +2,6 @@ package com.ayrten.scrots.screens;
 
 import java.util.ArrayList;
 
-
 import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
@@ -14,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -107,7 +107,7 @@ public class MainMenuScreen extends ScrotsScreen {
 			public void clicked(InputEvent event, float x, float y) {
 				if (Assets.prefs.getBoolean("sound_effs", true))
 					Assets.button_pop.play();
-				if (Assets.prefs.getBoolean("first_time", true))
+				 if (Assets.prefs.getBoolean("first_time", true))
 					loadTutorialScreen();
 				else {
 					game_screen = new GameScreen();
@@ -255,16 +255,27 @@ public class MainMenuScreen extends ScrotsScreen {
 	}
 
 	private void loadTutorialScreen() {
-		int pages = 3;
-		Table top_tutorial_table = new Table(Assets.skin);
-		top_tutorial_table.setWidth(Assets.width * pages);
-		top_tutorial_table.add("first").width(Assets.width);
-		top_tutorial_table.add("middle").width(Assets.width);
-		top_tutorial_table.add("end").width(Assets.width);
-
+		Image tutorial_1 = new Image(new Texture(Gdx.files.internal("data/tutorial_1.png")));
+		Image tutorial_2 = new Image(new Texture(Gdx.files.internal("data/tutorial_2.png")));
+		
+		Table top_table = new Table(Assets.skin);
+		top_table.setWidth(Assets.width * 2);
+		
+		Table page_one = new Table(Assets.skin);
+		page_one.setHeight(MessageScreen.WINDOW_DISPLAY_HEIGHT);
+		page_one.setWidth(Assets.width);
+		page_one.add(tutorial_1).width(Assets.width).height(MessageScreen.WINDOW_DISPLAY_HEIGHT);
+		
+		Table page_two = new Table(Assets.skin);
+		page_two.setHeight(MessageScreen.WINDOW_DISPLAY_HEIGHT);
+		page_two.setWidth(Assets.width);
+		page_two.add(tutorial_2).width(Assets.width).height(MessageScreen.WINDOW_DISPLAY_HEIGHT);
+		
+		top_table.add(page_one).width(Assets.width).height(MessageScreen.WINDOW_DISPLAY_HEIGHT);
+		top_table.add(page_two).width(Assets.width).height(MessageScreen.WINDOW_DISPLAY_HEIGHT);
+		
 		// Use the slideshow type MessageScreen.
-		MessageScreen tutorial_screen = new MessageScreen(top_tutorial_table,
-				pages) {
+		MessageScreen tutorial_screen = new MessageScreen(top_table, 2) {
 			@Override
 			public void transition() {
 				Assets.prefs.putBoolean("first_time", false);

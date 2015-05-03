@@ -31,6 +31,8 @@ public class MessageScreen extends ScrotsScreen {
 	protected Label positive_button;
 	
 	private boolean clicked = false;
+	
+	public static float WINDOW_DISPLAY_HEIGHT = Assets.height - Assets.font_64.getLineHeight();
 
 	// Used as an overlay window.
 	public MessageScreen(Stage stage) {

@@ -54,48 +54,46 @@ public class LoadingScreen implements Screen {
 
 	private void loadUpdateScreen() {
 		int pages = 5;
-		float display_height = Assets.height
-				- Assets.style_font_64_orange.font.getLineHeight();
 
 		Table top_table = new Table(Assets.skin);
+		top_table.setWidth(Assets.width * pages);
 
 		Image image = new Image(new Texture(
 				Gdx.files.internal("data/update_1.png")));
 		Table page_one = new Table(Assets.skin);
-		page_one.setHeight(display_height);
+		page_one.setHeight(MessageScreen.WINDOW_DISPLAY_HEIGHT);
 		page_one.setWidth(Assets.width);
-		page_one.add(image).width(Assets.width).height(display_height);
+		page_one.add(image).width(Assets.width).height(MessageScreen.WINDOW_DISPLAY_HEIGHT);
 		
 		Table page_two = new Table(Assets.skin);
-		page_two.setHeight(display_height);
+		page_two.setHeight(MessageScreen.WINDOW_DISPLAY_HEIGHT);
 		page_two.setWidth(Assets.width);
 		image = new Image(new Texture(Gdx.files.internal("data/update_2.png")));
-		page_two.add(image).width(Assets.width).height(display_height);
+		page_two.add(image).width(Assets.width).height(MessageScreen.WINDOW_DISPLAY_HEIGHT);
 
 		Table page_three = new Table(Assets.skin);
-		page_three.setHeight(display_height);
+		page_three.setHeight(MessageScreen.WINDOW_DISPLAY_HEIGHT);
 		page_three.setWidth(Assets.width);
 		image = new Image(new Texture(Gdx.files.internal("data/update_3.png")));
-		page_three.add(image).width(Assets.width).height(display_height);
+		page_three.add(image).width(Assets.width).height(MessageScreen.WINDOW_DISPLAY_HEIGHT);
 		
 		Table page_four = new Table(Assets.skin);
-		page_four.setHeight(display_height);
+		page_four.setHeight(MessageScreen.WINDOW_DISPLAY_HEIGHT);
 		page_four.setWidth(Assets.width);
 		image = new Image(new Texture(Gdx.files.internal("data/update_4.png")));
-		page_four.add(image).width(Assets.width).height(display_height);
+		page_four.add(image).width(Assets.width).height(MessageScreen.WINDOW_DISPLAY_HEIGHT);
 
 		Table page_five = new Table(Assets.skin);
-		page_five.setHeight(display_height);
+		page_five.setHeight(MessageScreen.WINDOW_DISPLAY_HEIGHT);
 		page_five.setWidth(Assets.width);
 		image = new Image(new Texture(Gdx.files.internal("data/update_5.png")));
-		page_five.add(image).width(Assets.width).height(display_height);
+		page_five.add(image).width(Assets.width).height(MessageScreen.WINDOW_DISPLAY_HEIGHT);
 		
-		top_table.setWidth(Assets.width * pages);
-		top_table.add(page_one).width(Assets.width).height(display_height);
-		top_table.add(page_two).width(Assets.width).height(display_height);
-		top_table.add(page_three).width(Assets.width).height(display_height);
-		top_table.add(page_four).width(Assets.width).height(display_height);
-		top_table.add(page_five).width(Assets.width).height(display_height);
+		top_table.add(page_one).width(Assets.width).height(MessageScreen.WINDOW_DISPLAY_HEIGHT);
+		top_table.add(page_two).width(Assets.width).height(MessageScreen.WINDOW_DISPLAY_HEIGHT);
+		top_table.add(page_three).width(Assets.width).height(MessageScreen.WINDOW_DISPLAY_HEIGHT);
+		top_table.add(page_four).width(Assets.width).height(MessageScreen.WINDOW_DISPLAY_HEIGHT);
+		top_table.add(page_five).width(Assets.width).height(MessageScreen.WINDOW_DISPLAY_HEIGHT);
 		top_table.left();
 		// Use the slideshow version of MessageScreen.
 		MessageScreen update_screen = new MessageScreen(top_table, pages) {
