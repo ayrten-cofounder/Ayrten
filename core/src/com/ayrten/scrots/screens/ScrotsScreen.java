@@ -129,11 +129,10 @@ public class ScrotsScreen implements Screen {
 	}
 
 	public void createTableScreen() {
-		table = new Table();
+		table = new Table(Assets.skin);
 		table.setSize(Assets.width - (Assets.PAD * 2),
 				Assets.height - back.getHeight() - (Assets.PAD * 2));
-		table.setPosition(Assets.PAD * 2 / 2, Assets.PAD * 2 / 2);
-		table.setSkin(Assets.skin);
+		table.setPosition(Assets.PAD, Assets.PAD);
 		table.setBackground(Assets.rounded_rectangle_border);
 
 		bkg = new Table();

@@ -89,6 +89,8 @@ public class MessageScreen extends ScrotsScreen {
 		orange_style.background = rounded_rectangle_orange;
 		
 		final Label next = new Label("Next", green_style);
+		if(pages == 1)
+			next.setText("Done");
 		final Label previous = new Label("Prev", orange_style);
 		
 		next.setBounds(next.getX(), next.getY(), next.getWidth(),
@@ -118,7 +120,8 @@ public class MessageScreen extends ScrotsScreen {
 					if(Assets.prefs.getBoolean("sound_effs"))
 						Assets.button_pop.play();
 				}
-				if (message_scroll.getScrollX() >= Assets.width){
+				
+				if (message_scroll.getScrollX() > 0){
 					previous.setVisible(true);
 				}
 			}
@@ -139,7 +142,8 @@ public class MessageScreen extends ScrotsScreen {
 							- Assets.width, 0, message_scroll.getWidth(),
 							message_scroll.getHeight());
 				}
-				if (message_scroll.getScrollX() == 0){
+				
+				if (message_scroll.getScrollX() == 0) {
 					previous.setVisible(false);
 				}
 			}
@@ -158,8 +162,10 @@ public class MessageScreen extends ScrotsScreen {
 		bottom_table.setWidth(Assets.width);
 
 		Table temp = new Table(Assets.skin);
+		if(pages > 1) {
 		temp.add(previous);
 		bottom_table.add(temp).width(Assets.width / 2);
+		}
 
 		temp = new Table(Assets.skin);
 		temp.add(next);

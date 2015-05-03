@@ -1,6 +1,7 @@
 package com.ayrten.scrots.level;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 
 import com.ayrten.scrots.dots.DWD_PenDot1;
@@ -61,6 +62,8 @@ public class Level
 		gen_red_dots(level);
 		gen_blue_dots(level);
 		gen_baby_blue_dots(level);
+
+		Collections.shuffle(allDots);
 	}
 
 	public boolean level_clear() {
