@@ -172,7 +172,7 @@ public class ScrotsScreen implements Screen {
 		navigation_bar.row();
 
 		navBarItems.add(actor);
-		int width = (int) (navigation_bar.getWidth() / navBarItems.size());
+		int width = (int) ((navigation_bar.getWidth() - Assets.PAD) / navBarItems.size());
 		for (Actor a : navBarItems) {
 			navigation_bar.add(a).width(width);
 		}
