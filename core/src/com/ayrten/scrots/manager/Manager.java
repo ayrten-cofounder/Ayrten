@@ -234,4 +234,8 @@ public class Manager {
 	public boolean isGameOver() {
 		return game_over;
 	}
+	
+	public boolean isLevelClear() {
+		return (curr_level.level_clear());
+	}
 }

@@ -237,7 +237,7 @@ public class MainMenuScreen extends ScrotsScreen {
 		// For some reason, you can't add the dots first...
 		Manager gm = new Manager(0, 0, Assets.width, 0, navigation_bar.getY(), stage);
 		GameMode mainMenuMode = new GameMode(stage, gm);
-		mainMenuMode.gen_curr_level(15, Touchable.disabled);
+		mainMenuMode.gen_start_level(15, Touchable.disabled);
 		gm.changeDotSize();
 		stage.addActor(main_table);
 	}

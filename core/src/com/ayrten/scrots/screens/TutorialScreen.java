@@ -9,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class TutorialScreen extends ScrotsScreen {
@@ -38,6 +37,8 @@ public class TutorialScreen extends ScrotsScreen {
 		tab_style.font = Assets.font_64;
 		tab_style.fontColor = Color.WHITE;
 		
+		// TODO: Add in later when there are other modes.
+		/*
 		final Image time_mode_tab = new Image(Assets.transparent_background);
 		Label time_mode = new Label("Time Mode", tab_style);
 		time_mode.setBounds(time_mode.getX(), time_mode.getY(), time_mode.getWidth(), time_mode.getHeight());
@@ -53,6 +54,7 @@ public class TutorialScreen extends ScrotsScreen {
 		Table tab_table = new Table(Assets.skin);
 		tab_table.stack(time_mode_tab, time_mode);
 		addToNavBar(tab_table);
+		*/
 		
 		Table scroll_table = new Table(Assets.skin);
 		scroll_table.setWidth(table.getWidth());
@@ -217,7 +219,9 @@ public class TutorialScreen extends ScrotsScreen {
 		
 		right_scroll_table.stack(regular_scroll, penalty_scroll, power_scroll);
 		
-		scroll_table.add(left_scroll_table).width(tab_width + Assets.PAD).top().height(table.getHeight() - overview_height);
+		float scroll_table_height = table.getHeight() - overview_height;
+		
+		scroll_table.add(left_scroll_table).width(tab_width + Assets.PAD).top().height(scroll_table_height);
 		scroll_table.add(right_scroll_table).width(scroll_table.getWidth() - tab_width - Assets.PAD);
 		
 		// Declare the tab indicators here.
@@ -273,12 +277,24 @@ public class TutorialScreen extends ScrotsScreen {
 				power_scroll.setVisible(true);
 			}
 		});
+		
+		float left_tab_height = (scroll_table_height - Assets.PAD * 2) / 3;
 
-		left_scroll_table.stack(regular_tab, regular_type).width(tab_width).height(Assets.style_font_32_white.font.getLineHeight()).top();
+		left_scroll_table.padTop(Assets.PAD);
+		left_scroll_table.padBottom(Assets.PAD);
+		Table temp = new Table(Assets.skin);
+		temp.stack(regular_tab, regular_type).width(tab_width).height(Assets.style_font_32_white.font.getLineHeight());
+		left_scroll_table.add(temp).width(tab_width).height(left_tab_height).top();
 		left_scroll_table.row();
-		left_scroll_table.stack(penalty_tab, penalty_type).width(tab_width).height(Assets.style_font_32_white.font.getLineHeight());
+		
+		temp = new Table(Assets.skin);
+		temp.stack(penalty_tab, penalty_type).width(tab_width).height(Assets.style_font_32_white.font.getLineHeight());
+		left_scroll_table.add(temp).width(tab_width).height(left_tab_height);
 		left_scroll_table.row();
-		left_scroll_table.stack(power_tab, power_type).width(tab_width).height(Assets.style_font_32_white.font.getLineHeight());
+		
+		temp = new Table(Assets.skin);
+		temp.stack(power_tab, power_type).width(tab_width).height(Assets.style_font_32_white.font.getLineHeight());
+		left_scroll_table.add(temp).width(tab_width).height(left_tab_height);
 
 		table.add(overview_table).height(overview_height);
 		table.row();

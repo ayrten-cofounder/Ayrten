@@ -1,5 +1,7 @@
 package com.ayrten.scrots.game;
 
+import java.util.ArrayList;
+
 import com.ayrten.scrots.level.Level;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -12,26 +14,60 @@ public class GameMode {
 
 	protected Stage stage;
 	protected Manager gm;
+	
+	protected ArrayList<Level> all_levels = new ArrayList<Level>();
+	protected int levels_generated = 0;
 
 	public GameMode(Stage stage, Manager gm) {
 		this.stage = stage;
 		this.gm = gm;
 	}
+	
+	public GameMode(Stage stage, Manager gm, int start_lvl) {
+		this.stage = stage;
+		this.gm = gm;
+	}
 
-	protected Level generate(int lvl)	{
-		return (new Level(lvl, gm));
+	protected void generate_threaded(final int lvl)	{
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				Level new_level = new Level(lvl, gm);
+				all_levels.add(new_level);
+			}
+		}).start();
 	}
 	
-	public Level gen_curr_level(int lvl, Touchable touchable) {
-		Level curr_level = gen_curr_level(lvl);
+	protected void generate(int lvl) {
+		all_levels.add(new Level(lvl, gm));
+	}
+	
+	public Level gen_start_level(int lvl, Touchable touchable) {
+		gen_start_level(lvl);
+		Level curr_level = gm.curr_level;
 		for(int i = 0; i < curr_level.get_all_dots().size(); i++)
 			curr_level.get_all_dots().get(i).setTouchable(touchable);
 		return curr_level;
 	}
 	
-	public Level gen_curr_level(int lvl)
+	public void gen_start_level(int lvl) {
+		gen_level(lvl);
+		levels_generated = lvl + 2;
+	}
+	
+	public void gen_next_level() {
+		gen_level(levels_generated);
+		levels_generated++;
+	}
+	
+	private Level gen_level(int lvl)
 	{
-		Level curr_level = generate(lvl);
+		if(all_levels.size() == 0) {
+			generate(lvl);
+			generate_threaded(lvl + 1);
+		} else
+			generate_threaded(lvl);
+		Level curr_level = all_levels.remove(0);
 		gm.setLevel(curr_level);
 		
 		for(int i = 0; i < curr_level.get_all_dots().size(); i++)

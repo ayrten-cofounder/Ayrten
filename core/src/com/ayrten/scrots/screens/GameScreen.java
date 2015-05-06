@@ -58,7 +58,6 @@ public class GameScreen extends ScrotsScreen {
 	protected GameMode gamemode;
 	protected Manager gm;
 
-	protected Level curr_level;
 	protected SpriteBatch batch;
 	protected boolean should_clear_stage;
 	protected ArrayList<Level> all_levels = new ArrayList<Level>();
@@ -78,8 +77,6 @@ public class GameScreen extends ScrotsScreen {
 	// Used for changing Drawable for menu button.
 	protected TextureRegionDrawable[] trd;
 	
-	protected int game_level = 1;
-
 	protected ScrollPane pause_scroll;
 
 	protected Pool<MoveToAction> pool;
@@ -254,7 +251,7 @@ public class GameScreen extends ScrotsScreen {
 		// need to put the
 		// pause_scroll at the bottom or else you can't touch the dots.
 		stage.addActor(pause_scroll);
-		curr_level = gamemode.gen_curr_level(game_level);
+		gamemode.gen_start_level(1);
 		addStageActors();
 		gm.startGame();
 	}
@@ -584,9 +581,8 @@ public class GameScreen extends ScrotsScreen {
 			points();
 
 			stage.draw();
-			if (curr_level.level_clear()) {
+			if (gm.isLevelClear())
 				levelClear();
-			}
 		}
 	}
 
@@ -652,15 +648,25 @@ public class GameScreen extends ScrotsScreen {
 		stage.clear();
 		gm.plusOnePoint();
 		stage.addActor(pause_scroll);
-		game_level++;
-		curr_level = gamemode.gen_curr_level(game_level);
 		addStageActors();
 
-		if (gm.isMagnetState())
-			magnet.magnet();
 
 		if (Assets.prefs.getBoolean("sound_effs", true))
 			Assets.level_clear.play();
+		gamemode.gen_next_level();
+		
+		Table table = new Table(Assets.skin);
+		table.add("whatever");
+		MessageScreen dot_tut_screen = new MessageScreen(table, 1) {
+			@Override
+			public void transition() {
+				Assets.game.setScreen(Assets.game.main_menu.game_screen);
+			}
+		};
+		Assets.game.setScreen(dot_tut_screen);
+		
+		if (gm.isMagnetState())
+			magnet.magnet();
 	}
 
 	@Override
