@@ -65,7 +65,6 @@ public class Dot extends Actor {
 	public void touchedByAnAngel() {
 		if (Assets.prefs.getBoolean("sound_effs", true))
 			pop.play();
-		Assets.gplay_manager.increment_dot_count();
 	}
 
 	public void setTexture(Texture dot) {

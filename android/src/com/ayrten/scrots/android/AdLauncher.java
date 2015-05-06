@@ -52,8 +52,6 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface,
 	private boolean mAutoStartSignInflow = true;
 	private boolean mSignInClicked = false;
 
-	protected HashMap<String, Integer> achievement_list;
-
 	// Pointer to ScrotsGame objects.
 	private Label gplay_status;
 
@@ -130,8 +128,6 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface,
 				.addScope(Games.SCOPE_GAMES)
 				// add other APIs and scopes here as needed
 				.build();
-
-		initializeAchievements();
 	}
 
 	private void showAd() {
@@ -342,11 +338,9 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface,
 	}
 
 	@Override
-	public void unlockAchievement(String name) {
+	public void unlockAchievement(String achievement) {
 		if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
-			if (achievement_list.containsKey(name))
-				Games.Achievements.unlock(mGoogleApiClient, this.getResources()
-						.getString(achievement_list.get(name)));
+			Games.Achievements.unlock(mGoogleApiClient, achievement);
 		}
 	}
 
@@ -368,25 +362,6 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface,
 		mGoogleApiClient.disconnect();
 		gplay_status.setText("Sign in");
 		showToast("Logged out successfully!");
-	}
-
-	private void initializeAchievements() {
-		achievement_list = new HashMap<String, Integer>();
-		achievement_list.put("popped_1000_dots", R.string.popped_1000_dots);
-		achievement_list.put("popped_5000_dots", R.string.popped_5000_dots);
-		achievement_list.put("popped_10000_dots", R.string.popped_10000_dots);
-		achievement_list.put("popped_25000_dots", R.string.popped_25000_dots);
-		achievement_list.put("popped_50000_dots", R.string.popped_50000_dots);
-		achievement_list.put("popped_100000_dots", R.string.popped_100000_dots);
-
-		achievement_list.put("unlock_rainbow", R.string.unlocked_rainbow);
-		achievement_list.put("unlock_invincible",
-				R.string.unlocked_invinvincible);
-		achievement_list.put("unlock_magnet", R.string.unlocked_magnet);
-
-		achievement_list.put("passed_lvl5", R.string.passed_lvl5);
-		achievement_list.put("passed_lvl10", R.string.passed_lvl10);
-		achievement_list.put("passed_lvl15", R.string.passed_lvl15);
 	}
 
 	@Override
