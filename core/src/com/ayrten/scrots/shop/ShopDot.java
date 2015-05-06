@@ -2,6 +2,7 @@ package com.ayrten.scrots.shop;
 
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.ButtonInterface;
+import com.ayrten.scrots.manager.GPlayManager;
 import com.ayrten.scrots.screens.MessageScreen;
 import com.ayrten.scrots.screens.ShopScreen;
 import com.badlogic.gdx.graphics.Color;
@@ -110,18 +111,18 @@ public class ShopDot {
 			switch (dotType) {
 			case INVINCIBLE:
 				Assets.power_dot_manager
-				.setInvincibleDotAmount(Assets.power_dot_manager
-						.getInvincibleDots() + amountToBuy);
+						.setInvincibleDotAmount(Assets.power_dot_manager
+								.getInvincibleDots() + amountToBuy);
 				break;
 			case MAGNET:
 				Assets.power_dot_manager
-				.setMagnetDotAmount(Assets.power_dot_manager
-						.getMagnetDots() + amountToBuy);
+						.setMagnetDotAmount(Assets.power_dot_manager
+								.getMagnetDots() + amountToBuy);
 				break;
 			case RAINBOW:
 				Assets.power_dot_manager
-				.setRainbowDotAmount(Assets.power_dot_manager
-						.getRainbowDots() + amountToBuy);
+						.setRainbowDotAmount(Assets.power_dot_manager
+								.getRainbowDots() + amountToBuy);
 				break;
 			}
 
@@ -143,12 +144,18 @@ public class ShopDot {
 			switch (dotUnlock) {
 			case INVINCIBLE:
 				Assets.power_dot_manager.unlockInvincibleDot();
+				Assets.gplay_manager
+						.unlockUnlockPowerDot(GPlayManager.ACHIEVEMENT_UNLOCK_DOT_INVINCIBLE);
 				break;
 			case MAGNET:
 				Assets.power_dot_manager.unlockMagnetDot();
+				Assets.gplay_manager
+						.unlockUnlockPowerDot(GPlayManager.ACHIEVEMENT_UNLOCK_DOT_MAGNET);
 				break;
 			case RAINBOW:
 				Assets.power_dot_manager.unlockRainbowDot();
+				Assets.gplay_manager
+						.unlockUnlockPowerDot(GPlayManager.ACHIEVEMENT_UNLOCK_DOT_RAINBOW);
 				break;
 			}
 
@@ -202,13 +209,14 @@ public class ShopDot {
 		amountTextField.getStyle().fontColor = Color.WHITE;
 		amountTextField.setAlignment(Align.center);
 		amountTextField.setWidth(Assets.width / 5);
-		amountTextField.setTextFieldFilter(new TextField.TextFieldFilter.DigitsOnlyFilter());
+		amountTextField
+				.setTextFieldFilter(new TextField.TextFieldFilter.DigitsOnlyFilter());
 		amountTextField.setMaxLength(4);
 		amountTextField.setTextFieldListener(new TextFieldListener() {
 			@Override
 			public void keyTyped(TextField textField, char c) {
-				if(c == '\n' || c == '\r') {
-					if(!textField.getText().equals("")) {
+				if (c == '\n' || c == '\r') {
+					if (!textField.getText().equals("")) {
 						amountToBuy = Integer.valueOf(textField.getText());
 						setTotalCost();
 					}
@@ -264,9 +272,9 @@ public class ShopDot {
 
 		amountTable.clear();
 		amountTable.add(amountTextField).height(cell_wh)
-		.width(Assets.width / 12);
+				.width(Assets.width / 12);
 		amountTable.stack(addTable, minusTable).height(cell_wh)
-		.width(Assets.width / 12).padLeft(spacing * 2);
+				.width(Assets.width / 12).padLeft(spacing * 2);
 	}
 
 	protected void addAmountToBuy(int amount) {
@@ -313,10 +321,10 @@ public class ShopDot {
 		message.makeSingleButtonWindow(description, "Ok",
 				new ButtonInterface() {
 
-			@Override
-			public void buttonPressed() {
-			}
-		});
+					@Override
+					public void buttonPressed() {
+					}
+				});
 	}
 
 	public void clear() {
