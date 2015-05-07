@@ -286,6 +286,7 @@ public class GameScreen extends ScrotsScreen {
 		Assets.game.main_menu.game_screen.dispose();
 		Assets.playMenuBGM();
 		Assets.game.setScreen(Assets.game.main_menu);
+		Assets.game.main_menu.checkRateMe();
 	}
 
 	private void initializePauseMenu() {

@@ -147,4 +147,10 @@ public class DesktopLauncher implements AndroidInterface, IAP {
 	@Override
 	public void submitLeaderboardScore(LeaderboardType lb_type, long score) {
 	}
+
+	@Override
+	public void rateMe() {
+		// TODO Auto-generated method stub
+		
+	}
 }
