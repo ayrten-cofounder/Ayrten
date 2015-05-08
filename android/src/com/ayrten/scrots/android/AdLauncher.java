@@ -3,10 +3,12 @@ package com.ayrten.scrots.android;
 import java.util.HashMap;
 
 import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -388,6 +390,19 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface,
 						score);
 			else if (lb_type == Assets.LeaderboardType.SURVIVAL) {
 			}
+		}
+	}
+
+	@Override
+	public void rateMe() {
+		Uri uri = Uri.parse("market://details?id=" + getPackageName());
+		Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+		try {
+			startActivity(goToMarket);
+		} catch (ActivityNotFoundException e) {
+			startActivity(new Intent(Intent.ACTION_VIEW,
+					Uri.parse("http://play.google.com/store/apps/details?id="
+							+ getPackageName())));
 		}
 	}
 }

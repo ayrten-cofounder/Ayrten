@@ -34,5 +34,5 @@ public interface AndroidInterface {
 	
 	public void setGPlayButton(Label button);
 	
-	
+	public void rateMe();
 }

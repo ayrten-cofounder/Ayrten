@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.manager.Assets;
+import com.ayrten.scrots.manager.ButtonInterface;
 import com.ayrten.scrots.manager.Manager;
 import com.ayrten.scrots.scoreboard.NormalScoreboard;
 import com.badlogic.gdx.Gdx;
@@ -59,7 +60,7 @@ public class MainMenuScreen extends ScrotsScreen {
 		LabelStyle title_style = new LabelStyle();
 		title_style.font = Assets.font_200;
 		title_style.fontColor = Color.valueOf("0099cc");
-		 title_style.fontColor = Color.GRAY;
+		title_style.fontColor = Color.GRAY;
 		Label scrots = new Label("Scrots", title_style);
 		scrots.setPosition(Assets.width / 2, Assets.height / 3 * 2,
 				Align.center);
@@ -98,7 +99,7 @@ public class MainMenuScreen extends ScrotsScreen {
 			public void clicked(InputEvent event, float x, float y) {
 				if (Assets.prefs.getBoolean("sound_effs", true))
 					Assets.button_pop.play();
-				 if (Assets.prefs.getBoolean("first_time", true))
+				if (Assets.prefs.getBoolean("first_time", true))
 					loadTutorialScreen();
 				else {
 					game_screen = new GameScreen();
@@ -161,7 +162,7 @@ public class MainMenuScreen extends ScrotsScreen {
 			}
 		});
 		others.setAlignment(Align.center);
-		
+
 		LabelStyle gplay_style = new LabelStyle();
 		gplay_style.font = Assets.font_64;
 		gplay_style.fontColor = Color.WHITE;
@@ -179,9 +180,9 @@ public class MainMenuScreen extends ScrotsScreen {
 			}
 		});
 		gplay_log.setAlignment(Align.left);
-		
+
 		setupStage();
-		
+
 		Table upperTable = new Table(Assets.skin);
 		upperTable.add(scrots);
 
@@ -216,7 +217,7 @@ public class MainMenuScreen extends ScrotsScreen {
 		initializeNaviBar();
 		addToNavBar(gplay_log);
 		stage.addActor(navigation_bar);
-		
+
 		Table main_table = new Table(Assets.skin);
 		main_table.setFillParent(true);
 		main_table.add(upperTable).height(Assets.height / 5 * 3);
@@ -225,7 +226,8 @@ public class MainMenuScreen extends ScrotsScreen {
 				.width(Assets.width);
 
 		// For some reason, you can't add the dots first...
-		Manager gm = new Manager(0, 0, Assets.width, 0, navigation_bar.getY(), stage);
+		Manager gm = new Manager(0, 0, Assets.width, 0, navigation_bar.getY(),
+				stage);
 		GameMode mainMenuMode = new GameMode(stage, gm);
 		mainMenuMode.gen_start_level(15, Touchable.disabled);
 		gm.changeDotSize();
@@ -243,27 +245,43 @@ public class MainMenuScreen extends ScrotsScreen {
 		actors.add(others);
 		actors.add(gplay_log);
 	}
+	
+	public void checkRateMe(){
+		int rateMeCount = Assets.prefs.getInteger("rateMeCount", 0);
+		if (rateMeCount == 5) {
+			showRateMe();
+		}
+		rateMeCount = rateMeCount + 1;
+		Assets.prefs.putInteger("rateMeCount", rateMeCount);
+		Assets.prefs.flush();
+	}
 
 	private void loadTutorialScreen() {
-		Image tutorial_1 = new Image(new Texture(Gdx.files.internal("data/tutorial_1.png")));
-		Image tutorial_2 = new Image(new Texture(Gdx.files.internal("data/tutorial_2.png")));
-		
+		Image tutorial_1 = new Image(new Texture(
+				Gdx.files.internal("data/tutorial_1.png")));
+		Image tutorial_2 = new Image(new Texture(
+				Gdx.files.internal("data/tutorial_2.png")));
+
 		Table top_table = new Table(Assets.skin);
 		top_table.setWidth(Assets.width * 2);
-		
+
 		Table page_one = new Table(Assets.skin);
 		page_one.setHeight(MessageScreen.WINDOW_DISPLAY_HEIGHT);
 		page_one.setWidth(Assets.width);
-		page_one.add(tutorial_1).width(Assets.width).height(MessageScreen.WINDOW_DISPLAY_HEIGHT);
-		
+		page_one.add(tutorial_1).width(Assets.width)
+				.height(MessageScreen.WINDOW_DISPLAY_HEIGHT);
+
 		Table page_two = new Table(Assets.skin);
 		page_two.setHeight(MessageScreen.WINDOW_DISPLAY_HEIGHT);
 		page_two.setWidth(Assets.width);
-		page_two.add(tutorial_2).width(Assets.width).height(MessageScreen.WINDOW_DISPLAY_HEIGHT);
-		
-		top_table.add(page_one).width(Assets.width).height(MessageScreen.WINDOW_DISPLAY_HEIGHT);
-		top_table.add(page_two).width(Assets.width).height(MessageScreen.WINDOW_DISPLAY_HEIGHT);
-		
+		page_two.add(tutorial_2).width(Assets.width)
+				.height(MessageScreen.WINDOW_DISPLAY_HEIGHT);
+
+		top_table.add(page_one).width(Assets.width)
+				.height(MessageScreen.WINDOW_DISPLAY_HEIGHT);
+		top_table.add(page_two).width(Assets.width)
+				.height(MessageScreen.WINDOW_DISPLAY_HEIGHT);
+
 		// Use the slideshow type MessageScreen.
 		MessageScreen tutorial_screen = new MessageScreen(top_table, 2) {
 			@Override
@@ -277,6 +295,23 @@ public class MainMenuScreen extends ScrotsScreen {
 		};
 
 		Assets.game.setScreen(tutorial_screen);
+	}
+
+	public void showRateMe() {
+		MessageScreen message = new MessageScreen(stage);
+		message.makeWindow(
+				"It seems like you've been playing Scrots a bit, will you please rate us? (You will not be asked again)",
+				"Yes", "No", new ButtonInterface() {
+					@Override
+					public void buttonPressed() {
+						Assets.game.apk_intf.rateMe();
+					}
+				}, new ButtonInterface() {
+					@Override
+					public void buttonPressed() {
+
+					}
+				});
 	}
 
 	@Override

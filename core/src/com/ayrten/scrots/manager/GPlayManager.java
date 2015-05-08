@@ -98,10 +98,11 @@ public class GPlayManager {
 	}
 
 	private void unlockAchievement(String achievement_name) {
-		if (!isUnlocked(achievement_name)) {
+		if (Assets.game.apk_intf.is_gplay_signedin() && !isUnlocked(achievement_name)) {
 			Assets.game.apk_intf.unlockAchievement(achievement_name);
 			checklist_achievements.put(achievement_name, true);
 			addPoints(achievement_name);
+			dispose();
 		}
 	}
 
