@@ -73,7 +73,7 @@ public class ContactScreen extends ScrotsScreen {
 		HashMap<String, String> icon_list = new HashMap<String, String>();
 		icon_list.put("data/facebook.png",
 				"https://www.facebook.com/AyrtenMobile");
-		icon_list.put("data/google+.png", "");
+		icon_list.put("data/google+.png", "https://plus.google.com/+Ayrtenplus");
 		icon_list.put("data/twitter.png", "https://twitter.com/AyrtenMobile");
 
 		int count = 0;

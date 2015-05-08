@@ -21,12 +21,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class ShopScreen extends ScrotsScreen {
-	private static final int PAD = 20;
-
 	private int points = 0;
 
 	private ScrollPane scroll_view;
-	// private Table table;
 
 	private Label points_label;
 	private Label total_price_label;
@@ -134,32 +131,12 @@ public class ShopScreen extends ScrotsScreen {
 	}
 
 	private void setUpShopScreen() {
-
-		// table = new Table();
-		// table.setSize(Assets.width - (PAD * 2),
-		// Assets.height - back.getHeight() - (PAD * 2));
-		// table.setPosition(PAD * 2 / 2, PAD * 2 / 2);
-		// table.setSkin(Assets.skin);
-		// table.setBackground(Assets.rounded_rectangle_red);
-
-		// scroll_view = new ScrollPane(table);
-		// scroll_view.setSize(Assets.width, Assets.height - back.getHeight()
-		// - bottom_bar_table.getHeight());
-		// // scroll_view.setPosition(0, Assets.height - back.getHeight());
-		// scroll_view.setPosition(0, 0 + bottom_bar_table.getHeight() + PAD);
-
 		// Total Points Label
 		points_label = new Label("Points: " + String.valueOf(points),
 				Assets.style_font_32_white);
-		// points_label.setCenterPosition(Assets.width / 2, Assets.height
-		// - points_label.getHeight());
 
 		// Premium Label
 		premium_label = new Label("Buy Points!", Assets.style_font_64_orange);
-
-		// premium_label.setPosition(Assets.width - premium_label.getWidth(),
-		// Assets.height - premium_label.getHeight());
-
 		premium_label.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
@@ -299,7 +276,7 @@ public class ShopScreen extends ScrotsScreen {
 		float cell_wh = (float) (Assets.height * 0.14);
 
 		for (ShopDot d : dots) {
-			tempt.row().padBottom(PAD);
+			tempt.row().padBottom(Assets.PAD);
 
 			if (d.unlocked) {
 				tempt.add(d.dotImage).height(cell_wh).width(cell_wh);
@@ -320,7 +297,7 @@ public class ShopScreen extends ScrotsScreen {
 		scroll_view.setScrollingDisabled(true, false);
 		scroll_view.getStyle().background = Assets.rounded_rectangle_border;
 
-		table.row().padBottom(PAD);
+		table.row().padBottom(Assets.PAD);
 		table.add(scroll_view).colspan(5).fill().expandY();
 
 		table.row();

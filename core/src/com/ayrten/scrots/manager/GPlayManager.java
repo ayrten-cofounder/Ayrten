@@ -20,7 +20,8 @@ public class GPlayManager {
 	public static final String ACHIEVEMENT_UNLOCK_DOT_INVINCIBLE = "CgkIxpik37gbEAIQBA";
 	public static final String ACHIEVEMENT_UNLOCK_DOT_MAGNET = "CgkIxpik37gbEAIQBQ";
 
-	private final String CHECKLIST_NAME = "gplay_achievement_checklist";
+	// Googleplay achievement checklist.
+	private final String CHECKLIST_NAME = "gac";
 
 	private HashMap<Integer, String> dot_achievements;
 	private HashMap<Integer, String> level_achievements;

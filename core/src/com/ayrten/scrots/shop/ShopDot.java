@@ -165,7 +165,6 @@ public class ShopDot {
 	}
 
 	protected void initialize() {
-
 		// Locked Labels
 		unlockPriceLabel = new Label(String.valueOf(dotUnlock.price()),
 				Assets.style_font_32_white);

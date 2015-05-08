@@ -65,14 +65,6 @@ public class MainMenuScreen extends ScrotsScreen {
 				Align.center);
 		scrots.setAlignment(Align.center);
 
-		LabelStyle title_style2 = new LabelStyle();
-		title_style2.font = Assets.font_200;
-		title_style2.fontColor = Color.LIGHT_GRAY;
-		Label scrots2 = new Label("Scrots", title_style2);
-		scrots2.setPosition((Assets.width / 2) - 50, Assets.height / 3 * 2,
-				Align.center);
-		scrots2.setAlignment(Align.center);
-
 		LabelStyle style = new LabelStyle();
 		style.font = Assets.font_64;
 		style.fontColor = Color.WHITE;
@@ -95,7 +87,6 @@ public class MainMenuScreen extends ScrotsScreen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				Assets.game.setScreen(shop_screen);
-				// Gdx.net.openURI("market://details?id=com.ayrten.scrots.android");
 			}
 		});
 		shop.setAlignment(Align.center);
@@ -192,8 +183,7 @@ public class MainMenuScreen extends ScrotsScreen {
 		setupStage();
 		
 		Table upperTable = new Table(Assets.skin);
-		upperTable.stack(scrots2, scrots);
-//		upperTable.add(scrots);
+		upperTable.add(scrots);
 
 		ArrayList<Actor> lowerTableActors = new ArrayList<Actor>();
 		lowerTableActors.add(shop);

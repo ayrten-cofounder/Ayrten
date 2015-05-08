@@ -5,7 +5,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 
 public class StatisticsManager {
-	protected final String STATISTICS_FILENAME = "statistics.txt";
+	protected final String STATISTICS_FILENAME = "scs";
 	
 	public static class PlayerStats
 	{

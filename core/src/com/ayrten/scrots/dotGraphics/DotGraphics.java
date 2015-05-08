@@ -113,7 +113,6 @@ public class DotGraphics {
 	}
 	
 	public void draw(Batch batch, float alpha, boolean magnetized) {
-
 		if (!magnetized) {
 			changePosition();
 		}

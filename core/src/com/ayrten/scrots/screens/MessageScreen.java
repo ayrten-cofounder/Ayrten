@@ -375,7 +375,6 @@ public class MessageScreen extends ScrotsScreen {
 		});
 
 		final Label submit = new Label("Submit", Assets.style_font_64_blue);
-
 		submit.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {

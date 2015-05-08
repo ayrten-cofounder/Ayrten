@@ -80,7 +80,7 @@ public class TutorialScreen extends ScrotsScreen {
 		Image dwd_regDot2 = new Image(Assets.dwdRegDot_2);
 		Label greenDesc = new Label("", Assets.style_font_32_white);
 		greenDesc.setWrap(true);
-		greenDesc.setText("Requires popping in order to advance.");
+		greenDesc.setText("Need to pop to advance to next level.");
 		
 		Label babyBlueDesc = new Label("", Assets.style_font_32_white);
 		babyBlueDesc.setWrap(true);
@@ -93,7 +93,7 @@ public class TutorialScreen extends ScrotsScreen {
 		
 		Label explosion_dot_desc = new Label("", Assets.style_font_32_white);
 		explosion_dot_desc.setWrap(true);
-		explosion_dot_desc.setText("Pops all dots around the explosion dot.");
+		explosion_dot_desc.setText("Pops all dots around the explosion dot. Radius depends on dot size.");
 
 		Label dwd_regDot2_desc = new Label("", Assets.style_font_32_white);
 		dwd_regDot2_desc.setWrap(true);
@@ -143,7 +143,7 @@ public class TutorialScreen extends ScrotsScreen {
 
 		Label purpleDesc = new Label("", Assets.style_font_32_white);
 		purpleDesc.setWrap(true);
-		purpleDesc.setText("Decreases time limit by 5 seconds so BE CAREFUL!");
+		purpleDesc.setText("Decreases time limit by 5 seconds.");
 		
 		Label dwd_penDot1_desc = new Label("", Assets.style_font_32_white);
 		dwd_penDot1_desc.setWrap(true);
@@ -192,7 +192,7 @@ public class TutorialScreen extends ScrotsScreen {
 		Label powerDot_Rainbow_desc = new Label("", Assets.style_font_32_white);
 		powerDot_Rainbow_desc.setWrap(true);
 		powerDot_Rainbow_desc
-				.setText("Removes penality dots from the game for 5 seconds");
+				.setText("Removes penality dots from the game for 5 seconds.");
 
 		Label powerDot_Magnet_desc = new Label("", Assets.style_font_32_white);
 		powerDot_Magnet_desc.setWrap(true);
@@ -299,14 +299,5 @@ public class TutorialScreen extends ScrotsScreen {
 		table.add(overview_table).height(overview_height);
 		table.row();
 		table.add(scroll_table);
-	}
-
-	@Override
-	public void hide() {
-		super.hide();
-		if (Assets.prefs.getBoolean("first_time", true)) {
-			Assets.prefs.putBoolean("first_time", false);
-			Assets.prefs.flush();
-		}
 	}
 }

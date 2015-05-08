@@ -3,7 +3,7 @@ package com.ayrten.scrots.manager;
 import com.badlogic.gdx.utils.Json;
 
 public class PointsManager {
-	protected String file = "points_manager2.txt";
+	protected String file = "pm";
 
 	public static class Points {
 		public int points = 0;
@@ -22,6 +22,7 @@ public class PointsManager {
 		if (!file.isEmpty()) {
 			Json json = new Json();
 			Points points = json.fromJson(Points.class, file);
+			
 			return (points.points);
 		}
 

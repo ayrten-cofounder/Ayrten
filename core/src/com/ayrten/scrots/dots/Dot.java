@@ -48,7 +48,6 @@ public class Dot extends Actor {
 
 			public void touchUp(InputEvent event, float x, float y,
 					int pointer, int button) {
-
 				// Gotta get touched by an angel
 				touchedByAnAngel();
 

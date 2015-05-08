@@ -9,7 +9,6 @@ import com.ayrten.scrots.dots.PowerDot_Rainbow;
 import com.ayrten.scrots.dots.RadialSprite;
 import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.game.NormalGameMode;
-import com.ayrten.scrots.level.Level;
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.ButtonInterface;
 import com.ayrten.scrots.manager.Manager;
@@ -24,19 +23,16 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 
@@ -60,7 +56,6 @@ public class GameScreen extends ScrotsScreen {
 
 	protected SpriteBatch batch;
 	protected boolean should_clear_stage;
-	protected ArrayList<Level> all_levels = new ArrayList<Level>();
 
 	protected Table top_table;
 	protected Table corner_table;
@@ -78,8 +73,6 @@ public class GameScreen extends ScrotsScreen {
 	protected TextureRegionDrawable[] trd;
 	
 	protected ScrollPane pause_scroll;
-
-	protected Pool<MoveToAction> pool;
 
 	public GameScreen() {
 		super(null, false);
@@ -101,21 +94,6 @@ public class GameScreen extends ScrotsScreen {
 
 		initializePointsTime();
 
-		Label.LabelStyle overStyle = new Label.LabelStyle();
-		overStyle.font = Assets.font_200;
-
-		TextFieldStyle textStyle = new TextFieldStyle();
-		textStyle.font = Assets.font_64;
-
-		if (Assets.prefs.getString("bg_color", "").equals("")
-				|| Assets.prefs.getString("bg_color", "").equals("White")) {
-			overStyle.fontColor = Color.BLACK;
-			textStyle.fontColor = Color.BLACK;
-		} else {
-			overStyle.fontColor = Color.WHITE;
-			textStyle.fontColor = Color.WHITE;
-		}
-
 		gm = new Manager(0, Assets.width - Assets.game_width, Assets.width, 0, Assets.game_height, stage); // Starts with 0 points
 		// if (Assets.prefs.getString("mode").equals("Normal")) {
 		gm.setMode(GameMode.NORMAL_MODE);
@@ -126,13 +104,6 @@ public class GameScreen extends ScrotsScreen {
 		// gm.setScoreboard(Assets.game.main_menu.csb);
 		// gamemode = new ChallengeGameMode(stage, gm, w, h);
 		// }
-
-		pool = new Pool<MoveToAction>() {
-			@Override
-			protected MoveToAction newObject() {
-				return new MoveToAction();
-			}
-		};
 
 		initializePauseMenu();
 
@@ -258,14 +229,8 @@ public class GameScreen extends ScrotsScreen {
 
 	private void initializePointsTime() {
 		level = new Label("00", Assets.style_font_32_white);
-
 		time = new Label("60.0", Assets.style_font_32_white);
-
 		points = new Label("0", Assets.style_font_32_white);
-	}
-
-	public Manager getManager() {
-		return gm;
 	}
 
 	private void replay() {
@@ -430,11 +395,8 @@ public class GameScreen extends ScrotsScreen {
 	private void addPowDots() {
 		powDots_time = new ArrayList<Label>();
 		Label powDot_1_num = new Label("0", Assets.style_font_32_white);
-		// powDot_1_num.setWidth(powDot_1_num.getStyle().font.getBounds("99").width);
 		Label powDot_2_num = new Label("0", Assets.style_font_32_white);
-		// powDot_2_num.setWidth(powDot_2_num.getStyle().font.getBounds("99").width);
 		Label powDot_3_num = new Label("0", Assets.style_font_32_white);
-		// powDot_3_num.setWidth(powDot_3_num.getStyle().font.getBounds("99").width);
 		powDots_time.add(powDot_1_num);
 		powDots_time.add(powDot_2_num);
 		powDots_time.add(powDot_3_num);
@@ -497,10 +459,7 @@ public class GameScreen extends ScrotsScreen {
 	}
 
 	public void setHighScoreName(String name) {
-		// Gdx.input.setOnscreenKeyboardVisible(false);
-
-		((ScrotsGame) Gdx.app.getApplicationListener()).main_menu.game_screen
-				.getManager().addHighScore(name);
+		gm.addHighScore(name);
 	}
 
 	public void showQuitHighScoreMenu() {
@@ -614,10 +573,6 @@ public class GameScreen extends ScrotsScreen {
 	}
 
 	public void gameOver() {
-		// Assets.stats_manager.writePlayerStatsToFile();
-		// Assets.game.apk_intf.submitLeaderboardScore(Assets.LeaderboardType.TIME,
-		// gm.get_player_score());
-
 		if (should_clear_stage) {
 			Assets.stats_manager.writePlayerStatsToFile();
 			Assets.game.apk_intf.submitLeaderboardScore(
@@ -649,7 +604,6 @@ public class GameScreen extends ScrotsScreen {
 		gm.plusOnePoint();
 		stage.addActor(pause_scroll);
 		addStageActors();
-
 
 		if (Assets.prefs.getBoolean("sound_effs", true))
 			Assets.level_clear.play();

@@ -4,11 +4,9 @@ import com.ayrten.scrots.manager.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -19,7 +17,7 @@ public class OptionsScreen extends ScrotsScreen {
 	protected SelectBox<String> bg_color;
 	protected CheckBox sound_effs;
 	protected CheckBox auto_gplay_signin;
-	protected CheckBox color_blind;
+//	protected CheckBox color_blind;
 	protected CheckBox bkg_music;
 
 	protected Table non_game_options;
@@ -30,8 +28,6 @@ public class OptionsScreen extends ScrotsScreen {
 		setupStage();
 		showTableScreen();
 
-		LabelStyle style = new LabelStyle();
-		style.font = Assets.font_32;
 		mode = new SelectBox<String>(Assets.skin);
 		mode.getStyle().font = Assets.font_32;
 		mode.getList().getStyle().font = Assets.font_32;
@@ -105,22 +101,22 @@ public class OptionsScreen extends ScrotsScreen {
 			}
 		});
 
-		color_blind = new CheckBox("", Assets.skin);
-		color_blind.setChecked(false);
-		color_blind
-				.getCells()
-				.get(0)
-				.size(Assets.font_32.getLineHeight() / 2,
-						Assets.font_32.getLineHeight() / 2);
-		if (Assets.prefs.getBoolean("color_blind", false) == true)
-			color_blind.setChecked(true);
-		color_blind.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				if (Assets.prefs.getBoolean("sound_effs"))
-					Assets.button_pop.play();
-}
-		});
+//		color_blind = new CheckBox("", Assets.skin);
+//		color_blind.setChecked(false);
+//		color_blind
+//				.getCells()
+//				.get(0)
+//				.size(Assets.font_32.getLineHeight() / 2,
+//						Assets.font_32.getLineHeight() / 2);
+//		if (Assets.prefs.getBoolean("color_blind", false) == true)
+//			color_blind.setChecked(true);
+//		color_blind.addListener(new ClickListener() {
+//			@Override
+//			public void clicked(InputEvent event, float x, float y) {
+//				if (Assets.prefs.getBoolean("sound_effs"))
+//					Assets.button_pop.play();
+//			}
+//		});
 
 		bg_color = new SelectBox<String>(Assets.skin);
 		bg_color.setItems("White", "Black");
@@ -135,7 +131,7 @@ public class OptionsScreen extends ScrotsScreen {
 			bg_color.setSelected("White");
 		}
 		
-		float CHECKBOX_SIZE = style.font.getLineHeight();
+		float CHECKBOX_SIZE = Assets.font_32.getLineHeight();
 		
 		// Set size of checkboxes
 		bkg_music.getCells().get(0).size(CHECKBOX_SIZE, CHECKBOX_SIZE);
@@ -147,8 +143,8 @@ public class OptionsScreen extends ScrotsScreen {
 		auto_gplay_signin.getCells().get(0).size(CHECKBOX_SIZE, CHECKBOX_SIZE);
 		auto_gplay_signin.setHeight(CHECKBOX_SIZE);
 		
-		color_blind.getCells().get(0).size(CHECKBOX_SIZE, CHECKBOX_SIZE);
-		color_blind.setHeight(CHECKBOX_SIZE);
+//		color_blind.getCells().get(0).size(CHECKBOX_SIZE, CHECKBOX_SIZE);
+//		color_blind.setHeight(CHECKBOX_SIZE);
 		
 		non_game_options = new Table(Assets.skin);
 		non_game_options.setWidth(table.getWidth());
@@ -218,12 +214,12 @@ public class OptionsScreen extends ScrotsScreen {
 		Assets.prefs.putString("mode", mode.getSelected());
 		Assets.prefs.putString("bg_color", bg_color.getSelected());
 		Assets.prefs.putBoolean("sound_effs", sound_effs.isChecked());
-		if (Assets.prefs.getBoolean("color_blind", false) != color_blind
-				.isChecked()) {
-			Assets.prefs.putBoolean("color_blind", color_blind.isChecked());
-			Assets.loadDotTextures();
-		} else
-			Assets.prefs.putBoolean("color_blind", color_blind.isChecked());
+//		if (Assets.prefs.getBoolean("color_blind", false) != color_blind
+//				.isChecked()) {
+//			Assets.prefs.putBoolean("color_blind", color_blind.isChecked());
+//			Assets.loadDotTextures();
+//		} else
+//			Assets.prefs.putBoolean("color_blind", color_blind.isChecked());
 		Assets.prefs.putBoolean("auto_gplay_signin", auto_gplay_signin.isChecked());
 		Assets.prefs.flush();
 		if (backScreen.getClass() == MainMenuScreen.class)
@@ -237,19 +233,8 @@ public class OptionsScreen extends ScrotsScreen {
 		Assets.prefs.putString("mode", mode.getSelected());
 		Assets.prefs.putString("bg_color", bg_color.getSelected());
 		Assets.prefs.putBoolean("sound_effs", sound_effs.isChecked());
-		Assets.prefs.putBoolean("color_blind", color_blind.isChecked());
+//		Assets.prefs.putBoolean("color_blind", color_blind.isChecked());
 		Assets.prefs.putBoolean("auto_gplay_signin",
 				auto_gplay_signin.isChecked());
-	}
-
-	public void setActorsColor(Color color) {
-		for (Actor actor : stage.getActors()) {
-			if (actor.toString().equals("Table")) {
-				for (Actor table_actor : ((Table) actor).getChildren()) {
-					if (table_actor.toString().equals("Label"))
-						table_actor.setColor(color);
-				}
-			}
-		}
 	}
 }

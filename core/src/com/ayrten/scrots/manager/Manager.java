@@ -29,9 +29,6 @@ public class Manager {
 
 	// Game mode
 	private int mode;
-
-	private int slot_num;
-	private float slot_width;
 	
 	private boolean isRainbowState;
 	private boolean isMagnetState;
@@ -54,8 +51,6 @@ public class Manager {
 		time = new Time(this);
 		sb = new Scoreboard();
 		this.stage = stage;
-		slot_num = 0;
-		slot_width = 0;
 		isRainbowState = false;
 		current_state = game_state.ONGOING;
 		
@@ -99,28 +94,6 @@ public class Manager {
 	{
 		isMagnetState = state;
 		this.magnet = magnet;
-	}
-	
-	public int getCurrentSlot()
-	{
-		return slot_num;
-	}
-	
-	public void nextSlot()
-	{
-		slot_num++;
-		if(slot_num > 2)
-			slot_num = 0;
-	}
-	
-	public void setSlotWidth(float f)
-	{
-		slot_width = f;
-	}
-	
-	public float getSlotWidth()
-	{
-		return slot_width;
 	}
 
 	public Stage getStage() {
