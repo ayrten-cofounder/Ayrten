@@ -2,12 +2,10 @@ package com.ayrten.scrots.game;
 
 import java.util.ArrayList;
 
-import com.ayrten.scrots.dots.Dot;
 import com.ayrten.scrots.level.Level;
-import com.ayrten.scrots.level.MainMenuBackgroundLevel;
 import com.ayrten.scrots.manager.Manager;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 
 public class GameMode {
 	public static final int MAIN_MENU_BACKGROUND_MODE = -1;
@@ -16,135 +14,60 @@ public class GameMode {
 
 	protected Stage stage;
 	protected Manager gm;
-	protected ArrayList<Level> all_levels = new ArrayList<Level>();
-	protected int w, h;
 	
-	private int levels_generated = 20;
+	protected ArrayList<Level> all_levels = new ArrayList<Level>();
+	protected int levels_generated = 0;
 
-	public GameMode(Stage stage, Manager gm, int width,
-			int height) {
+	public GameMode(Stage stage, Manager gm) {
 		this.stage = stage;
 		this.gm = gm;
-		this.w = width;
-		this.h = height;
-
-		Gdx.input.setInputProcessor(this.stage);
-		generate();
-	}
-
-	protected void generate() {
-		if(gm.get_game_mode() == GameMode.MAIN_MENU_BACKGROUND_MODE)
-		{
-			all_levels.add(new MainMenuBackgroundLevel(20, w, h, gm));
-			return;
-		}
-		
-		// Generate the first 20 levels.
-		for (int i = 1; i <= 20; i++) {
-			Level lvl = new Level(i, w, h, gm);
-			all_levels.add(lvl);
-		}
 	}
 	
-	protected void generate(final int level)
-	{
-		new Thread(new Runnable()
-		{
-			   @Override
-			   public void run()
-			   {
-				   Level lvl = new Level(level, w, h, gm);
-				   all_levels.add(lvl);
-				   GameMode.this.levels_generated++;
-			   }
-			}).start();
-	}
-	
-	public ArrayList<Level> get_all_levels()
-	{
-		return all_levels;
+	public GameMode(Stage stage, Manager gm, int start_lvl) {
+		this.stage = stage;
+		this.gm = gm;
 	}
 
-	public Level gen_curr_level()
-	{
-		if(all_levels.size() < 10)
-		{
-			generate(levels_generated);
-		}
-		
-		Level curr_level = all_levels.remove(0);
-		gm.setLevel(curr_level);
-		for(int i = 0; i < curr_level.get_baby_blue_dots().size(); i++)
-		{
-			stage.addActor(curr_level.get_baby_blue_dots().get(i));
-		}
-		
-		for(int i = 0; i < curr_level.get_dwd_baby_blue_dots().size(); i++)
-		{
-			stage.addActor(curr_level.get_dwd_baby_blue_dots().get(i));
-		}
-		
-		for(int i = 0; i < curr_level.get_dwd_blue_dots().size(); i++)
-		{
-			stage.addActor(curr_level.get_dwd_blue_dots().get(i));
-		}
-		
-		for(int i = 0; i < curr_level.get_blue_dots().size(); i++)
-		{
-			stage.addActor(curr_level.get_blue_dots().get(i));
-		}
-		
-		int red_half_size = curr_level.get_red_dots().size()/2;
-		for(int i = 0; i < curr_level.get_red_dots().size()/2; i++)
-		{
-			stage.addActor(curr_level.get_red_dots().get(i));
-		}
-		
-		int dwd_red_half_size = curr_level.get_dwd_red_dots().size()/2;
-		for(int i = 0; i < curr_level.get_dwd_red_dots().size()/2; i++)
-		{
-			stage.addActor(curr_level.get_dwd_red_dots().get(i));
-		}
-		
-		int grn_half_size = curr_level.get_grn_dots().size()/2;
-		for(int i = 0; i < curr_level.get_grn_dots().size()/2; i++)
-		{
-			stage.addActor(curr_level.get_grn_dots().get(i));
-		}
-		
-		int dwd_grn_half_size = curr_level.get_dwd_grn_dots().size()/2;
-		for(int i = 0; i < curr_level.get_dwd_grn_dots().size()/2; i++)
-		{
-			stage.addActor(curr_level.get_dwd_grn_dots().get(i));
-		}
-		
-		for(int i = dwd_red_half_size; i < curr_level.get_dwd_red_dots().size(); i++)
-		{
-			stage.addActor(curr_level.get_dwd_red_dots().get(i));
-		}
-		
-		for(int i = red_half_size; i < curr_level.get_red_dots().size(); i++)
-		{
-			stage.addActor(curr_level.get_red_dots().get(i));
-		}
-		
-		for(int i = dwd_grn_half_size; i < curr_level.get_dwd_grn_dots().size(); i++)
-		{
-			stage.addActor(curr_level.get_dwd_grn_dots().get(i));
-		}
-		
-		for(int i = grn_half_size; i < curr_level.get_grn_dots().size(); i++)
-		{
-			stage.addActor(curr_level.get_grn_dots().get(i));
-		}
-		
-		for(Dot dot: curr_level.get_power_ups())
-		{
-			stage.addActor(dot);
-		}
-		
-		if(gm.isRainbowState())
-			gm.changePenalityDotVisibility(false);
+	protected void generate_threaded(final int lvl)	{
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				Level new_level = new Level(lvl, gm);
+				all_levels.add(new_level);
+			}
+		}).start();
+	}
+	
+	protected void generate(int lvl) {
+		all_levels.add(new Level(lvl, gm));
+	}
+	
+	public Level gen_start_level(int lvl, Touchable touchable) {
+		gen_start_level(lvl);
+		Level curr_level = gm.curr_level;
+		for(int i = 0; i < curr_level.getDotList().size(); i++)
+			curr_level.getDotList().get(i).setTouchable(touchable);
 		return curr_level;
+	}
+	
+	public void gen_start_level(int lvl) {
+		gen_level(lvl);
+		levels_generated = lvl + 2;
+	}
+	
+	public void gen_next_level() {
+		gen_level(levels_generated);
+		levels_generated++;
+		gm.addedDots = false;
+	}
+	
+	private void gen_level(int lvl)
+	{
+		if(all_levels.size() == 0) {
+			generate(lvl);
+			generate_threaded(lvl + 1);
+		} else
+			generate_threaded(lvl);
+		gm.setLevel(all_levels.remove(0));		
 	}	
 }

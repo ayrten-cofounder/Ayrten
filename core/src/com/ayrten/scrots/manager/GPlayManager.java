@@ -2,103 +2,144 @@ package com.ayrten.scrots.manager;
 
 import java.util.HashMap;
 
-public class GPlayManager {
-	private final String LVL_REGEXP = "passed_lvl%d";
-	private final String DOT_REGEXP = "popped_%d_dots";
-	
-	private int dot_count;
+import com.badlogic.gdx.utils.Json;
 
-	// Achievement types.
-	private HashMap<Integer, String> level_achievements;
+public class GPlayManager {
+	public static final String ACHIEVEMENT_GREEN_POP_1000 = "CgkIxpik37gbEAIQAg";
+	public static final String ACHIEVEMENT_GREEN_POP_5000 = "CgkIxpik37gbEAIQBw";
+	public static final String ACHIEVEMENT_GREEN_POP_10000 = "CgkIxpik37gbEAIQCA";
+	public static final String ACHIEVEMENT_GREEN_POP_25000 = "CgkIxpik37gbEAIQCQ";
+	public static final String ACHIEVEMENT_GREEN_POP_50000 = "CgkIxpik37gbEAIQCg";
+	public static final String ACHIEVEMENT_GREEN_POP_100000 = "CgkIxpik37gbEAIQCw";
+
+	public static final String ACHIEVEMENT_LEVEL_CLEAR_5 = "CgkIxpik37gbEAIQBg";
+	public static final String ACHIEVEMENT_LEVEL_CLEAR_10 = "CgkIxpik37gbEAIQDA";
+	public static final String ACHIEVEMENT_LEVEL_CLEAR_15 = "CgkIxpik37gbEAIQDQ";
+
+	public static final String ACHIEVEMENT_UNLOCK_DOT_RAINBOW = "CgkIxpik37gbEAIQAw";
+	public static final String ACHIEVEMENT_UNLOCK_DOT_INVINCIBLE = "CgkIxpik37gbEAIQBA";
+	public static final String ACHIEVEMENT_UNLOCK_DOT_MAGNET = "CgkIxpik37gbEAIQBQ";
+
+	// Googleplay achievement checklist.
+	private final String CHECKLIST_NAME = "gac";
+
 	private HashMap<Integer, String> dot_achievements;
+	private HashMap<Integer, String> level_achievements;
 
 	// Checklist for checking if you already unlocked the achievement.
 	private HashMap<String, Boolean> checklist_achievements;
 
-	// Conversions of achievements to points.
-	private HashMap<String, Integer> achievement_points;
-
 	public GPlayManager() {
-		dot_count = 0;
-		
 		initializeHashMaps();
-
-		addAchievement(5, LVL_REGEXP, level_achievements, 50);
-		addAchievement(10, LVL_REGEXP, level_achievements, 100);
-		addAchievement(15, LVL_REGEXP, level_achievements, 200);
-
-		addAchievement(1000, DOT_REGEXP, dot_achievements, 100);
-		addAchievement(5000, DOT_REGEXP, dot_achievements, 200);
-		addAchievement(10000, DOT_REGEXP, dot_achievements, 400);
-		addAchievement(25000, DOT_REGEXP, dot_achievements, 600);
-		addAchievement(50000, DOT_REGEXP, dot_achievements, 1000);
-		addAchievement(100000, DOT_REGEXP, dot_achievements, 2000);
-
-		addAchievements("unlock_rainbow", false, checklist_achievements, 150);
-		addAchievements("unlock_invincible", false, checklist_achievements, 150);
-		addAchievements("unlock_magnet", false, checklist_achievements, 150);
 	}
 
+	@SuppressWarnings("unchecked")
 	private void initializeHashMaps() {
-		level_achievements = new HashMap<Integer, String>();
 		dot_achievements = new HashMap<Integer, String>();
-		checklist_achievements = new HashMap<String, Boolean>();
-		achievement_points = new HashMap<String, Integer>();
-	}
+		level_achievements = new HashMap<Integer, String>();
 
-	private void addAchievement(int num, String regexp,
-			HashMap<Integer, String> map, int points) {
-		String achievement_name = String.format(regexp, num);
-		map.put(num, achievement_name);
-		achievement_points.put(achievement_name, points);
-		checklist_achievements.put(achievement_name, false);
-	}
+		dot_achievements.put(1000, ACHIEVEMENT_GREEN_POP_1000);
+		dot_achievements.put(5000, ACHIEVEMENT_GREEN_POP_5000);
+		dot_achievements.put(10000, ACHIEVEMENT_GREEN_POP_10000);
+		dot_achievements.put(25000, ACHIEVEMENT_GREEN_POP_25000);
+		dot_achievements.put(50000, ACHIEVEMENT_GREEN_POP_50000);
+		dot_achievements.put(100000, ACHIEVEMENT_GREEN_POP_100000);
 
-	private void addAchievements(String name, boolean value,
-			HashMap<String, Boolean> map, int points) {
-		map.put(name, value);
-		achievement_points.put(name, points);
+		level_achievements.put(5, ACHIEVEMENT_LEVEL_CLEAR_5);
+		level_achievements.put(10, ACHIEVEMENT_LEVEL_CLEAR_10);
+		level_achievements.put(15, ACHIEVEMENT_LEVEL_CLEAR_15);
+
+		String file = Assets.readFile(CHECKLIST_NAME);
+
+		if (!file.isEmpty()) {
+			Json json = new Json();
+			checklist_achievements = json.fromJson(HashMap.class, file);
+		} else {
+			checklist_achievements = new HashMap<String, Boolean>();
+			checklist_achievements.put(ACHIEVEMENT_GREEN_POP_1000, false);
+			checklist_achievements.put(ACHIEVEMENT_GREEN_POP_5000, false);
+			checklist_achievements.put(ACHIEVEMENT_GREEN_POP_10000, false);
+			checklist_achievements.put(ACHIEVEMENT_GREEN_POP_25000, false);
+			checklist_achievements.put(ACHIEVEMENT_GREEN_POP_50000, false);
+			checklist_achievements.put(ACHIEVEMENT_GREEN_POP_100000, false);
+
+			checklist_achievements.put(ACHIEVEMENT_LEVEL_CLEAR_5, false);
+			checklist_achievements.put(ACHIEVEMENT_LEVEL_CLEAR_10, false);
+			checklist_achievements.put(ACHIEVEMENT_LEVEL_CLEAR_15, false);
+
+			checklist_achievements.put(ACHIEVEMENT_UNLOCK_DOT_RAINBOW, false);
+			checklist_achievements
+					.put(ACHIEVEMENT_UNLOCK_DOT_INVINCIBLE, false);
+			checklist_achievements.put(ACHIEVEMENT_UNLOCK_DOT_MAGNET, false);
+		}
 	}
 
 	public boolean isAchievementLevel(int lvl) {
 		return (level_achievements.containsKey(lvl));
 	}
-	
-	public boolean isDotAchievement(int dot_count)
-	{
+
+	public boolean isDotAchievement(int dot_count) {
 		return (dot_achievements.containsKey(dot_count));
 	}
 
 	public void unlockLevelAchievement(int lvl) {
-		unlockAchievement(String.format(LVL_REGEXP, lvl));
-	}
-
-	public boolean isAchievementPop(int num) {
-		return (dot_achievements.containsKey(num));
+		if (isAchievementLevel(lvl) && !isUnlocked(level_achievements.get(lvl)))
+			unlockAchievement(level_achievements.get(lvl));
 	}
 
 	public void unlockDotAchievement(int num) {
-		unlockAchievement(String.format(DOT_REGEXP, num));
+		if (isDotAchievement(num) && !isUnlocked(dot_achievements.get(num)))
+			unlockAchievement(dot_achievements.get(num));
 	}
 
-	public void unlockAchievement(String achievement_name) {
-		if (achievement_points.containsKey(achievement_name)
-				&& Assets.game.apk_intf.is_gplay_signedin()
-				&& !isUnlocked(achievement_name)) {
+	public void unlockUnlockPowerDot(String achievement) {
+		if (!isUnlocked(achievement))
+			unlockAchievement(achievement);
+	}
+
+	private void unlockAchievement(String achievement_name) {
+		if (Assets.game.apk_intf.is_gplay_signedin() && !isUnlocked(achievement_name)) {
 			Assets.game.apk_intf.unlockAchievement(achievement_name);
-			Assets.points_manager.addPoints(achievement_points
-					.get(achievement_name));
 			checklist_achievements.put(achievement_name, true);
+			addPoints(achievement_name);
+			dispose();
+		}
+	}
+
+	private void addPoints(String achievement_name) {
+		if (ACHIEVEMENT_GREEN_POP_1000.equals(achievement_name)) {
+			Assets.points_manager.addPoints(100);
+		} else if (ACHIEVEMENT_GREEN_POP_5000.equals(achievement_name)) {
+			Assets.points_manager.addPoints(200);
+		} else if (ACHIEVEMENT_GREEN_POP_10000.equals(achievement_name)) {
+			Assets.points_manager.addPoints(400);
+		} else if (ACHIEVEMENT_GREEN_POP_25000.equals(achievement_name)) {
+			Assets.points_manager.addPoints(600);
+		} else if (ACHIEVEMENT_GREEN_POP_50000.equals(achievement_name)) {
+			Assets.points_manager.addPoints(1000);
+		} else if (ACHIEVEMENT_GREEN_POP_100000.equals(achievement_name)) {
+			Assets.points_manager.addPoints(2000);
+		} else if (ACHIEVEMENT_LEVEL_CLEAR_5.equals(achievement_name)) {
+			Assets.points_manager.addPoints(50);
+		} else if (ACHIEVEMENT_LEVEL_CLEAR_10.equals(achievement_name)) {
+			Assets.points_manager.addPoints(100);
+		} else if (ACHIEVEMENT_LEVEL_CLEAR_15.equals(achievement_name)) {
+			Assets.points_manager.addPoints(1000);
+		} else if (ACHIEVEMENT_UNLOCK_DOT_RAINBOW.equals(achievement_name)) {
+			Assets.points_manager.addPoints(150);
+		} else if (ACHIEVEMENT_UNLOCK_DOT_INVINCIBLE.equals(achievement_name)) {
+			Assets.points_manager.addPoints(150);
+		} else if (ACHIEVEMENT_UNLOCK_DOT_MAGNET.equals(achievement_name)) {
+			Assets.points_manager.addPoints(150);
 		}
 	}
 
 	public boolean isUnlocked(String achievement_name) {
-		return (checklist_achievements.get(achievement_name) == true);
+		return checklist_achievements.get(achievement_name);
 	}
-	
-	public void increment_dot_count(){
-		dot_count++;
-		if(isDotAchievement(dot_count))
-			unlockDotAchievement(dot_count);
+
+	public void dispose() {
+		Json json = new Json();
+		Assets.writeFile(CHECKLIST_NAME, json.toJson(checklist_achievements));
 	}
 }

@@ -3,7 +3,6 @@ package com.ayrten.scrots.dots;
 import java.util.Random;
 
 import com.ayrten.scrots.dotGraphics.DotGraphics;
-import com.ayrten.scrots.dotGraphics.DotGraphics_MainMenuScreenBackground;
 import com.ayrten.scrots.dotGraphics.DotGraphics_NormalGameMode;
 import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.manager.Assets;
@@ -34,14 +33,12 @@ public class Dot extends Actor {
 		this.pop = pop;
 		random = new Random(System.nanoTime());
 		setBounds(getX(), getY(), dot.getWidth(), dot.getHeight());
-
 		if (gm.get_game_mode() == GameMode.NORMAL_MODE
 				|| gm.get_game_mode() == GameMode.CHALLENGE_MODE) {
 			graphics = new DotGraphics_NormalGameMode(this);
-		} else if (gm.get_game_mode() == GameMode.MAIN_MENU_BACKGROUND_MODE) {
-			graphics = new DotGraphics_MainMenuScreenBackground(this);
-		}
-
+		} else 
+			graphics = new DotGraphics(this);
+		
 		// An InputListener is a subclass of EventListener
 		listener = new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y,
@@ -51,7 +48,6 @@ public class Dot extends Actor {
 
 			public void touchUp(InputEvent event, float x, float y,
 					int pointer, int button) {
-
 				// Gotta get touched by an angel
 				touchedByAnAngel();
 
@@ -66,10 +62,8 @@ public class Dot extends Actor {
 
 	// This class shall be overriddent by the real dots
 	public void touchedByAnAngel() {
-		if (Assets.prefs.getBoolean("sound_effs", true)) {
+		if (Assets.prefs.getBoolean("sound_effs", true))
 			pop.play();
-			Assets.gplay_manager.increment_dot_count();
-		}
 	}
 
 	public void setTexture(Texture dot) {
@@ -78,15 +72,6 @@ public class Dot extends Actor {
 
 	public Texture getTexture() {
 		return dot;
-	}
-
-	public void setPosition(float x, float y) {
-		setX(x);
-		setY(y);
-	}
-
-	public void changePosition() {
-		graphics.move();
 	}
 
 	private void dotChange() {

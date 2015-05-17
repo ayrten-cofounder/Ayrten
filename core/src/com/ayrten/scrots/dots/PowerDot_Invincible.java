@@ -23,6 +23,7 @@ public class PowerDot_Invincible extends PowerDot {
 		Assets.power_dot_manager.setInvincibleDotAmount(--num);
 		updateNumLabel();
 		INVINCIBLE = true;
+		Assets.stats_manager.getPlayerStats().power_dot_invincible.popped++;
 	}
 	
 	@Override
@@ -36,5 +37,10 @@ public class PowerDot_Invincible extends PowerDot {
 	@Override
 	public void draw(Batch batch, float alpha) {
 		batch.draw(dot, getX(), getY(), getWidth(), getHeight());
+	}
+	
+	@Override
+	public boolean isUnlocked() {
+		return (Assets.power_dot_manager.isInvincibleDotUnlocked());
 	}
 }

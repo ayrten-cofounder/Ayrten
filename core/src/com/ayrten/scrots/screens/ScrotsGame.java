@@ -17,6 +17,8 @@ public class ScrotsGame extends Game
     public AndroidInterface apk_intf;
     public IAP iap_inft;
     
+    public ScrotsGame() {}
+    
     public ScrotsGame(AndroidInterface apk_intf, IAP iap_intf)
     {
     	this.apk_intf = apk_intf;
@@ -30,10 +32,9 @@ public class ScrotsGame extends Game
 		
 		// Screens
 		main_menu = new MainMenuScreen();		
-		LoadingScreen loading_screen = new LoadingScreen();
 		
 		Assets.playMenuBGM();
-		setScreen(loading_screen);
+		setScreen(new LoadingScreen());
 		
 		// Catches when the user presses the back button. Has no effects on desktop.
 		Gdx.input.setCatchBackKey(true);

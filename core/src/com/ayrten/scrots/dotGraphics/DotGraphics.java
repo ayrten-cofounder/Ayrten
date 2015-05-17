@@ -1,7 +1,6 @@
 package com.ayrten.scrots.dotGraphics;
 
 import com.ayrten.scrots.dots.Dot;
-import com.ayrten.scrots.manager.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
@@ -23,6 +22,7 @@ public class DotGraphics {
 
 	public DotGraphics(Dot dot) {
 		this.dot = dot;
+		randSlopeV3();
 	}
 
 	public void move() {
@@ -40,8 +40,10 @@ public class DotGraphics {
 	protected void move_v3() {
 		float x = dot.getX();
 		float y = dot.getY();
-		float maxX = Gdx.graphics.getWidth();
-		float maxY = Assets.game_height;
+		
+		float minX = dot.gm.min_width;
+		float maxX = dot.gm.max_width;
+		float maxY = dot.gm.max_height;
 
 		if (slopeX >= 0f && slopeY >= 0f) {
 			if (slopeX + x + curr_width < maxX
@@ -51,13 +53,13 @@ public class DotGraphics {
 				randSlopeV3();
 			}
 		} else if (slopeX <= 0f && slopeY <= 0f) {
-			if (slopeX + x > 0 && slopeY + y > 0) {
+			if (slopeX + x > minX && slopeY + y > 0) {
 				dot.setPosition(x + slopeX, y + slopeY);
 			} else {
 				randSlopeV3();
 			}
 		} else if (slopeX <= 0f && slopeY >= 0f) {
-			if (slopeX + x > 0 && slopeY + y + curr_height < maxY) {
+			if (slopeX + x > minX && slopeY + y + curr_height < maxY) {
 				dot.setPosition(x + slopeX, y + slopeY);
 			} else {
 				randSlopeV3();
@@ -88,7 +90,7 @@ public class DotGraphics {
 			randSlopeV3();
 		}
 	}
-	
+
 	public void resetRatio() {
 		size_ratio = dot.random.nextBoolean() ? MAX_SIZE_RATIO : MIN_SIZE_RATIO;
 	}
@@ -107,13 +109,11 @@ public class DotGraphics {
 	}
 
 	public void changePosition() {
-		move();
+		move_v3();
 	}
-
+	
 	public void draw(Batch batch, float alpha, boolean magnetized) {
-		
-		if(!magnetized)
-		{
+		if (!magnetized) {
 			changePosition();
 		}
 		

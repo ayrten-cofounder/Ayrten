@@ -33,8 +33,7 @@ android/google_play_services
 out/
 
 ## Desktop
-desktop/points_manager2.txt
-desktop/src/com/ayrten/scrots/desktop/DesktopLauncher.java
+desktop/*.txt
 
 com_crashlytics_export_strings.xml
 
@@ -72,3 +71,6 @@ build/
 .DS_Store
 
 scrots-desktop/src/com/ayrten/scrots/desktop/DesktopLauncher.java
+Designs/GameScreen.psd
+Designs/scrots.psd
+Designs/TableScreen.psd

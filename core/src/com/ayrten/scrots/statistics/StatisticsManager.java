@@ -5,31 +5,9 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 
 public class StatisticsManager {
-	protected String file = "statistics2.txt";
+	protected final String STATISTICS_FILENAME = "scs";
 	
-	public enum Stat
-	{
-		reg_dot_1, 
-		reg_dot_2, 
-		reg_dot_3, 
-		
-		pen_dot_1,
-		pen_dot_2,
-		
-		dwd_reg_dot_1,
-		dwd_reg_dot_2,
-		dwd_reg_dot_3,
-		
-		dwd_pen_dot_1,
-		dwd_pen_dot_2,
-		dwd_pen_dot_3,
-		
-		power_dot_magnet,
-		power_dot_invincible,
-		power_dot_rainbow
-	};
-
-	public static class Stats
+	public static class PlayerStats
 	{
 		public Statistics reg_dot_1 = new Statistics();
 		public Statistics reg_dot_2 = new Statistics();
@@ -51,53 +29,36 @@ public class StatisticsManager {
 		public Statistics power_dot_rainbow = new Statistics();
 	}
 	
-	public Stats stats;
+	private PlayerStats playerStats;
+	private Json json;
 
 	public StatisticsManager()
 	{
-		stats = getStats();
-	}
-
-	public Stats getStats() {
-		String file = readFile(this.file);
-
-		if (!file.isEmpty()) {
-			Json json = new Json();
-			Stats points = json.fromJson(Stats.class, file);
-
-			return points;
-		} else {
-			Json json = new Json();
-			Stats stats = new Stats();
-
-			writeFile(this.file, json.toJson(stats));
-		}
-
-		return new Stats();
+		json = new Json();
+		playerStats = getPlayerStatsFromFile();
 	}
 	
-	public void writeToFile()
-	{
-		Json json = new Json();
+	public void writePlayerStatsToFile() { writeFile(STATISTICS_FILENAME, json.toJson(playerStats)); }
+	public void clearPlayerStatsFromFile(){ writeFile(STATISTICS_FILENAME, json.toJson(new PlayerStats())); }
+	public PlayerStats getPlayerStats() { return this.playerStats; }
+	
+	/**
+	 * Helpers
+	 */
+	public PlayerStats getPlayerStatsFromFile() {
+		String file = readFile(STATISTICS_FILENAME);
+		
+		if (!file.isEmpty()) {
+			return json.fromJson(PlayerStats.class, file);
 
-		writeFile(this.file, json.toJson(stats));
+		} else {
+			PlayerStats ps = new PlayerStats();
+			writeFile(STATISTICS_FILENAME, json.toJson(ps));
+			return ps;
+		}
 	}
-
-	public void ClearStats()
-	{
-		Stats stats = new Stats();
-		Json json = new Json();
-
-		writeFile(this.file, json.toJson(stats));
-	}
-
-	public static void writeFile(String fileName, String s) {
-		FileHandle file = Gdx.files.local(fileName);
-		file.writeString(com.badlogic.gdx.utils.Base64Coder.encodeString(s),
-				false);
-	}
-
-	public static String readFile(String fileName) {
+	
+	private static String readFile(String fileName) {
 		FileHandle file = Gdx.files.local(fileName);
 		if (file != null && file.exists()) {
 			String s = file.readString();
@@ -106,5 +67,10 @@ public class StatisticsManager {
 			}
 		}
 		return "";
+	}
+
+	private static void writeFile(String fileName, String s) {
+		FileHandle file = Gdx.files.local(fileName);
+		file.writeString(com.badlogic.gdx.utils.Base64Coder.encodeString(s), false);
 	}
 }

@@ -4,6 +4,7 @@ public class ChallengeScoreboard extends Scoreboard
 {
 	public ChallengeScoreboard()
 	{
-		this.file = "highscore_challenge_mode.txt";
+		// High score challenge mode
+		this.file = "hsch_mde";
 	}
 }

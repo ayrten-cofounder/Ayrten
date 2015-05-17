@@ -1,11 +1,16 @@
 package com.ayrten.scrots.dots;
 
+import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 
@@ -22,23 +27,46 @@ public class PowerDot extends Dot {
 	protected int num = 0; // The amount of power dots the user has
 
 	protected InputListener powerdot_listener;
+	protected float origX, origY;
+
+	protected Image rs;
+	protected SpriteBatch batch;
+	protected float angle;
+	protected Image gray_dot_image;
 
 	public PowerDot(Texture dot, Manager gm, Sound pop) {
 		super(dot, gm, pop);
-
 		timer = new Timer();
-		powerdot_listener = new InputListener() {
+
+		angle = 0;
+
+		batch = new SpriteBatch();
+
+		powerdot_listener = new InputListener(){
+			
+			@Override
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
+				origX = event.getTarget().getX(Align.center);
+				origY = event.getTarget().getY(Align.center);
+				if(Gdx.input.getX(pointer) > origX && num > 0)
+				  event.getTarget().setPosition(Gdx.input.getX(pointer), event.getTarget().getY(Align.center), Align.center);
 				return true;
 			}
 
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
+			@Override
+			public void touchDragged(InputEvent event, float x, float y, int pointer) {
+				if(Gdx.input.getX(pointer) > origX && num > 0)
+					event.getTarget().setPosition(Gdx.input.getX(pointer), event.getTarget().getY(Align.center), Align.center);
+			}
 
-				if (num > 0) {
+			@Override
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				super.touchUp(event, x, y, pointer, button);
+				// If x position exceeds a threshold, then activate the effect.
+				if (Math.abs(origX - event.getTarget().getX(Align.center)) > Assets.powerdot_thresh) 
 					touchedByAnAngel();
-				}
+				event.getTarget().setPosition(origX, origY, Align.center);
 			}
 		};
 
@@ -53,11 +81,25 @@ public class PowerDot extends Dot {
 
 	public void setNumLabel(Label label) {
 		num_label = label;
-		num_label.setText(String.valueOf(num));
+		updateNumLabel();
+	}
+
+	public void setRadialTimer(Image image) {
+		rs = image;
+	}
+	
+	public void setGrayImage(Image gray_image) {
+		gray_dot_image = gray_image;
 	}
 
 	public void updateNumLabel() {
-		num_label.setText(String.valueOf(num));
+		num_label.setText("x" + String.valueOf(num));
+	}
+	
+	public boolean isUnlocked() {
+		Gdx.app.error("POWERDOT", this.getClass().toString() + " did not override isUnlocked() function!");
+		Gdx.app.exit();
+		return false;
 	}
 
 	@Override
@@ -74,17 +116,26 @@ public class PowerDot extends Dot {
 
 	// Action to do before timer starts.
 	public void beforeAction() {
-
+		rs.setVisible(true);
+		gray_dot_image.setVisible(true);
+		setVisible(false);
+		
 	}
 
 	// Action to do during the timer
 	public void duringAction() {
-
+		angle = 360 * (1 - time/ACTIVE_TIME);
+		batch.begin();
+		((RadialSprite) rs.getDrawable()).draw(batch, rs.getX(), rs.getY(), angle);
+		batch.end();
 	}
 
 	// Action to do after timer ends
 	public void afterAction() {
-
+		angle = 0;
+		rs.setVisible(false);
+		gray_dot_image.setVisible(false);
+		setVisible(true);
 	}
 
 	public void startTime() {

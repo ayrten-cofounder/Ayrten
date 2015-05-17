@@ -4,7 +4,7 @@ import com.ayrten.scrots.manager.Assets;
 import com.badlogic.gdx.utils.Json;
 
 public class Scoreboard {
-	protected String file = "highscore.txt";
+	protected String file = "hs_mde";
 
 	public static class Scores {
 		public int first = 0;

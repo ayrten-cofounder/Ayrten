@@ -1,6 +1,6 @@
 package com.ayrten.scrots.level;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 
 import com.ayrten.scrots.dots.DWD_PenDot1;
@@ -13,6 +13,7 @@ import com.ayrten.scrots.dots.PenDot1;
 import com.ayrten.scrots.dots.PenDot2;
 import com.ayrten.scrots.dots.RegDot1;
 import com.ayrten.scrots.dots.RegDot2;
+import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 
 public class Level
@@ -42,174 +43,74 @@ public class Level
 	// DWD (Dot Within Dot) Weight
 	protected static final int DWD_WEIGHT = 2;
 
-	// Stores all the dots for that level.
-	protected ArrayList<Dot> regDots1;
-	protected ArrayList<Dot> penDots1;
-	protected ArrayList<Dot> penDots2;
-	protected ArrayList<Dot> regDots2;
-	
-	protected ArrayList<Dot> dwdGreenDots;
-	protected ArrayList<Dot> dwdRedDots;
-	protected ArrayList<Dot> dwdBlueDots;
-	protected ArrayList<Dot> dwdBabyBlueDots;
-	
-	protected ArrayList<Dot> dotsThatCameOutOfDWDs;
-	
-	protected LinkedList<Dot> powerUpDot;
-	
-	protected LinkedList<ArrayList<Dot>> allDots;
-
-	protected int level;
+	protected LinkedList<Dot> allDots;
 	protected DotGenerator generator;
-	
 	protected int number_of_green_dots;
+	protected boolean firstDWD_regdot1, firstDWD_regdot2, firstDWD_pendot1, firstDWD_pendot2;
 	
-	public Level(int level, int width, int height, Manager gm)
+	public Level(int level, Manager gm)
 	{
 		assert level >= 0;
-		this.level = level;
-		// Maybe should move this up to the GameMode level? - Tony
-		generator = new DotGenerator(width, height, gm);
+		generator = new DotGenerator(gm);
+		allDots = new LinkedList<Dot>();
+		
+		firstDWD_regdot1 = false;
+		firstDWD_regdot2 = false;
+		firstDWD_pendot1 = false;
+		firstDWD_pendot2 = false;
 
-//		generator = new DotGenerator(width, height, gm);
-				
-		regDots1 = new ArrayList<Dot>();
-		penDots1 = new ArrayList<Dot>();
-		penDots2 = new ArrayList<Dot>();
-		regDots2 = new ArrayList<Dot>();
-		
-		dwdGreenDots = new ArrayList<Dot>();
-		dwdRedDots = new ArrayList<Dot>();
-		dwdBlueDots = new ArrayList<Dot>();
-		dwdBabyBlueDots = new ArrayList<Dot>();
-		
-		dotsThatCameOutOfDWDs = new ArrayList<Dot>();
-		
-		powerUpDot = new LinkedList<Dot>();
-//		powerUpDot.add(generator.genPowerDotMagnet());
-		
-		allDots = new LinkedList<ArrayList<Dot>>();
-		allDots.add(regDots1);
-		allDots.add(regDots2);
-		allDots.add(penDots1);
-		allDots.add(penDots2);
-		allDots.add(dwdGreenDots);
-		allDots.add(dwdRedDots);
-		allDots.add(dwdBlueDots);
-		allDots.add(dwdBabyBlueDots);
-		allDots.add(dotsThatCameOutOfDWDs);
+		gen_grn_dots(level);
+		gen_red_dots(level);
+		gen_blue_dots(level);
+		gen_baby_blue_dots(level);
 
-		gen_grn_dots();
-		gen_red_dots();
-		gen_blue_dots();
-		gen_baby_blue_dots();
-		
-		number_of_green_dots = regDots1.size();
+		Collections.shuffle(allDots);
 	}
 
-	public boolean level_clear()
-	{
+	public boolean level_clear() {
 		return number_of_green_dots <= 0 ? true : false;
 	}
 	
-	public void addGreenDot()
-	{
+	public void addGreenDot() {
 		number_of_green_dots++;
 	}
 	
-	public void minusGreenDot()
-	{
+	public void minusGreenDot() {
 		number_of_green_dots--;
 	}
 
-	public ArrayList<Dot> get_grn_dots()
-	{
-		return regDots1;
-	}
-
-	public ArrayList<Dot> get_red_dots()
-	{
-		return penDots1;
-	}
-
-	public ArrayList<Dot> get_blue_dots()
-	{
-		return penDots2;
-	}
-
-	public ArrayList<Dot> get_baby_blue_dots()
-	{
-		return regDots2;
-	}
-	
-	public ArrayList<Dot> get_dwd_grn_dots()
-	{
-		return dwdGreenDots;
-	}
-
-	public ArrayList<Dot> get_dwd_red_dots()
-	{
-		return dwdRedDots;
-	}
-
-	public ArrayList<Dot> get_dwd_blue_dots()
-	{
-		return dwdBlueDots;
-	}
-
-	public ArrayList<Dot> get_dwd_baby_blue_dots()
-	{
-		return dwdBabyBlueDots;
-	}
-	
-	public ArrayList<Dot> get_dots_that_came_out_of_dwds()
-	{
-		return dotsThatCameOutOfDWDs;
-	}
-
-	public LinkedList<ArrayList<Dot>> get_all_dots()
-	{
+	public LinkedList<Dot> getDotList() {
 		return allDots;
 	}
 	
-	public LinkedList<Dot> get_power_ups()
+	protected void gen_grn_dots(int level)
 	{
-		return powerUpDot;
-	}
-	
-	public void addToDotsThatCameOutOfDWDList(ArrayList<Dot> array)
-	{
-		dotsThatCameOutOfDWDs.addAll(array);
-	}
-	
-	protected void gen_grn_dots()
-	{
-		regDots1.clear();
 		int num = (int) Math.floor((level - GREEN_DOT_START) * GREEN_DOT_MOD);
 		
 		if	(num > GREEN_DOT_CAP)
 		{
 			int yellow_num = (int) Math.floor(level * YELLOW_DOT_MOD);
-//			num = num - (yellow_num * DWD_WEIGHT);
 			num = GREEN_DOT_CAP;
 			
 			for (int i = 0; i < yellow_num; i++)
 			{
 				DWD_RegDot1 dot = generator.genDWDRegDot1();
-				dwdGreenDots.add(dot);
+				allDots.add(dot);
 			}
+			
+			firstDWD_regdot1 = Assets.prefs.getBoolean("firstDWD_regdot1_help", true);
 		}
 		
 		for (int i = 0; i < num; i++)
 		{
 			RegDot1 dot = generator.genRegDot1();
-			regDots1.add(dot);
+			allDots.add(dot);
 		}
+		number_of_green_dots = num;
 	}
 
-	protected void gen_red_dots()
+	protected void gen_red_dots(int level)
 	{
-		penDots1.clear();
 		int num = (int) Math.floor((level - RED_DOT_START) * RED_DOT_MOD);
 		
 		if	(num > RED_DOT_CAP)
@@ -220,20 +121,21 @@ public class Level
 			for (int i = 0; i < brown_num; i++)
 			{
 				DWD_PenDot1 dot = generator.genDWDPenDot1();
-				dwdRedDots.add(dot);
+				allDots.add(dot);
 			}
+			
+			 firstDWD_pendot1 = Assets.prefs.getBoolean("firstDWD_pendot1_help", true);
 		}
 		
 		for (int i = 0; i < num; i++)
 		{
 			PenDot1 dot = generator.genPenDot1();
-			penDots1.add(dot);
+			allDots.add(dot);
 		}
 	}
 
-	protected void gen_blue_dots()
+	protected void gen_blue_dots(int level)
 	{
-		penDots2.clear();
 		int num = (int) Math.floor((level - BLUE_DOT_START) * BLUE_DOT_MOD);
 		
 		if	(num > BLUE_DOT_CAP)
@@ -244,20 +146,21 @@ public class Level
 			for (int i = 0; i < pink_num; i++)
 			{
 				DWD_PenDot2 dot = generator.genDWDPenDot2();
-				dwdBlueDots.add(dot);
+				allDots.add(dot);
 			}
+			
+			 firstDWD_pendot2 = Assets.prefs.getBoolean("firstDWD_pendot2_help", true);
 		}
 		
 		for (int i = 0; i < num; i++)
 		{
 			PenDot2 dot = generator.genPenDot2();
-			penDots2.add(dot);
+			allDots.add(dot);
 		}
 	}
 
-	protected void gen_baby_blue_dots()
+	protected void gen_baby_blue_dots(int level)
 	{
-		regDots2.clear();
 		int num = (int) Math.floor((level - BABY_BLUE_DOT_START) * BABY_BLUE_DOT_MOD);
 		
 		if	(num > BABY_BLUE_DOT_CAP)
@@ -268,15 +171,48 @@ public class Level
 			for (int i = 0; i < orange_num; i++)
 			{
 				DWD_RegDot2 dot = generator.genDWDRegDot2();
-				dwdBabyBlueDots.add(dot);
+				allDots.add(dot);
 			}
+			
+			 firstDWD_regdot1 = Assets.prefs.getBoolean("firstDWD_regdot2_help", true);
 		}
 		
 		for (int i = 0; i < num; i++)
 		{
 			RegDot2 dot = generator.genRegDot2();
-			regDots2.add(dot);
+			allDots.add(dot);
 		}
 	}
-
+	
+	public void setFirst(String key, boolean enable) {
+		if(key.equals("firstDWD_regdot1_help"))  {
+			firstDWD_regdot1 = enable;
+			Assets.prefs.putBoolean("firstDWD_regdot1_help", enable);
+		} else if(key.equals("firstDWD_regdot2_help")) {
+			firstDWD_regdot2 = enable;
+			Assets.prefs.putBoolean("firstDWD_regdot2_help", enable);
+		} else if(key.equals("firstDWD_pendot1_help")) {
+			firstDWD_pendot1 = enable;
+			Assets.prefs.putBoolean("firstDWD_pendot1_help", enable);
+		} else if(key.equals("firstDWD_pendot2_help")) {
+			firstDWD_pendot2 = enable;
+			Assets.prefs.putBoolean("firstDWD_pendot2_help", enable);
+		}
+	}
+	
+	public boolean getFirst(String key) {
+		boolean ret_val = false;
+		
+		if(key.equals("firstDWD_regdot1_help"))  {
+			ret_val = firstDWD_regdot1;
+		} else if(key.equals("firstDWD_regdot2_help")) {
+			ret_val = firstDWD_regdot2;
+		} else if(key.equals("firstDWD_pendot1_help")) {
+			ret_val = firstDWD_pendot1;
+		} else if(key.equals("firstDWD_pendot2_help")) {
+			ret_val = firstDWD_pendot2;
+		}
+		
+		return ret_val;
+	}
 }

@@ -1,5 +1,6 @@
 package com.ayrten.scrots.dots;
 
+import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -23,6 +24,7 @@ public class DWD_PenDot1 extends DWD {
 		}
 
 		gm.addTime(-gm.getFloatTime() * DIVIDER);
+		Assets.stats_manager.getPlayerStats().dwd_pen_dot_1.popped++;
 	}
 
 	@Override
@@ -32,7 +34,8 @@ public class DWD_PenDot1 extends DWD {
 		for (int i = 0; i < MAX_DOTS; i++) {
 			Dot newDot = generator.genPenDot1();
 			newDot.setPosition(getX(), getY());
-			dots_inside.add(newDot);
+			gm.curr_level.getDotList().add(newDot);
+			addDWDToStage(newDot);
 		}
 	}
 

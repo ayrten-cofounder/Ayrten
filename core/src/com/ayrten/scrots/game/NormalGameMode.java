@@ -6,8 +6,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 public class NormalGameMode extends GameMode
 {
 
-	public NormalGameMode(Stage stage, Manager gm, int width, int height)
+	public NormalGameMode(Stage stage, Manager gm)
 	{
-		super(stage, gm, width, height);
+		super(stage, gm);
 	}
 }
