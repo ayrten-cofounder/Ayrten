@@ -24,7 +24,6 @@ public class DWD_PenDot2 extends DWD {
 
 		// Lose time
 		gm.addTime(TIME_OFF);
-		
 		Assets.stats_manager.getPlayerStats().dwd_pen_dot_2.popped++;
 	}
 	
@@ -35,7 +34,8 @@ public class DWD_PenDot2 extends DWD {
 		for (int i = 0; i < MAX_DOTS; i++) {
 			Dot newDot = generator.genPenDot2();
 			newDot.setPosition(getX(), getY());
-			dots_inside.add(newDot);
+			gm.curr_level.getDotList().add(newDot);
+			addDWDToStage(newDot);
 		}
 	}
 }

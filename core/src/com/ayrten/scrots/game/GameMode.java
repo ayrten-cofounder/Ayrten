@@ -45,8 +45,8 @@ public class GameMode {
 	public Level gen_start_level(int lvl, Touchable touchable) {
 		gen_start_level(lvl);
 		Level curr_level = gm.curr_level;
-		for(int i = 0; i < curr_level.get_all_dots().size(); i++)
-			curr_level.get_all_dots().get(i).setTouchable(touchable);
+		for(int i = 0; i < curr_level.getDotList().size(); i++)
+			curr_level.getDotList().get(i).setTouchable(touchable);
 		return curr_level;
 	}
 	
@@ -58,27 +58,16 @@ public class GameMode {
 	public void gen_next_level() {
 		gen_level(levels_generated);
 		levels_generated++;
+		gm.addedDots = false;
 	}
 	
-	private Level gen_level(int lvl)
+	private void gen_level(int lvl)
 	{
 		if(all_levels.size() == 0) {
 			generate(lvl);
 			generate_threaded(lvl + 1);
 		} else
 			generate_threaded(lvl);
-		Level curr_level = all_levels.remove(0);
-		gm.setLevel(curr_level);
-		
-		for(int i = 0; i < curr_level.get_all_dots().size(); i++)
-			stage.addActor(curr_level.get_all_dots().get(i));
-		
-		if(gm.isRainbowState())
-			gm.changePenalityDotVisibility(false);
-		
-		if(gm.isMagnetState())
-			stage.addActor(gm.getMagnet());
-		
-		return curr_level;
+		gm.setLevel(all_levels.remove(0));		
 	}	
 }

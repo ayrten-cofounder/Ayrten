@@ -532,17 +532,33 @@ public class GameScreen extends ScrotsScreen {
 	public void render(float delta) {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stage.act(Gdx.graphics.getDeltaTime());
+		
+		if(gm.hasTutorials()) {
+			gm.pauseGame();
+			for(int i = 0; i < powDots.size(); i++)
+				powDots.get(i).pauseTime();
+			gm.loadTutorial();
+		} else { 
+			if(!gm.addedDots) {
+				gm.addDotsToStage();
+				if(gm.getGameState() == Manager.game_state.PAUSED) {
+					gm.startGame();
+					for(int i = 0; i < powDots.size(); i++)
+						powDots.get(i).resumeTime();
+				}
+			}
 
-		if (gm.isGameOver()) {
-			gameOver();
-		} else {
-			level();
-			time();
-			points();
+			if (gm.isGameOver()) {
+				gameOver();
+			} else {
+				level();
+				time();
+				points();
 
-			stage.draw();
-			if (gm.isLevelClear())
-				levelClear();
+				stage.draw();
+				if (gm.isLevelClear())
+					levelClear();
+			}
 		}
 	}
 
@@ -610,15 +626,15 @@ public class GameScreen extends ScrotsScreen {
 			Assets.level_clear.play();
 		gamemode.gen_next_level();
 		
-		Table table = new Table(Assets.skin);
-		table.add("whatever");
-		MessageScreen dot_tut_screen = new MessageScreen(table, 1) {
-			@Override
-			public void transition() {
-				Assets.game.setScreen(Assets.game.main_menu.game_screen);
-			}
-		};
-		Assets.game.setScreen(dot_tut_screen);
+//		Table table = new Table(Assets.skin);
+//		table.add("whatever");
+//		MessageScreen dot_tut_screen = new MessageScreen(table, 1) {
+//			@Override
+//			public void transition() {
+//				Assets.game.setScreen(Assets.game.main_menu.game_screen);
+//			}
+//		};
+//		Assets.game.setScreen(dot_tut_screen);
 		
 		if (gm.isMagnetState())
 			magnet.magnet();

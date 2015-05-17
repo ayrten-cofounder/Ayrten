@@ -99,6 +99,7 @@ public class LoadingScreen implements Screen {
 		MessageScreen update_screen = new MessageScreen(top_table, pages) {
 			@Override
 			public void transition() {
+				super.transition();
 				Assets.prefs.putFloat("app_version",
 						Assets.game.apk_intf.getAppVersion());
 				Assets.prefs.flush();
@@ -107,6 +108,7 @@ public class LoadingScreen implements Screen {
 					Assets.game.apk_intf.gplay_signin();
 			}
 		};
+		update_screen.setBackgroundColor(150, 66, 66);
 		Assets.game.setScreen(update_screen);
 	}
 

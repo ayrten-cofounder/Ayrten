@@ -53,12 +53,10 @@ public class Assets {
 	// Drawables
 	public static NinePatchDrawable gray_box;
 	public static NinePatchDrawable transparent_box;
-	public static NinePatchDrawable red_backgroud;
 
 	public static NinePatchDrawable rounded_rectangle_dark_gray;
 	public static NinePatchDrawable rounded_rectangle_gray;
 	public static NinePatchDrawable rounded_rectangle_blue;
-//	public static NinePatchDrawable rounded_rectangle_blue_small;
 
 	public static NinePatchDrawable rounded_rectangle_border;
 	public static NinePatchDrawable rounded_rectangle_border_blue;
@@ -152,7 +150,6 @@ public class Assets {
 	public static Texture lvl_bubble;
 	public static Texture time_bubble;
 	public static Texture timer_ring;
-	// public static Texture gray_timer_bg;
 
 	public static Image powDot1_image;
 	public static Image powDot2_image;
@@ -206,8 +203,6 @@ public class Assets {
 				Gdx.files.internal("data/gray_box.9.png"))));
 		transparent_box = new NinePatchDrawable(new NinePatch(new Texture(
 				Gdx.files.internal("data/transparent_box.9.png"))));
-		red_backgroud = new NinePatchDrawable(new NinePatch(new Texture(
-				Gdx.files.internal("data/RedBackground.png"))));
 
 		rounded_rectangle_dark_gray = new NinePatchDrawable(
 				new NinePatch(new Texture(Gdx.files
@@ -221,10 +216,6 @@ public class Assets {
 				new Texture(
 						Gdx.files.internal("data/rounded_rectangle_blue.png")),
 				50, 50, 50, 50));
-//		rounded_rectangle_blue_small = new NinePatchDrawable(new NinePatch(
-//				new Texture(
-//						Gdx.files.internal("data/rounded_rectangle_blue_small.png")),
-//				20, 20, 20, 20));
  
 		rounded_rectangle_border = new NinePatchDrawable(
 				new NinePatch(new Texture(Gdx.files
@@ -370,8 +361,6 @@ public class Assets {
 		play_button = new Texture(Gdx.files.internal("data/dots/play_dot.png"));
 		play_button.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		timer_ring = new Texture(Gdx.files.internal("data/timer_ring.png"));
-		// gray_timer_bg = new
-		// Texture(Gdx.files.internal("data/gray_timer_bg.png"));
 
 		lvl_bubble = new Texture(Gdx.files.internal("data/dots/lvl_bubble.png"));
 		time_bubble = new Texture(

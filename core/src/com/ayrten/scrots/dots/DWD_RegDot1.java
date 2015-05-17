@@ -32,13 +32,15 @@ public class DWD_RegDot1 extends DWD {
 			if (rand.nextInt(100) % 10 == 6) {
 				Dot newDot = generator.genRegDot3();
 				newDot.setPosition(getX(), getY());
-				dots_inside.add(newDot);
+				gm.curr_level.getDotList().add(newDot);
+				addDWDToStage(newDot);
 				break;
 			}
 
 			Dot newDot = generator.genRegDot1();
 			newDot.setPosition(getX(), getY());
-			dots_inside.add(newDot);
+			gm.curr_level.getDotList().add(newDot);
+			addDWDToStage(newDot);
 			gm.curr_level.addGreenDot();
 		}
 	}

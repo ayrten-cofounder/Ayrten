@@ -22,7 +22,7 @@ public class RegDot3 extends Dot {
 		super.touchedByAnAngel();
 
 		circle.set(getX(Align.center), getY(Align.center), getWidth());
-		checkRadius(gm.curr_level.get_all_dots());
+		checkRadius(gm.curr_level.getDotList());
 		Assets.stats_manager.getPlayerStats().reg_dot_3.popped++;
 	}
 

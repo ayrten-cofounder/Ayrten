@@ -32,7 +32,8 @@ public class DWD_RegDot2 extends DWD
 		for (int i = 0; i < MAX_DOTS; i++) {
 			Dot newDot = generator.genRegDot2();
 			newDot.setPosition(getX(), getY());
-			dots_inside.add(newDot);
+			gm.curr_level.getDotList().add(newDot);
+			addDWDToStage(newDot);
 		}
 	}
 }

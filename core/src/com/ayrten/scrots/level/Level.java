@@ -1,6 +1,5 @@
 package com.ayrten.scrots.level;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 
@@ -14,6 +13,7 @@ import com.ayrten.scrots.dots.PenDot1;
 import com.ayrten.scrots.dots.PenDot2;
 import com.ayrten.scrots.dots.RegDot1;
 import com.ayrten.scrots.dots.RegDot2;
+import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 
 public class Level
@@ -43,20 +43,21 @@ public class Level
 	// DWD (Dot Within Dot) Weight
 	protected static final int DWD_WEIGHT = 2;
 
-	protected ArrayList<Dot> dotsThatCameOutOfDWDs;
 	protected LinkedList<Dot> allDots;
-
 	protected DotGenerator generator;
-	
 	protected int number_of_green_dots;
+	protected boolean firstDWD_regdot1, firstDWD_regdot2, firstDWD_pendot1, firstDWD_pendot2;
 	
 	public Level(int level, Manager gm)
 	{
 		assert level >= 0;
-		// Maybe should move this up to the GameMode level? - Tony
 		generator = new DotGenerator(gm);
-		dotsThatCameOutOfDWDs = new ArrayList<Dot>();
 		allDots = new LinkedList<Dot>();
+		
+		firstDWD_regdot1 = false;
+		firstDWD_regdot2 = false;
+		firstDWD_pendot1 = false;
+		firstDWD_pendot2 = false;
 
 		gen_grn_dots(level);
 		gen_red_dots(level);
@@ -78,12 +79,8 @@ public class Level
 		number_of_green_dots--;
 	}
 
-	public LinkedList<Dot> get_all_dots() {
+	public LinkedList<Dot> getDotList() {
 		return allDots;
-	}
-	
-	public void addToDotsThatCameOutOfDWDList(ArrayList<Dot> array)	{
-		dotsThatCameOutOfDWDs.addAll(array);
 	}
 	
 	protected void gen_grn_dots(int level)
@@ -100,6 +97,8 @@ public class Level
 				DWD_RegDot1 dot = generator.genDWDRegDot1();
 				allDots.add(dot);
 			}
+			
+			firstDWD_regdot1 = Assets.prefs.getBoolean("firstDWD_regdot1_help", true);
 		}
 		
 		for (int i = 0; i < num; i++)
@@ -124,6 +123,8 @@ public class Level
 				DWD_PenDot1 dot = generator.genDWDPenDot1();
 				allDots.add(dot);
 			}
+			
+			 firstDWD_pendot1 = Assets.prefs.getBoolean("firstDWD_pendot1_help", true);
 		}
 		
 		for (int i = 0; i < num; i++)
@@ -147,6 +148,8 @@ public class Level
 				DWD_PenDot2 dot = generator.genDWDPenDot2();
 				allDots.add(dot);
 			}
+			
+			 firstDWD_pendot2 = Assets.prefs.getBoolean("firstDWD_pendot2_help", true);
 		}
 		
 		for (int i = 0; i < num; i++)
@@ -170,6 +173,8 @@ public class Level
 				DWD_RegDot2 dot = generator.genDWDRegDot2();
 				allDots.add(dot);
 			}
+			
+			 firstDWD_regdot1 = Assets.prefs.getBoolean("firstDWD_regdot2_help", true);
 		}
 		
 		for (int i = 0; i < num; i++)
@@ -178,5 +183,36 @@ public class Level
 			allDots.add(dot);
 		}
 	}
-
+	
+	public void setFirst(String key, boolean enable) {
+		if(key.equals("firstDWD_regdot1_help"))  {
+			firstDWD_regdot1 = enable;
+			Assets.prefs.putBoolean("firstDWD_regdot1_help", enable);
+		} else if(key.equals("firstDWD_regdot2_help")) {
+			firstDWD_regdot2 = enable;
+			Assets.prefs.putBoolean("firstDWD_regdot2_help", enable);
+		} else if(key.equals("firstDWD_pendot1_help")) {
+			firstDWD_pendot1 = enable;
+			Assets.prefs.putBoolean("firstDWD_pendot1_help", enable);
+		} else if(key.equals("firstDWD_pendot2_help")) {
+			firstDWD_pendot2 = enable;
+			Assets.prefs.putBoolean("firstDWD_pendot2_help", enable);
+		}
+	}
+	
+	public boolean getFirst(String key) {
+		boolean ret_val = false;
+		
+		if(key.equals("firstDWD_regdot1_help"))  {
+			ret_val = firstDWD_regdot1;
+		} else if(key.equals("firstDWD_regdot2_help")) {
+			ret_val = firstDWD_regdot2;
+		} else if(key.equals("firstDWD_pendot1_help")) {
+			ret_val = firstDWD_pendot1;
+		} else if(key.equals("firstDWD_pendot2_help")) {
+			ret_val = firstDWD_pendot2;
+		}
+		
+		return ret_val;
+	}
 }

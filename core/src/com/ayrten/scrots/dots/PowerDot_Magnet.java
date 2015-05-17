@@ -51,7 +51,7 @@ public class PowerDot_Magnet extends PowerDot {
 	}
 
 	public void magnet() {
-		checkRadius(gm.curr_level.get_all_dots());
+		checkRadius(gm.curr_level.getDotList());
 	}
 
 	private void checkRadius(LinkedList<Dot> linkedList) {
@@ -74,7 +74,7 @@ public class PowerDot_Magnet extends PowerDot {
 	}
 
 	private void unmagnet() {
-		for (Dot dot : gm.curr_level.get_all_dots()) {
+		for (Dot dot : gm.curr_level.getDotList()) {
 			if (dot.getClass() == PenDot1.class
 					|| dot.getClass() == PenDot2.class
 					|| dot.getClass() == DWD_PenDot1.class

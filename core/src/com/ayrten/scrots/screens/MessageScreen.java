@@ -30,6 +30,10 @@ public class MessageScreen extends ScrotsScreen {
 	protected Label negative_button;
 	protected Label positive_button;
 	
+	protected float red_chn;
+	protected float grn_chn;
+	protected float blu_chn;
+	
 	private boolean clicked = false;
 	
 	public static float WINDOW_DISPLAY_HEIGHT = Assets.height - Assets.font_64.getLineHeight();
@@ -154,7 +158,6 @@ public class MessageScreen extends ScrotsScreen {
 
 		table = new Table(Assets.skin);
 		table.setFillParent(true);
-		table.setBackground(Assets.red_backgroud);
 
 		table.add(message_scroll).height(
 				Assets.height - next.getHeight() - bottom);
@@ -175,11 +178,28 @@ public class MessageScreen extends ScrotsScreen {
 		
 		table.add(bottom_table);
 		stage.addActor(table);
+		
+		// By default, set background color according to options background color
+		if (Assets.prefs.getString("bg_color").equals("White"))
+			setBackgroundColor(255, 255, 255);
+		else
+			setBackgroundColor(0, 0, 0);
+	}
+	
+	public void setBackgroundColor(float red, float green, float blue) {
+		red_chn = red;
+		grn_chn = green;
+		blu_chn = blue;
 	}
 
 	// Needs to be overridden, should be called when transitioning from
 	// MessageScreen to another screen.
-	public void transition() {}
+	public void transition() {
+		if (Assets.prefs.getString("bg_color").equals("White"))
+			Gdx.gl.glClearColor(1, 1, 1, 1);
+		else
+			Gdx.gl.glClearColor(0, 0, 0, 0);
+	}
 
 	public void makeWindow(String title, String positive_title,
 			String negative_title, final ButtonInterface yes_interface,
@@ -422,6 +442,12 @@ public class MessageScreen extends ScrotsScreen {
 		Assets.game.apk_intf.shouldShowAd(true);
 		stage.addActor(background_overlay);
 		stage.addActor(table);
+	}
+	
+	@Override
+	public void render(float delta) {
+		super.render(delta);
+		Gdx.gl.glClearColor(red_chn/255f, grn_chn/255f, blu_chn/255f, 0);
 	}
 
 	private void removeActors() {

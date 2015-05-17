@@ -34,7 +34,8 @@ public class DWD_PenDot1 extends DWD {
 		for (int i = 0; i < MAX_DOTS; i++) {
 			Dot newDot = generator.genPenDot1();
 			newDot.setPosition(getX(), getY());
-			dots_inside.add(newDot);
+			gm.curr_level.getDotList().add(newDot);
+			addDWDToStage(newDot);
 		}
 	}
 

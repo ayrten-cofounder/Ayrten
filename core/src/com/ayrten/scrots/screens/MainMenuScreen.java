@@ -23,7 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class MainMenuScreen extends ScrotsScreen {
-	protected GameScreen game_screen;
+	public GameScreen game_screen;
 	protected OthersScreen others_screen;
 	protected ProfileScreen profile_screen;
 	protected ScoresScreen high_score_screen;
@@ -231,6 +231,7 @@ public class MainMenuScreen extends ScrotsScreen {
 		GameMode mainMenuMode = new GameMode(stage, gm);
 		mainMenuMode.gen_start_level(15, Touchable.disabled);
 		gm.changeDotSize();
+		gm.addDotsToStage();
 		stage.addActor(main_table);
 	}
 
@@ -286,6 +287,7 @@ public class MainMenuScreen extends ScrotsScreen {
 		MessageScreen tutorial_screen = new MessageScreen(top_table, 2) {
 			@Override
 			public void transition() {
+				super.transition();
 				Assets.prefs.putBoolean("first_time", false);
 				Assets.prefs.flush();
 				game_screen = new GameScreen();
@@ -293,7 +295,7 @@ public class MainMenuScreen extends ScrotsScreen {
 				Assets.game.setScreen(game_screen);
 			}
 		};
-
+		tutorial_screen.setBackgroundColor(150, 66, 66);
 		Assets.game.setScreen(tutorial_screen);
 	}
 
