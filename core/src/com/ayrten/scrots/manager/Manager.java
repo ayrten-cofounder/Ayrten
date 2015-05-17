@@ -269,7 +269,8 @@ public class Manager {
 			curr_level.setFirst("firstDWD_pendot1_help", false);
 			dot_image = new Image(Assets.dwdPenDot_1);
 			dot_desc = "4 red dots will appear. Decreases time limit by half.";
-			intro = "You have some skills to have made it this far... we'll have to make this more challenging for you... Are you prepared to take on this new dot?";
+			intro = "You have some skills to have made it this far... we'll have to make this more challenging for you... Are you prepared to "
+					+ "take on this new dot?";
 
 			dot_images.add(dot_image);
 			dot_descs.add(dot_desc);
