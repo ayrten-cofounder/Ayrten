@@ -12,8 +12,7 @@ public class PowerDot_Rainbow extends PowerDot {
 		super(dot, gm, pop);
 		
 		ACTIVE_TIME = 5;
-//		num = Assets.power_dot_manager.getRainbowDots();
-		num = 10;
+		num = Assets.power_dot_manager.getRainbowDots();
 	}
 	
 	@Override

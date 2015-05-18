@@ -3,7 +3,7 @@ package com.ayrten.scrots.manager;
 import com.badlogic.gdx.utils.Json;
 
 public class PowerDotManager {
-	protected String file = "power_dots.txt";
+	protected String file = "pd";
 
 	public static class Dots {
 		public int magnet_dot = 0;
