@@ -6,7 +6,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
 public class DWD_PenDot2 extends DWD {
-	private static final float TIME_OFF = (float) -3.0;
+	private static final float TIME_OFF = 3.0f;
 
 	public DWD_PenDot2(Texture dot, Manager gm, Sound pop) {
 		super(dot, gm, pop);
@@ -17,13 +17,11 @@ public class DWD_PenDot2 extends DWD {
 	public void touchedByAnAngel() {
 		super.touchedByAnAngel();
 		
-		if(INVINCIBLE)
-		{
+		if(gm.isInvincible())
 			return;
-		}
 
 		// Lose time
-		gm.addTime(TIME_OFF);
+		gm.subtractTime(TIME_OFF);
 		Assets.stats_manager.getPlayerStats().dwd_pen_dot_2.popped++;
 	}
 	

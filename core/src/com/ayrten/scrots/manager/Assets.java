@@ -31,8 +31,6 @@ public class Assets {
 	public static int height;
 	public static int width;
 	public static final float PAD = 20;
-	public static final float TIME_ADD = (float) 2.6; // seconds
-	public static final float TIME_OFF = (float) 5.0;
 	public static final int MAX_POINTS = 999999999;
 	public static final String GPLAY_FILE = "gplay_status.txt";
 

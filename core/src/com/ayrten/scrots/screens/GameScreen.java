@@ -17,7 +17,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -54,7 +53,6 @@ public class GameScreen extends ScrotsScreen {
 	protected GameMode gamemode;
 	protected Manager gm;
 
-	protected SpriteBatch batch;
 	protected boolean should_clear_stage;
 
 	protected Table top_table;
@@ -81,9 +79,8 @@ public class GameScreen extends ScrotsScreen {
 		should_clear_stage = true;
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
-		this.batch = (SpriteBatch) stage.getBatch();
-		this.batch.enableBlending();
-		this.batch.setBlendFunction(GL20.GL_LINEAR_MIPMAP_NEAREST,
+		stage.getBatch().enableBlending();
+		stage.getBatch().setBlendFunction(GL20.GL_LINEAR_MIPMAP_NEAREST,
 				GL20.GL_NEAREST);
 
 		trd = new TextureRegionDrawable[2];
@@ -555,10 +552,10 @@ public class GameScreen extends ScrotsScreen {
 				time();
 				points();
 
-				stage.draw();
 				if (gm.isLevelClear())
 					levelClear();
 			}
+			stage.draw();
 		}
 	}
 
@@ -604,8 +601,6 @@ public class GameScreen extends ScrotsScreen {
 				showGameOver();
 			}
 		}
-
-		stage.draw();
 	}
 
 	private void addStageActors() {

@@ -17,7 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class ContactScreen extends ScrotsScreen {
-	protected ScrollPane scroll_view;
 
 	public ContactScreen(Screen bscreen) {
 		super(bscreen, true);
@@ -117,7 +116,7 @@ public class ContactScreen extends ScrotsScreen {
 		contacts_table.row();
 		contacts_table.add(social_media).width(width);
 
-		scroll_view = new ScrollPane(contacts_table);
+		ScrollPane scroll_view = new ScrollPane(contacts_table);
 		scroll_view.setScrollingDisabled(true, false);
 
 		table.add(scroll_view);

@@ -18,12 +18,10 @@ public class DWD_PenDot1 extends DWD {
 	public void touchedByAnAngel() {
 		super.touchedByAnAngel();
 		
-		if(INVINCIBLE)
-		{
+		if(gm.isInvincible())
 			return;
-		}
 
-		gm.addTime(-gm.getFloatTime() * DIVIDER);
+		gm.subtractTime(gm.getFloatTime() * DIVIDER);
 		Assets.stats_manager.getPlayerStats().dwd_pen_dot_1.popped++;
 	}
 

@@ -41,11 +41,9 @@ public class Manager {
 
 	private boolean isRainbowState;
 	private boolean isMagnetState;
+	private boolean isInvincible;
 
 	private PowerDot_Magnet magnet;
-
-	// True if player loses
-	private boolean game_over = false;
 
 	// The score, time, etc. of the game
 	private int score;
@@ -62,7 +60,11 @@ public class Manager {
 		time = new Time(this);
 		sb = new Scoreboard();
 		this.stage = stage;
+		
 		isRainbowState = false;
+		isMagnetState = false;
+		isInvincible = false;
+		
 		current_state = game_state.ONGOING;
 
 		min_width = min_w;
@@ -87,6 +89,10 @@ public class Manager {
 	public boolean isMagnetState() {
 		return isMagnetState;
 	}
+	
+	public boolean isInvincible() {
+		return isInvincible;
+	}
 
 	public PowerDot_Magnet getMagnet() {
 		return magnet;
@@ -99,6 +105,10 @@ public class Manager {
 	public void setMagnetState(boolean state, PowerDot_Magnet magnet) {
 		isMagnetState = state;
 		this.magnet = magnet;
+	}
+	
+	public void setInvincible(boolean state) {
+		isInvincible = state;
 	}
 
 	public Stage getStage() {
@@ -175,7 +185,7 @@ public class Manager {
 	}
 
 	public void gameOver() {
-		game_over = true;
+		current_state = game_state.GAME_OVER;
 	}
 
 	public void plusOnePoint() {
@@ -210,7 +220,7 @@ public class Manager {
 	}
 
 	public boolean isGameOver() {
-		return game_over;
+		return (current_state == game_state.GAME_OVER);
 	}
 
 	public boolean isLevelClear() {
