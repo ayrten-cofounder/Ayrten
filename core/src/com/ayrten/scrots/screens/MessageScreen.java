@@ -195,7 +195,7 @@ public class MessageScreen extends ScrotsScreen {
 	// Needs to be overridden, should be called when transitioning from
 	// MessageScreen to another screen.
 	public void transition() {
-		if (Assets.prefs.getString("bg_color").equals("White"))
+		if (Assets.prefs.getString("bg_color", "White").equals("White"))
 			Gdx.gl.glClearColor(1, 1, 1, 1);
 		else
 			Gdx.gl.glClearColor(0, 0, 0, 0);
