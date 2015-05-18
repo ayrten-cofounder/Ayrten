@@ -621,16 +621,6 @@ public class GameScreen extends ScrotsScreen {
 			Assets.level_clear.play();
 		gamemode.gen_next_level();
 		
-//		Table table = new Table(Assets.skin);
-//		table.add("whatever");
-//		MessageScreen dot_tut_screen = new MessageScreen(table, 1) {
-//			@Override
-//			public void transition() {
-//				Assets.game.setScreen(Assets.game.main_menu.game_screen);
-//			}
-//		};
-//		Assets.game.setScreen(dot_tut_screen);
-		
 		if (gm.isMagnetState())
 			magnet.magnet();
 	}

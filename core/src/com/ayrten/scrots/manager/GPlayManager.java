@@ -2,8 +2,6 @@ package com.ayrten.scrots.manager;
 
 import java.util.HashMap;
 
-import com.badlogic.gdx.utils.Json;
-
 public class GPlayManager {
 	public static final String ACHIEVEMENT_GREEN_POP_1000 = "CgkIxpik37gbEAIQAg";
 	public static final String ACHIEVEMENT_GREEN_POP_5000 = "CgkIxpik37gbEAIQBw";
@@ -52,8 +50,7 @@ public class GPlayManager {
 		String file = Assets.readFile(CHECKLIST_NAME);
 
 		if (!file.isEmpty()) {
-			Json json = new Json();
-			checklist_achievements = json.fromJson(HashMap.class, file);
+			checklist_achievements = Assets.json.fromJson(HashMap.class, file);
 		} else {
 			checklist_achievements = new HashMap<String, Boolean>();
 			checklist_achievements.put(ACHIEVEMENT_GREEN_POP_1000, false);
@@ -139,7 +136,6 @@ public class GPlayManager {
 	}
 
 	public void dispose() {
-		Json json = new Json();
-		Assets.writeFile(CHECKLIST_NAME, json.toJson(checklist_achievements));
+		Assets.writeFile(CHECKLIST_NAME, Assets.json.toJson(checklist_achievements));
 	}
 }

@@ -163,10 +163,16 @@ public class Assets {
 	public static enum LeaderboardType {
 		TIME, SURVIVAL
 	};
+	
+	// Objects
+	public static Json json;
 
 	public static void load(ScrotsGame sg) {
 		int ref_width = 800;
 		float font_ratio = Gdx.graphics.getWidth() / ref_width;
+		
+		// Objects
+		json = new Json();
 
 		// Fonts
 		font_220 = generate_BitMapFont(220, font_ratio);
@@ -373,6 +379,7 @@ public class Assets {
 		powDot3_image = new Image(regDot_1);
 
 		question_mark = new Texture(Gdx.files.internal("data/question_dot.png"));
+		
 	}
 
 	public static void playGameBGM() {
