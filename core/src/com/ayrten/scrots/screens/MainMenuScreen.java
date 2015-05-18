@@ -60,11 +60,54 @@ public class MainMenuScreen extends ScrotsScreen {
 		LabelStyle title_style = new LabelStyle();
 		title_style.font = Assets.font_200;
 		title_style.fontColor = Color.valueOf("0099cc");
-		title_style.fontColor = Color.GRAY;
-		Label scrots = new Label("Scrots", title_style);
-		scrots.setPosition(Assets.width / 2, Assets.height / 3 * 2,
+//		title_style.fontColor = Color.GRAY;
+		
+		LabelStyle title_style_border = new LabelStyle();
+		title_style_border.font = Assets.font_200_border;
+		title_style_border.fontColor = Color.BLACK;
+		
+		Label t1 = new Label("S", title_style);
+		Label t2 = new Label("c", title_style);
+		Label t3 = new Label("r", title_style);
+		Label t4 = new Label("o", title_style);
+		Label t5 = new Label("t", title_style);
+		Label t6 = new Label("s", title_style);
+		
+		Label t1b = new Label("S", title_style_border);
+		Label t2b = new Label("c", title_style_border);
+		Label t3b = new Label("r", title_style_border);
+		Label t4b = new Label("o", title_style_border);
+		Label t5b = new Label("t", title_style_border);
+		Label t6b = new Label("s", title_style_border);
+		
+		t1.setAlignment(Align.center);
+		t2.setAlignment(Align.center);
+		t3.setAlignment(Align.center);
+		t4.setAlignment(Align.center);
+		t5.setAlignment(Align.center);
+		t6.setAlignment(Align.center);
+		
+		t1b.setAlignment(Align.center);
+		t2b.setAlignment(Align.center);
+		t3b.setAlignment(Align.center);
+		t4b.setAlignment(Align.center);
+		t5b.setAlignment(Align.center);
+		t6b.setAlignment(Align.center);
+		
+		Table title = new Table(Assets.skin);
+		title.setPosition(Assets.width / 2, Assets.height / 3 * 2,
 				Align.center);
-		scrots.setAlignment(Align.center);
+		title.stack(t1b, t1);
+		title.stack(t2b, t2);
+		title.stack(t3b, t3);
+		title.stack(t4b, t4);
+		title.stack(t5b, t5);
+		title.stack(t6b, t6);
+		
+//		Label scrots = new Label("Scrots", title_style);
+//		scrots.setPosition(Assets.width / 2, Assets.height / 3 * 2,
+//				Align.center);
+//		scrots.setAlignment(Align.center);
 
 		LabelStyle style = new LabelStyle();
 		style.font = Assets.font_64;
@@ -184,7 +227,7 @@ public class MainMenuScreen extends ScrotsScreen {
 		setupStage();
 
 		Table upperTable = new Table(Assets.skin);
-		upperTable.add(scrots);
+		upperTable.add(title);
 
 		ArrayList<Actor> lowerTableActors = new ArrayList<Actor>();
 		lowerTableActors.add(shop);

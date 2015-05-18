@@ -70,6 +70,8 @@ public class Assets {
 	public static BitmapFont font_32;
 	public static BitmapFont font_16;
 	public static BitmapFont font_0;
+	
+	public static BitmapFont font_200_border;
 
 	// Style
 	public static LabelStyle style_font_64_black;
@@ -176,6 +178,8 @@ public class Assets {
 		font_32 = generate_BitMapFont(32, font_ratio);
 		font_16 = generate_BitMapFont(16, font_ratio);
 		font_0 = generate_BitMapFont(0, font_ratio);
+		
+		font_200_border = generate_OutlineBitMapFont(200, font_ratio);
 
 		// Height and Width
 		height = Gdx.graphics.getHeight();
@@ -519,6 +523,20 @@ public class Assets {
 		FreeTypeFontGenerator font_gen = new FreeTypeFontGenerator(tff_file);
 		FreeTypeFontParameter params = new FreeTypeFontParameter();
 		int adj_size = (int) (fontSize * font_ratio);
+		params.size = adj_size;
+		BitmapFont font = font_gen.generateFont(params);
+		font_gen.dispose();
+		return (font);
+	}
+	
+	private static BitmapFont generate_OutlineBitMapFont(int fontSize, float font_ratio) {
+		// FileHandle tff_file = Gdx.files
+		// .internal("fonts/kenvector_future_thin.ttf");
+		// FileHandle tff_file = Gdx.files.internal("fonts/code_bold.otf");
+		FileHandle tff_file = Gdx.files.internal("fonts/summer_of_love.ttf");
+		FreeTypeFontGenerator font_gen = new FreeTypeFontGenerator(tff_file);
+		FreeTypeFontParameter params = new FreeTypeFontParameter();
+		int adj_size = (int) (fontSize * font_ratio) + 30;
 		params.size = adj_size;
 		BitmapFont font = font_gen.generateFont(params);
 		font_gen.dispose();
