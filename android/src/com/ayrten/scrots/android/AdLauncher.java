@@ -130,10 +130,13 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface,
 	}
 
 	@Override
-	public void onStart() {
-		super.onStart();
-		// Create IAP
-		iap = new InAppPurchase(this);
+	public void onResume() {
+		super.onResume();
+
+		if (null == iap) {
+			// Create IAP
+			iap = new InAppPurchase(this);
+		}
 	}
 
 	private void showAd() {

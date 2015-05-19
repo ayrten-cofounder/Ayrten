@@ -214,7 +214,7 @@ public class InAppPurchase {
 										});
 							}
 							if (inventory.hasPurchase(IAP.REMOVE_ADS)) {
-								Assets.prefs.putBoolean(IAP.REMOVE_ADS, true);
+								Assets.removeAds();
 							}
 							
 							retrievedItems = true;

@@ -69,7 +69,7 @@ public class ShopPremiumables {
 			@Override
 			public void purchaseSuccess() {
 				if (item == IAP.REMOVE_ADS)
-					Assets.prefs.putBoolean(Assets.PREFS_NO_ADS, true);
+					Assets.removeAds();
 			}
 
 			@Override

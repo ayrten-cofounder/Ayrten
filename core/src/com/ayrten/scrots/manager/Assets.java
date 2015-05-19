@@ -1,6 +1,7 @@
 package com.ayrten.scrots.manager;
 
 import com.ayrten.scrots.screens.ScrotsGame;
+import com.ayrten.scrots.shop.IAP;
 import com.ayrten.scrots.statistics.StatisticsManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
@@ -68,7 +69,7 @@ public class Assets {
 	public static BitmapFont font_32;
 	public static BitmapFont font_16;
 	public static BitmapFont font_0;
-	
+
 	public static BitmapFont font_200_border;
 
 	// Style
@@ -163,14 +164,14 @@ public class Assets {
 	public static enum LeaderboardType {
 		TIME, SURVIVAL
 	};
-	
+
 	// Objects
 	public static Json json;
 
 	public static void load(ScrotsGame sg) {
 		int ref_width = 800;
 		float font_ratio = Gdx.graphics.getWidth() / ref_width;
-		
+
 		// Objects
 		json = new Json();
 
@@ -182,7 +183,7 @@ public class Assets {
 		font_32 = generate_BitMapFont(32, font_ratio);
 		font_16 = generate_BitMapFont(16, font_ratio);
 		font_0 = generate_BitMapFont(0, font_ratio);
-		
+
 		font_200_border = generate_OutlineBitMapFont(200, font_ratio);
 
 		// Height and Width
@@ -224,17 +225,15 @@ public class Assets {
 				new Texture(
 						Gdx.files.internal("data/rounded_rectangle_blue.png")),
 				50, 50, 50, 50));
- 
+
 		rounded_rectangle_border = new NinePatchDrawable(
 				new NinePatch(new Texture(Gdx.files
 						.internal("data/rounded_rectangle_bordered.png")), 50,
 						50, 50, 50));
-		
+
 		rounded_rectangle_border_blue = new NinePatchDrawable(
-				new NinePatch(
-						new Texture(
-								Gdx.files
-										.internal("data/rounded_rectangle_bordered_blue.png")),
+				new NinePatch(new Texture(Gdx.files
+						.internal("data/rounded_rectangle_bordered_blue.png")),
 						20, 20, 20, 20));
 
 		rounded_rectangle_border_dark_gray = new NinePatchDrawable(
@@ -379,14 +378,14 @@ public class Assets {
 		powDot3_image = new Image(regDot_1);
 
 		question_mark = new Texture(Gdx.files.internal("data/question_dot.png"));
-		
+
 	}
 
 	public static void playGameBGM() {
 		inGameMusic = true;
 		menu_bgm_black.stop();
 		menu_bgm_white.stop();
-		
+
 		if (prefs.getBoolean("bkg_music", true) == false)
 			return;
 		game_bgm.play();
@@ -396,10 +395,10 @@ public class Assets {
 	public static void playMenuBGM() {
 		inGameMusic = false;
 		game_bgm.stop();
-		
+
 		if (prefs.getBoolean("bkg_music", true) == false)
 			return;
-		
+
 		if (prefs.getString("bg_color", "White").equals("White")) {
 			if (!menu_bgm_white.isPlaying()) {
 				menu_bgm_white.play();
@@ -520,6 +519,15 @@ public class Assets {
 		gplay_manager.dispose();
 	}
 
+	public static void removeAds() {
+		if (null == prefs) {
+			prefs = Gdx.app.getPreferences("com.ayrten.scrots-preferences");
+		}
+
+		prefs.putBoolean(IAP.REMOVE_ADS, true);
+		prefs.flush();
+	}
+
 	private static BitmapFont generate_BitMapFont(int fontSize, float font_ratio) {
 		// FileHandle tff_file = Gdx.files
 		// .internal("fonts/kenvector_future_thin.ttf");
@@ -533,8 +541,9 @@ public class Assets {
 		font_gen.dispose();
 		return (font);
 	}
-	
-	private static BitmapFont generate_OutlineBitMapFont(int fontSize, float font_ratio) {
+
+	private static BitmapFont generate_OutlineBitMapFont(int fontSize,
+			float font_ratio) {
 		// FileHandle tff_file = Gdx.files
 		// .internal("fonts/kenvector_future_thin.ttf");
 		// FileHandle tff_file = Gdx.files.internal("fonts/code_bold.otf");
