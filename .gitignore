@@ -33,7 +33,11 @@ android/google_play_services
 out/
 
 ## Desktop
-desktop/*.txt
+desktop/gac
+desktop/hsnrm_mde
+desktop/pd
+desktop/pm
+desktop/scs
 
 com_crashlytics_export_strings.xml
 
