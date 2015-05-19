@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.widget.Toast;
 
 import com.ayrten.scrots.android.util.IabHelper;
 import com.ayrten.scrots.android.util.IabResult;
@@ -46,7 +47,7 @@ public class InAppPurchase {
 		this.activity = activity;
 
 		mHelper = new IabHelper(activity, base64EncodedPublicKey);
-
+		
 		connect();
 	}
 
@@ -66,7 +67,7 @@ public class InAppPurchase {
 							if (result.isFailure()) {
 								return;
 							}
-
+							
 							item_1_price = inventory.getSkuDetails(IAP.ITEM_1)
 									.getPrice();
 							item_1_description = inventory.getSkuDetails(
@@ -215,11 +216,11 @@ public class InAppPurchase {
 							if (inventory.hasPurchase(IAP.REMOVE_ADS)) {
 								Assets.prefs.putBoolean(IAP.REMOVE_ADS, true);
 							}
-
+							
 							retrievedItems = true;
 						}
 					};
-
+					
 					ArrayList<String> additionalSkuList = new ArrayList<String>();
 					additionalSkuList.add(IAP.ITEM_1);
 					additionalSkuList.add(IAP.ITEM_2);
@@ -227,6 +228,7 @@ public class InAppPurchase {
 					additionalSkuList.add(IAP.ITEM_4);
 					additionalSkuList.add(IAP.ITEM_5);
 					additionalSkuList.add(IAP.REMOVE_ADS);
+					
 					mHelper.queryInventoryAsync(true, additionalSkuList,
 							mQueryFinishedListener);
 				}

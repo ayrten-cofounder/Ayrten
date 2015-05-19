@@ -77,9 +77,6 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface,
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		// Create IAP
-		iap = new InAppPurchase(this);
-
 		FontsOverride.setDefaultFont(this, "MONOSPACE",
 				"fonts/summer_of_love.ttf");
 
@@ -130,6 +127,13 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface,
 				.addScope(Games.SCOPE_GAMES)
 				// add other APIs and scopes here as needed
 				.build();
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+		// Create IAP
+		iap = new InAppPurchase(this);
 	}
 
 	private void showAd() {
