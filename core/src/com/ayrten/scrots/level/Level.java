@@ -198,6 +198,7 @@ public class Level
 			firstDWD_pendot2 = enable;
 			Assets.prefs.putBoolean("firstDWD_pendot2_help", enable);
 		}
+		Assets.prefs.flush();
 	}
 	
 	public boolean getFirst(String key) {
