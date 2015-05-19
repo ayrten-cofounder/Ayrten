@@ -31,8 +31,6 @@ public class Assets {
 	public static int height;
 	public static int width;
 	public static final float PAD = 20;
-	public static final float TIME_ADD = (float) 2.6; // seconds
-	public static final float TIME_OFF = (float) 5.0;
 	public static final int MAX_POINTS = 999999999;
 	public static final String GPLAY_FILE = "gplay_status.txt";
 
@@ -165,10 +163,16 @@ public class Assets {
 	public static enum LeaderboardType {
 		TIME, SURVIVAL
 	};
+	
+	// Objects
+	public static Json json;
 
 	public static void load(ScrotsGame sg) {
 		int ref_width = 800;
 		float font_ratio = Gdx.graphics.getWidth() / ref_width;
+		
+		// Objects
+		json = new Json();
 
 		// Fonts
 		font_220 = generate_BitMapFont(220, font_ratio);
@@ -375,6 +379,7 @@ public class Assets {
 		powDot3_image = new Image(regDot_1);
 
 		question_mark = new Texture(Gdx.files.internal("data/question_dot.png"));
+		
 	}
 
 	public static void playGameBGM() {

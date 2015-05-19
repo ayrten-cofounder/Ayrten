@@ -15,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 public class Dot extends Actor {
-	protected static boolean INVINCIBLE = false;
 	
 	public Texture dot;
 	public Manager gm;

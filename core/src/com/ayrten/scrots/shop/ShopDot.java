@@ -106,7 +106,7 @@ public class ShopDot {
 
 		} else {
 
-			Assets.points_manager.addPoints(-(totalCostToBuy));
+			Assets.points_manager.subtractPoints(totalCostToBuy);
 
 			switch (dotType) {
 			case INVINCIBLE:
@@ -138,7 +138,7 @@ public class ShopDot {
 
 		} else {
 
-			Assets.points_manager.addPoints(-(cost));
+			Assets.points_manager.subtractPoints(cost);
 			unlocked = true;
 
 			switch (dotUnlock) {

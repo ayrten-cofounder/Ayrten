@@ -1,7 +1,6 @@
 package com.ayrten.scrots.scoreboard;
 
 import com.ayrten.scrots.manager.Assets;
-import com.badlogic.gdx.utils.Json;
 
 public class Scoreboard {
 	protected String file = "hs_mde";
@@ -30,9 +29,7 @@ public class Scoreboard {
 		String file = Assets.readFile(this.file);
 
 		if (!file.isEmpty()) {
-			Json json = new Json();
-			Scores scores = json.fromJson(Scores.class, file);
-
+			scores = Assets.json.fromJson(Scores.class, file);
 			return (scores.fifth);
 		}
 
@@ -43,18 +40,14 @@ public class Scoreboard {
 		String file = Assets.readFile(this.file);
 
 		if (!file.isEmpty()) {
-			Json json = new Json();
-			Scores scores = json.fromJson(Scores.class, file);
-
-			return scores;
+			return (Assets.json.fromJson(Scores.class, file));
 		}
 
 		return new Scores();
 	}
 
 	public void addHighScore(int highscore, String name) {
-		Scores scores = getAllScores();
-		Json json = new Json();
+		scores = getAllScores();
 		
 		if(scores.first < highscore)
 		{
@@ -107,14 +100,12 @@ public class Scoreboard {
 			scores.fifth_name = name;
 		}
 		
-		Assets.writeFile(this.file, json.toJson(scores));
+		Assets.writeFile(this.file, Assets.json.toJson(scores));
 	}
 	
 	public void clearScoreboard()
 	{
-		Scores scores = new Scores();
-		Json json = new Json();
-		
-		Assets.writeFile(this.file, json.toJson(scores));
+		scores = new Scores();
+		Assets.writeFile(this.file, Assets.json.toJson(scores));
 	}
 }

@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class PenDot2 extends Dot
 {
+	public static final float TIME_OFF = 5.0f;
+
 	public PenDot2(Texture dot, Manager gm, Sound pop)
 	{
 		super(dot, gm, pop);
@@ -17,13 +19,11 @@ public class PenDot2 extends Dot
 	{
 		super.touchedByAnAngel();
 		
-		if(INVINCIBLE)
-		{
+		if(gm.isInvincible())
 			return;
-		}
 		
 		// Lose time
-		gm.subtractTime(Assets.TIME_OFF);
+		gm.subtractTime(TIME_OFF);
 		Assets.stats_manager.getPlayerStats().pen_dot_2.popped++;
 	}
 }

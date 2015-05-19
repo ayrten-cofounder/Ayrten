@@ -22,7 +22,7 @@ public class PowerDot_Invincible extends PowerDot {
 		
 		Assets.power_dot_manager.setInvincibleDotAmount(--num);
 		updateNumLabel();
-		INVINCIBLE = true;
+		gm.setInvincible(true);
 		Assets.stats_manager.getPlayerStats().power_dot_invincible.popped++;
 	}
 	
@@ -30,8 +30,7 @@ public class PowerDot_Invincible extends PowerDot {
 	public void afterAction() 
 	{
 		super.afterAction();
-		
-		INVINCIBLE = false;
+		gm.setInvincible(false);
 	}
 	
 	@Override

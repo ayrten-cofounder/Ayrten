@@ -1,8 +1,8 @@
 package com.ayrten.scrots.statistics;
 
+import com.ayrten.scrots.manager.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.utils.Json;
 
 public class StatisticsManager {
 	protected final String STATISTICS_FILENAME = "scs";
@@ -30,16 +30,14 @@ public class StatisticsManager {
 	}
 	
 	private PlayerStats playerStats;
-	private Json json;
 
 	public StatisticsManager()
 	{
-		json = new Json();
 		playerStats = getPlayerStatsFromFile();
 	}
 	
-	public void writePlayerStatsToFile() { writeFile(STATISTICS_FILENAME, json.toJson(playerStats)); }
-	public void clearPlayerStatsFromFile(){ writeFile(STATISTICS_FILENAME, json.toJson(new PlayerStats())); }
+	public void writePlayerStatsToFile() { writeFile(STATISTICS_FILENAME, Assets.json.toJson(playerStats)); }
+	public void clearPlayerStatsFromFile(){ writeFile(STATISTICS_FILENAME, Assets.json.toJson(new PlayerStats())); }
 	public PlayerStats getPlayerStats() { return this.playerStats; }
 	
 	/**
@@ -49,11 +47,11 @@ public class StatisticsManager {
 		String file = readFile(STATISTICS_FILENAME);
 		
 		if (!file.isEmpty()) {
-			return json.fromJson(PlayerStats.class, file);
+			return Assets.json.fromJson(PlayerStats.class, file);
 
 		} else {
 			PlayerStats ps = new PlayerStats();
-			writeFile(STATISTICS_FILENAME, json.toJson(ps));
+			writeFile(STATISTICS_FILENAME, Assets.json.toJson(ps));
 			return ps;
 		}
 	}

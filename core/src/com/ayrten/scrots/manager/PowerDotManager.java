@@ -1,7 +1,5 @@
 package com.ayrten.scrots.manager;
 
-import com.badlogic.gdx.utils.Json;
-
 public class PowerDotManager {
 	protected String file = "pd";
 
@@ -26,9 +24,7 @@ public class PowerDotManager {
 		String file = Assets.readFile(this.file);
 
 		if (!file.isEmpty()) {
-			Json json = new Json();
-			Dots dots = json.fromJson(Dots.class, file);
-
+			dots = Assets.json.fromJson(Dots.class, file);
 			return dots.magnet_dot_unlock == 1 ? true : false;
 		}
 
@@ -39,9 +35,7 @@ public class PowerDotManager {
 		String file = Assets.readFile(this.file);
 
 		if (!file.isEmpty()) {
-			Json json = new Json();
-			Dots dots = json.fromJson(Dots.class, file);
-
+			dots = Assets.json.fromJson(Dots.class, file);
 			return dots.invincible_dot_unlock == 1 ? true : false;
 		}
 
@@ -52,9 +46,7 @@ public class PowerDotManager {
 		String file = Assets.readFile(this.file);
 
 		if (!file.isEmpty()) {
-			Json json = new Json();
-			Dots dots = json.fromJson(Dots.class, file);
-
+			dots = Assets.json.fromJson(Dots.class, file);
 			return dots.rainbow_dot_unlock == 1 ? true : false;
 		}
 
@@ -62,39 +54,29 @@ public class PowerDotManager {
 	}
 
 	public void unlockMagnetDot() {
-		Dots dots = getPowerDots();
-		Json json = new Json();
-
+		dots = getPowerDots();
 		dots.magnet_dot_unlock = 1;
-
-		Assets.writeFile(this.file, json.toJson(dots));
+		Assets.writeFile(this.file, Assets.json.toJson(dots));
 	}
 
 	public void unlockInvincibleDot() {
-		Dots dots = getPowerDots();
-		Json json = new Json();
-
+		dots = getPowerDots();
 		dots.invincible_dot_unlock = 1;
-
-		Assets.writeFile(this.file, json.toJson(dots));
+		Assets.writeFile(this.file, Assets.json.toJson(dots));
 	}
 
 	public void unlockRainbowDot() {
-		Dots dots = getPowerDots();
-		Json json = new Json();
-
+		dots = getPowerDots();
 		dots.rainbow_dot_unlock = 1;
 
-		Assets.writeFile(this.file, json.toJson(dots));
+		Assets.writeFile(this.file, Assets.json.toJson(dots));
 	}
 
 	public int getMagnetDots() {
 		String file = Assets.readFile(this.file);
 
 		if (!file.isEmpty()) {
-			Json json = new Json();
-			Dots dots = json.fromJson(Dots.class, file);
-
+			dots = Assets.json.fromJson(Dots.class, file);
 			return (dots.magnet_dot);
 		}
 
@@ -105,9 +87,7 @@ public class PowerDotManager {
 		String file = Assets.readFile(this.file);
 
 		if (!file.isEmpty()) {
-			Json json = new Json();
-			Dots dots = json.fromJson(Dots.class, file);
-
+			dots = Assets.json.fromJson(Dots.class, file);
 			return (dots.invincible_dot);
 		}
 
@@ -118,9 +98,7 @@ public class PowerDotManager {
 		String file = Assets.readFile(this.file);
 
 		if (!file.isEmpty()) {
-			Json json = new Json();
-			Dots dots = json.fromJson(Dots.class, file);
-
+			dots = Assets.json.fromJson(Dots.class, file);
 			return (dots.rainbow_dot);
 		}
 
@@ -128,54 +106,42 @@ public class PowerDotManager {
 	}
 
 	public void setMagnetDotAmount(int amount) {
-		Dots dots = getPowerDots();
-		Json json = new Json();
-
+		dots = getPowerDots();
 		dots.magnet_dot = amount;
 
-		Assets.writeFile(this.file, json.toJson(dots));
+		Assets.writeFile(this.file, Assets.json.toJson(dots));
 	}
 
 	public void setInvincibleDotAmount(int amount) {
-		Dots dots = getPowerDots();
-		Json json = new Json();
-
+		dots = getPowerDots();
 		dots.invincible_dot = amount;
 
-		Assets.writeFile(this.file, json.toJson(dots));
+		Assets.writeFile(this.file, Assets.json.toJson(dots));
 	}
 
 	public void setRainbowDotAmount(int amount) {
-		Dots dots = getPowerDots();
-		Json json = new Json();
-
+		dots = getPowerDots();
 		dots.rainbow_dot = amount;
 
-		Assets.writeFile(this.file, json.toJson(dots));
+		Assets.writeFile(this.file, Assets.json.toJson(dots));
 	}
 
 	public Dots getPowerDots() {
 		String file = Assets.readFile(this.file);
 
 		if (!file.isEmpty()) {
-			Json json = new Json();
-			Dots dots = json.fromJson(Dots.class, file);
-
+			dots = Assets.json.fromJson(Dots.class, file);
 			return dots;
 		} else {
-			Json json = new Json();
-			Dots dots = new Dots();
-
-			Assets.writeFile(this.file, json.toJson(dots));
+			dots = new Dots();
+			Assets.writeFile(this.file, Assets.json.toJson(dots));
 		}
 
 		return new Dots();
 	}
 
 	public void clearPowerDots() {
-		Dots dots = new Dots();
-		Json json = new Json();
-
-		Assets.writeFile(this.file, json.toJson(dots));
+		dots = new Dots();
+		Assets.writeFile(this.file, Assets.json.toJson(dots));
 	}
 }

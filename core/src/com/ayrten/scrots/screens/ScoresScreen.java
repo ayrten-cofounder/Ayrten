@@ -241,13 +241,7 @@ public class ScoresScreen extends ScrotsScreen {
 
 	private void fillInHighScore(Scoreboard scoreboard, Table local_table) {
 		Scores scores = scoreboard.getAllScores();
-
-		// table.add(mode).top().right();
-		// table.row();
-		// table.add("").height(Gdx.graphics.getHeight() / 20);
-		// table.row();
-		// table.add(new Label("Highscore", style_big)).center();
-		// table.row();
+		table.clear();
 
 		Table innerTable = new Table(Assets.skin);
 		innerTable.add("").height(Gdx.graphics.getHeight() / height);
@@ -283,7 +277,6 @@ public class ScoresScreen extends ScrotsScreen {
 				.height(score_style.font.getLineHeight());
 		innerTable.row();
 
-		table.clear();
 		table.add(innerTable);
 		table.row();
 		table.add(clear);
