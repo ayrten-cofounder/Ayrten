@@ -186,16 +186,12 @@ public class Level
 	
 	public void setFirst(String key, boolean enable) {
 		if(key.equals("firstDWD_regdot1_help"))  {
-			firstDWD_regdot1 = enable;
 			Assets.prefs.putBoolean("firstDWD_regdot1_help", enable);
 		} else if(key.equals("firstDWD_regdot2_help")) {
-			firstDWD_regdot2 = enable;
 			Assets.prefs.putBoolean("firstDWD_regdot2_help", enable);
 		} else if(key.equals("firstDWD_pendot1_help")) {
-			firstDWD_pendot1 = enable;
 			Assets.prefs.putBoolean("firstDWD_pendot1_help", enable);
 		} else if(key.equals("firstDWD_pendot2_help")) {
-			firstDWD_pendot2 = enable;
 			Assets.prefs.putBoolean("firstDWD_pendot2_help", enable);
 		}
 		Assets.prefs.flush();
@@ -205,13 +201,13 @@ public class Level
 		boolean ret_val = false;
 		
 		if(key.equals("firstDWD_regdot1_help"))  {
-			ret_val = firstDWD_regdot1;
+			ret_val = Assets.prefs.getBoolean("firstDWD_regdot1_help", true) && firstDWD_regdot1;
 		} else if(key.equals("firstDWD_regdot2_help")) {
-			ret_val = firstDWD_regdot2;
+			ret_val = Assets.prefs.getBoolean("firstDWD_regdot2_help", true) && firstDWD_regdot2;
 		} else if(key.equals("firstDWD_pendot1_help")) {
-			ret_val = firstDWD_pendot1;
+			ret_val = Assets.prefs.getBoolean("firstDWD_pendot1_help", true) && firstDWD_pendot1;
 		} else if(key.equals("firstDWD_pendot2_help")) {
-			ret_val = firstDWD_pendot2;
+			ret_val = Assets.prefs.getBoolean("firstDWD_pendot2_help", true) && firstDWD_pendot2;
 		}
 		
 		return ret_val;
