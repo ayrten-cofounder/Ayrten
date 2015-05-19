@@ -255,7 +255,7 @@ public class InAppPurchase {
 
 		try {
 			mHelper.launchPurchaseFlow(activity, item, REQUEST_CODE,
-					mPurchaseFinishedListener, "testing");
+					mPurchaseFinishedListener, "nsde4vvfdphecrfsdmeralcda345ferdreams38cmk29d");
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		}
