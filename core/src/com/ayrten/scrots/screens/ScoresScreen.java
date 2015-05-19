@@ -283,9 +283,10 @@ public class ScoresScreen extends ScrotsScreen {
 				.height(score_style.font.getLineHeight());
 		innerTable.row();
 
-		local_table.add(innerTable);
-		local_table.row();
-		local_table.add(clear);
+		table.clear();
+		table.add(innerTable);
+		table.row();
+		table.add(clear);
 	}
 
 	public void addActors() {
@@ -312,6 +313,6 @@ public class ScoresScreen extends ScrotsScreen {
 
 	public void otherShowOptions() {
 		// switchFontColor();
-		// switchHighScoreTable();
+		 switchHighScoreTable();
 	}
 }
