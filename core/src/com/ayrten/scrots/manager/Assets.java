@@ -520,11 +520,7 @@ public class Assets {
 	}
 
 	public static void removeAds() {
-		if (null == prefs) {
-			prefs = Gdx.app.getPreferences("com.ayrten.scrots-preferences");
-		}
-
-		prefs.putBoolean(IAP.REMOVE_ADS, true);
+		prefs.putBoolean(Assets.PREFS_NO_ADS, true);
 		prefs.flush();
 	}
 

@@ -29,6 +29,7 @@ public class ScrotsGame extends Game
 	public void create() 
 	{		
 		Assets.load(this);
+		iap_inft.init();
 		
 		// Screens
 		main_menu = new MainMenuScreen();		

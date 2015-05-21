@@ -129,16 +129,6 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface,
 				.build();
 	}
 
-	@Override
-	public void onResume() {
-		super.onResume();
-
-		if (null == iap) {
-			// Create IAP
-			iap = new InAppPurchase(this);
-		}
-	}
-
 	private void showAd() {
 		adView.resume();
 		adView.loadAd(adRequest);
@@ -411,5 +401,10 @@ public class AdLauncher extends AndroidApplication implements AndroidInterface,
 					Uri.parse("http://play.google.com/store/apps/details?id="
 							+ getPackageName())));
 		}
+	}
+
+	@Override
+	public void init() {
+		iap = new InAppPurchase(this);
 	}
 }

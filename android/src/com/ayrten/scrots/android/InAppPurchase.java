@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.widget.Toast;
 
 import com.ayrten.scrots.android.util.IabHelper;
 import com.ayrten.scrots.android.util.IabResult;

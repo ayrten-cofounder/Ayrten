@@ -17,4 +17,5 @@ public interface IAP
 	public void purchase(String item, IAPInterface callback);
 	public void consume(String item, IAPInterface callback);
 	public void queryPurchaseItems();
+	public void init();
 }
