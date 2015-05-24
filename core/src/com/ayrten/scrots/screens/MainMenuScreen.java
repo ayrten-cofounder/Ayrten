@@ -358,6 +358,22 @@ public class MainMenuScreen extends ScrotsScreen {
 					}
 				});
 	}
+	
+	@Override
+	public void executeBackAction() {
+		MessageScreen message = new MessageScreen(stage);
+		message.makeWindow("Do you want to exit the game?", "I want to keep playing!", "I am done for today...", new ButtonInterface() {
+			@Override
+			public void buttonPressed() {
+				backStage = true;
+			}
+		}, new ButtonInterface() {
+			@Override
+			public void buttonPressed() {
+				Gdx.app.exit();
+			}
+		});
+	}
 
 	@Override
 	public void show() {

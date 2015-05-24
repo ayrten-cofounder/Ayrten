@@ -1,7 +1,6 @@
 package com.ayrten.scrots.dotAnimation;
 
 import com.ayrten.scrots.dots.Dot;
-import com.ayrten.scrots.manager.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 

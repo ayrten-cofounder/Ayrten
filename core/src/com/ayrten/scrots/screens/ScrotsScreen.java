@@ -55,27 +55,31 @@ public class ScrotsScreen implements Screen {
 		backStage = true;
 		stage = new Stage() {
 			public boolean keyDown(int keyCode) {
-				if (keyCode == Keys.BACK && backStage && backScreen != null) {
+				if ((keyCode == Keys.BACK || keyCode == Keys.BACKSPACE) && backStage) {
 					backStage = false;
-					if (Assets.prefs.getBoolean("sound_effs"))
-						Assets.button_pop.play();
-					stage.addAction(Actions.parallel(
-							Actions.run(new Runnable() {
-								public void run() {
-									setActorsTouchable(Touchable.disabled);
-								}
-							}),
-							Actions.sequence(Actions.alpha(1),
-									Actions.fadeOut(0.35f),
-									Actions.run(new Runnable() {
-										public void run() {
-											Assets.game.setScreen(backScreen);
-										}
-									}))));
+					executeBackAction();
 				}
 				return super.keyDown(keyCode);
 			}
 		};
+	}
+	
+	public void executeBackAction() {
+		if (Assets.prefs.getBoolean("sound_effs"))
+			Assets.button_pop.play();
+		stage.addAction(Actions.parallel(
+				Actions.run(new Runnable() {
+					public void run() {
+						setActorsTouchable(Touchable.disabled);
+					}
+				}),
+				Actions.sequence(Actions.alpha(1),
+						Actions.fadeOut(0.35f),
+						Actions.run(new Runnable() {
+							public void run() {
+								Assets.game.setScreen(backScreen);
+							}
+						}))));
 	}
 
 	public void createBackLabelAndInitNavBar() {
