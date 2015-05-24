@@ -20,7 +20,6 @@ public class DWD_RegDot2 extends DWD
 	public void touchedByAnAngel()
 	{
 		super.touchedByAnAngel();
-
 		gm.addTime(TIME_ADD);
 		Assets.stats_manager.getPlayerStats().dwd_reg_dot_2.popped++;
 	}
@@ -30,7 +29,7 @@ public class DWD_RegDot2 extends DWD
 		super.generateMoreDots();
 		
 		for (int i = 0; i < MAX_DOTS; i++) {
-			Dot newDot = generator.genRegDot2();
+			Dot newDot = gm.generator.genRegDot2();
 			newDot.setPosition(getX(), getY());
 			gm.curr_level.getDotList().add(newDot);
 			addDWDToStage(newDot);

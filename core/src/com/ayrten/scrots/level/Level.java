@@ -8,7 +8,6 @@ import com.ayrten.scrots.dots.DWD_PenDot2;
 import com.ayrten.scrots.dots.DWD_RegDot1;
 import com.ayrten.scrots.dots.DWD_RegDot2;
 import com.ayrten.scrots.dots.Dot;
-import com.ayrten.scrots.dots.DotGenerator;
 import com.ayrten.scrots.dots.PenDot1;
 import com.ayrten.scrots.dots.PenDot2;
 import com.ayrten.scrots.dots.RegDot1;
@@ -44,14 +43,14 @@ public class Level
 	protected static final int DWD_WEIGHT = 2;
 
 	protected LinkedList<Dot> allDots;
-	protected DotGenerator generator;
 	protected int number_of_green_dots;
 	protected boolean firstDWD_regdot1, firstDWD_regdot2, firstDWD_pendot1, firstDWD_pendot2;
+	protected Manager gm;
 	
 	public Level(int level, Manager gm)
 	{
 		assert level >= 0;
-		generator = new DotGenerator(gm);
+		this.gm = gm;
 		allDots = new LinkedList<Dot>();
 		
 		firstDWD_regdot1 = false;
@@ -94,7 +93,7 @@ public class Level
 			
 			for (int i = 0; i < yellow_num; i++)
 			{
-				DWD_RegDot1 dot = generator.genDWDRegDot1();
+				DWD_RegDot1 dot = gm.generator.genDWDRegDot1();
 				allDots.add(dot);
 			}
 			
@@ -103,7 +102,7 @@ public class Level
 		
 		for (int i = 0; i < num; i++)
 		{
-			RegDot1 dot = generator.genRegDot1();
+			RegDot1 dot = gm.generator.genRegDot1();
 			allDots.add(dot);
 		}
 		number_of_green_dots = num;
@@ -120,7 +119,7 @@ public class Level
 			
 			for (int i = 0; i < brown_num; i++)
 			{
-				DWD_PenDot1 dot = generator.genDWDPenDot1();
+				DWD_PenDot1 dot = gm.generator.genDWDPenDot1();
 				allDots.add(dot);
 			}
 			
@@ -129,7 +128,7 @@ public class Level
 		
 		for (int i = 0; i < num; i++)
 		{
-			PenDot1 dot = generator.genPenDot1();
+			PenDot1 dot = gm.generator.genPenDot1();
 			allDots.add(dot);
 		}
 	}
@@ -145,7 +144,7 @@ public class Level
 			
 			for (int i = 0; i < pink_num; i++)
 			{
-				DWD_PenDot2 dot = generator.genDWDPenDot2();
+				DWD_PenDot2 dot = gm.generator.genDWDPenDot2();
 				allDots.add(dot);
 			}
 			
@@ -154,7 +153,7 @@ public class Level
 		
 		for (int i = 0; i < num; i++)
 		{
-			PenDot2 dot = generator.genPenDot2();
+			PenDot2 dot = gm.generator.genPenDot2();
 			allDots.add(dot);
 		}
 	}
@@ -170,7 +169,7 @@ public class Level
 			
 			for (int i = 0; i < orange_num; i++)
 			{
-				DWD_RegDot2 dot = generator.genDWDRegDot2();
+				DWD_RegDot2 dot = gm.generator.genDWDRegDot2();
 				allDots.add(dot);
 			}
 			
@@ -179,7 +178,7 @@ public class Level
 		
 		for (int i = 0; i < num; i++)
 		{
-			RegDot2 dot = generator.genRegDot2();
+			RegDot2 dot = gm.generator.genRegDot2();
 			allDots.add(dot);
 		}
 	}

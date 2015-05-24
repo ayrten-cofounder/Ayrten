@@ -8,14 +8,9 @@ public class DWD extends Dot
 {
 	protected int MAX_DOTS = 0;
 	
-	public DotGenerator generator;
-//	public ArrayList<Dot> dots_inside = new ArrayList<Dot>(); 
-	
 	public DWD(Texture dot, Manager gm, Sound pop)
 	{
 		super(dot, gm, pop);
-		
-		generator = new DotGenerator(gm);
 	}
 
 	@Override

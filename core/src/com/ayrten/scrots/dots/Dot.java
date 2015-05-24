@@ -2,8 +2,8 @@ package com.ayrten.scrots.dots;
 
 import java.util.Random;
 
-import com.ayrten.scrots.dotGraphics.DotGraphics;
-import com.ayrten.scrots.dotGraphics.DotGraphics_NormalGameMode;
+import com.ayrten.scrots.dotAnimation.DotAnimation;
+import com.ayrten.scrots.dotAnimation.DotAnimation_NormalGameMode;
 import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
@@ -19,7 +19,7 @@ public class Dot extends Actor {
 	public Texture dot;
 	public Manager gm;
 	public Random random;
-	public DotGraphics graphics;
+	public DotAnimation graphics;
 
 	public Sound pop;
 
@@ -34,9 +34,9 @@ public class Dot extends Actor {
 		setBounds(getX(), getY(), dot.getWidth(), dot.getHeight());
 		if (gm.get_game_mode() == GameMode.NORMAL_MODE
 				|| gm.get_game_mode() == GameMode.CHALLENGE_MODE) {
-			graphics = new DotGraphics_NormalGameMode(this);
+			graphics = new DotAnimation_NormalGameMode(this);
 		} else 
-			graphics = new DotGraphics(this);
+			graphics = new DotAnimation(this);
 		
 		// An InputListener is a subclass of EventListener
 		listener = new InputListener() {

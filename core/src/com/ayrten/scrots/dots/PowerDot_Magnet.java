@@ -59,28 +59,21 @@ public class PowerDot_Magnet extends PowerDot {
 			if (dot.magneted) {
 				dot.setPosition(getX(), getY());
 			}
-
+			
 			if (dot.getClass() == PenDot1.class
-					|| dot.getClass() == PenDot2.class
-					|| dot.getClass() == DWD_PenDot1.class
-					|| dot.getClass() == DWD_PenDot2.class) {
-
+					|| dot.getClass() == DWD_PenDot_Base.class) {
 				dot.addAction(Actions.moveTo(magnet.getX(), magnet.getY(),
 						DURATION, Interpolation.circleIn));
 				dot.magneted = true;
 			}
-
 		}
 	}
 
 	private void unmagnet() {
-		for (Dot dot : gm.curr_level.getDotList()) {
+		for (Dot dot : gm.curr_level.getDotList()) {			
 			if (dot.getClass() == PenDot1.class
-					|| dot.getClass() == PenDot2.class
-					|| dot.getClass() == DWD_PenDot1.class
-					|| dot.getClass() == DWD_PenDot2.class) {
+					|| dot.getClass() == DWD_PenDot_Base.class)
 				dot.magneted = false;
-			}
 		}
 	}
 

@@ -8,11 +8,10 @@ package com.ayrten.scrots.manager;
 
 import java.util.ArrayList;
 
-import com.ayrten.scrots.dots.DWD_PenDot1;
-import com.ayrten.scrots.dots.DWD_PenDot2;
+import com.ayrten.scrots.dots.DWD_PenDot_Base;
 import com.ayrten.scrots.dots.Dot;
+import com.ayrten.scrots.dots.DotGenerator;
 import com.ayrten.scrots.dots.PenDot1;
-import com.ayrten.scrots.dots.PenDot2;
 import com.ayrten.scrots.dots.PowerDot_Magnet;
 import com.ayrten.scrots.level.Level;
 import com.ayrten.scrots.scoreboard.Scoreboard;
@@ -29,6 +28,7 @@ public class Manager {
 	private Time time;
 	private Scoreboard sb;
 	private Stage stage;
+	public DotGenerator generator;
 
 	public enum game_state {
 		ONGOING, PAUSED, GAME_OVER
@@ -60,6 +60,7 @@ public class Manager {
 		time = new Time(this);
 		sb = new Scoreboard();
 		this.stage = stage;
+		generator = new DotGenerator(this);
 		
 		isRainbowState = false;
 		isMagnetState = false;
@@ -176,8 +177,7 @@ public class Manager {
 
 	private boolean isPenDot(Dot dot) {
 		return (dot.getClass() == PenDot1.class
-				|| dot.getClass() == PenDot2.class
-				|| dot.getClass() == DWD_PenDot1.class || dot.getClass() == DWD_PenDot2.class);
+				|| dot.getClass() == DWD_PenDot_Base.class);
 	}
 
 	public void minusGreenDot() {

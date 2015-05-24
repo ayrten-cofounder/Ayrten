@@ -30,14 +30,14 @@ public class DWD_RegDot1 extends DWD {
 
 		for (int i = 0; i < random; i++) {
 			if (rand.nextInt(100) % 10 == 6) {
-				Dot newDot = generator.genRegDot3();
+				Dot newDot = gm.generator.genRegDot3();
 				newDot.setPosition(getX(), getY());
 				gm.curr_level.getDotList().add(newDot);
 				addDWDToStage(newDot);
 				break;
 			}
 
-			Dot newDot = generator.genRegDot1();
+			Dot newDot = gm.generator.genRegDot1();
 			newDot.setPosition(getX(), getY());
 			gm.curr_level.getDotList().add(newDot);
 			addDWDToStage(newDot);
