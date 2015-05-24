@@ -1,7 +1,6 @@
 package com.ayrten.scrots.manager;
 
 import com.ayrten.scrots.screens.ScrotsGame;
-import com.ayrten.scrots.shop.IAP;
 import com.ayrten.scrots.statistics.StatisticsManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;

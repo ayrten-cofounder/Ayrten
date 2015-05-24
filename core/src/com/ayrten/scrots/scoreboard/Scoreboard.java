@@ -37,6 +37,8 @@ public class Scoreboard {
 	}
 
 	public Scores getAllScores() {
+		if(scores != null)
+			return scores;
 		String file = Assets.readFile(this.file);
 
 		if (!file.isEmpty()) {
@@ -105,7 +107,17 @@ public class Scoreboard {
 	
 	public void clearScoreboard()
 	{
-		scores = new Scores();
+		scores = getAllScores();
+		scores.first = 0;
+		scores.second = 0;
+		scores.third = 0;
+		scores.fourth = 0;
+		scores.fifth = 0;
+		scores.first_name = "n/a";
+		scores.second_name = "n/a";
+		scores.third_name = "n/a";
+		scores.fourth_name = "n/a";
+		scores.fifth_name = "n/a";
 		Assets.writeFile(this.file, Assets.json.toJson(scores));
 	}
 }

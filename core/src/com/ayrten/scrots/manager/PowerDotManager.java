@@ -8,10 +8,9 @@ public class PowerDotManager {
 		public int invincible_dot = 0;
 		public int rainbow_dot = 0;
 
-		// 0 == locked :: 1 == unlocked
-		public int magnet_dot_unlock = 0;
-		public int invincible_dot_unlock = 0;
-		public int rainbow_dot_unlock = 0;
+		public boolean magnet_dot_unlock = false;
+		public boolean invincible_dot_unlock = false;
+		public boolean rainbow_dot_unlock = false;
 	}
 
 	public Dots dots;
@@ -21,112 +20,68 @@ public class PowerDotManager {
 	}
 
 	public boolean isMagnetDotUnlocked() {
-		String file = Assets.readFile(this.file);
-
-		if (!file.isEmpty()) {
-			dots = Assets.json.fromJson(Dots.class, file);
-			return dots.magnet_dot_unlock == 1 ? true : false;
-		}
-
-		return false;
+		dots = getPowerDots();
+		return (dots.magnet_dot_unlock);
 	}
 	
 	public boolean isInvincibleDotUnlocked() {
-		String file = Assets.readFile(this.file);
-
-		if (!file.isEmpty()) {
-			dots = Assets.json.fromJson(Dots.class, file);
-			return dots.invincible_dot_unlock == 1 ? true : false;
-		}
-
-		return false;
+		dots = getPowerDots();
+		return (dots.invincible_dot_unlock);
 	}
 	
 	public boolean isRainbowDotUnlocked() {
-		String file = Assets.readFile(this.file);
-
-		if (!file.isEmpty()) {
-			dots = Assets.json.fromJson(Dots.class, file);
-			return dots.rainbow_dot_unlock == 1 ? true : false;
-		}
-
-		return false;
+		dots = getPowerDots();
+		return (dots.rainbow_dot_unlock);
 	}
 
 	public void unlockMagnetDot() {
-		dots = getPowerDots();
-		dots.magnet_dot_unlock = 1;
+		dots.magnet_dot_unlock = true;
 		Assets.writeFile(this.file, Assets.json.toJson(dots));
 	}
 
 	public void unlockInvincibleDot() {
-		dots = getPowerDots();
-		dots.invincible_dot_unlock = 1;
+		dots.invincible_dot_unlock = true;
 		Assets.writeFile(this.file, Assets.json.toJson(dots));
 	}
 
 	public void unlockRainbowDot() {
-		dots = getPowerDots();
-		dots.rainbow_dot_unlock = 1;
-
+		dots.rainbow_dot_unlock = true;
 		Assets.writeFile(this.file, Assets.json.toJson(dots));
 	}
 
 	public int getMagnetDots() {
-		String file = Assets.readFile(this.file);
-
-		if (!file.isEmpty()) {
-			dots = Assets.json.fromJson(Dots.class, file);
-			return (dots.magnet_dot);
-		}
-
-		return 0;
+		dots = getPowerDots();
+		return (dots.magnet_dot);
 	}
 
-	public int getInvincibleDots() {
-		String file = Assets.readFile(this.file);
-
-		if (!file.isEmpty()) {
-			dots = Assets.json.fromJson(Dots.class, file);
-			return (dots.invincible_dot);
-		}
-
-		return 0;
+	public int getInvincibleDots() {		
+		dots = getPowerDots();
+		return(dots.invincible_dot);
 	}
 
 	public int getRainbowDots() {
-		String file = Assets.readFile(this.file);
-
-		if (!file.isEmpty()) {
-			dots = Assets.json.fromJson(Dots.class, file);
-			return (dots.rainbow_dot);
-		}
-
-		return 0;
+		dots = getPowerDots();
+		return (dots.rainbow_dot);
 	}
 
 	public void setMagnetDotAmount(int amount) {
-		dots = getPowerDots();
 		dots.magnet_dot = amount;
-
 		Assets.writeFile(this.file, Assets.json.toJson(dots));
 	}
 
 	public void setInvincibleDotAmount(int amount) {
-		dots = getPowerDots();
 		dots.invincible_dot = amount;
-
 		Assets.writeFile(this.file, Assets.json.toJson(dots));
 	}
 
 	public void setRainbowDotAmount(int amount) {
-		dots = getPowerDots();
 		dots.rainbow_dot = amount;
-
 		Assets.writeFile(this.file, Assets.json.toJson(dots));
 	}
 
 	public Dots getPowerDots() {
+		if(dots != null)
+			return dots;
 		String file = Assets.readFile(this.file);
 
 		if (!file.isEmpty()) {

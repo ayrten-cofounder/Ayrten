@@ -14,29 +14,23 @@ public class PointsManager {
 	}
 
 	public int getTotalPoints() {
-		String file = Assets.readFile(this.file);
-
-		if (!file.isEmpty()) {
-			points = Assets.json.fromJson(Points.class, file);
-			return (points.points);
-		}
-
-		return 0;
+		points = getPoints();
+		return points.points;
 	}
 
 	public void addPoints(int amount) {
-		points = getPoints();
 		points.points += amount;
 		Assets.writeFile(this.file, Assets.json.toJson(points));
 	}
 	
 	public void subtractPoints(int amount) {
-		points = getPoints();
 		points.points -= amount;
 		Assets.writeFile(this.file, Assets.json.toJson(points));
 	}
 
 	public Points getPoints() {
+		if(points != null)
+			return points;
 		String file = Assets.readFile(this.file);
 
 		if (!file.isEmpty()) {
@@ -50,7 +44,8 @@ public class PointsManager {
 	}
 
 	public void clearPoints() {
-		points = new Points();
+		points = getPoints();
+		points.points = 0;
 		Assets.writeFile(this.file, Assets.json.toJson(points));
 	}
 }
