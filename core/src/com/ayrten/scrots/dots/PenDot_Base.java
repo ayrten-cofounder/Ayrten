@@ -13,6 +13,7 @@ public class PenDot_Base extends Dot {
 	@Override
 	public void touchedByAnAngel() {
 		super.touchedByAnAngel();
+		gm.resetCombo();
 		if(gm.isInvincible())
 			return;
 	    executePenalty();

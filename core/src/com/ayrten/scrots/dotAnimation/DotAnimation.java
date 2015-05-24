@@ -1,6 +1,7 @@
 package com.ayrten.scrots.dotAnimation;
 
 import com.ayrten.scrots.dots.Dot;
+import com.ayrten.scrots.manager.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
@@ -119,6 +120,6 @@ public class DotAnimation {
 		
 		setSize();
 		dot.setBounds(dot.getX(), dot.getY(), curr_width, curr_height);
-		batch.draw(dot.dot, dot.getX(), dot.getY(), curr_width, curr_height);
+		batch.draw(dot.getTexture(), dot.getX(), dot.getY(), curr_width, curr_height);
 	}
 }

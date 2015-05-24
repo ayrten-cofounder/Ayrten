@@ -1,5 +1,6 @@
 package com.ayrten.scrots.level;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 
@@ -47,6 +48,8 @@ public class Level
 	protected boolean firstDWD_regdot1, firstDWD_regdot2, firstDWD_pendot1, firstDWD_pendot2;
 	protected Manager gm;
 	
+	protected ArrayList<RegDot1> reg_dots;
+	
 	public Level(int level, Manager gm)
 	{
 		assert level >= 0;
@@ -57,13 +60,16 @@ public class Level
 		firstDWD_regdot2 = false;
 		firstDWD_pendot1 = false;
 		firstDWD_pendot2 = false;
-
+		
+		reg_dots = new ArrayList<RegDot1>();
+		
 		gen_grn_dots(level);
 		gen_red_dots(level);
 		gen_blue_dots(level);
 		gen_baby_blue_dots(level);
 
 		Collections.shuffle(allDots);
+		Collections.shuffle(reg_dots);
 	}
 
 	public boolean level_clear() {
@@ -77,9 +83,17 @@ public class Level
 	public void minusGreenDot() {
 		number_of_green_dots--;
 	}
+	
+	public void addRegDot(RegDot1 reg_dot) {
+		reg_dots.add(reg_dot);
+	}
 
 	public LinkedList<Dot> getDotList() {
 		return allDots;
+	}
+	
+	public ArrayList<RegDot1>getRegDotList() {
+		return reg_dots;
 	}
 	
 	protected void gen_grn_dots(int level)
@@ -104,6 +118,7 @@ public class Level
 		{
 			RegDot1 dot = gm.generator.genRegDot1();
 			allDots.add(dot);
+			reg_dots.add(dot);
 		}
 		number_of_green_dots = num;
 	}

@@ -13,6 +13,7 @@ public class DWD_PenDot_Base extends DWD {
 	@Override
 	public void touchedByAnAngel() {
 		super.touchedByAnAngel();
+		gm.resetCombo();
 		if(gm.isInvincible())
 			return;
 		executePenalty();

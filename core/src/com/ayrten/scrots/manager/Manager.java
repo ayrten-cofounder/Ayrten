@@ -46,8 +46,9 @@ public class Manager {
 	private PowerDot_Magnet magnet;
 
 	// The score, time, etc. of the game
-	private int score;
-
+	protected int score;
+	protected int combo_chain;
+	
 	// Area of game play.
 	public float min_width, max_width;
 	public float min_height, max_height;
@@ -65,14 +66,23 @@ public class Manager {
 		isRainbowState = false;
 		isMagnetState = false;
 		isInvincible = false;
-		
-		current_state = game_state.ONGOING;
-
+		addedDots = false;
+		combo_chain = 0;
 		min_width = min_w;
 		max_width = max_w;
 		min_height = min_h;
 		max_height = max_h;
-		addedDots = false;
+		current_state = game_state.ONGOING;
+	}
+	
+	public void incrementCombo() {
+		combo_chain++;
+		if(curr_level.getRegDotList().size() > 0)
+			curr_level.getRegDotList().get(0).setComboDot();
+	}
+	
+	public void resetCombo() {
+		combo_chain = 0;
 	}
 
 	public game_state getGameState() {
@@ -175,7 +185,7 @@ public class Manager {
 				dot.setVisible(visible);
 	}
 
-	private boolean isPenDot(Dot dot) {
+	public boolean isPenDot(Dot dot) {
 		return (dot.getClass() == PenDot1.class
 				|| dot.getClass() == DWD_PenDot_Base.class);
 	}
@@ -231,7 +241,9 @@ public class Manager {
 		addedDots = true;
 		for (int i = 0; i < curr_level.getDotList().size(); i++)
 			stage.addActor(curr_level.getDotList().get(i));
-
+		
+		curr_level.getRegDotList().get(0).setComboDot();
+		
 		if (isRainbowState())
 			changePenalityDotVisibility(false);
 

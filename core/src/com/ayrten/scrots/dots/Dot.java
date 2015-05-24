@@ -15,28 +15,29 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 public class Dot extends Actor {
-	
 	public Texture dot;
 	public Manager gm;
 	public Random random;
-	public DotAnimation graphics;
+	public DotAnimation animation;
 
 	public Sound pop;
 
 	protected InputListener listener;
+	public boolean isComboDot;
 	public boolean magneted = false;
 
 	public Dot(Texture dot, Manager gm, Sound pop) {
 		this.dot = dot;
 		this.gm = gm;
 		this.pop = pop;
+		isComboDot = false;
 		random = new Random(System.nanoTime());
 		setBounds(getX(), getY(), dot.getWidth(), dot.getHeight());
 		if (gm.get_game_mode() == GameMode.NORMAL_MODE
 				|| gm.get_game_mode() == GameMode.CHALLENGE_MODE) {
-			graphics = new DotAnimation_NormalGameMode(this);
+			animation = new DotAnimation_NormalGameMode(this);
 		} else 
-			graphics = new DotAnimation(this);
+			animation = new DotAnimation(this);
 		
 		// An InputListener is a subclass of EventListener
 		listener = new InputListener() {
@@ -63,6 +64,12 @@ public class Dot extends Actor {
 	public void touchedByAnAngel() {
 		if (Assets.prefs.getBoolean("sound_effs", true))
 			pop.play();
+		gm.curr_level.getDotList().remove(this);
+	}
+	
+	public void setComboDot() {
+		isComboDot = true;
+		setTexture(Assets.question_mark);
 	}
 
 	public void setTexture(Texture dot) {
@@ -78,12 +85,12 @@ public class Dot extends Actor {
 	}
 
 	public void resetRatio() {
-		graphics.resetRatio();
+		animation.resetRatio();
 	}
 
 	// Overridden functions.
 	@Override
 	public void draw(Batch batch, float alpha) {
-		graphics.draw(batch, alpha, magneted);
+		animation.draw(batch, alpha, magneted);
 	}
 }

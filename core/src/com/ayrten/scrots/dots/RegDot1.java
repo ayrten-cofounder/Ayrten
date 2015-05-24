@@ -20,5 +20,10 @@ public class RegDot1 extends Dot {
 		Assets.stats_manager.getPlayerStats().reg_dot_1.popped++;
 		Assets.gplay_manager.unlockDotAchievement(Assets.stats_manager
 				.getPlayerStats().reg_dot_1.popped);
+		gm.curr_level.getRegDotList().remove(this);
+		if(isComboDot)
+			gm.incrementCombo();
+		else
+			gm.resetCombo();
 	}
 }
