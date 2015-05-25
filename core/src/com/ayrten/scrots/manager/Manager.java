@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import com.ayrten.scrots.dots.DWD_PenDot_Base;
 import com.ayrten.scrots.dots.Dot;
 import com.ayrten.scrots.dots.DotGenerator;
-import com.ayrten.scrots.dots.PenDot1;
+import com.ayrten.scrots.dots.PenDot_Base;
 import com.ayrten.scrots.dots.PowerDot_Magnet;
 import com.ayrten.scrots.level.Level;
 import com.ayrten.scrots.scoreboard.Scoreboard;
@@ -187,8 +187,8 @@ public class Manager {
 	}
 
 	public boolean isPenDot(Dot dot) {
-		return (dot.getClass() == PenDot1.class
-				|| dot.getClass() == DWD_PenDot_Base.class);
+		return (PenDot_Base.class.isInstance(dot)
+				|| DWD_PenDot_Base.class.isInstance(dot));
 	}
 
 	public void minusGreenDot() {
