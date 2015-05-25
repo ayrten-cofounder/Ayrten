@@ -132,8 +132,10 @@ public class Assets {
 	public static Texture powDot_1;
 	public static Texture powDot_2;
 
+	// Special dots
 	public static Texture explosion_dot;
-
+	public static Texture combo_dot;
+	
 	public static Texture invincible_dot;
 	public static Texture magnet_dot;
 	public static Texture rainbow_dot;
@@ -341,6 +343,9 @@ public class Assets {
 		explosion_dot = new Texture(
 				Gdx.files.internal("data/dots/explosion_dot.png"));
 		explosion_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		
+		question_mark = new Texture(Gdx.files.internal("data/question_dot.png"));
+		combo_dot = question_mark;
 
 		invincible_dot = new Texture(
 				Gdx.files.internal("data/dots/invincible_dot.png"));
@@ -376,7 +381,6 @@ public class Assets {
 		powDot2_image = new Image(regDot_1);
 		powDot3_image = new Image(regDot_1);
 
-		question_mark = new Texture(Gdx.files.internal("data/question_dot.png"));
 
 	}
 

@@ -2,9 +2,9 @@ package com.ayrten.scrots.dotAnimation;
 
 import com.ayrten.scrots.dots.Dot;
 
-public class DotAnimation_NormalGameMode extends DotAnimation {
+public class DotAnimation_TimeMode extends DotAnimation {
 
-	public DotAnimation_NormalGameMode(Dot dot) {
+	public DotAnimation_TimeMode(Dot dot) {
 		super(dot);
 	}
 

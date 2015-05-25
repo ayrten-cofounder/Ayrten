@@ -1,9 +1,7 @@
 package com.ayrten.scrots.dots;
 
-import java.util.Random;
-
 import com.ayrten.scrots.dotAnimation.DotAnimation;
-import com.ayrten.scrots.dotAnimation.DotAnimation_NormalGameMode;
+import com.ayrten.scrots.dotAnimation.DotAnimation_TimeMode;
 import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
@@ -15,12 +13,12 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 public class Dot extends Actor {
-	public Texture dot;
+	protected Texture dot;
 	public Manager gm;
-	public Random random;
-	public DotAnimation animation;
+	//protected Random random;
+	protected DotAnimation animation;
 
-	public Sound pop;
+	protected Sound pop;
 
 	protected InputListener listener;
 	public boolean isComboDot;
@@ -31,11 +29,10 @@ public class Dot extends Actor {
 		this.gm = gm;
 		this.pop = pop;
 		isComboDot = false;
-		random = new Random(System.nanoTime());
 		setBounds(getX(), getY(), dot.getWidth(), dot.getHeight());
 		if (gm.get_game_mode() == GameMode.NORMAL_MODE
 				|| gm.get_game_mode() == GameMode.CHALLENGE_MODE) {
-			animation = new DotAnimation_NormalGameMode(this);
+			animation = new DotAnimation_TimeMode(this);
 		} else 
 			animation = new DotAnimation(this);
 		
@@ -69,7 +66,7 @@ public class Dot extends Actor {
 	
 	public void setComboDot() {
 		isComboDot = true;
-		setTexture(Assets.question_mark);
+		setTexture(Assets.combo_dot);
 	}
 
 	public void setTexture(Texture dot) {

@@ -15,6 +15,7 @@ import com.ayrten.scrots.dots.PenDot1;
 import com.ayrten.scrots.dots.PowerDot_Magnet;
 import com.ayrten.scrots.level.Level;
 import com.ayrten.scrots.scoreboard.Scoreboard;
+import com.ayrten.scrots.screens.GameModeScreen;
 import com.ayrten.scrots.screens.MessageScreen;
 import com.ayrten.scrots.time.Time;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -30,11 +31,11 @@ public class Manager {
 	private Stage stage;
 	public DotGenerator generator;
 
-	public enum game_state {
+	public enum gameState {
 		ONGOING, PAUSED, GAME_OVER
 	};
 
-	public game_state current_state;
+	public gameState currGameState;
 
 	// Game mode
 	private int mode;
@@ -72,7 +73,7 @@ public class Manager {
 		max_width = max_w;
 		min_height = min_h;
 		max_height = max_h;
-		current_state = game_state.ONGOING;
+		currGameState = gameState.ONGOING;
 	}
 	
 	public void incrementCombo() {
@@ -85,12 +86,12 @@ public class Manager {
 		combo_chain = 0;
 	}
 
-	public game_state getGameState() {
-		return current_state;
+	public gameState getGameState() {
+		return currGameState;
 	}
 
-	public void setGameState(game_state state) {
-		current_state = state;
+	public void setGameState(gameState state) {
+		currGameState = state;
 	}
 
 	public boolean isRainbowState() {
@@ -157,13 +158,13 @@ public class Manager {
 	public void startGame() {
 		time.startTime();
 		changeDotVisibility(true);
-		setGameState(game_state.ONGOING);
+		setGameState(gameState.ONGOING);
 	}
 
 	public void pauseGame() {
 		time.pauseTime();
 		changeDotVisibility(false);
-		setGameState(game_state.PAUSED);
+		setGameState(gameState.PAUSED);
 	}
 
 	public void changeDotVisibility(boolean visible) {
@@ -195,7 +196,7 @@ public class Manager {
 	}
 
 	public void gameOver() {
-		current_state = game_state.GAME_OVER;
+		currGameState = gameState.GAME_OVER;
 	}
 
 	public void plusOnePoint() {
@@ -230,7 +231,7 @@ public class Manager {
 	}
 
 	public boolean isGameOver() {
-		return (current_state == game_state.GAME_OVER);
+		return (currGameState == gameState.GAME_OVER);
 	}
 
 	public boolean isLevelClear() {
@@ -351,7 +352,7 @@ public class Manager {
 			@Override
 			public void transition() {
 				super.transition();
-				Assets.game.setScreen(Assets.game.main_menu.game_screen);
+				Assets.game.setScreen(GameModeScreen.game_screen);
 			}
 		};
 		dyn_help.setBackgroundColor(0, 0, 0);

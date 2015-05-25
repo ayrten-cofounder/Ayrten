@@ -14,7 +14,6 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -23,13 +22,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class MainMenuScreen extends ScrotsScreen {
-	public GameScreen game_screen;
-	protected OthersScreen others_screen;
-	protected ProfileScreen profile_screen;
-	protected ScoresScreen high_score_screen;
-	protected ShopScreen shop_screen;
-	protected OptionsScreen options_screen;
-	protected ContactScreen contact_screen;
+	protected OthersScreen othersScreen;
+	protected ProfileScreen profileScreen;
+	protected ScoresScreen highScoreScreen;
+	protected ShopScreen shopScreen;
+	protected OptionsScreen optionsScreen;
+	protected ContactScreen contactScreen;
+	public GameModeScreen gameModeScreen;
 
 	protected Label shop;
 	protected Label play;
@@ -40,7 +39,7 @@ public class MainMenuScreen extends ScrotsScreen {
 	protected Label gplay_log;
 
 	public NormalScoreboard nsb;
-
+	
 	// public ChallengeScoreboard csb;
 
 	public MainMenuScreen() {
@@ -50,12 +49,13 @@ public class MainMenuScreen extends ScrotsScreen {
 		nsb = new NormalScoreboard();
 		// csb = new ChallengeScoreboard();
 
-		contact_screen = new ContactScreen(this);
-		high_score_screen = new ScoresScreen(this);
-		options_screen = new OptionsScreen(this);
-		others_screen = new OthersScreen(this);
-		profile_screen = new ProfileScreen(this);
-		shop_screen = new ShopScreen(this);
+		contactScreen = new ContactScreen(this);
+		highScoreScreen = new ScoresScreen(this);
+		optionsScreen = new OptionsScreen(this);
+		othersScreen = new OthersScreen(this);
+		profileScreen = new ProfileScreen(this);
+		shopScreen = new ShopScreen(this);
+		gameModeScreen = new GameModeScreen(this);
 
 		LabelStyle title_style = new LabelStyle();
 		title_style.font = Assets.font_200;
@@ -130,7 +130,7 @@ public class MainMenuScreen extends ScrotsScreen {
 		shop.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Assets.game.setScreen(shop_screen);
+				Assets.game.setScreen(shopScreen);
 			}
 		});
 		shop.setAlignment(Align.center);
@@ -140,15 +140,7 @@ public class MainMenuScreen extends ScrotsScreen {
 				play.getHeight());
 		play.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
-				if (Assets.prefs.getBoolean("sound_effs", true))
-					Assets.button_pop.play();
-				if (Assets.prefs.getBoolean("first_time", true))
-					loadTutorialScreen();
-				else {
-					game_screen = new GameScreen();
-					Assets.playGameBGM();
-					Assets.game.setScreen(game_screen);
-				}
+				Assets.game.setScreen(gameModeScreen);
 			}
 		});
 		play.setAlignment(Align.center);
@@ -160,7 +152,7 @@ public class MainMenuScreen extends ScrotsScreen {
 			public void clicked(InputEvent event, float x, float y) {
 				if (Assets.prefs.getBoolean("sound_effs", true))
 					Assets.button_pop.play();
-				Assets.game.setScreen(high_score_screen);
+				Assets.game.setScreen(highScoreScreen);
 			}
 		});
 		scores.setAlignment(Align.center);
@@ -174,8 +166,8 @@ public class MainMenuScreen extends ScrotsScreen {
 				setActorsTouchable(Touchable.disabled);
 				if (Assets.prefs.getBoolean("sound_effs", true))
 					Assets.button_pop.play();
-				options_screen.setBackScreen(Assets.game.getScreen());
-				Assets.game.setScreen(options_screen);
+				optionsScreen.setBackScreen(Assets.game.getScreen());
+				Assets.game.setScreen(optionsScreen);
 			}
 		});
 		options.setAlignment(Align.center);
@@ -189,7 +181,7 @@ public class MainMenuScreen extends ScrotsScreen {
 				setActorsTouchable(Touchable.disabled);
 				if (Assets.prefs.getBoolean("sound_effs", true))
 					Assets.button_pop.play();
-				Assets.game.setScreen(contact_screen);
+				Assets.game.setScreen(contactScreen);
 			}
 		});
 		contacts.setAlignment(Align.center);
@@ -201,7 +193,7 @@ public class MainMenuScreen extends ScrotsScreen {
 			public void clicked(InputEvent event, float x, float y) {
 				if (Assets.prefs.getBoolean("sound_effs", true))
 					Assets.button_pop.play();
-				Assets.game.setScreen(others_screen);
+				Assets.game.setScreen(othersScreen);
 			}
 		});
 		others.setAlignment(Align.center);
@@ -300,47 +292,7 @@ public class MainMenuScreen extends ScrotsScreen {
 		Assets.prefs.flush();
 	}
 
-	private void loadTutorialScreen() {
-		Image tutorial_1 = new Image(new Texture(
-				Gdx.files.internal("data/tutorial_1.png")));
-		Image tutorial_2 = new Image(new Texture(
-				Gdx.files.internal("data/tutorial_2.png")));
 
-		Table top_table = new Table(Assets.skin);
-		top_table.setWidth(Assets.width * 2);
-
-		Table page_one = new Table(Assets.skin);
-		page_one.setHeight(MessageScreen.WINDOW_DISPLAY_HEIGHT);
-		page_one.setWidth(Assets.width);
-		page_one.add(tutorial_1).width(Assets.width)
-				.height(MessageScreen.WINDOW_DISPLAY_HEIGHT);
-
-		Table page_two = new Table(Assets.skin);
-		page_two.setHeight(MessageScreen.WINDOW_DISPLAY_HEIGHT);
-		page_two.setWidth(Assets.width);
-		page_two.add(tutorial_2).width(Assets.width)
-				.height(MessageScreen.WINDOW_DISPLAY_HEIGHT);
-
-		top_table.add(page_one).width(Assets.width)
-				.height(MessageScreen.WINDOW_DISPLAY_HEIGHT);
-		top_table.add(page_two).width(Assets.width)
-				.height(MessageScreen.WINDOW_DISPLAY_HEIGHT);
-
-		// Use the slideshow type MessageScreen.
-		MessageScreen tutorial_screen = new MessageScreen(top_table, 2) {
-			@Override
-			public void transition() {
-				super.transition();
-				Assets.prefs.putBoolean("first_time", false);
-				Assets.prefs.flush();
-				game_screen = new GameScreen();
-				Assets.playGameBGM();
-				Assets.game.setScreen(game_screen);
-			}
-		};
-		tutorial_screen.setBackgroundColor(150, 66, 66);
-		Assets.game.setScreen(tutorial_screen);
-	}
 
 	public void showRateMe() {
 		MessageScreen message = new MessageScreen(stage);

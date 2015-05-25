@@ -8,7 +8,7 @@ import com.ayrten.scrots.dots.PowerDot_Magnet;
 import com.ayrten.scrots.dots.PowerDot_Rainbow;
 import com.ayrten.scrots.dots.RadialSprite;
 import com.ayrten.scrots.game.GameMode;
-import com.ayrten.scrots.game.NormalGameMode;
+import com.ayrten.scrots.game.TimeMode;
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.ButtonInterface;
 import com.ayrten.scrots.manager.Manager;
@@ -95,7 +95,7 @@ public class GameScreen extends ScrotsScreen {
 		// if (Assets.prefs.getString("mode").equals("Normal")) {
 		gm.setMode(GameMode.NORMAL_MODE);
 		gm.setScoreboard(Assets.game.main_menu.nsb);
-		gamemode = new NormalGameMode(stage, gm);
+		gamemode = new TimeMode(stage, gm);
 		// } else {
 		// gm.setMode(GameMode.CHALLENGE_MODE);
 		// gm.setScoreboard(Assets.game.main_menu.csb);
@@ -235,17 +235,16 @@ public class GameScreen extends ScrotsScreen {
 		timer.scheduleTask(new Task() {
 			@Override
 			public void run() {
-				GameScreen new_game = new GameScreen();
-				Assets.game.main_menu.game_screen.dispose();
-				Assets.game.main_menu.game_screen = new_game;
-				Assets.game.setScreen(Assets.game.main_menu.game_screen);
+				GameModeScreen.game_screen.dispose();
+				GameModeScreen.game_screen = new GameScreen();
+				Assets.game.setScreen(GameModeScreen.game_screen);
 			}
 		}, 0.5f);
 	}
 
 	private void main_menu() {
 		Assets.stats_manager.writePlayerStatsToFile();
-		Assets.game.main_menu.game_screen.dispose();
+		GameModeScreen.game_screen.dispose();
 		Assets.playMenuBGM();
 		Assets.game.setScreen(Assets.game.main_menu);
 		Assets.game.main_menu.checkRateMe();
@@ -264,8 +263,8 @@ public class GameScreen extends ScrotsScreen {
 			public void clicked(InputEvent event, float x, float y) {
 				if (Assets.prefs.getBoolean("sound_effs"))
 					Assets.button_pop.play();
-				if (gm.getGameState() == Manager.game_state.ONGOING) {
-					gm.setGameState(Manager.game_state.PAUSED);
+				if (gm.getGameState() == Manager.gameState.ONGOING) {
+					gm.setGameState(Manager.gameState.PAUSED);
 					gm.pauseGame();
 					side_table.setTouchable(Touchable.disabled);
 					for (int i = 0; i < powDots.size(); i++)
@@ -273,8 +272,8 @@ public class GameScreen extends ScrotsScreen {
 					pause_scroll.scrollTo(0, Assets.game_height * 2,
 							pause_scroll.getWidth(), pause_scroll.getHeight());
 					menu_button.setDrawable(trd[0]);
-				} else if (gm.getGameState() == Manager.game_state.PAUSED) {
-					gm.setGameState(Manager.game_state.ONGOING);
+				} else if (gm.getGameState() == Manager.gameState.PAUSED) {
+					gm.setGameState(Manager.gameState.ONGOING);
 					new Timer().scheduleTask(new Task() {
 						@Override
 						public void run() {
@@ -315,10 +314,10 @@ public class GameScreen extends ScrotsScreen {
 		tutorial.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Assets.game.main_menu.others_screen.tutorial_screen
+				Assets.game.main_menu.othersScreen.tutorial_screen
 						.setBackScreen(Assets.game.getScreen());
 				Assets.game
-						.setScreen(Assets.game.main_menu.others_screen.tutorial_screen);
+						.setScreen(Assets.game.main_menu.othersScreen.tutorial_screen);
 			}
 		});
 
@@ -328,11 +327,11 @@ public class GameScreen extends ScrotsScreen {
 		options.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Assets.game.main_menu.options_screen.setBackScreen(Assets.game
+				Assets.game.main_menu.optionsScreen.setBackScreen(Assets.game
 						.getScreen());
-				Assets.game.main_menu.options_screen
+				Assets.game.main_menu.optionsScreen
 						.enableNonGameOptions(false);
-				Assets.game.setScreen(Assets.game.main_menu.options_screen);
+				Assets.game.setScreen(Assets.game.main_menu.optionsScreen);
 			}
 		});
 
@@ -538,7 +537,7 @@ public class GameScreen extends ScrotsScreen {
 		} else { 
 			if(!gm.addedDots) {
 				gm.addDotsToStage();
-				if(gm.getGameState() == Manager.game_state.PAUSED) {
+				if(gm.getGameState() == Manager.gameState.PAUSED) {
 					gm.startGame();
 					for(int i = 0; i < powDots.size(); i++)
 						powDots.get(i).resumeTime();

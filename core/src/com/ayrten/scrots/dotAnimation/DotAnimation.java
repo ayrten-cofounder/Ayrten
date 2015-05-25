@@ -1,5 +1,7 @@
 package com.ayrten.scrots.dotAnimation;
 
+import java.util.Random;
+
 import com.ayrten.scrots.dots.Dot;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -19,9 +21,11 @@ public class DotAnimation {
 	protected float curr_height;
 
 	protected Dot dot;
+	protected Random random;
 
 	public DotAnimation(Dot dot) {
 		this.dot = dot;
+		random = new Random(System.nanoTime());
 		randSlopeV3();
 	}
 
@@ -80,8 +84,8 @@ public class DotAnimation {
 	}
 
 	protected void randSlopeV3() {
-		int x = dot.random.nextInt(SLOPE_RAND_X);
-		int y = dot.random.nextInt(SLOPE_RAND_Y);
+		int x = random.nextInt(SLOPE_RAND_X);
+		int y = random.nextInt(SLOPE_RAND_Y);
 
 		slopeX = x - SLOPE_DIFF_X;
 		slopeY = y - SLOPE_DIFF_Y;
@@ -92,7 +96,7 @@ public class DotAnimation {
 	}
 
 	public void resetRatio() {
-		size_ratio = dot.random.nextBoolean() ? MAX_SIZE_RATIO : MIN_SIZE_RATIO;
+		size_ratio = random.nextBoolean() ? MAX_SIZE_RATIO : MIN_SIZE_RATIO;
 	}
 
 	public void setSize() {
