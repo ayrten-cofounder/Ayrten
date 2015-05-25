@@ -8,11 +8,14 @@ package com.ayrten.scrots.manager;
 
 import java.util.ArrayList;
 
+import com.ayrten.scrots.dotAnimation.DotAnimation;
+import com.ayrten.scrots.dotAnimation.DotAnimation_TimeMode;
 import com.ayrten.scrots.dots.DWD_PenDot_Base;
 import com.ayrten.scrots.dots.Dot;
 import com.ayrten.scrots.dots.DotGenerator;
 import com.ayrten.scrots.dots.PenDot_Base;
 import com.ayrten.scrots.dots.PowerDot_Magnet;
+import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.level.Level;
 import com.ayrten.scrots.scoreboard.Scoreboard;
 import com.ayrten.scrots.screens.GameModeScreen;
@@ -30,6 +33,7 @@ public class Manager {
 	private Scoreboard sb;
 	private Stage stage;
 	public DotGenerator generator;
+	public DotAnimation animation;
 
 	public enum gameState {
 		ONGOING, PAUSED, GAME_OVER
@@ -63,6 +67,12 @@ public class Manager {
 		sb = new Scoreboard();
 		this.stage = stage;
 		generator = new DotGenerator(this);
+		
+		if (mode == GameMode.NORMAL_MODE
+				|| get_game_mode() == GameMode.CHALLENGE_MODE) {
+			animation = new DotAnimation_TimeMode();
+		} else 
+			animation = new DotAnimation();
 		
 		isRainbowState = false;
 		isMagnetState = false;

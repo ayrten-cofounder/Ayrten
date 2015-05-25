@@ -1,8 +1,5 @@
 package com.ayrten.scrots.dots;
 
-import com.ayrten.scrots.dotAnimation.DotAnimation;
-import com.ayrten.scrots.dotAnimation.DotAnimation_TimeMode;
-import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
@@ -15,26 +12,27 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 public class Dot extends Actor {
 	protected Texture dot;
 	public Manager gm;
-	//protected Random random;
-	protected DotAnimation animation;
 
 	protected Sound pop;
 
 	protected InputListener listener;
 	public boolean isComboDot;
 	public boolean magneted = false;
+	
+	public float slopeX, slopeY, sizeRatio;
 
 	public Dot(Texture dot, Manager gm, Sound pop) {
 		this.dot = dot;
 		this.gm = gm;
 		this.pop = pop;
 		isComboDot = false;
-		setBounds(getX(), getY(), dot.getWidth(), dot.getHeight());
-		if (gm.get_game_mode() == GameMode.NORMAL_MODE
-				|| gm.get_game_mode() == GameMode.CHALLENGE_MODE) {
-			animation = new DotAnimation_TimeMode(this);
-		} else 
-			animation = new DotAnimation(this);
+		
+		// Set random slope.
+		gm.animation.randSlopeV3(this);
+		// Initialize the ratio.
+		resetRatio();
+		// Set initial size based on ratio.
+		gm.animation.setSize(this);
 		
 		// An InputListener is a subclass of EventListener
 		listener = new InputListener() {
@@ -82,12 +80,12 @@ public class Dot extends Actor {
 	}
 
 	public void resetRatio() {
-		animation.resetRatio();
+		gm.animation.resetRatio(this);
 	}
 
 	// Overridden functions.
 	@Override
 	public void draw(Batch batch, float alpha) {
-		animation.draw(batch, alpha, magneted);
+		gm.animation.draw(this, batch, alpha, magneted);
 	}
 }

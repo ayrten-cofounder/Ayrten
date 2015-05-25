@@ -1,8 +1,8 @@
 package com.ayrten.scrots.scoreboard;
 
-public class NormalScoreboard extends Scoreboard
+public class TimeScoreboard extends Scoreboard
 {
-	public NormalScoreboard()
+	public TimeScoreboard()
 	{
 		this.file = "hsnrm_mde";
 	}

@@ -2,7 +2,7 @@ package com.ayrten.scrots.screens;
 
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.ButtonInterface;
-import com.ayrten.scrots.scoreboard.NormalScoreboard;
+import com.ayrten.scrots.scoreboard.TimeScoreboard;
 import com.ayrten.scrots.scoreboard.Scoreboard;
 import com.ayrten.scrots.scoreboard.Scoreboard.Scores;
 import com.badlogic.gdx.Gdx;
@@ -205,7 +205,7 @@ public class ScoresScreen extends ScrotsScreen {
 
 	public void clearScoreboard() {
 		// if (mode.getSelected().equals("Normal")) {
-		NormalScoreboard scoreboard = new NormalScoreboard();
+		TimeScoreboard scoreboard = new TimeScoreboard();
 		scoreboard.clearScoreboard();
 		// } else {
 		// ChallengeScoreboard scoreboard = new ChallengeScoreboard();
@@ -231,7 +231,7 @@ public class ScoresScreen extends ScrotsScreen {
 
 	private void setHighScoreTable(Table table) {
 		// if (mode.getSelected().equals("Normal")) {
-		NormalScoreboard scoreboard = new NormalScoreboard();
+		TimeScoreboard scoreboard = new TimeScoreboard();
 		fillInHighScore(scoreboard, table);
 		// } else {
 		// ChallengeScoreboard scoreboard = new ChallengeScoreboard();

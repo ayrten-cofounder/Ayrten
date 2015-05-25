@@ -6,7 +6,7 @@ import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.ButtonInterface;
 import com.ayrten.scrots.manager.Manager;
-import com.ayrten.scrots.scoreboard.NormalScoreboard;
+import com.ayrten.scrots.scoreboard.TimeScoreboard;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -38,7 +38,7 @@ public class MainMenuScreen extends ScrotsScreen {
 	protected Label others;
 	protected Label gplay_log;
 
-	public NormalScoreboard nsb;
+	public TimeScoreboard nsb;
 	
 	// public ChallengeScoreboard csb;
 
@@ -46,7 +46,7 @@ public class MainMenuScreen extends ScrotsScreen {
 		super(null, false);
 
 		// Initialize variables
-		nsb = new NormalScoreboard();
+		nsb = new TimeScoreboard();
 		// csb = new ChallengeScoreboard();
 
 		contactScreen = new ContactScreen(this);
