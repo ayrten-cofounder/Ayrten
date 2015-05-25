@@ -1,4 +1,4 @@
-package com.ayrten.scrots.dots;
+package com.ayrten.scrots.dots.penalty;
 
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;

@@ -1,10 +1,13 @@
-package com.ayrten.scrots.dots;
+package com.ayrten.scrots.dots.power;
 
+import com.ayrten.scrots.dots.Dot;
+import com.ayrten.scrots.dots.RadialSprite;
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -164,6 +167,11 @@ public class PowerDot extends Dot {
 
 	public void resumeTime() {
 		timer.start();
+	}
+	
+	@Override
+	public void draw(Batch batch, float alpha) {
+		batch.draw(dot, getX(), getY(), getWidth(), getHeight());
 	}
 
 	private void setTime() {

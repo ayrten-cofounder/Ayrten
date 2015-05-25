@@ -1,5 +1,6 @@
-package com.ayrten.scrots.dots;
+package com.ayrten.scrots.dots.penalty;
 
+import com.ayrten.scrots.dots.Dot;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;

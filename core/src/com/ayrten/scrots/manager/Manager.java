@@ -10,11 +10,11 @@ import java.util.ArrayList;
 
 import com.ayrten.scrots.dotAnimation.DotAnimation;
 import com.ayrten.scrots.dotAnimation.DotAnimation_TimeMode;
-import com.ayrten.scrots.dots.DWD_PenDot_Base;
 import com.ayrten.scrots.dots.Dot;
 import com.ayrten.scrots.dots.DotGenerator;
-import com.ayrten.scrots.dots.PenDot_Base;
-import com.ayrten.scrots.dots.PowerDot_Magnet;
+import com.ayrten.scrots.dots.penalty.DWD_PenDot_Base;
+import com.ayrten.scrots.dots.penalty.PenDot_Base;
+import com.ayrten.scrots.dots.power.PowerDot_Magnet;
 import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.level.Level;
 import com.ayrten.scrots.scoreboard.Scoreboard;
@@ -53,6 +53,7 @@ public class Manager {
 	// The score, time, etc. of the game
 	protected int score;
 	protected int combo_chain;
+	protected Label comboLabel;
 	
 	// Area of game play.
 	public float min_width, max_width;
@@ -63,17 +64,6 @@ public class Manager {
 			float max_h, Stage stage) {
 		this.score = score;
 
-		time = new Time(this);
-		sb = new Scoreboard();
-		this.stage = stage;
-		generator = new DotGenerator(this);
-		
-		if (mode == GameMode.NORMAL_MODE
-				|| get_game_mode() == GameMode.CHALLENGE_MODE) {
-			animation = new DotAnimation_TimeMode();
-		} else 
-			animation = new DotAnimation();
-		
 		isRainbowState = false;
 		isMagnetState = false;
 		isInvincible = false;
@@ -84,16 +74,38 @@ public class Manager {
 		min_height = min_h;
 		max_height = max_h;
 		currGameState = gameState.ONGOING;
+		
+		time = new Time(this);
+		sb = new Scoreboard();
+		this.stage = stage;
+		generator = new DotGenerator(this);
+		comboLabel = new Label("Combo: x" + combo_chain, Assets.style_font_32_white);
+		
+		if (mode == GameMode.NORMAL_MODE
+				|| get_game_mode() == GameMode.CHALLENGE_MODE) {
+			animation = new DotAnimation_TimeMode();
+		} else 
+			animation = new DotAnimation();
 	}
 	
 	public void incrementCombo() {
 		combo_chain++;
+		comboLabel.setText("Combo: x" + combo_chain);
 		if(curr_level.getRegDotList().size() > 0)
 			curr_level.getRegDotList().get(0).setComboDot();
 	}
 	
 	public void resetCombo() {
 		combo_chain = 0;
+		comboLabel.setText("Combo: x" + combo_chain);
+	}
+	
+	public Label getComboLabel() {
+		return comboLabel;
+	}
+	
+	public int getComboChain() {
+		return combo_chain;
 	}
 
 	public gameState getGameState() {

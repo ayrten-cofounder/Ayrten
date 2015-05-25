@@ -1,10 +1,9 @@
-package com.ayrten.scrots.dots;
+package com.ayrten.scrots.dots.power;
 
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 
 public class PowerDot_Invincible extends PowerDot {
 
@@ -31,11 +30,6 @@ public class PowerDot_Invincible extends PowerDot {
 	{
 		super.afterAction();
 		gm.setInvincible(false);
-	}
-	
-	@Override
-	public void draw(Batch batch, float alpha) {
-		batch.draw(dot, getX(), getY(), getWidth(), getHeight());
 	}
 	
 	@Override

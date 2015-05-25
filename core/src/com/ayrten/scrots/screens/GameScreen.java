@@ -2,11 +2,11 @@ package com.ayrten.scrots.screens;
 
 import java.util.ArrayList;
 
-import com.ayrten.scrots.dots.PowerDot;
-import com.ayrten.scrots.dots.PowerDot_Invincible;
-import com.ayrten.scrots.dots.PowerDot_Magnet;
-import com.ayrten.scrots.dots.PowerDot_Rainbow;
 import com.ayrten.scrots.dots.RadialSprite;
+import com.ayrten.scrots.dots.power.PowerDot;
+import com.ayrten.scrots.dots.power.PowerDot_Invincible;
+import com.ayrten.scrots.dots.power.PowerDot_Magnet;
+import com.ayrten.scrots.dots.power.PowerDot_Rainbow;
 import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.game.TimeMode;
 import com.ayrten.scrots.manager.Assets;
@@ -66,7 +66,7 @@ public class GameScreen extends ScrotsScreen {
 	protected ArrayList<Label> powDot_num;
 	protected ArrayList<Image> radial_timers;
 	protected ArrayList<Image> powDots_gray;
-
+	
 	// Used for changing Drawable for menu button.
 	protected TextureRegionDrawable[] trd;
 	
@@ -103,18 +103,10 @@ public class GameScreen extends ScrotsScreen {
 		// }
 
 		initializePauseMenu();
-
-		top_table = new Table(Assets.skin);
-		top_table.setPosition(10, Assets.game_height);
-		top_table.setWidth(Assets.width - 20);
-		top_table.setHeight(Assets.height - Assets.game_height - 10);
-		top_table.align(Align.right);
-		top_table.add(menu_button).width(top_table.getHeight())
-				.height(top_table.getHeight());
-
+		
 		corner_table = new Table(Assets.skin);
-		corner_table.setHeight(top_table.getHeight() / 2 * 3);
-		corner_table.setWidth(top_table.getHeight() / 2 * 3);
+		corner_table.setHeight((Assets.height - Assets.game_height - 10) / 2 * 3);
+		corner_table.setWidth(corner_table.getHeight());
 		corner_table.setPosition(10, Assets.height - corner_table.getHeight()
 				- 10);
 
@@ -214,6 +206,23 @@ public class GameScreen extends ScrotsScreen {
 			if (i != powDots.size() - 1)
 				side_table.row();
 		}
+		
+		
+		// TODO: set width to max number of combo label... but what should the max combo displayed be?
+		top_table = new Table(Assets.skin);
+		top_table.setPosition(points_table.getX() + points_table.getWidth() + 10, Assets.game_height);
+		top_table.setWidth(Assets.width - top_table.getX() - 20);
+		top_table.setHeight(Assets.height - Assets.game_height - 10);
+		
+		Table info_table = new Table(Assets.skin);
+		info_table.setSize(top_table.getWidth() - top_table.getHeight(), top_table.getHeight());
+		info_table.align(Align.top);
+		info_table.add(gm.getComboLabel()).width(top_table.getWidth() - top_table.getHeight()).left().top();
+		info_table.debug();
+		
+		top_table.add(info_table).width(top_table.getWidth() - top_table.getHeight()).height(top_table.getHeight());
+		top_table.add(menu_button).width(top_table.getHeight())
+				.height(top_table.getHeight());
 
 		// Problem: dots are over the timer and lvl and power dots. However, you
 		// need to put the

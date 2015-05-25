@@ -191,7 +191,7 @@ public class Assets {
 		height = Gdx.graphics.getHeight();
 		width = Gdx.graphics.getWidth();
 //		game_height = height * 0.85f;
-		game_height = height - font_32.getLineHeight() * 2;
+		game_height = height - font_32.getLineHeight() * 2 - 10;
 //		game_width = width - (height - game_height);
 		game_width = width - (font_32.getLineHeight() * 3);
 		powerdot_thresh = height - game_height;

@@ -1,12 +1,12 @@
-package com.ayrten.scrots.dots;
+package com.ayrten.scrots.dots.power;
 
 import java.util.LinkedList;
 
+import com.ayrten.scrots.dots.Dot;
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -15,7 +15,6 @@ public class PowerDot_Magnet extends PowerDot {
 	private static final float DURATION = 2f; // Time in seconds it takes the
 												// dots to move to the magnet
 
-	private DotGenerator generator;
 	private PowerDot_Magnet magnet;
 
 	public PowerDot_Magnet(Texture dot, final Manager gm, Sound pop) {
@@ -23,7 +22,6 @@ public class PowerDot_Magnet extends PowerDot {
 
 		ACTIVE_TIME = 8;
 		num = Assets.power_dot_manager.getMagnetDots();
-		generator = new DotGenerator(gm);
 	}
 
 	@Override
@@ -33,7 +31,7 @@ public class PowerDot_Magnet extends PowerDot {
 		Assets.power_dot_manager.setMagnetDotAmount(--num);
 		updateNumLabel();
 
-		magnet = generator.genPowerDotMagnet();
+		magnet = gm.generator.genPowerDotMagnet();
 		magnet.setTouchable(Touchable.disabled);
 		gm.setMagnetState(true, magnet);
 		gm.getStage().addActor(magnet);
@@ -75,11 +73,6 @@ public class PowerDot_Magnet extends PowerDot {
 		}
 	}
 
-	@Override
-	public void draw(Batch batch, float alpha) {
-		batch.draw(dot, getX(), getY(), getWidth(), getHeight());
-	}
-	
 	@Override
 	public boolean isUnlocked() {
 		return (Assets.power_dot_manager.isMagnetDotUnlocked());
