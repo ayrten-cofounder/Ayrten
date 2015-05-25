@@ -60,8 +60,9 @@ public class PowerDot_Magnet extends PowerDot {
 				dot.setPosition(getX(), getY());
 			}
 			
-			if (dot.getClass() == PenDot1.class
-					|| dot.getClass() == DWD_PenDot_Base.class) {
+			System.out.println("DOT CLASS: " + dot.getClass());
+			if (dot.getClass().isAssignableFrom(PenDot_Base.class)
+					|| dot.getClass().isAssignableFrom(DWD_PenDot_Base.class)) {
 				dot.addAction(Actions.moveTo(magnet.getX(), magnet.getY(),
 						DURATION, Interpolation.circleIn));
 				dot.magneted = true;
@@ -71,8 +72,8 @@ public class PowerDot_Magnet extends PowerDot {
 
 	private void unmagnet() {
 		for (Dot dot : gm.curr_level.getDotList()) {			
-			if (dot.getClass() == PenDot1.class
-					|| dot.getClass() == DWD_PenDot_Base.class)
+			if (dot.getClass().isAssignableFrom(PenDot_Base.class)
+					|| dot.getClass().isAssignableFrom(DWD_PenDot_Base.class))
 				dot.magneted = false;
 		}
 	}
