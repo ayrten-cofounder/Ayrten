@@ -77,9 +77,15 @@ public class DotAnimation {
 	public void randSlopeV3(Dot dot) {
 		int x = random.nextInt(SLOPE_RAND_X);
 		int y = random.nextInt(SLOPE_RAND_Y);
-
-		dot.slopeX = (x - SLOPE_DIFF_X) * dot.speedX;
-		dot.slopeY = (y - SLOPE_DIFF_Y) * dot.speedY;
+		
+		dot.slopeX = (x - SLOPE_DIFF_X);
+		dot.slopeY = (y - SLOPE_DIFF_Y);
+		
+		dot.prevSlopeX = dot.slopeX;
+		dot.prevSlopeY = dot.slopeY;
+		
+		dot.slopeX *= dot.speedX;
+		dot.slopeY *= dot.speedY;
 
 		if (dot.slopeX == 0 && dot.slopeY == 0) {
 			randSlopeV3(dot);

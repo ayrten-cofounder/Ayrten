@@ -20,8 +20,9 @@ public class Dot extends Actor {
 	public boolean magneted = false;
 	
 	public float slopeX, slopeY, sizeRatio;
+	public float prevSlopeX, prevSlopeY;
 	
-	public float speedX, speedY;
+	public float speedX = 1, speedY = 1;
 
 	public Dot(Texture dot, Manager gm, Sound pop) {
 		this.dot = dot;
@@ -29,7 +30,7 @@ public class Dot extends Actor {
 		this.pop = pop;
 		isComboDot = false;
 		
-		resetSpeed();
+		gm.animation.randSlopeV3(this);
 		resetRatio();
 		// Set initial size based on ratio.
 		gm.animation.setSize(this);
@@ -63,25 +64,29 @@ public class Dot extends Actor {
 	}
 	
 	public void resetSpeed() {
-		setSpeed(1, 1);
-		gm.animation.randSlopeV3(this);
+		speedX = 1;
+		speedY = 1;
+		slopeX = prevSlopeX;
+		slopeY = prevSlopeY;
 	}
 	
 	private void setSpeed(float spdX, float spdY) {
 		speedX = spdX;
 		speedY = spdY;
+		prevSlopeX = slopeX;
+		prevSlopeY = slopeY;
+		slopeX *= speedX;
+		slopeY *= speedY;
 	}
 	
 	public void slowDown(int slowBy) {
 		resetSpeed();
 		setSpeed((speedX / slowBy), (speedY / slowBy));
-		gm.animation.randSlopeV3(this);
 	}
 	
 	public void speedUp(int speedBy) {
 		resetSpeed();
 		setSpeed((speedX * speedBy), (speedY * speedBy));
-		gm.animation.randSlopeV3(this);
 	}
 	
 	public void setComboDot() {
