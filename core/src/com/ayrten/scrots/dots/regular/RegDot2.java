@@ -1,13 +1,12 @@
 package com.ayrten.scrots.dots.regular;
 
-import com.ayrten.scrots.dots.Dot;
+import com.ayrten.scrots.dots.MovingDot;
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
-public class RegDot2 extends Dot
-{
+public class RegDot2 extends MovingDot {
 	public static final float TIME_ADD = 2.6f; // seconds
 
 	public RegDot2(Texture dot, Manager gm, Sound pop)

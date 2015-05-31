@@ -4,8 +4,7 @@ import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
-public class DWD extends Dot
-{
+public class DWD extends MovingDot {
 	protected int MAX_DOTS = 0;
 	
 	public DWD(Texture dot, Manager gm, Sound pop)

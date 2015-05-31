@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 
-import com.ayrten.scrots.dots.Dot;
+import com.ayrten.scrots.dots.MovingDot;
 import com.ayrten.scrots.dots.penalty.DWD_PenDot1;
 import com.ayrten.scrots.dots.penalty.DWD_PenDot2;
 import com.ayrten.scrots.dots.penalty.PenDot1;
@@ -43,7 +43,7 @@ public class Level
 	// DWD (Dot Within Dot) Weight
 	protected static final int DWD_WEIGHT = 2;
 
-	protected LinkedList<Dot> allDots;
+	protected LinkedList<MovingDot> allDots;
 	protected int number_of_green_dots;
 	protected boolean firstDWD_regdot1, firstDWD_regdot2, firstDWD_pendot1, firstDWD_pendot2;
 	protected Manager gm;
@@ -54,7 +54,7 @@ public class Level
 	{
 		assert level >= 0;
 		this.gm = gm;
-		allDots = new LinkedList<Dot>();
+		allDots = new LinkedList<MovingDot>();
 		
 		firstDWD_regdot1 = false;
 		firstDWD_regdot2 = false;
@@ -88,7 +88,7 @@ public class Level
 		reg_dots.add(reg_dot);
 	}
 
-	public LinkedList<Dot> getDotList() {
+	public LinkedList<MovingDot> getDotList() {
 		return allDots;
 	}
 	

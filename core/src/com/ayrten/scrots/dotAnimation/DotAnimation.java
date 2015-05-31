@@ -2,7 +2,7 @@ package com.ayrten.scrots.dotAnimation;
 
 import java.util.Random;
 
-import com.ayrten.scrots.dots.Dot;
+import com.ayrten.scrots.dots.MovingDot;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
@@ -20,7 +20,7 @@ public class DotAnimation {
 		random = new Random();
 	}
 
-	public void move(Dot dot) {
+	public void move(MovingDot dot) {
 	}
 
 	// Left/Right
@@ -32,7 +32,7 @@ public class DotAnimation {
 	}
 
 	// Diagional
-	protected void move_v3(Dot dot) {
+	protected void move_v3(MovingDot dot) {
 		float x = dot.getX();
 		float y = dot.getY();
 		
@@ -74,7 +74,7 @@ public class DotAnimation {
 	protected void randSlopeV2() {
 	}
 
-	public void randSlopeV3(Dot dot) {
+	public void randSlopeV3(MovingDot dot) {
 		int x = random.nextInt(SLOPE_RAND_X);
 		int y = random.nextInt(SLOPE_RAND_Y);
 		
@@ -92,25 +92,25 @@ public class DotAnimation {
 		}
 	}
 	
-	public void resetRatio(Dot dot) {
+	public void resetRatio(MovingDot dot) {
 		dot.sizeRatio = random.nextBoolean() ? MAX_SIZE_RATIO : MIN_SIZE_RATIO;
 	}
 
-	public void setSize(Dot dot) {
+	public void setSize(MovingDot dot) {
 		dot.setWidth(getCircleRadius(dot));
 		dot.setHeight(dot.getWidth());
 		dot.setBounds(dot.getX(), dot.getY(), dot.getWidth(), dot.getHeight());
 	}
 
-	private float getCircleRadius(Dot dot) {
+	private float getCircleRadius(MovingDot dot) {
 		return (float) (Gdx.graphics.getWidth() / dot.sizeRatio);
 	}
 
-	public void changePosition(Dot dot) {
+	public void changePosition(MovingDot dot) {
 		move_v3(dot);
 	}
 	
-	public void draw(Dot dot, Batch batch, float alpha, boolean magnetized) {
+	public void draw(MovingDot dot, Batch batch, float alpha, boolean magnetized) {
 		if (!magnetized) {
 			changePosition(dot);
 		}

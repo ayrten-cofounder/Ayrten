@@ -29,7 +29,7 @@ public class PowerDot extends Dot {
 
 	protected int num = 0; // The amount of power dots the user has
 
-	protected InputListener powerdot_listener;
+//	protected InputListener powerdot_listener;
 	protected float origX, origY;
 
 	protected Image rs;
@@ -44,9 +44,11 @@ public class PowerDot extends Dot {
 		angle = 0;
 
 		batch = new SpriteBatch();
-
-		powerdot_listener = new InputListener(){
-			
+	}
+	
+	@Override
+	protected void initializeListener() {
+		listener = new InputListener(){
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
@@ -73,8 +75,7 @@ public class PowerDot extends Dot {
 			}
 		};
 
-		removeListener(listener);
-		addListener(powerdot_listener);
+		addListener(listener);
 	}
 
 	public void setTimeLabel(Label label) {

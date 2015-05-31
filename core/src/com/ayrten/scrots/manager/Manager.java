@@ -12,6 +12,7 @@ import com.ayrten.scrots.dotAnimation.DotAnimation;
 import com.ayrten.scrots.dotAnimation.DotAnimation_TimeMode;
 import com.ayrten.scrots.dots.Dot;
 import com.ayrten.scrots.dots.DotGenerator;
+import com.ayrten.scrots.dots.MovingDot;
 import com.ayrten.scrots.dots.penalty.DWD_PenDot_Base;
 import com.ayrten.scrots.dots.penalty.PenDot_Base;
 import com.ayrten.scrots.dots.power.PowerDot_Magnet;
@@ -196,9 +197,7 @@ public class Manager {
 	}
 
 	public void changeDotSize() {
-		if (curr_level == null)
-			System.out.println("CURR LEVEL NULL");
-		for (Dot dot : curr_level.getDotList())
+		for (MovingDot dot : curr_level.getDotList())
 			dot.resetRatio();
 	}
 

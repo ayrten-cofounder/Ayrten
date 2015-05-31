@@ -1,6 +1,6 @@
 package com.ayrten.scrots.dots.penalty;
 
-import com.ayrten.scrots.dots.Dot;
+import com.ayrten.scrots.dots.MovingDot;
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
@@ -20,7 +20,7 @@ public class DWD_PenDot1 extends DWD_PenDot_Base {
 		super.generateMoreDots();
 
 		for (int i = 0; i < MAX_DOTS; i++) {
-			Dot newDot = gm.generator.genPenDot1();
+			MovingDot newDot = gm.generator.genPenDot1();
 			newDot.setPosition(getX(), getY());
 			gm.curr_level.getDotList().add(newDot);
 			addDWDToStage(newDot);

@@ -3,7 +3,7 @@ package com.ayrten.scrots.dots.regular;
 import java.util.Random;
 
 import com.ayrten.scrots.dots.DWD;
-import com.ayrten.scrots.dots.Dot;
+import com.ayrten.scrots.dots.MovingDot;
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
@@ -32,14 +32,14 @@ public class DWD_RegDot1 extends DWD {
 
 		for (int i = 0; i < random; i++) {
 			if (rand.nextInt(100) % 10 == 6) {
-				Dot newDot = gm.generator.genRegDot3();
+				MovingDot newDot = gm.generator.genRegDot3();
 				newDot.setPosition(getX(), getY());
 				gm.curr_level.getDotList().add(newDot);
 				addDWDToStage(newDot);
 				break;
 			}
 
-			Dot newDot = gm.generator.genRegDot1();
+			MovingDot newDot = gm.generator.genRegDot1();
 			newDot.setPosition(getX(), getY());
 			gm.curr_level.getDotList().add(newDot);
 			addDWDToStage(newDot);

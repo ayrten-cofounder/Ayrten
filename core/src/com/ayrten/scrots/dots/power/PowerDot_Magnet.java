@@ -2,7 +2,7 @@ package com.ayrten.scrots.dots.power;
 
 import java.util.LinkedList;
 
-import com.ayrten.scrots.dots.Dot;
+import com.ayrten.scrots.dots.MovingDot;
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
@@ -52,8 +52,8 @@ public class PowerDot_Magnet extends PowerDot {
 		checkRadius(gm.curr_level.getDotList());
 	}
 
-	private void checkRadius(LinkedList<Dot> linkedList) {
-		for (Dot dot : linkedList) {
+	private void checkRadius(LinkedList<MovingDot> linkedList) {
+		for (MovingDot dot : linkedList) {
 			if (dot.magneted) {
 				dot.setPosition(getX(), getY());
 			}
@@ -67,7 +67,7 @@ public class PowerDot_Magnet extends PowerDot {
 	}
 
 	private void unmagnet() {
-		for (Dot dot : gm.curr_level.getDotList()) {			
+		for (MovingDot dot : gm.curr_level.getDotList()) {			
 			if (gm.isPenDot(dot))
 				dot.magneted = false;
 		}

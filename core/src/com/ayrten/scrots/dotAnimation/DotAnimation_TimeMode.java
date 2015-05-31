@@ -1,6 +1,6 @@
 package com.ayrten.scrots.dotAnimation;
 
-import com.ayrten.scrots.dots.Dot;
+import com.ayrten.scrots.dots.MovingDot;
 
 
 public class DotAnimation_TimeMode extends DotAnimation {
@@ -9,7 +9,7 @@ public class DotAnimation_TimeMode extends DotAnimation {
 	}
 
 	@Override
-	public void move(Dot dot) {
+	public void move(MovingDot dot) {
 		move_v3(dot);
 	}
 }

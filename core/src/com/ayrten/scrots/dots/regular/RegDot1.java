@@ -1,12 +1,12 @@
 package com.ayrten.scrots.dots.regular;
 
-import com.ayrten.scrots.dots.Dot;
+import com.ayrten.scrots.dots.MovingDot;
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
-public class RegDot1 extends Dot {
+public class RegDot1 extends MovingDot {
 	public RegDot1(Texture dot, Manager gm, Sound pop) {
 		super(dot, gm, pop);
 	}

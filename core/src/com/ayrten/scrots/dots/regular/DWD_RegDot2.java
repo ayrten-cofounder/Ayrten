@@ -1,7 +1,7 @@
 package com.ayrten.scrots.dots.regular;
 
 import com.ayrten.scrots.dots.DWD;
-import com.ayrten.scrots.dots.Dot;
+import com.ayrten.scrots.dots.MovingDot;
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
@@ -31,7 +31,7 @@ public class DWD_RegDot2 extends DWD
 		super.generateMoreDots();
 		
 		for (int i = 0; i < MAX_DOTS; i++) {
-			Dot newDot = gm.generator.genRegDot2();
+			MovingDot newDot = gm.generator.genRegDot2();
 			newDot.setPosition(getX(), getY());
 			gm.curr_level.getDotList().add(newDot);
 			addDWDToStage(newDot);
