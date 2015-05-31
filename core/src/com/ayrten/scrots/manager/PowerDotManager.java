@@ -7,16 +7,23 @@ public class PowerDotManager {
 		public int magnet_dot = 0;
 		public int invincible_dot = 0;
 		public int rainbow_dot = 0;
+		public int decelerate_dot = 0;
 
 		public boolean magnet_dot_unlock = false;
 		public boolean invincible_dot_unlock = false;
 		public boolean rainbow_dot_unlock = false;
+		public boolean decelerate_dot_unlock = false;
 	}
 
 	public Dots dots;
 
 	public PowerDotManager() {
 		dots = getPowerDots();
+	}
+	
+	public boolean isDecelDotUnlocked() {
+		dots = getPowerDots();
+		return (dots.decelerate_dot_unlock);
 	}
 
 	public boolean isMagnetDotUnlocked() {
@@ -33,6 +40,11 @@ public class PowerDotManager {
 		dots = getPowerDots();
 		return (dots.rainbow_dot_unlock);
 	}
+	
+	public void unlockDecelDot() {
+		dots.decelerate_dot_unlock = true;
+		Assets.writeFile(this.file, Assets.json.toJson(dots));
+	}
 
 	public void unlockMagnetDot() {
 		dots.magnet_dot_unlock = true;
@@ -47,6 +59,11 @@ public class PowerDotManager {
 	public void unlockRainbowDot() {
 		dots.rainbow_dot_unlock = true;
 		Assets.writeFile(this.file, Assets.json.toJson(dots));
+	}
+	
+	public int getDecelDots() {
+		dots = getPowerDots();
+		return (dots.decelerate_dot);
 	}
 
 	public int getMagnetDots() {

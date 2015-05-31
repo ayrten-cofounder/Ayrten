@@ -139,6 +139,7 @@ public class Assets {
 	public static Texture invincible_dot;
 	public static Texture magnet_dot;
 	public static Texture rainbow_dot;
+	public static Texture decelerate_dot;
 	public static Texture invincible_dot_gray;
 	public static Texture magnet_dot_gray;
 	public static Texture rainbow_dot_gray;
@@ -347,7 +348,7 @@ public class Assets {
 		explosion_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
 		question_mark = new Texture(Gdx.files.internal("data/question_dot.png"));
-		combo_dot = question_mark;
+		combo_dot = new Texture(Gdx.files.internal("data/dots/combo_dot.png"));
 
 		invincible_dot = new Texture(
 				Gdx.files.internal("data/dots/invincible_dot.png"));
@@ -359,6 +360,9 @@ public class Assets {
 		rainbow_dot = new Texture(
 				Gdx.files.internal("data/dots/rainbow_dot.png"));
 		rainbow_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		
+		decelerate_dot = new Texture(Gdx.files.internal("data/dots/decelerate_dot.png"));
+		decelerate_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
 		invincible_dot_gray = new Texture(
 				Gdx.files.internal("data/dots/invincible_dot_gray.png"));

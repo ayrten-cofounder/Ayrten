@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.ayrten.scrots.dots.RadialSprite;
 import com.ayrten.scrots.dots.power.PowerDot;
+import com.ayrten.scrots.dots.power.PowerDot_Decelerate;
 import com.ayrten.scrots.dots.power.PowerDot_Invincible;
 import com.ayrten.scrots.dots.power.PowerDot_Magnet;
 import com.ayrten.scrots.dots.power.PowerDot_Rainbow;
@@ -207,7 +208,6 @@ public class GameScreen extends ScrotsScreen {
 				side_table.row();
 		}
 		
-		
 		// TODO: set width to max number of combo label... but what should the max combo displayed be?
 		top_table = new Table(Assets.skin);
 		top_table.setPosition(points_table.getX() + points_table.getWidth() + 10, Assets.game_height);
@@ -218,7 +218,6 @@ public class GameScreen extends ScrotsScreen {
 		info_table.setSize(top_table.getWidth() - top_table.getHeight(), top_table.getHeight());
 		info_table.align(Align.top);
 		info_table.add(gm.getComboLabel()).width(top_table.getWidth() - top_table.getHeight()).left().top();
-		info_table.debug();
 		
 		top_table.add(info_table).width(top_table.getWidth() - top_table.getHeight()).height(top_table.getHeight());
 		top_table.add(menu_button).width(top_table.getHeight())
@@ -410,7 +409,9 @@ public class GameScreen extends ScrotsScreen {
 		powDots = new ArrayList<PowerDot>();
 		PowerDot powDot_1 = new PowerDot_Rainbow(Assets.rainbow_dot, gm,
 				Assets.reg_pop_1);
-		PowerDot powDot_2 = new PowerDot_Invincible(Assets.invincible_dot, gm,
+//		PowerDot powDot_2 = new PowerDot_Invincible(Assets.invincible_dot, gm,
+//				Assets.reg_pop_1);
+		PowerDot powDot_2 = new PowerDot_Decelerate(Assets.decelerate_dot, gm,
 				Assets.reg_pop_1);
 		magnet = new PowerDot_Magnet(Assets.magnet_dot, gm, Assets.reg_pop_1);
 		PowerDot powDot_3 = magnet;

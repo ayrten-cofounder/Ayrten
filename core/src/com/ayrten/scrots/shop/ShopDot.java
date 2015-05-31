@@ -15,12 +15,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
-public class ShopDot {
-	private ShopScreen shop;
-
+public class ShopDot extends ShopItem {
 	private DOT_TYPE dotType;
 	private DOT_UNLOCK dotUnlock;
-	private String description;
 
 	public boolean unlocked;
 
@@ -69,8 +66,8 @@ public class ShopDot {
 	}
 
 	public ShopDot(DOT_TYPE dotType, ShopScreen shop) {
+		super(shop);
 		this.dotType = dotType;
-		this.shop = shop;
 		this.amountTable = new Table();
 		amountTable.setSkin(Assets.skin);
 

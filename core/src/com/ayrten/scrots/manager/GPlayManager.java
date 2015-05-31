@@ -17,6 +17,7 @@ public class GPlayManager {
 	public static final String ACHIEVEMENT_UNLOCK_DOT_RAINBOW = "CgkIxpik37gbEAIQAw";
 	public static final String ACHIEVEMENT_UNLOCK_DOT_INVINCIBLE = "CgkIxpik37gbEAIQBA";
 	public static final String ACHIEVEMENT_UNLOCK_DOT_MAGNET = "CgkIxpik37gbEAIQBQ";
+	public static final String ACHIEVEMENT_UNLOCK_DOT_DECELERATE = "CgkIxpik37gbEAIQDg";
 
 	// Googleplay achievement checklist.
 	private final String CHECKLIST_NAME = "gac";
@@ -68,6 +69,7 @@ public class GPlayManager {
 			checklist_achievements
 					.put(ACHIEVEMENT_UNLOCK_DOT_INVINCIBLE, false);
 			checklist_achievements.put(ACHIEVEMENT_UNLOCK_DOT_MAGNET, false);
+			checklist_achievements.put(ACHIEVEMENT_UNLOCK_DOT_DECELERATE, false);
 		}
 	}
 
@@ -104,31 +106,49 @@ public class GPlayManager {
 	}
 
 	private void addPoints(String achievement_name) {
+		int amount = 0;
 		if (ACHIEVEMENT_GREEN_POP_1000.equals(achievement_name)) {
 			Assets.points_manager.addPoints(100);
+			amount = 100;
 		} else if (ACHIEVEMENT_GREEN_POP_5000.equals(achievement_name)) {
 			Assets.points_manager.addPoints(200);
+			amount = 200;
 		} else if (ACHIEVEMENT_GREEN_POP_10000.equals(achievement_name)) {
 			Assets.points_manager.addPoints(400);
+			amount = 400;
 		} else if (ACHIEVEMENT_GREEN_POP_25000.equals(achievement_name)) {
 			Assets.points_manager.addPoints(600);
+			amount = 600;
 		} else if (ACHIEVEMENT_GREEN_POP_50000.equals(achievement_name)) {
 			Assets.points_manager.addPoints(1000);
+			amount = 1000;
 		} else if (ACHIEVEMENT_GREEN_POP_100000.equals(achievement_name)) {
 			Assets.points_manager.addPoints(2000);
+			amount = 2000;
 		} else if (ACHIEVEMENT_LEVEL_CLEAR_5.equals(achievement_name)) {
 			Assets.points_manager.addPoints(50);
+			amount = 50;
 		} else if (ACHIEVEMENT_LEVEL_CLEAR_10.equals(achievement_name)) {
 			Assets.points_manager.addPoints(100);
+			amount = 100;
 		} else if (ACHIEVEMENT_LEVEL_CLEAR_15.equals(achievement_name)) {
 			Assets.points_manager.addPoints(1000);
+			amount = 1000;
 		} else if (ACHIEVEMENT_UNLOCK_DOT_RAINBOW.equals(achievement_name)) {
 			Assets.points_manager.addPoints(150);
+			amount = 150;
 		} else if (ACHIEVEMENT_UNLOCK_DOT_INVINCIBLE.equals(achievement_name)) {
 			Assets.points_manager.addPoints(150);
+			amount = 150;
 		} else if (ACHIEVEMENT_UNLOCK_DOT_MAGNET.equals(achievement_name)) {
 			Assets.points_manager.addPoints(150);
+			amount = 150;
+		} else if (ACHIEVEMENT_UNLOCK_DOT_DECELERATE.equals(achievement_name)) {
+			Assets.points_manager.addPoints(150);
+			amount = 150;
 		}
+			
+		Assets.game.apk_intf.showToast(String.format("Received %0d points for unlocking an achievement!", amount));
 	}
 
 	public boolean isUnlocked(String achievement_name) {
