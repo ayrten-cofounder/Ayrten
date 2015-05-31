@@ -66,7 +66,7 @@ public class Assets {
 	public static BitmapFont font_120;
 	public static BitmapFont font_64;
 	public static BitmapFont font_32;
-	public static BitmapFont font_16;
+	public static BitmapFont font_20;
 	public static BitmapFont font_0;
 
 	public static BitmapFont font_200_border;
@@ -183,7 +183,7 @@ public class Assets {
 		font_120 = generate_BitMapFont(120, font_ratio);
 		font_64 = generate_BitMapFont(64, font_ratio);
 		font_32 = generate_BitMapFont(32, font_ratio);
-		font_16 = generate_BitMapFont(16, font_ratio);
+		font_20 = generate_BitMapFont(20, font_ratio);
 		font_0 = generate_BitMapFont(0, font_ratio);
 
 		font_200_border = generate_OutlineBitMapFont(200, font_ratio);
@@ -496,7 +496,7 @@ public class Assets {
 		font_200.dispose();
 		font_64.dispose();
 		font_32.dispose();
-		font_16.dispose();
+		font_20.dispose();
 
 		// Sounds
 		button_pop.dispose();

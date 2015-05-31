@@ -2,10 +2,8 @@ package com.ayrten.scrots.screens;
 
 import java.util.ArrayList;
 
-import com.ayrten.scrots.dots.RadialSprite;
 import com.ayrten.scrots.dots.power.PowerDot;
 import com.ayrten.scrots.dots.power.PowerDot_Decelerate;
-import com.ayrten.scrots.dots.power.PowerDot_Invincible;
 import com.ayrten.scrots.dots.power.PowerDot_Magnet;
 import com.ayrten.scrots.dots.power.PowerDot_Rainbow;
 import com.ayrten.scrots.game.GameMode;
@@ -14,7 +12,6 @@ import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.ButtonInterface;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -63,10 +60,6 @@ public class GameScreen extends ScrotsScreen {
 	protected PowerDot_Magnet magnet;
 
 	protected ArrayList<PowerDot> powDots;
-	protected ArrayList<Label> powDots_time;
-	protected ArrayList<Label> powDot_num;
-	protected ArrayList<Image> radial_timers;
-	protected ArrayList<Image> powDots_gray;
 	
 	// Used for changing Drawable for menu button.
 	protected TextureRegionDrawable[] trd;
@@ -173,30 +166,20 @@ public class GameScreen extends ScrotsScreen {
 
 		for (int i = 0; i < powDots.size(); i++) {
 			PowerDot powDot = powDots.get(i);
-			Label powDotNum = powDot_num.get(i);
-			Label powDotTime = powDots_time.get(i);
-			Image rTimer = radial_timers.get(i);
-			Image gray_dot_image = powDots_gray.get(i);
-
-			rTimer.setVisible(false);
-			if (!powDot.isUnlocked())
-				powDot.setVisible(false);
-			else
-				gray_dot_image.setVisible(false);
 
 			temp = new Table(Assets.skin);
 			temp.setWidth(side_table.getWidth());
 			temp.setHeight(side_table.getWidth());
-			temp.add(powDotNum);
+			temp.add(powDot.getNumLabel());
 			temp.top().right();
 
 			Table timer_table = new Table(Assets.skin);
-			timer_table.add(powDotTime);
+			timer_table.add(powDot.getTimeLabel());
 
 			Table cell_table = new Table(Assets.skin);
 			cell_table.setSize(side_table.getWidth() - 10,
 					side_table.getHeight() / powDots.size());
-			cell_table.stack(powDot, gray_dot_image, rTimer, timer_table, temp)
+			cell_table.stack(powDot, powDot.getGrayImage(), powDot.getRadialTimer(), timer_table, temp)
 					.width(side_table.getWidth() - 10)
 					.height(side_table.getWidth() - 10);
 
@@ -351,13 +334,6 @@ public class GameScreen extends ScrotsScreen {
 		dotTable.align(Align.right);
 
 		addPowDots();
-		addPowDotsNum();
-		addRadialTimers();
-		for (int i = 0; i < powDots.size(); i++) {
-			powDots.get(i).setNumLabel(powDot_num.get(i));
-			powDots.get(i).setRadialTimer(radial_timers.get(i));
-		}
-
 		ArrayList<Actor> opts = new ArrayList<Actor>();
 		opts.add(quit);
 		opts.add(options);
@@ -398,14 +374,6 @@ public class GameScreen extends ScrotsScreen {
 
 	// Creates the time label for the power dots also
 	private void addPowDots() {
-		powDots_time = new ArrayList<Label>();
-		Label powDot_1_num = new Label("0", Assets.style_font_32_white);
-		Label powDot_2_num = new Label("0", Assets.style_font_32_white);
-		Label powDot_3_num = new Label("0", Assets.style_font_32_white);
-		powDots_time.add(powDot_1_num);
-		powDots_time.add(powDot_2_num);
-		powDots_time.add(powDot_3_num);
-
 		powDots = new ArrayList<PowerDot>();
 		PowerDot powDot_1 = new PowerDot_Rainbow(Assets.rainbow_dot, gm,
 				Assets.reg_pop_1);
@@ -418,51 +386,6 @@ public class GameScreen extends ScrotsScreen {
 		powDots.add(powDot_1);
 		powDots.add(powDot_2);
 		powDots.add(powDot_3);
-
-		powDots_gray = new ArrayList<Image>();
-		powDots_gray.add(new Image(Assets.rainbow_dot_gray));
-		powDots_gray.add(new Image(Assets.invincible_dot_gray));
-		powDots_gray.add(new Image(Assets.magnet_dot_gray));
-
-		for (int i = 0; i < powDots.size(); i++) {
-			powDots.get(i).setTimeLabel(powDots_time.get(i));
-			powDots.get(i).setGrayImage(powDots_gray.get(i));
-		}
-	}
-
-	private void addPowDotsNum() {
-		LabelStyle dot_count_style = new LabelStyle();
-		dot_count_style.font = Assets.font_16;
-		dot_count_style.fontColor = Color.WHITE;
-
-		powDot_num = new ArrayList<Label>();
-		Label powDot_1_num = new Label("x0", dot_count_style);
-		Label powDot_2_num = new Label("x0", dot_count_style);
-		powDot_2_num
-				.setWidth(powDot_2_num.getStyle().font.getBounds("99").width);
-		Label powDot_3_num = new Label("x0", dot_count_style);
-		powDot_3_num
-				.setWidth(powDot_3_num.getStyle().font.getBounds("99").width);
-		powDot_num.add(powDot_1_num);
-		powDot_num.add(powDot_2_num);
-		powDot_num.add(powDot_3_num);
-	}
-
-	private void addRadialTimers() {
-		TextureRegion tr = new TextureRegion(Assets.timer_ring);
-		RadialSprite rs = new RadialSprite(tr);
-		Image image1 = new Image(rs);
-
-		rs = new RadialSprite(tr);
-		Image image2 = new Image(rs);
-
-		rs = new RadialSprite(tr);
-		Image image3 = new Image(rs);
-
-		radial_timers = new ArrayList<Image>();
-		radial_timers.add(image1);
-		radial_timers.add(image2);
-		radial_timers.add(image3);
 	}
 
 	public void setHighScoreName(String name) {

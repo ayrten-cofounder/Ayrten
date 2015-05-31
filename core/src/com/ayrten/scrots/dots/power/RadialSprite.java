@@ -1,4 +1,4 @@
-package com.ayrten.scrots.dots;
+package com.ayrten.scrots.dots.power;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;

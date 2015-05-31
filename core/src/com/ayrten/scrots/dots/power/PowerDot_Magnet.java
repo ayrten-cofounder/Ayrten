@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class PowerDot_Magnet extends PowerDot {
 	private static final float DURATION = 2f; // Time in seconds it takes the
@@ -21,9 +22,14 @@ public class PowerDot_Magnet extends PowerDot {
 		super(dot, gm, pop);
 
 		ACTIVE_TIME = 8;
-		num = Assets.power_dot_manager.getMagnetDots();
 	}
-
+	
+	@Override
+	protected void initializeAssets() {
+		num = Assets.power_dot_manager.getMagnetDots();
+		gray_dot_image = new Image(Assets.magnet_dot_gray);
+	}
+	
 	@Override
 	public void beforeAction() {
 		super.beforeAction();

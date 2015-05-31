@@ -1,18 +1,20 @@
 package com.ayrten.scrots.dots.power;
 
 import com.ayrten.scrots.dots.Dot;
-import com.ayrten.scrots.dots.RadialSprite;
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
@@ -28,11 +30,9 @@ public class PowerDot extends Dot {
 	public float time;
 
 	protected int num = 0; // The amount of power dots the user has
-
-//	protected InputListener powerdot_listener;
 	protected float origX, origY;
 
-	protected Image rs;
+	protected Image rs_image;
 	protected SpriteBatch batch;
 	protected float angle;
 	protected Image gray_dot_image;
@@ -40,10 +40,45 @@ public class PowerDot extends Dot {
 	public PowerDot(Texture dot, Manager gm, Sound pop) {
 		super(dot, gm, pop);
 		timer = new Timer();
-
 		angle = 0;
-
 		batch = new SpriteBatch();
+		
+		LabelStyle dot_count_style = new LabelStyle();
+		dot_count_style.font = Assets.font_20;
+		dot_count_style.fontColor = Color.WHITE;
+		num_label = new Label("", dot_count_style);
+		
+		initializeAssets();
+		updateNumLabel();
+		
+		TextureRegion tr = new TextureRegion(Assets.timer_ring);
+		RadialSprite rs = new RadialSprite(tr);
+		rs_image = new Image(rs);
+		rs_image.setVisible(false);
+		if(isUnlocked())
+			gray_dot_image.setVisible(false);
+		else
+			setVisible(false);
+		time_label = new Label("0", Assets.style_font_32_white);
+		time_label.setVisible(false);
+	}
+	
+	protected void initializeAssets() {}
+	
+	public Image getRadialTimer() {
+		return rs_image;
+	}
+	
+	public Label getTimeLabel() {
+		return time_label;
+	}
+	
+	public Label getNumLabel() {
+		return num_label;
+	}
+	
+	public Image getGrayImage() {
+		return gray_dot_image;
 	}
 	
 	@Override
@@ -78,24 +113,6 @@ public class PowerDot extends Dot {
 		addListener(listener);
 	}
 
-	public void setTimeLabel(Label label) {
-		time_label = label;
-		time_label.setVisible(false);
-	}
-
-	public void setNumLabel(Label label) {
-		num_label = label;
-		updateNumLabel();
-	}
-
-	public void setRadialTimer(Image image) {
-		rs = image;
-	}
-	
-	public void setGrayImage(Image gray_image) {
-		gray_dot_image = gray_image;
-	}
-
 	public void updateNumLabel() {
 		num_label.setText("x" + String.valueOf(num));
 	}
@@ -120,24 +137,23 @@ public class PowerDot extends Dot {
 
 	// Action to do before timer starts.
 	public void beforeAction() {
-		rs.setVisible(true);
+		rs_image.setVisible(true);
 		gray_dot_image.setVisible(true);
 		setVisible(false);
-		
 	}
 
 	// Action to do during the timer
 	public void duringAction() {
 		angle = 360 * (1 - time/ACTIVE_TIME);
 		batch.begin();
-		((RadialSprite) rs.getDrawable()).draw(batch, rs.getX(), rs.getY(), angle);
+		((RadialSprite) rs_image.getDrawable()).draw(batch, rs_image.getX(), rs_image.getY(), angle);
 		batch.end();
 	}
 
 	// Action to do after timer ends
 	public void afterAction() {
 		angle = 0;
-		rs.setVisible(false);
+		rs_image.setVisible(false);
 		gray_dot_image.setVisible(false);
 		setVisible(true);
 	}

@@ -4,6 +4,7 @@ import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class PowerDot_Rainbow extends PowerDot {
 
@@ -13,6 +14,13 @@ public class PowerDot_Rainbow extends PowerDot {
 		ACTIVE_TIME = 5;
 		num = Assets.power_dot_manager.getRainbowDots();
 	}
+	
+	@Override
+	protected void initializeAssets() {
+		num = Assets.power_dot_manager.getRainbowDots();
+		gray_dot_image = new Image(Assets.rainbow_dot_gray);
+	}
+	
 	
 	@Override
 	public void beforeAction()

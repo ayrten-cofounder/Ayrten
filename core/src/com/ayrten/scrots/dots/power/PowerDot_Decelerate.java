@@ -5,6 +5,7 @@ import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class PowerDot_Decelerate extends PowerDot {
 	public static int SLOW_BY = 3;
@@ -13,7 +14,12 @@ public class PowerDot_Decelerate extends PowerDot {
 		super(dot, gm, pop);
 		
 		ACTIVE_TIME = 7;
+	}
+	
+	@Override
+	protected void initializeAssets() {
 		num = Assets.power_dot_manager.getDecelDots();
+		gray_dot_image = new Image(Assets.invincible_dot_gray);
 	}
 	
 	@Override
