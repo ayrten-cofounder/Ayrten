@@ -8,6 +8,7 @@ import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
 public class RegDot3 extends MovingDot {
@@ -19,8 +20,8 @@ public class RegDot3 extends MovingDot {
 	}
 
 	@Override
-	public void touchedByAnAngel() {
-		super.touchedByAnAngel();
+	public void touchedByAnAngel(InputEvent event) {
+		super.touchedByAnAngel(event);
 
 		circle.set(getX(Align.center), getY(Align.center), getWidth());
 		checkRadius(gm.curr_level.getDotList());

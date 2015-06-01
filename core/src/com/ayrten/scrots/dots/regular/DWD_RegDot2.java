@@ -6,6 +6,7 @@ import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 
 public class DWD_RegDot2 extends DWD
 {
@@ -19,9 +20,8 @@ public class DWD_RegDot2 extends DWD
 	}
 
 	@Override
-	public void touchedByAnAngel()
-	{
-		super.touchedByAnAngel();
+	public void touchedByAnAngel(InputEvent event) {
+		super.touchedByAnAngel(event);
 		gm.addTime(TIME_ADD);
 		Assets.stats_manager.getPlayerStats().dwd_reg_dot_2.popped++;
 	}

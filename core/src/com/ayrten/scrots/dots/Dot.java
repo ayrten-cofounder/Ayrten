@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 public class Dot extends Actor {
@@ -13,7 +14,6 @@ public class Dot extends Actor {
 	public Manager gm;
 
 	protected Sound pop;
-
 	protected InputListener listener;
 
 	public Dot(Texture dot, Manager gm, Sound pop) {
@@ -28,10 +28,9 @@ public class Dot extends Actor {
 	}
 
 	// This class shall be overriddent by the real dots
-	public void touchedByAnAngel() {
+	public void touchedByAnAngel(InputEvent event) {
 		if (Assets.prefs.getBoolean("sound_effs", true))
 			pop.play();
-		gm.curr_level.getDotList().remove(this);
 	}
 	
 	public void setTexture(Texture dot) {

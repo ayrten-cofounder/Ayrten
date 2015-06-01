@@ -105,7 +105,7 @@ public class PowerDot extends Dot {
 				super.touchUp(event, x, y, pointer, button);
 				// If x position exceeds a threshold, then activate the effect.
 				if (Math.abs(origX - event.getTarget().getX(Align.center)) > Assets.powerdot_thresh) 
-					touchedByAnAngel();
+					touchedByAnAngel(event);
 				event.getTarget().setPosition(origX, origY, Align.center);
 			}
 		};
@@ -124,8 +124,8 @@ public class PowerDot extends Dot {
 	}
 
 	@Override
-	public void touchedByAnAngel() {
-		super.touchedByAnAngel();
+	public void touchedByAnAngel(InputEvent event) {
+		super.touchedByAnAngel(event);
 
 		beforeAction();
 

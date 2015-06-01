@@ -39,15 +39,23 @@ public class MovingDot extends Dot {
 			public void touchUp(InputEvent event, float x, float y,
 					int pointer, int button) {
 				// Gotta get touched by an angel
-				touchedByAnAngel();
-
-				// Remove the actor from the stage.
-				event.getTarget().remove();
-
-				dotChange();
+				touchedByAnAngel(event);
 			}
 		};
 		addListener(listener);
+	}
+	
+	@Override
+	public void touchedByAnAngel(InputEvent event) {
+		removeFromStage(event);
+	}
+	
+	protected void removeFromStage(InputEvent event) {
+		event.getTarget().remove();
+		dotChange();
+		if (Assets.prefs.getBoolean("sound_effs", true))
+			pop.play();
+		gm.curr_level.getDotList().remove(this);
 	}
 	
 	public void resetSpeed() {

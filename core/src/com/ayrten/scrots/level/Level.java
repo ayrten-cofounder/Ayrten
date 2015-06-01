@@ -11,6 +11,7 @@ import com.ayrten.scrots.dots.penalty.PenDot1;
 import com.ayrten.scrots.dots.penalty.PenDot2;
 import com.ayrten.scrots.dots.regular.DWD_RegDot1;
 import com.ayrten.scrots.dots.regular.DWD_RegDot2;
+import com.ayrten.scrots.dots.regular.OrderDot;
 import com.ayrten.scrots.dots.regular.RegDot1;
 import com.ayrten.scrots.dots.regular.RegDot2;
 import com.ayrten.scrots.manager.Assets;
@@ -120,6 +121,26 @@ public class Level
 			allDots.add(dot);
 			reg_dots.add(dot);
 		}
+		
+		// Tony (6/1/2015) - DO NOT DELETE!! Example for OrderDot...
+//		LinkedList<OrderDot> tempList = new LinkedList<OrderDot>();
+//		for (int i = 1; i <= 9; i++)
+//		{			
+//			OrderDot dot = gm.generator.genOrderDot(i);
+//			allDots.add(dot);
+//			reg_dots.add(dot);
+//			tempList.add(dot);
+//		}
+//		
+//		for(int i = 0; i < tempList.size(); i++) {
+//			OrderDot dot = tempList.get(i);
+//			dot.setFirstDot(tempList.getFirst());
+//			dot.setLastDot(tempList.getLast());
+//			if(i != tempList.size() - 1) {
+//				dot.setNextDot(tempList.get(i + 1));
+//			}
+//		}
+		
 		number_of_green_dots = num;
 	}
 

@@ -11,11 +11,13 @@ import com.ayrten.scrots.dots.power.PowerDot_Magnet;
 import com.ayrten.scrots.dots.power.PowerDot_Rainbow;
 import com.ayrten.scrots.dots.regular.DWD_RegDot1;
 import com.ayrten.scrots.dots.regular.DWD_RegDot2;
+import com.ayrten.scrots.dots.regular.OrderDot;
 import com.ayrten.scrots.dots.regular.RegDot1;
 import com.ayrten.scrots.dots.regular.RegDot2;
 import com.ayrten.scrots.dots.regular.RegDot3;
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
+import com.badlogic.gdx.graphics.Texture;
 
 public class DotGenerator {
 	private Random random = new Random();
@@ -23,6 +25,25 @@ public class DotGenerator {
 
 	public DotGenerator(Manager gm) {
 		this.gm = gm;
+	}
+	
+	public OrderDot genOrderDot(int number) {
+		Texture texture = null;
+		switch(number) {
+		case 1: texture = Assets.order_dot_1; break;
+		case 2: texture = Assets.order_dot_2; break;
+		case 3: texture = Assets.order_dot_3; break;
+		case 4: texture = Assets.order_dot_4; break;
+		case 5: texture = Assets.order_dot_5; break;
+		case 6: texture = Assets.order_dot_6; break;
+		case 7: texture = Assets.order_dot_7; break;
+		case 8: texture = Assets.order_dot_8; break;
+		case 9: texture = Assets.order_dot_9; break;
+		}
+		
+		OrderDot orderDot = new OrderDot(texture, gm, Assets.button_pop, number);
+		setRandPositions(orderDot);
+		return orderDot;
 	}
 
 	public RegDot1 genRegDot1() {

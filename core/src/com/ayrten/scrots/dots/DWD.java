@@ -3,6 +3,7 @@ package com.ayrten.scrots.dots;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 
 public class DWD extends MovingDot {
 	protected int MAX_DOTS = 0;
@@ -13,8 +14,8 @@ public class DWD extends MovingDot {
 	}
 
 	@Override
-	public void touchedByAnAngel()	{
-		super.touchedByAnAngel();
+	public void touchedByAnAngel(InputEvent event)	{
+		super.touchedByAnAngel(event);
 		generateMoreDots();
 	}
 	

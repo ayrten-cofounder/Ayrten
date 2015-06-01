@@ -14,7 +14,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
@@ -143,6 +142,16 @@ public class Assets {
 	public static Texture invincible_dot_gray;
 	public static Texture magnet_dot_gray;
 	public static Texture rainbow_dot_gray;
+	
+	public static Texture order_dot_1;
+	public static Texture order_dot_2;
+	public static Texture order_dot_3;
+	public static Texture order_dot_4;
+	public static Texture order_dot_5;
+	public static Texture order_dot_6;
+	public static Texture order_dot_7;
+	public static Texture order_dot_8;
+	public static Texture order_dot_9;
 
 	public static Texture question_mark;
 
@@ -153,10 +162,6 @@ public class Assets {
 	public static Texture lvl_bubble;
 	public static Texture time_bubble;
 	public static Texture timer_ring;
-
-	public static Image powDot1_image;
-	public static Image powDot2_image;
-	public static Image powDot3_image;
 
 	// Miscellaneous
 	public static Preferences prefs;
@@ -370,6 +375,17 @@ public class Assets {
 				Gdx.files.internal("data/dots/magnet_dot_gray.png"));
 		rainbow_dot_gray = new Texture(
 				Gdx.files.internal("data/dots/rainbow_dot_gray.png"));
+		
+		order_dot_1 = new Texture("data/dots/order_dot_1.png");
+		order_dot_2 = new Texture("data/dots/order_dot_2.png");
+		order_dot_3 = new Texture("data/dots/order_dot_3.png");
+		order_dot_4 = new Texture("data/dots/order_dot_4.png");
+		order_dot_5 = new Texture("data/dots/order_dot_5.png");
+		order_dot_6 = new Texture("data/dots/order_dot_6.png");
+		order_dot_7 = new Texture("data/dots/order_dot_7.png");
+		order_dot_8 = new Texture("data/dots/order_dot_8.png");
+		order_dot_9 = new Texture("data/dots/order_dot_9.png");
+
 
 		slot_switch = explosion_dot;
 		pause_button = new Texture(
@@ -382,12 +398,6 @@ public class Assets {
 		lvl_bubble = new Texture(Gdx.files.internal("data/dots/lvl_bubble.png"));
 		time_bubble = new Texture(
 				Gdx.files.internal("data/dots/time_bubble.png"));
-
-		powDot1_image = new Image(regDot_1);
-		powDot2_image = new Image(regDot_1);
-		powDot3_image = new Image(regDot_1);
-
-
 	}
 
 	public static void playGameBGM() {

@@ -4,6 +4,7 @@ import com.ayrten.scrots.dots.DWD;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 
 public class DWD_PenDot_Base extends DWD {
 
@@ -12,8 +13,8 @@ public class DWD_PenDot_Base extends DWD {
 	}
 	
 	@Override
-	public void touchedByAnAngel() {
-		super.touchedByAnAngel();
+	public void touchedByAnAngel(InputEvent event) {
+		super.touchedByAnAngel(event);
 		gm.resetCombo();
 		if(gm.isInvincible())
 			return;
