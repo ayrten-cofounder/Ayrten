@@ -123,6 +123,7 @@ public class Level
 		}
 		
 		// Tony (6/1/2015) - DO NOT DELETE!! Example for OrderDot...
+//		num = 9;
 //		LinkedList<OrderDot> tempList = new LinkedList<OrderDot>();
 //		for (int i = 1; i <= 9; i++)
 //		{			

@@ -116,6 +116,5 @@ public class DotAnimation {
 		}
 		
 		setSize(dot);
-		batch.draw(dot.getTexture(), dot.getX(), dot.getY(), dot.getWidth(), dot.getHeight());
 	}
 }

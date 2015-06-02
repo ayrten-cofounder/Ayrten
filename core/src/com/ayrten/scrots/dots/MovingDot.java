@@ -100,5 +100,6 @@ public class MovingDot extends Dot {
 	@Override
 	public void draw(Batch batch, float alpha) {
 		gm.animation.draw(this, batch, alpha, magneted);
+		batch.draw(getTexture(), getX(), getY(), getWidth(), getHeight());
 	}
 }
