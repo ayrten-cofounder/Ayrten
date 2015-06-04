@@ -4,9 +4,7 @@ import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
 public class OrderDot extends RegDot1 {
 	protected int num;
@@ -21,32 +19,15 @@ public class OrderDot extends RegDot1 {
 		super(dot, gm, pop);
 		num = number;
 		isCurrOrder = false;
-		setOrigin(Align.center);
 	}
 
 	@Override
 	protected void incrementCombo() {
 		if(isCurrOrder) {
-			if(this.equals(lastDot) && isComboDot)
-				gm.incrementCombo();
-			else {
-				Assets.points_manager.addPoints(1);
-				nextDot.setOrder();
-			}
+			Assets.points_manager.addPoints(1);
+			nextDot.setOrder();
 		} else
 			gm.resetCombo();
-	}
-
-	@Override
-	public void draw(Batch batch, float alpha) {
-		if(isComboDot) {
-			gm.animation.draw(this, batch, alpha, magneted);
-			setRotation(getRotation() + 7);
-			batch.draw(getTexture(), getX(), getY(), getOriginX(), getOriginY(), 
-					getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation(), 
-					0, 0, 1024, 1024, false, false);
-		} else
-			super.draw(batch, alpha);
 	}
 
 	@Override

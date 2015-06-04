@@ -110,8 +110,20 @@ public class DotAnimation {
 		move_v3(dot);
 	}
 	
-	public void draw(MovingDot dot, Batch batch, float alpha, boolean magnetized) {
-		if (!magnetized) {
+	public void animateV1(MovingDot dot, Batch batch, float alpha) {
+		changePositionAndSize(dot, batch, alpha);
+		batch.draw(dot.getTexture(), dot.getX(), dot.getY(), dot.getWidth(), dot.getHeight());
+	}
+	
+	public void animateV2(MovingDot dot, Batch batch, float alpha, int srcX, int srcY,int srcWidth, int srcHeight) {
+		changePositionAndSize(dot, batch, alpha);
+		batch.draw(dot.getTexture(), dot.getX(), dot.getY(), dot.getOriginX(), dot.getOriginY(), 
+				dot.getWidth(), dot.getHeight(), dot.getScaleX(), dot.getScaleY(), dot.getRotation(), 
+				srcX, srcY, srcWidth, srcHeight, false, false);
+	}
+	
+	private void changePositionAndSize(MovingDot dot, Batch batch, float alpha) {
+		if (!dot.magneted) {
 			changePosition(dot);
 		}
 		

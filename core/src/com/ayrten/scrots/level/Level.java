@@ -126,8 +126,12 @@ public class Level
 //		num = 9;
 //		LinkedList<OrderDot> tempList = new LinkedList<OrderDot>();
 //		for (int i = 1; i <= 9; i++)
-//		{			
-//			OrderDot dot = gm.generator.genOrderDot(i);
+//		{	
+//			OrderDot dot;
+//			if(i != 9)
+//			  dot = gm.generator.genOrderDot(i);
+//			else 
+//			  dot = gm.generator.genLastOrderDot(9);
 //			allDots.add(dot);
 //			reg_dots.add(dot);
 //			tempList.add(dot);

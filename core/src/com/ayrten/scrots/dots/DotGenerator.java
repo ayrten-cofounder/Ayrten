@@ -11,6 +11,7 @@ import com.ayrten.scrots.dots.power.PowerDot_Magnet;
 import com.ayrten.scrots.dots.power.PowerDot_Rainbow;
 import com.ayrten.scrots.dots.regular.DWD_RegDot1;
 import com.ayrten.scrots.dots.regular.DWD_RegDot2;
+import com.ayrten.scrots.dots.regular.LastOrderDot;
 import com.ayrten.scrots.dots.regular.OrderDot;
 import com.ayrten.scrots.dots.regular.RegDot1;
 import com.ayrten.scrots.dots.regular.RegDot2;
@@ -44,6 +45,25 @@ public class DotGenerator {
 		OrderDot orderDot = new OrderDot(texture, gm, Assets.button_pop, number);
 		setRandPositions(orderDot);
 		return orderDot;
+	}
+	
+	public LastOrderDot genLastOrderDot(int number) {
+		Texture texture = null;
+		switch(number) {
+		case 1: texture = Assets.order_dot_1; break;
+		case 2: texture = Assets.order_dot_2; break;
+		case 3: texture = Assets.order_dot_3; break;
+		case 4: texture = Assets.order_dot_4; break;
+		case 5: texture = Assets.order_dot_5; break;
+		case 6: texture = Assets.order_dot_6; break;
+		case 7: texture = Assets.order_dot_7; break;
+		case 8: texture = Assets.order_dot_8; break;
+		case 9: texture = Assets.order_dot_9; break;
+		}
+		
+		LastOrderDot dot = new LastOrderDot(texture, gm, Assets.button_pop, number);
+		setRandPositions(dot);
+		return dot;
 	}
 
 	public RegDot1 genRegDot1() {
