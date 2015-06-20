@@ -454,51 +454,68 @@ public class Assets {
 	// Function used to switch to color blind version textures dynamically.
 	public static void loadDotTextures() {
 		if (!prefs.getBoolean("color_blind", false))
+		{
+			// Penality Dots
 			penDot_1 = new Texture(Gdx.files.internal("data/red_dot.png"));
-		else
-			penDot_1 = new Texture(
-					Gdx.files.internal("data/dots/red_dot_cb.png"));
-		penDot_1.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-
-		if (!prefs.getBoolean("color_blind", false))
 			penDot_2 = new Texture(
 					Gdx.files.internal("data/dots/purple_dot.png"));
-		else
+			
+			// Regular Dots
+			regDot_1 = new Texture(Gdx.files.internal("data/green_dot.png"));
+			regDot_2 = new Texture(Gdx.files.internal("data/baby_blue_dot.png"));
+			
+			// DWD Penality Dots
+			dwdPenDot_1 = new Texture(Gdx.files.internal("data/dots/brown_dot.png"));
+			dwdPenDot_2 = new Texture(Gdx.files.internal("data/dots/pink_dot.png"));
+			
+			// DWD Regular Dots
+			dwdRegDot_1 = new Texture(
+					Gdx.files.internal("data/dots/yellow_dot.png"));
+			dwdRegDot_2 = new Texture(
+					Gdx.files.internal("data/dots/orange_dot.png"));
+		}
+		else{
+			// Penality Dots
+			penDot_1 = new Texture(
+					Gdx.files.internal("data/dots/red_dot_cb.png"));
 			penDot_2 = new Texture(
 					Gdx.files.internal("data/dots/purple_dot_cb.png"));
-
-		penDot_2.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-
-		if (!prefs.getBoolean("color_blind", false))
-			regDot_1 = new Texture(Gdx.files.internal("data/green_dot.png"));
-		else
+			
+			// Regular Dots
 			regDot_1 = new Texture(
 					Gdx.files.internal("data/dots/green_dot_cb.png"));
-		regDot_1.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-
-		if (!prefs.getBoolean("color_blind", false))
-			regDot_2 = new Texture(Gdx.files.internal("data/baby_blue_dot.png"));
-		else
 			regDot_2 = new Texture(
 					Gdx.files.internal("data/dots/baby_blue_dot_cb.png"));
+			
+			// DWD Penality Dots
+			dwdPenDot_1 = new Texture(Gdx.files.internal("data/dots/brown_dot_cb.png"));
+			dwdPenDot_2 = new Texture(Gdx.files.internal("data/dots/pink_dot_cb.png"));
+			
+			// DWD Regular Dots
+			dwdRegDot_1 = new Texture(
+					Gdx.files.internal("data/dots/yellow_dot_cb.png"));
+			dwdRegDot_2 = new Texture(
+					Gdx.files.internal("data/dots/orange_dot_cb.png"));
+		}
+		
+		// Penality Dots
+		penDot_1.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		penDot_2.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		
+		// Regular Dots
+		regDot_1.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		regDot_2.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-
+		
+		// DWD Penality Dots
+		dwdPenDot_1.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		dwdPenDot_2.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		
+		// DWD Regular Dots
+		dwdRegDot_1.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		dwdRegDot_2.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		
 		regDot_3 = new Texture(Gdx.files.internal("data/dots/brown_dot.png"));
 		regDot_3.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-
-		dwdPenDot_1 = new Texture(Gdx.files.internal("data/dots/brown_dot.png"));
-		dwdPenDot_1.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-
-		dwdPenDot_2 = new Texture(Gdx.files.internal("data/dots/pink_dot.png"));
-		dwdPenDot_2.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-
-		dwdRegDot_1 = new Texture(
-				Gdx.files.internal("data/dots/yellow_dot.png"));
-		dwdRegDot_1.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-
-		dwdRegDot_2 = new Texture(
-				Gdx.files.internal("data/dots/orange_dot.png"));
-		dwdRegDot_2.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 	}
 
 	public static void dispose() {
