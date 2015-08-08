@@ -466,16 +466,7 @@ public class GameScreen extends ScrotsScreen {
 			for(int i = 0; i < powDots.size(); i++)
 				powDots.get(i).pauseTime();
 			gm.loadTutorial();
-		} else { 
-			if(!gm.addedDots) {
-				gm.addDotsToStage();
-				if(gm.getGameState() == Manager.gameState.PAUSED) {
-					gm.startGame();
-					for(int i = 0; i < powDots.size(); i++)
-						powDots.get(i).resumeTime();
-				}
-			}
-
+		} else {
 			if (gm.isGameOver()) {
 				gameOver();
 			} else {

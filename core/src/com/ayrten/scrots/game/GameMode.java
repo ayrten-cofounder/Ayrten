@@ -53,12 +53,13 @@ public class GameMode {
 	public void gen_start_level(int lvl) {
 		gen_level(lvl);
 		levels_generated = lvl + 2;
+		gm.addDotsToStage();
 	}
 	
 	public void gen_next_level() {
 		gen_level(levels_generated);
 		levels_generated++;
-		gm.addedDots = false;
+		gm.addDotsToStage();
 	}
 	
 	private void gen_level(int lvl)

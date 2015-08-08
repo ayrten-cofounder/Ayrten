@@ -56,7 +56,7 @@ public class Manager {
 	// Area of game play.
 	public float min_width, max_width;
 	public float min_height, max_height;
-	public boolean addedDots;
+//	public boolean addedDots;
 	
 	// Used to hold all dots that should remain on stage when a new level is created.
 	protected ArrayList<Dot> persistent_dots;
@@ -68,7 +68,7 @@ public class Manager {
 		isRainbowState = false;
 		isMagnetState = false;
 		isInvincible = false;
-		addedDots = false;
+//		addedDots = false;
 		combo_chain = 0;
 		min_width = min_w;
 		max_width = max_w;
@@ -267,7 +267,7 @@ public class Manager {
 	}
 
 	public void addDotsToStage() {
-		addedDots = true;
+//		addedDots = true;
 		for (int i = 0; i < curr_level.getDotList().size(); i++)
 			stage.addActor(curr_level.getDotList().get(i));
 		
