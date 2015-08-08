@@ -230,7 +230,6 @@ public class Manager {
 		score--;
 	}
 
-	// Put negative number to subtract x points
 	public void addXPoint(int x) {
 		score = score + x;
 	}

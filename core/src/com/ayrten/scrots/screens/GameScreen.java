@@ -515,7 +515,7 @@ public class GameScreen extends ScrotsScreen {
 			time.setStyle(Assets.style_font_32_white);
 		}
 
-		time.setText(gm.getTime().substring(0, 4));
+		time.setText(gm.getTime());
 	}
 
 	public void gameOver() {

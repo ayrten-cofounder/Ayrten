@@ -28,7 +28,7 @@ public class Time
 	// Will have to parse the second into X:XX format
 	public String getTime()
 	{
-		return String.valueOf(second);
+		return String.format("%2.1f", second);
 	}
 	
 	public float getFloatTime()
