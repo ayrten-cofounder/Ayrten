@@ -2,13 +2,18 @@ package com.ayrten.scrots.screens;
 
 import com.ayrten.scrots.manager.Assets;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class OptionsScreen extends ScrotsScreen {
@@ -19,6 +24,7 @@ public class OptionsScreen extends ScrotsScreen {
 	protected CheckBox auto_gplay_signin;
 //	protected CheckBox color_blind;
 	protected CheckBox bkg_music;
+	protected TextField default_winner;
 
 	protected Table non_game_options;
 
@@ -131,8 +137,22 @@ public class OptionsScreen extends ScrotsScreen {
 			bg_color.setSelected("White");
 		}
 		
-		float CHECKBOX_SIZE = Assets.font_32.getLineHeight();
+		default_winner = new TextField(Assets.prefs.getString("default_winner", ""), Assets.skin);
+		default_winner.setMaxLength(10);
+		default_winner.setSize(default_winner.getStyle().font.getLineHeight(), default_winner.getMaxLength());
+		default_winner.setAlignment(Align.center);
+		default_winner.setBounds(default_winner.getX(), default_winner.getY(), default_winner.getWidth(), default_winner.getHeight());
+		default_winner.addListener(new InputListener(){
+			@Override
+			public boolean keyUp(InputEvent event, int keycode) {
+				if(keycode == '\r' || keycode == '\n' || keycode == Keys.ENTER)
+					Assets.prefs.putString("default_winner", ((TextField)event.getTarget()).getText());
+
+				return super.keyUp(event, keycode);
+			}
+		});
 		
+		float CHECKBOX_SIZE = Assets.font_32.getLineHeight();
 		// Set size of checkboxes
 		bkg_music.getCells().get(0).size(CHECKBOX_SIZE, CHECKBOX_SIZE);
 		bkg_music.setHeight(CHECKBOX_SIZE);
@@ -169,12 +189,15 @@ public class OptionsScreen extends ScrotsScreen {
 				.width(width).left();
 		game_options.add(sound_effs).width(width).right();
 		game_options.row();
-		game_options.add("").height(Gdx.graphics.getHeight() / 50);
+		game_options.add().height(Gdx.graphics.getHeight() / 50);
 		game_options.row();
 		game_options
 				.add(new Label("Background Music: ", Assets.style_font_32_white))
 				.width(width).left();
 		game_options.add(bkg_music).width(width).right();
+		game_options.row();
+		game_options.add(new Label("Default Winner: ", Assets.style_font_32_white)).width(width).left();
+		game_options.add(default_winner).width(width).height(default_winner.getStyle().font.getLineHeight()).left();
 
 
 		non_game_options

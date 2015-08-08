@@ -15,7 +15,6 @@ import com.ayrten.scrots.dots.DotGenerator;
 import com.ayrten.scrots.dots.MovingDot;
 import com.ayrten.scrots.dots.penalty.DWD_PenDot_Base;
 import com.ayrten.scrots.dots.penalty.PenDot_Base;
-import com.ayrten.scrots.dots.power.PowerDot_Magnet;
 import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.level.Level;
 import com.ayrten.scrots.scoreboard.Scoreboard;
@@ -49,8 +48,6 @@ public class Manager {
 	private boolean isMagnetState;
 	private boolean isInvincible;
 
-	private PowerDot_Magnet magnet;
-
 	// The score, time, etc. of the game
 	protected int score;
 	protected int combo_chain;
@@ -60,6 +57,9 @@ public class Manager {
 	public float min_width, max_width;
 	public float min_height, max_height;
 	public boolean addedDots;
+	
+	// Used to hold all dots that should remain on stage when a new level is created.
+	protected ArrayList<Dot> persistent_dots;
 
 	public Manager(int score, float min_w, float max_w, float min_h,
 			float max_h, Stage stage) {
@@ -80,6 +80,7 @@ public class Manager {
 		sb = new Scoreboard();
 		this.stage = stage;
 		generator = new DotGenerator(this);
+		persistent_dots = new ArrayList<Dot>();
 		comboLabel = new Label("Combo: x" + combo_chain, Assets.style_font_32_white);
 		
 		if (mode == GameMode.NORMAL_MODE
@@ -87,6 +88,14 @@ public class Manager {
 			animation = new DotAnimation_TimeMode();
 		} else 
 			animation = new DotAnimation();
+	}
+	
+	public void addPersistentDot(Dot dot) {
+		persistent_dots.add(dot);
+	}
+	
+	public void removePersistentDot(Dot dot) {
+		persistent_dots.remove(dot);
 	}
 	
 	public void incrementCombo() {
@@ -129,17 +138,16 @@ public class Manager {
 		return isInvincible;
 	}
 
-	public PowerDot_Magnet getMagnet() {
-		return magnet;
-	}
+//	public PowerDot_Magnet getMagnet() {
+//		return magnet;
+//	}
 
 	public void setRainbowState(boolean state) {
 		isRainbowState = state;
 	}
 
-	public void setMagnetState(boolean state, PowerDot_Magnet magnet) {
+	public void setMagnetState(boolean state) {
 		isMagnetState = state;
-		this.magnet = magnet;
 	}
 	
 	public void setInvincible(boolean state) {
@@ -268,8 +276,8 @@ public class Manager {
 		if (isRainbowState())
 			changePenalityDotVisibility(false);
 
-		if (isMagnetState())
-			stage.addActor(getMagnet());
+		for(Dot dot: persistent_dots)
+			stage.addActor(dot);
 	}
 
 	public boolean hasTutorials() {

@@ -26,6 +26,7 @@ public class RegDot3 extends MovingDot {
 		circle.set(getX(Align.center), getY(Align.center), getWidth());
 		checkRadius(gm.curr_level.getDotList());
 		Assets.stats_manager.getPlayerStats().reg_dot_3.popped++;
+		gm.removePersistentDot(this);
 	}
 
 	private void checkRadius(LinkedList<MovingDot> linkedList) {

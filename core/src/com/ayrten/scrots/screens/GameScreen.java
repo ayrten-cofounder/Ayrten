@@ -83,7 +83,6 @@ public class GameScreen extends ScrotsScreen {
 		trd[1] = new TextureRegionDrawable(new TextureRegion(
 				Assets.pause_button));
 
-		initializePointsTime();
 
 		gm = new Manager(0, Assets.width - Assets.game_width, Assets.width, 0, Assets.game_height, stage); // Starts with 0 points
 		// if (Assets.prefs.getString("mode").equals("Normal")) {
@@ -95,8 +94,10 @@ public class GameScreen extends ScrotsScreen {
 		// gm.setScoreboard(Assets.game.main_menu.csb);
 		// gamemode = new ChallengeGameMode(stage, gm, w, h);
 		// }
-
+		
+		initializePointsTime();
 		initializePauseMenu();
+		addPowDots();
 		
 		corner_table = new Table(Assets.skin);
 		corner_table.setHeight((Assets.height - Assets.game_height - 10) / 2 * 3);
@@ -333,7 +334,6 @@ public class GameScreen extends ScrotsScreen {
 		Table dotTable = new Table(Assets.skin);
 		dotTable.align(Align.right);
 
-		addPowDots();
 		ArrayList<Actor> opts = new ArrayList<Actor>();
 		opts.add(quit);
 		opts.add(options);
@@ -349,7 +349,6 @@ public class GameScreen extends ScrotsScreen {
 				opTable.row();
 		}
 
-		// TODO: Add something in the middle of pause menu
 		pause_table.add(opTable);
 		pause_table.row();
 		pause_table.add().height(Assets.game_height);

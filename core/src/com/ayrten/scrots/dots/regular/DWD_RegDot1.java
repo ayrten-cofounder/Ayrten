@@ -37,6 +37,7 @@ public class DWD_RegDot1 extends DWD {
 				newDot.setPosition(getX(), getY());
 				gm.curr_level.getDotList().add(newDot);
 				addDWDToStage(newDot);
+				gm.addPersistentDot(newDot);
 				break;
 			}
 

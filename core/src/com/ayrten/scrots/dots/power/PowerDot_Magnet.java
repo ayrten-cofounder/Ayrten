@@ -39,7 +39,8 @@ public class PowerDot_Magnet extends PowerDot {
 
 		magnet = gm.generator.genPowerDotMagnet();
 		magnet.setTouchable(Touchable.disabled);
-		gm.setMagnetState(true, magnet);
+		gm.addPersistentDot(magnet);
+		gm.setMagnetState(true);
 		gm.getStage().addActor(magnet);
 		magnet();
 		Assets.stats_manager.getPlayerStats().power_dot_magnet.popped++;
@@ -49,8 +50,9 @@ public class PowerDot_Magnet extends PowerDot {
 	public void afterAction() {
 		super.afterAction();
 
+		gm.removePersistentDot(magnet);
 		magnet.remove();
-		gm.setMagnetState(false, null);
+		gm.setMagnetState(false);
 		unmagnet();
 	}
 
