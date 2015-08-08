@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.Timer.Task;
 public class LoadingScreen implements Screen {
 	private Stage stage;
 	private Timer timer;
+	private boolean started = false;
 
 	public LoadingScreen() {
 		stage = new Stage();
@@ -117,6 +118,17 @@ public class LoadingScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
+
+		if(!started) {
+			started = true;
+			stage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(1f),
+					Actions.run(new Runnable() {
+						@Override
+						public void run() {
+							timer.start();
+						}
+					})));
+		}
 	}
 
 	@Override
@@ -136,13 +148,7 @@ public class LoadingScreen implements Screen {
 			Gdx.gl.glClearColor(0, 0, 0, 0);
 		else
 			Gdx.gl.glClearColor(1, 1, 1, 1);
-		stage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(1f),
-				Actions.run(new Runnable() {
-					@Override
-					public void run() {
-						timer.start();
-					}
-				})));
+		stage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(1f)));
 	}
 
 	@Override
