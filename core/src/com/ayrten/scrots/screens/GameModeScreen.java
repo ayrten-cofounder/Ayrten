@@ -48,7 +48,7 @@ public class GameModeScreen extends ScrotsScreen
 			}
 		});
 		
-		survivalMode = new Label("Survival Mode", labelStyle);
+		survivalMode = new Label("Survival Mode - Coming Soon!", labelStyle);
 		survivalMode.setBounds(survivalMode.getX(), survivalMode.getY(), survivalMode.getWidth(), survivalMode.getHeight());
 		survivalMode.addListener(new ClickListener(){
 			@Override

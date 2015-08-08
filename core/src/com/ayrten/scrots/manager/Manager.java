@@ -103,6 +103,7 @@ public class Manager {
 		comboLabel.setText("Combo: x" + combo_chain);
 		if(curr_level.getRegDotList().size() > 0)
 			curr_level.getRegDotList().get(0).setComboDot();
+		Assets.points_manager.addPoints((combo_chain/10 + 1));
 	}
 	
 	public void resetCombo() {
