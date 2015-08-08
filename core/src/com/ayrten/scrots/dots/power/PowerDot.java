@@ -188,7 +188,7 @@ public class PowerDot extends Dot {
 	
 	@Override
 	public void draw(Batch batch, float alpha) {
-		batch.draw(dot, getX(), getY(), getWidth(), getHeight());
+		batch.draw(this.getTexture(), this.getX(), this.getY(), this.getWidth(), this.getHeight());
 	}
 
 	private void setTime() {

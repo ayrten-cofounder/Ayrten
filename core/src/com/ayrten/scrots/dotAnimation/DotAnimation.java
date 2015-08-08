@@ -7,12 +7,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 public class DotAnimation {
-	protected static final float MAX_SIZE_RATIO = 15;
-	protected static final float MIN_SIZE_RATIO = 7.5f;
-	protected static final int SLOPE_RAND_X = 9;
-	protected static final int SLOPE_RAND_Y = 9;
-	protected static final int SLOPE_DIFF_X = SLOPE_RAND_X / 2;
-	protected static final int SLOPE_DIFF_Y = SLOPE_RAND_Y / 2;
+	public static final float MAX_SIZE_RATIO = 15;
+	public static final float MIN_SIZE_RATIO = 7.5f;
+	protected final int SLOPE_RAND_X = 9;
+	protected final int SLOPE_RAND_Y = 9;
+	protected final int SLOPE_DIFF_X = SLOPE_RAND_X / 2;
+	protected final int SLOPE_DIFF_Y = SLOPE_RAND_Y / 2;
 
 	protected Random random;
 

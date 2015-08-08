@@ -15,6 +15,7 @@ import com.ayrten.scrots.dots.DotGenerator;
 import com.ayrten.scrots.dots.MovingDot;
 import com.ayrten.scrots.dots.penalty.DWD_PenDot_Base;
 import com.ayrten.scrots.dots.penalty.PenDot_Base;
+import com.ayrten.scrots.dots.power.PowerDot_Magnet;
 import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.level.Level;
 import com.ayrten.scrots.scoreboard.Scoreboard;
@@ -22,6 +23,7 @@ import com.ayrten.scrots.screens.GameModeScreen;
 import com.ayrten.scrots.screens.MessageScreen;
 import com.ayrten.scrots.time.Time;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -56,10 +58,10 @@ public class Manager {
 	// Area of game play.
 	public float min_width, max_width;
 	public float min_height, max_height;
-//	public boolean addedDots;
 	
 	// Used to hold all dots that should remain on stage when a new level is created.
 	protected ArrayList<Dot> persistent_dots;
+	protected PowerDot_Magnet magnet_instance;
 
 	public Manager(int score, float min_w, float max_w, float min_h,
 			float max_h, Stage stage) {
@@ -68,7 +70,6 @@ public class Manager {
 		isRainbowState = false;
 		isMagnetState = false;
 		isInvincible = false;
-//		addedDots = false;
 		combo_chain = 0;
 		min_width = min_w;
 		max_width = max_w;
@@ -81,6 +82,10 @@ public class Manager {
 		this.stage = stage;
 		generator = new DotGenerator(this);
 		persistent_dots = new ArrayList<Dot>();
+		magnet_instance = generator.genPowerDotMagnet();
+		magnet_instance.setSize(Assets.width / DotAnimation.MIN_SIZE_RATIO, Assets.width / DotAnimation.MIN_SIZE_RATIO);
+		magnet_instance.setTouchable(Touchable.disabled);
+		magnet_instance.setVisible(false);
 		comboLabel = new Label("Combo: x" + combo_chain, Assets.style_font_32_white);
 		
 		if (mode == GameMode.NORMAL_MODE
@@ -139,9 +144,9 @@ public class Manager {
 		return isInvincible;
 	}
 
-//	public PowerDot_Magnet getMagnet() {
-//		return magnet;
-//	}
+	public PowerDot_Magnet getMagnet() {
+		return magnet_instance;
+	}
 
 	public void setRainbowState(boolean state) {
 		isRainbowState = state;
@@ -268,7 +273,6 @@ public class Manager {
 	}
 
 	public void addDotsToStage() {
-//		addedDots = true;
 		for (int i = 0; i < curr_level.getDotList().size(); i++)
 			stage.addActor(curr_level.getDotList().get(i));
 		
@@ -279,6 +283,7 @@ public class Manager {
 
 		for(Dot dot: persistent_dots)
 			stage.addActor(dot);
+		stage.addActor(magnet_instance);
 	}
 
 	public boolean hasTutorials() {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.ayrten.scrots.dots.power.PowerDot;
 import com.ayrten.scrots.dots.power.PowerDot_Decelerate;
+import com.ayrten.scrots.dots.power.PowerDot_Invincible;
 import com.ayrten.scrots.dots.power.PowerDot_Magnet;
 import com.ayrten.scrots.dots.power.PowerDot_Rainbow;
 import com.ayrten.scrots.game.GameMode;
@@ -99,6 +100,7 @@ public class GameScreen extends ScrotsScreen {
 		initializePauseMenu();
 		addPowDots();
 		
+		// TODO: eliminate dependency between corner_table and side_table
 		corner_table = new Table(Assets.skin);
 		corner_table.setHeight((Assets.height - Assets.game_height - 10) / 2 * 3);
 		corner_table.setWidth(corner_table.getHeight());
@@ -208,8 +210,7 @@ public class GameScreen extends ScrotsScreen {
 				.height(top_table.getHeight());
 
 		// Problem: dots are over the timer and lvl and power dots. However, you
-		// need to put the
-		// pause_scroll at the bottom or else you can't touch the dots.
+		// need to put the pause_scroll at the bottom or else you can't touch the dots.
 		stage.addActor(pause_scroll);
 		gamemode.gen_start_level(1);
 		addStageActors();

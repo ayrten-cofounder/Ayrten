@@ -7,6 +7,7 @@ import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -15,8 +16,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 public class PowerDot_Magnet extends PowerDot {
 	private static final float DURATION = 2f; // Time in seconds it takes the
 												// dots to move to the magnet
-
-	private PowerDot_Magnet magnet;
 
 	public PowerDot_Magnet(Texture dot, final Manager gm, Sound pop) {
 		super(dot, gm, pop);
@@ -33,15 +32,11 @@ public class PowerDot_Magnet extends PowerDot {
 	@Override
 	public void beforeAction() {
 		super.beforeAction();
-
 		Assets.power_dot_manager.setMagnetDotAmount(--num);
 		updateNumLabel();
 
-		magnet = gm.generator.genPowerDotMagnet();
-		magnet.setTouchable(Touchable.disabled);
-		gm.addPersistentDot(magnet);
+		gm.getMagnet().setVisible(true);
 		gm.setMagnetState(true);
-		gm.getStage().addActor(magnet);
 		magnet();
 		Assets.stats_manager.getPlayerStats().power_dot_magnet.popped++;
 	}
@@ -49,9 +44,7 @@ public class PowerDot_Magnet extends PowerDot {
 	@Override
 	public void afterAction() {
 		super.afterAction();
-
-		gm.removePersistentDot(magnet);
-		magnet.remove();
+		gm.getMagnet().setVisible(false);
 		gm.setMagnetState(false);
 		unmagnet();
 	}
@@ -67,7 +60,7 @@ public class PowerDot_Magnet extends PowerDot {
 			}
 
 			if (gm.isPenDot(dot)) {
-				dot.addAction(Actions.moveTo(magnet.getX(), magnet.getY(),
+				dot.addAction(Actions.moveTo(gm.getMagnet().getX(), gm.getMagnet().getY(),
 						DURATION, Interpolation.circleIn));
 				dot.magneted = true;
 			}
@@ -85,4 +78,5 @@ public class PowerDot_Magnet extends PowerDot {
 	public boolean isUnlocked() {
 		return (Assets.power_dot_manager.isMagnetDotUnlocked());
 	}
+	
 }
