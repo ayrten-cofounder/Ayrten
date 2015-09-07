@@ -29,7 +29,7 @@ public class ScoresScreen extends ScrotsScreen {
 	// private SelectBox<String> mode;
 	protected Label clear;
 
-	protected LabelStyle score_style;
+//	protected LabelStyle Assets.style_font_64_white;
 
 	public ScoresScreen(Screen bscreen) {
 		super(bscreen, true);
@@ -37,9 +37,9 @@ public class ScoresScreen extends ScrotsScreen {
 		setupStage();
 		// showTableScreen();
 
-		score_style = new LabelStyle();
-		score_style.font = Assets.font_64;
-		score_style.fontColor = Color.WHITE;
+//		Assets.style_font_64_white = new LabelStyle();
+//		Assets.style_font_64_white.font = Assets.font_64;
+//		Assets.style_font_64_white.fontColor = Color.WHITE;
 
 		LabelStyle clear_style = new LabelStyle();
 		clear_style.font = Assets.font_32;
@@ -117,11 +117,11 @@ public class ScoresScreen extends ScrotsScreen {
 		leaderboard_table.setWidth(Assets.width);
 		leaderboard_table.setHeight(Assets.height);
 
-		LabelStyle labelStyle = new LabelStyle();
-		labelStyle.font = Assets.font_64;
-		labelStyle.fontColor = Color.WHITE;
+//		LabelStyle labelStyle = new LabelStyle();
+//		labelStyle.font = Assets.font_64;
+//		labelStyle.fontColor = Color.WHITE;
 
-		Label time_mode = new Label("Time Mode", labelStyle);
+		Label time_mode = new Label("Time Mode", Assets.style_font_64_white);
 		time_mode.setBounds(time_mode.getX(), time_mode.getY(),
 				time_mode.getWidth(), time_mode.getHeight());
 		time_mode.addListener(new ClickListener() {
@@ -134,6 +134,12 @@ public class ScoresScreen extends ScrotsScreen {
 			}
 		});
 		leaderboard_table.add(time_mode);
+		
+		Label survival_mode = new Label("Survial Mode - Coming Soon!", Assets.style_font_64_orange);
+		survival_mode.setBounds(survival_mode.getX(), survival_mode.getY(), survival_mode.getWidth(), survival_mode.getHeight());
+		leaderboard_table.row();
+		leaderboard_table.add(survival_mode);
+		
 		Table second_bkg_table = new Table(Assets.skin);
 		second_bkg_table.setBackground(Assets.rounded_rectangle_border);
 		score_screen_table.stack(second_bkg_table, leaderboard_table)
@@ -145,7 +151,7 @@ public class ScoresScreen extends ScrotsScreen {
 		final Image leaderboard_tab = new Image(Assets.transparent_background);
 		leaderboard_tab.setVisible(false);
 
-		Label leaderboard = new Label("Leaderboard", score_style);
+		Label leaderboard = new Label("Leaderboard", Assets.style_font_64_white);
 		leaderboard.setBounds(leaderboard.getX(), leaderboard.getY(),
 				leaderboard.getWidth(), leaderboard.getHeight());
 		leaderboard.addListener(new ClickListener() {
@@ -164,7 +170,7 @@ public class ScoresScreen extends ScrotsScreen {
 			}
 		});
 
-		Label highscore = new Label("Highscore", score_style);
+		Label highscore = new Label("Highscore", Assets.style_font_64_white);
 		highscore.setBounds(highscore.getX(), highscore.getY(),
 				highscore.getWidth(), highscore.getHeight());
 		highscore.addListener(new ClickListener() {
@@ -246,35 +252,35 @@ public class ScoresScreen extends ScrotsScreen {
 		Table innerTable = new Table(Assets.skin);
 		innerTable.add("").height(Gdx.graphics.getHeight() / height);
 		innerTable.row();
-		innerTable.add(new Label(scores.first_name, score_style)).left()
+		innerTable.add(new Label(scores.first_name, Assets.style_font_64_white)).left()
 				.padRight((float) (Gdx.graphics.getWidth() / pad_left));
-		innerTable.add(new Label(String.valueOf(scores.first), score_style))
+		innerTable.add(new Label(String.valueOf(scores.first), Assets.style_font_64_white))
 				.right().padLeft(Gdx.graphics.getWidth() / pad_right)
-				.height(score_style.font.getLineHeight());
+				.height(Assets.style_font_64_white.font.getLineHeight());
 		innerTable.row();
-		innerTable.add(new Label(scores.second_name, score_style)).left()
+		innerTable.add(new Label(scores.second_name, Assets.style_font_64_white)).left()
 				.padRight((float) (Gdx.graphics.getWidth() / pad_left));
-		innerTable.add(new Label(String.valueOf(scores.second), score_style))
+		innerTable.add(new Label(String.valueOf(scores.second), Assets.style_font_64_white))
 				.right().padLeft(Gdx.graphics.getWidth() / pad_right)
-				.height(score_style.font.getLineHeight());
+				.height(Assets.style_font_64_white.font.getLineHeight());
 		innerTable.row();
-		innerTable.add(new Label(scores.third_name, score_style)).left()
+		innerTable.add(new Label(scores.third_name, Assets.style_font_64_white)).left()
 				.padRight((float) (Gdx.graphics.getWidth() / pad_left));
-		innerTable.add(new Label(String.valueOf(scores.third), score_style))
+		innerTable.add(new Label(String.valueOf(scores.third), Assets.style_font_64_white))
 				.right().padLeft(Gdx.graphics.getWidth() / pad_right)
-				.height(score_style.font.getLineHeight());
+				.height(Assets.style_font_64_white.font.getLineHeight());
 		innerTable.row();
-		innerTable.add(new Label(scores.fourth_name, score_style)).left()
+		innerTable.add(new Label(scores.fourth_name, Assets.style_font_64_white)).left()
 				.padRight((float) (Gdx.graphics.getWidth() / pad_left));
-		innerTable.add(new Label(String.valueOf(scores.fourth), score_style))
+		innerTable.add(new Label(String.valueOf(scores.fourth), Assets.style_font_64_white))
 				.right().padLeft(Gdx.graphics.getWidth() / pad_right)
-				.height(score_style.font.getLineHeight());
+				.height(Assets.style_font_64_white.font.getLineHeight());
 		innerTable.row();
-		innerTable.add(new Label(scores.fifth_name, score_style)).left()
+		innerTable.add(new Label(scores.fifth_name, Assets.style_font_64_white)).left()
 				.padRight((float) (Gdx.graphics.getWidth() / pad_left));
-		innerTable.add(new Label(String.valueOf(scores.fifth), score_style))
+		innerTable.add(new Label(String.valueOf(scores.fifth), Assets.style_font_64_white))
 				.right().padLeft(Gdx.graphics.getWidth() / pad_right)
-				.height(score_style.font.getLineHeight());
+				.height(Assets.style_font_64_white.font.getLineHeight());
 		innerTable.row();
 
 		table.add(innerTable);

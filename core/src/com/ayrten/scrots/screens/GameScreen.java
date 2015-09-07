@@ -377,10 +377,10 @@ public class GameScreen extends ScrotsScreen {
 		powDots = new ArrayList<PowerDot>();
 		PowerDot powDot_1 = new PowerDot_Rainbow(Assets.rainbow_dot, gm,
 				Assets.reg_pop_1);
-//		PowerDot powDot_2 = new PowerDot_Invincible(Assets.invincible_dot, gm,
-//				Assets.reg_pop_1);
-		PowerDot powDot_2 = new PowerDot_Decelerate(Assets.decelerate_dot, gm,
+		PowerDot powDot_2 = new PowerDot_Invincible(Assets.invincible_dot, gm,
 				Assets.reg_pop_1);
+//		PowerDot powDot_2 = new PowerDot_Decelerate(Assets.decelerate_dot, gm,
+//				Assets.reg_pop_1);
 		magnet = new PowerDot_Magnet(Assets.magnet_dot, gm, Assets.reg_pop_1);
 		PowerDot powDot_3 = magnet;
 		powDots.add(powDot_1);

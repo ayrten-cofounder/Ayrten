@@ -33,6 +33,7 @@ public class PowerDot_Magnet extends PowerDot {
 		Assets.power_dot_manager.setMagnetDotAmount(--num);
 		updateNumLabel();
 
+		gm.generator.setRandPositions(gm.getMagnet());
 		gm.getMagnet().setVisible(true);
 		gm.setMagnetState(true);
 		magnet();

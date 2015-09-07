@@ -15,7 +15,7 @@ public class PointsManager {
 
 	public int getTotalPoints() {
 		points = getPoints();
-		return points.points;
+		return (points.points);
 	}
 
 	public void addPoints(int amount) {

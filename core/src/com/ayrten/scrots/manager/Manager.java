@@ -106,8 +106,8 @@ public class Manager {
 	public void incrementCombo() {
 		combo_chain++;
 		comboLabel.setText("Combo: x" + combo_chain);
-		if(curr_level.getRegDotList().size() > 0)
-			curr_level.getRegDotList().get(0).setComboDot();
+//		if(curr_level.getRegDotList().size() > 0)
+//			curr_level.getRegDotList().get(0).setComboDot();
 		Assets.points_manager.addPoints((combo_chain/10 + 1));
 	}
 	
@@ -276,7 +276,7 @@ public class Manager {
 		for (int i = 0; i < curr_level.getDotList().size(); i++)
 			stage.addActor(curr_level.getDotList().get(i));
 		
-		curr_level.getRegDotList().get(0).setComboDot();
+//		curr_level.getRegDotList().get(0).setComboDot();
 		
 		if (isRainbowState())
 			changePenalityDotVisibility(false);

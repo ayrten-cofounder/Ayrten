@@ -3,15 +3,12 @@ package com.ayrten.scrots.screens;
 import com.ayrten.scrots.manager.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-
 
 public class GameModeScreen extends ScrotsScreen 
 {
@@ -25,13 +22,9 @@ public class GameModeScreen extends ScrotsScreen
 		setupStage();
 		showTableScreen();
 		
-		LabelStyle labelStyle = new LabelStyle();
-		labelStyle.font = Assets.font_64;
-		labelStyle.fontColor = Color.WHITE;
+		Label intro = new Label("Pick Your Mode of Gameplay", Assets.style_font_64_white);
 		
-		Label intro = new Label("Pick Your Mode of Gameplay", labelStyle);
-		
-		timeMode = new Label("Time Mode", labelStyle);
+		timeMode = new Label("Time Mode", Assets.style_font_64_white);
 		timeMode.setBounds(timeMode.getX(), timeMode.getY(), timeMode.getWidth(), timeMode.getHeight());
 		timeMode.addListener(new ClickListener(){
 			@Override
@@ -48,7 +41,7 @@ public class GameModeScreen extends ScrotsScreen
 			}
 		});
 		
-		survivalMode = new Label("Survival Mode - Coming Soon!", labelStyle);
+		survivalMode = new Label("Survival Mode - Coming Soon!", Assets.style_font_64_orange);
 		survivalMode.setBounds(survivalMode.getX(), survivalMode.getY(), survivalMode.getWidth(), survivalMode.getHeight());
 		survivalMode.addListener(new ClickListener(){
 			@Override
@@ -58,7 +51,7 @@ public class GameModeScreen extends ScrotsScreen
 		
 		table.add(intro);
 		table.row();
-		table.add().height(labelStyle.font.getLineHeight());
+		table.add().height(Assets.style_font_64_white.font.getLineHeight());
 		table.row();
 		table.add(timeMode);
 		table.row();
