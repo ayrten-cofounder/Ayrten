@@ -78,6 +78,7 @@ public class Manager {
 		currGameState = gameState.ONGOING;
 		
 		time = new Time(this);
+		// TODO: Need to move this in to a function and overridden by NormalGameManager
 		sb = new Scoreboard();
 		this.stage = stage;
 		generator = new DotGenerator(this);

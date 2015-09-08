@@ -37,10 +37,6 @@ public class ScoresScreen extends ScrotsScreen {
 		setupStage();
 		// showTableScreen();
 
-//		Assets.style_font_64_white = new LabelStyle();
-//		Assets.style_font_64_white.font = Assets.font_64;
-//		Assets.style_font_64_white.fontColor = Color.WHITE;
-
 		LabelStyle clear_style = new LabelStyle();
 		clear_style.font = Assets.font_32;
 		clear_style.fontColor = Color.WHITE;
@@ -97,13 +93,13 @@ public class ScoresScreen extends ScrotsScreen {
 		// }
 		// });
 
-		Table scores_table = new Table(Assets.skin);
-		setHighScoreTable(scores_table);
+//		Table scores_table = new Table(Assets.skin);
+//		setHighScoreTable(scores_table);
 
 		final int pages = 2;
 		Table score_screen_table = new Table(Assets.skin);
 		score_screen_table.setWidth(Assets.width * pages);
-		score_screen_table.stack(table, scores_table)
+		score_screen_table.add(table)
 				.width(Assets.width - (Assets.PAD * 2))
 				.height(Assets.height - back.getHeight() - (Assets.PAD * 2))
 				.padLeft(Assets.PAD);

@@ -39,8 +39,8 @@ public class Scoreboard {
 	public Scores getAllScores() {
 		if(scores != null)
 			return scores;
+		
 		String file = Assets.readFile(this.file);
-
 		if (!file.isEmpty()) {
 			return (Assets.json.fromJson(Scores.class, file));
 		}
