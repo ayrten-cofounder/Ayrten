@@ -34,7 +34,7 @@ public class MessageScreen extends ScrotsScreen {
 	protected float grn_chn;
 	protected float blu_chn;
 	
-	private boolean clicked = false;
+//	private boolean clicked = false;
 	
 	public static float WINDOW_DISPLAY_HEIGHT = Assets.height - Assets.font_64.getLineHeight();
 
@@ -372,6 +372,11 @@ public class MessageScreen extends ScrotsScreen {
 		textField.setMaxLength(10);
 		textField.setMessageText("Enter Name");
 		textField.layout();
+		
+		if(!Assets.prefs.getString("default_winner", "").isEmpty()) {
+			name.setText(Assets.prefs.getString("default_winner"));
+			textField.setText(Assets.prefs.getString("default_winner"));
+		}
 
 		textField.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y,
@@ -381,13 +386,11 @@ public class MessageScreen extends ScrotsScreen {
 
 			public void touchUp(InputEvent event, float x, float y,
 					int pointer, int button) {
-				name.setText("");
-				clicked = true;
+				name.setText(textField.getText());
 			}
 		});
 
 		textField.setTextFieldListener(new TextFieldListener() {
-
 			@Override
 			public void keyTyped(TextField textField, char key) {
 				name.setText(textField.getText());
@@ -404,7 +407,7 @@ public class MessageScreen extends ScrotsScreen {
 			public void touchUp(InputEvent event, float x, float y,
 					int pointer, int button) {
 
-				if (clicked) {
+				if (!name.getText().toString().isEmpty()) {
 					gameScreen.setHighScoreName(name.getText().toString());
 					name.remove();
 					textField.remove();

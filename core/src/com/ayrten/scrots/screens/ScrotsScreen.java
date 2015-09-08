@@ -55,7 +55,8 @@ public class ScrotsScreen implements Screen {
 		backStage = true;
 		stage = new Stage() {
 			public boolean keyDown(int keyCode) {
-				if ((keyCode == Keys.BACK || keyCode == Keys.BACKSPACE) && backStage) {
+				// if ((keyCode == Keys.BACK || keyCode == Keys.BACKSPACE) && backStage) {
+				if ((keyCode == Keys.BACK) && backStage) {
 					backStage = false;
 					executeBackAction();
 				}

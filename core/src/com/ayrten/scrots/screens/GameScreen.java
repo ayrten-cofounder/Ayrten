@@ -203,7 +203,7 @@ public class GameScreen extends ScrotsScreen {
 		Table info_table = new Table(Assets.skin);
 		info_table.setSize(top_table.getWidth() - top_table.getHeight(), top_table.getHeight());
 		info_table.align(Align.top);
-		info_table.add(gm.getComboLabel()).width(top_table.getWidth() - top_table.getHeight()).left().top();
+//		info_table.add(gm.getComboLabel()).width(top_table.getWidth() - top_table.getHeight()).left().top();
 		
 		top_table.add(info_table).width(top_table.getWidth() - top_table.getHeight()).height(top_table.getHeight());
 		top_table.add(menu_button).width(top_table.getHeight())

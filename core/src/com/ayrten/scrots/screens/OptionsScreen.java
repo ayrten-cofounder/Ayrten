@@ -6,6 +6,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
@@ -136,22 +138,26 @@ public class OptionsScreen extends ScrotsScreen {
 			Gdx.gl.glClearColor(1, 1, 1, 1);
 			bg_color.setSelected("White");
 		}
-		
-		default_winner = new TextField(Assets.prefs.getString("default_winner", ""), Assets.skin);
-		default_winner.setMaxLength(10);
-		default_winner.setSize(default_winner.getStyle().font.getLineHeight(), default_winner.getMaxLength());
-		default_winner.setAlignment(Align.center);
-		default_winner.setBounds(default_winner.getX(), default_winner.getY(), default_winner.getWidth(), default_winner.getHeight());
-		default_winner.addListener(new InputListener(){
-			@Override
-			public boolean keyUp(InputEvent event, int keycode) {
-				if(keycode == '\r' || keycode == '\n' || keycode == Keys.ENTER)
-					Assets.prefs.putString("default_winner", ((TextField)event.getTarget()).getText());
 
-				return super.keyUp(event, keycode);
+		default_winner = new TextField(Assets.prefs.getString("default_winner",
+				""), Assets.skin) {
+			@Override
+			protected void drawText(Batch batch, BitmapFont font, float x,
+					float y) {
+				// Align text in center.
+				super.drawText(batch, font, x,
+						(y + ((int) font.getLineHeight() >> 2)));
 			}
-		});
-		
+		};
+		default_winner.getStyle().font = Assets.font_32;
+		default_winner.getStyle().fontColor = Color.WHITE;
+		default_winner.setMaxLength(10);
+		default_winner.setSize(default_winner.getStyle().font.getLineHeight(),
+				default_winner.getMaxLength());
+		default_winner.setAlignment(Align.center);
+		default_winner.setBounds(default_winner.getX(), default_winner.getY(),
+				default_winner.getWidth(), default_winner.getHeight());
+
 		float CHECKBOX_SIZE = Assets.font_32.getLineHeight();
 		// Set size of checkboxes
 		bkg_music.getCells().get(0).size(CHECKBOX_SIZE, CHECKBOX_SIZE);
@@ -177,6 +183,14 @@ public class OptionsScreen extends ScrotsScreen {
 		temp.add(bg_color);
 
 		// When adding options, keep non-game options at the bottom.
+		game_options
+				.add(new Label("Default Winner: ", Assets.style_font_32_white))
+				.width(width).left();
+		game_options.add(default_winner).width(width)
+				.height(default_winner.getStyle().font.getLineHeight()).left();
+		game_options.row();
+		game_options.add().height(Gdx.graphics.getHeight() / 50);
+		game_options.row();
 		game_options.add(new Label("Background: ", Assets.style_font_32_white))
 				.width(width).left();
 		game_options.add(temp).width(width).right();
@@ -194,23 +208,20 @@ public class OptionsScreen extends ScrotsScreen {
 				.add(new Label("Background Music: ", Assets.style_font_32_white))
 				.width(width).left();
 		game_options.add(bkg_music).width(width).right();
-		game_options.row();
-		game_options.add(new Label("Default Winner: ", Assets.style_font_32_white)).width(width).left();
-		game_options.add(default_winner).width(width).height(default_winner.getStyle().font.getLineHeight()).left();
 
 		non_game_options
 				.add(new Label("Auto Google Signin: ",
 						Assets.style_font_32_white)).width(width).left();
 		non_game_options.add(auto_gplay_signin).width(width).right();
 		game_options.row();
-		game_options
-				.add(new Label("Color Blind Mode: ", Assets.style_font_32_white))
-				.width(width).left();
-		game_options.add(color_blind).width(width).right();
+		// game_options
+		// .add(new Label("Color Blind Mode: ", Assets.style_font_32_white))
+		// .width(width).left();
+		// game_options.add(color_blind).width(width).right();
 
 		table.add(game_options).left();
 		table.row();
-		table.add("").height(Gdx.graphics.getHeight() / 50);
+		table.add().height(Gdx.graphics.getHeight() / 50);
 		table.row();
 		table.add(non_game_options).left();
 	}
@@ -256,6 +267,7 @@ public class OptionsScreen extends ScrotsScreen {
 		Assets.prefs.putString("bg_color", bg_color.getSelected());
 		Assets.prefs.putBoolean("sound_effs", sound_effs.isChecked());
 		// Assets.prefs.putBoolean("color_blind", color_blind.isChecked());
+		Assets.prefs.putString("default_winner", default_winner.getText());
 		Assets.prefs.putBoolean("auto_gplay_signin",
 				auto_gplay_signin.isChecked());
 	}
