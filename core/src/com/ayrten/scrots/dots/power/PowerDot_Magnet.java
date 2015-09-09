@@ -1,7 +1,5 @@
 package com.ayrten.scrots.dots.power;
 
-import java.util.LinkedList;
-
 import com.ayrten.scrots.dots.MovingDot;
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
@@ -36,7 +34,7 @@ public class PowerDot_Magnet extends PowerDot {
 		gm.generator.setRandPositions(gm.getMagnet());
 		gm.getMagnet().setVisible(true);
 		gm.setMagnetState(true);
-		magnet();
+		magnetize();
 		Assets.stats_manager.getPlayerStats().power_dot_magnet.popped++;
 	}
 
@@ -45,15 +43,11 @@ public class PowerDot_Magnet extends PowerDot {
 		super.afterAction();
 		gm.getMagnet().setVisible(false);
 		gm.setMagnetState(false);
-		unmagnet();
+		unmagnetize();
 	}
 
-	public void magnet() {
-		checkRadius(gm.curr_level.getDotList());
-	}
-
-	private void checkRadius(LinkedList<MovingDot> linkedList) {
-		for (MovingDot dot : linkedList) {
+	public void magnetize() {
+		for (MovingDot dot : gm.curr_level.getDotList()) {
 			if (dot.magneted) {
 				dot.setPosition(getX(), getY());
 			}
@@ -66,7 +60,7 @@ public class PowerDot_Magnet extends PowerDot {
 		}
 	}
 
-	private void unmagnet() {
+	private void unmagnetize() {
 		for (MovingDot dot : gm.curr_level.getDotList()) {			
 			if (gm.isPenDot(dot))
 				dot.magneted = false;

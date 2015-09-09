@@ -1,18 +1,18 @@
 package com.ayrten.scrots.screens;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import com.ayrten.scrots.dots.power.PowerDot;
-import com.ayrten.scrots.dots.power.PowerDot_Decelerate;
-import com.ayrten.scrots.dots.power.PowerDot_Invincible;
-import com.ayrten.scrots.dots.power.PowerDot_Magnet;
-import com.ayrten.scrots.dots.power.PowerDot_Rainbow;
 import com.ayrten.scrots.game.GameMode;
+import com.ayrten.scrots.game.GameParams;
 import com.ayrten.scrots.game.TimeMode;
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.ButtonInterface;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -58,47 +58,20 @@ public class GameScreen extends ScrotsScreen {
 	protected Table corner_table;
 	protected Table side_table;
 
-	protected PowerDot_Magnet magnet;
-
 	protected ArrayList<PowerDot> powDots;
-	
-	// Used for changing Drawable for menu button.
-	protected TextureRegionDrawable[] trd;
 	
 	protected ScrollPane pause_scroll;
 
 	public GameScreen() {
 		super(null, false);
 		createBackLabelAndInitNavBar();
-
-		should_clear_stage = true;
-		stage = new Stage();
-		Gdx.input.setInputProcessor(stage);
-		stage.getBatch().enableBlending();
-		stage.getBatch().setBlendFunction(GL20.GL_LINEAR_MIPMAP_NEAREST,
-				GL20.GL_NEAREST);
-
-		trd = new TextureRegionDrawable[2];
-		trd[0] = new TextureRegionDrawable(
-				new TextureRegion(Assets.play_button));
-		trd[1] = new TextureRegionDrawable(new TextureRegion(
-				Assets.pause_button));
-
-
-		gm = new Manager(0, Assets.width - Assets.game_width, Assets.width, 0, Assets.game_height, stage); // Starts with 0 points
-		// if (Assets.prefs.getString("mode").equals("Normal")) {
-		gm.setMode(GameMode.NORMAL_MODE);
-		gm.setScoreboard(Assets.game.main_menu.nsb);
-		gamemode = new TimeMode(stage, gm);
-		// } else {
-		// gm.setMode(GameMode.CHALLENGE_MODE);
-		// gm.setScoreboard(Assets.game.main_menu.csb);
-		// gamemode = new ChallengeGameMode(stage, gm, w, h);
-		// }
+		createStage();
+		createManager();
+		GameParams params = new GameParams();
+		createPowerDots(params);
 		
 		initializePointsTime();
 		initializePauseMenu();
-		addPowDots();
 		
 		// TODO: eliminate dependency between corner_table and side_table
 		corner_table = new Table(Assets.skin);
@@ -244,6 +217,13 @@ public class GameScreen extends ScrotsScreen {
 	}
 
 	private void initializePauseMenu() {
+		// Used for changing Drawable for menu button.
+		final TextureRegionDrawable[] trd = new TextureRegionDrawable[2];
+		trd[0] = new TextureRegionDrawable(
+				new TextureRegion(Assets.play_button));
+		trd[1] = new TextureRegionDrawable(new TextureRegion(
+				Assets.pause_button));
+		
 		LabelStyle buttonStyle = Assets.style_font_64_orange;
 
 		menu_button = new Image(Assets.pause_button);
@@ -371,21 +351,55 @@ public class GameScreen extends ScrotsScreen {
 			}
 		}, (float) 0.5);
 	}
-
-	// Creates the time label for the power dots also
-	private void addPowDots() {
+	
+	private void createStage() {
+		should_clear_stage = true;
+		stage = new Stage();
+		Gdx.input.setInputProcessor(stage);
+		stage.getBatch().enableBlending();
+		stage.getBatch().setBlendFunction(GL20.GL_LINEAR_MIPMAP_NEAREST,
+				GL20.GL_NEAREST);
+	}
+	
+	private void createManager() {
+		gm = new Manager(0, Assets.width - Assets.game_width, Assets.width, 0, Assets.game_height, stage); // Starts with 0 points
+		// if (Assets.prefs.getString("mode").equals("Normal")) {
+		gm.setMode(GameMode.NORMAL_MODE);
+		gm.setScoreboard(Assets.game.main_menu.nsb);
+		gamemode = new TimeMode(stage, gm);
+		// } else {
+		// gm.setMode(GameMode.CHALLENGE_MODE);
+		// gm.setScoreboard(Assets.game.main_menu.csb);
+		// gamemode = new ChallengeGameMode(stage, gm, w, h);
+		// }
+	}
+	
+	private void createPowerDots(GameParams params) {
 		powDots = new ArrayList<PowerDot>();
-		PowerDot powDot_1 = new PowerDot_Rainbow(Assets.rainbow_dot, gm,
-				Assets.reg_pop_1);
-		PowerDot powDot_2 = new PowerDot_Invincible(Assets.invincible_dot, gm,
-				Assets.reg_pop_1);
-//		PowerDot powDot_2 = new PowerDot_Decelerate(Assets.decelerate_dot, gm,
-//				Assets.reg_pop_1);
-		magnet = new PowerDot_Magnet(Assets.magnet_dot, gm, Assets.reg_pop_1);
-		PowerDot powDot_3 = magnet;
-		powDots.add(powDot_1);
-		powDots.add(powDot_2);
-		powDots.add(powDot_3);
+		for(int i = 0; i < params.powerdot_types.size(); i++) {
+			String type = params.powerdot_types.get(i);
+			Texture texture = params.textures.get(i);
+			try {
+				Class<?> class_obj = Class.forName(type); 
+				Constructor<?> constructor_obj = class_obj.getConstructor(Texture.class, Manager.class, Sound.class);
+				PowerDot powDot = (PowerDot) constructor_obj.newInstance(texture, gm, Assets.reg_pop_1);
+				powDots.add(powDot);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (NoSuchMethodException e) {
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				e.printStackTrace();
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public void setHighScoreName(String name) {
@@ -545,7 +559,7 @@ public class GameScreen extends ScrotsScreen {
 		gamemode.gen_next_level();
 		
 		if (gm.isMagnetState())
-			magnet.magnet();
+			gm.getMagnet().magnetize();
 	}
 
 	@Override
