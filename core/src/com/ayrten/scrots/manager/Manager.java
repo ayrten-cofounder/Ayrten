@@ -19,7 +19,7 @@ import com.ayrten.scrots.dots.power.PowerDot_Magnet;
 import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.level.Level;
 import com.ayrten.scrots.scoreboard.Scoreboard;
-import com.ayrten.scrots.screens.GameModeScreen;
+import com.ayrten.scrots.screens.GameConfigScreen;
 import com.ayrten.scrots.screens.MessageScreen;
 import com.ayrten.scrots.time.Time;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -387,7 +387,7 @@ public class Manager {
 			@Override
 			public void transition() {
 				super.transition();
-				Assets.game.setScreen(GameModeScreen.game_screen);
+				Assets.game.setScreen(GameConfigScreen.game_screen);
 			}
 		};
 		dyn_help.setBackgroundColor(0, 0, 0);

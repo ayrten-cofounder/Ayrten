@@ -201,16 +201,16 @@ public class GameScreen extends ScrotsScreen {
 		timer.scheduleTask(new Task() {
 			@Override
 			public void run() {
-				GameModeScreen.game_screen.dispose();
-				GameModeScreen.game_screen = new GameScreen();
-				Assets.game.setScreen(GameModeScreen.game_screen);
+				GameConfigScreen.game_screen.dispose();
+				GameConfigScreen.game_screen = new GameScreen();
+				Assets.game.setScreen(GameConfigScreen.game_screen);
 			}
 		}, 0.5f);
 	}
 
 	private void main_menu() {
 		Assets.stats_manager.writePlayerStatsToFile();
-		GameModeScreen.game_screen.dispose();
+		GameConfigScreen.game_screen.dispose();
 		Assets.playMenuBGM();
 		Assets.game.setScreen(Assets.game.main_menu);
 		Assets.game.main_menu.checkRateMe();

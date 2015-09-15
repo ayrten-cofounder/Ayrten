@@ -19,7 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable; 
 
 public class MainMenuScreen extends ScrotsScreen {
 	protected OthersScreen othersScreen;
@@ -28,7 +28,7 @@ public class MainMenuScreen extends ScrotsScreen {
 	protected ShopScreen shopScreen;
 	protected OptionsScreen optionsScreen;
 	protected ContactScreen contactScreen;
-	public GameModeScreen gameModeScreen;
+	public GameConfigScreen gameConfigScreen;
 
 	protected Label shop;
 	protected Label play;
@@ -55,7 +55,7 @@ public class MainMenuScreen extends ScrotsScreen {
 		othersScreen = new OthersScreen(this);
 		profileScreen = new ProfileScreen(this);
 		shopScreen = new ShopScreen(this);
-		gameModeScreen = new GameModeScreen(this);
+		gameConfigScreen = new GameConfigScreen(this);
 
 		LabelStyle title_style = new LabelStyle();
 		title_style.font = Assets.font_200;
@@ -134,13 +134,13 @@ public class MainMenuScreen extends ScrotsScreen {
 			}
 		});
 		shop.setAlignment(Align.center);
-
+		
 		play = new Label("Play", style);
 		play.setBounds(play.getX(), play.getY(), play.getWidth(),
 				play.getHeight());
 		play.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
-				Assets.game.setScreen(gameModeScreen);
+				Assets.game.setScreen(gameConfigScreen);
 			}
 		});
 		play.setAlignment(Align.center);
