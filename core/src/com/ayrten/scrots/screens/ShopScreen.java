@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.ButtonInterface;
 import com.ayrten.scrots.shop.ShopDot;
+import com.ayrten.scrots.shop.ShopItem;
+import com.ayrten.scrots.shop.ShopRow;
+import com.ayrten.scrots.shop.UnlockItem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -13,11 +16,13 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class ShopScreen extends ScrotsScreen {
@@ -34,17 +39,174 @@ public class ShopScreen extends ScrotsScreen {
 	private ArrayList<ShopDot> dots;
 	private int total_price = 0;
 
+	protected Image previous_selected_icon;
+
 	public ShopScreen(Screen bscreen) {
 		super(bscreen, true);
 
 		points = Assets.points_manager.getTotalPoints();
 
 		setupStage();
-		setUpShopScreen();
-		setUpShopTable();
+		setupPremiumShop();
+
+		// Create the side column.
+		float type_column_width = Assets.width - Assets.game_width;
+
+		table.add().width(type_column_width);
+		table.align(Align.topLeft);
+//		table.debug();
+
+		Table header = new Table(Assets.skin);
+
+		LabelStyle header_style = new LabelStyle();
+		header_style.font = Assets.font_32;
+		header_style.fontColor = Color.YELLOW;
+
+		Label p = new Label("Item", header_style);
+		Label c = new Label("Cost", header_style);
+		Label a = new Label("Amount", header_style);
+		Label t = new Label("Total", header_style);
+
+		p.setAlignment(Align.center);
+		c.setAlignment(Align.center);
+		a.setAlignment(Align.center);
+		t.setAlignment(Align.center);
+
+		float header_column_size = Assets.game_width / 4;
+		header.add(p).width(header_column_size);
+		header.add(c).width(header_column_size);
+		header.add(a).width(header_column_size);
+		header.add(t).width(header_column_size);
+
+		table.add(header);
+		table.row();
+
+		Table type_column = new Table(Assets.skin);
+		type_column.setSize(Assets.width - Assets.game_width,
+				navigation_bar.getY());
+		type_column.align(Align.topLeft);
+
+		ArrayList<Texture> type_icons = new ArrayList<Texture>();
+		type_icons.add(Assets.rainbow_dot);
+
+		for (int i = 0; i < type_icons.size(); i++) {
+			Image icon = new Image(type_icons.get(i));
+			Image selected_bkg = new Image(Assets.rounded_rectangle_blue);
+			icon.setUserObject(selected_bkg);
+			icon.setBounds(icon.getX(), icon.getY(), icon.getWidth(),
+					icon.getHeight());
+			icon.addListener(new ClickListener() {
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					super.clicked(event, x, y);
+					if (previous_selected_icon != null)
+						((Image) previous_selected_icon.getUserObject())
+								.setVisible(false);
+					previous_selected_icon = (Image) event.getTarget();
+					((Image) previous_selected_icon.getUserObject())
+							.setVisible(true);
+				}
+			});
+			if (i == 0)
+				previous_selected_icon = icon;
+			else
+				selected_bkg.setVisible(false);
+			selected_bkg.setVisible(false);
+			type_column.stack(selected_bkg, icon).width(type_column_width)
+					.height(type_column_width).center();
+
+			if (i != type_icons.size() - 1)
+				type_column.row();
+		}
+
+		ScrollPane type_column_scroll = new ScrollPane(type_column);
+		type_column_scroll.setSize(type_column.getWidth(), type_column.getHeight());
+
+		// TODO: create the description table first to calculate final type_column height.
+		table.add(type_column_scroll).width(type_column.getWidth()).height(type_column.getHeight());
+
+		// Outer array list = type. Inner array list = all items for that list.
+		ArrayList<ArrayList<ShopItem>> item_list = new ArrayList<ArrayList<ShopItem>>();
+
+		ArrayList<ShopItem> dot_itemlist = new ArrayList<ShopItem>();
+		UnlockItem rainbow_dot = new UnlockItem(Assets.rainbow_dot,
+				"Remove negative dots for 5 seconds", (short) 350,
+				Assets.power_dot_manager.isRainbowDotUnlocked(), (short) 1050);
+		UnlockItem invincible_dot = new UnlockItem(Assets.invincible_dot,
+				"Negative dots won't affect you for 5 seconds.", (short) 250,
+				Assets.power_dot_manager.isInvincibleDotUnlocked(), (short) 850);
+		UnlockItem magnet_dot = new UnlockItem(Assets.magnet_dot,
+				"Attracts negative dots for 8 seconds.", (short) 150, 
+				Assets.power_dot_manager.isMagnetDotUnlocked(), (short) 500);
+		UnlockItem decel_dot = new UnlockItem(Assets.decelerate_dot,
+				"Slow down negative dots' movement.", (short) 150, Assets.power_dot_manager.isDecelDotUnlocked(), (short) 500);
+
+		dot_itemlist.add(rainbow_dot);
+		dot_itemlist.add(invincible_dot);
+		dot_itemlist.add(magnet_dot);
+		dot_itemlist.add(decel_dot);
+
+		item_list.add(dot_itemlist);
+
+//		for(int i = 0; i < item_list.size(); i++) {
+//			for(int j = 0; j < item_list.get(i).size(); j++) {
+//				
+//			}
+//		}
+		Table list_table = new Table(Assets.skin);
+		for(int i = 0; i < dot_itemlist.size(); i++) {
+			ShopRow row = new ShopRow(header_column_size);
+			UnlockItem item = (UnlockItem) dot_itemlist.get(i);
+			item.setShopRow(row);
+			row.setItem(item);
+			row.debug();
+			list_table.add(row).width(Assets.game_width);
+			
+			if(i != dot_itemlist.size() - 1)
+				list_table.row();
+		}
+//		list_table.debug();
+		
+		Table main_table = new Table(Assets.skin);
+		main_table.align(Align.topLeft);
+		main_table.stack(list_table);
+		ScrollPane main_table_scroll = new ScrollPane(main_table);
+		main_table_scroll.setSize(Assets.game_width, navigation_bar.getY());
+		
+		table.add(main_table_scroll).width(Assets.game_width).height(navigation_bar.getY());
+
+		// setUpShopScreen();
+		// setUpShopTable();
 		updatePoints();
 
 		showTableScreen();
+	}
+
+	private ShopItem createShopItem() {
+		return null;
+	}
+
+	private void setupPremiumShop() {
+		// Total Points Label
+		points_label = new Label("Points: " + String.valueOf(points),
+				Assets.style_font_32_white);
+
+		// Premium Label
+		premium_label = new Label("Buy Points!", Assets.style_font_64_orange);
+		premium_label.addListener(new InputListener() {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				return true;
+			}
+
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
+				goToPremiumShop();
+			}
+		});
+
+		addToNavBar(points_label);
+		addToNavBar(premium_label);
 	}
 
 	private void notEnoughtPointsWindow() {
@@ -131,27 +293,6 @@ public class ShopScreen extends ScrotsScreen {
 	}
 
 	private void setUpShopScreen() {
-		// Total Points Label
-		points_label = new Label("Points: " + String.valueOf(points),
-				Assets.style_font_32_white);
-
-		// Premium Label
-		premium_label = new Label("Buy Points!", Assets.style_font_64_orange);
-		premium_label.addListener(new InputListener() {
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
-				return true;
-			}
-
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
-				goToPremiumShop();
-			}
-		});
-
-		addToNavBar(points_label);
-		addToNavBar(premium_label);
-
 		// Total Price Label
 		total_price_label = new Label(String.valueOf(total_price),
 				Assets.style_font_32_white);
@@ -282,12 +423,16 @@ public class ShopScreen extends ScrotsScreen {
 				tempt.add(d.dotImage).height(cell_wh).width(cell_wh);
 				tempt.add(d.descriptionImage).height(cell_wh).width(cell_wh);
 				tempt.add(d.priceLabel).height(cell_wh).width(cell_wh).center();
-				tempt.add(d.amountTable).height(cell_wh).width(cell_wh).center();
-				tempt.add(d.totalCostLabel).height(cell_wh).width(cell_wh).center();
+				tempt.add(d.amountTable).height(cell_wh).width(cell_wh)
+						.center();
+				tempt.add(d.totalCostLabel).height(cell_wh).width(cell_wh)
+						.center();
 			} else {
 				tempt.add(d.dotImage).height(cell_wh).width(cell_wh).center();
-				tempt.add(d.descriptionImage).height(cell_wh).width(cell_wh).center();
-				tempt.add(d.unlockPriceLabel).height(cell_wh).width(cell_wh).center();
+				tempt.add(d.descriptionImage).height(cell_wh).width(cell_wh)
+						.center();
+				tempt.add(d.unlockPriceLabel).height(cell_wh).width(cell_wh)
+						.center();
 				tempt.add(d.unlockBuyLabel).colspan(2).center();
 			}
 		}
@@ -372,6 +517,16 @@ public class ShopScreen extends ScrotsScreen {
 	public void show() {
 		super.show();
 		updatePoints();
-		clear();
+		// clear();
+	}
+
+	@Override
+	protected void createBKGTable() {
+	}
+
+	@Override
+	protected void createTableScreen() {
+		table = new Table(Assets.skin);
+		table.setSize(Assets.width, navigation_bar.getY());
 	}
 }

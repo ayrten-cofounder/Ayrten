@@ -131,15 +131,10 @@ public class ScrotsScreen implements Screen {
 		navigation_bar.setSkin(Assets.skin);
 		navigation_bar.setBackground(Assets.rounded_rectangle_blue);
 		navigation_bar.align(Align.left);
+		stage.addActor(navigation_bar);
 	}
-
-	public void createTableScreen() {
-		table = new Table(Assets.skin);
-		table.setSize(Assets.width - (Assets.PAD * 2),
-				Assets.height - back.getHeight() - (Assets.PAD * 2));
-		table.setPosition(Assets.PAD, Assets.PAD);
-		table.setBackground(Assets.rounded_rectangle_border);
-
+	
+	protected void createBKGTable() {
 		bkg = new Table();
 		bkg.setSize(Assets.width, Assets.height);
 		bkg.setFillParent(true);
@@ -148,19 +143,23 @@ public class ScrotsScreen implements Screen {
 
 		bkg.row();
 		bkg.add(new Image(Assets.bkg)).width(Assets.width).height(Assets.height);
+		stage.addActor(bkg);
+	}
+
+	protected void createTableScreen() {
+		table = new Table(Assets.skin);
+		table.setSize(Assets.width - (Assets.PAD * 2),
+				Assets.height - back.getHeight() - (Assets.PAD * 2));
+		table.setPosition(Assets.PAD, Assets.PAD);
+		table.setBackground(Assets.rounded_rectangle_border);
 	}
 
 	// This must be called near the end of the constructor.
 	public void setupStage() {
 		if (createBack) {
+			createBKGTable();
 			createBackLabelAndInitNavBar();
 			createTableScreen();
-			// back.setPosition(0 + back.getWidth() / 5,
-			// Gdx.graphics.getHeight()
-			// - back.getHeight());
-			// stage.addActor(back);
-			stage.addActor(bkg);
-			stage.addActor(navigation_bar);
 		}
 
 		addActors();
