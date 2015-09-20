@@ -2,8 +2,8 @@ package com.ayrten.scrots.screens;
 
 import java.util.ArrayList;
 
-import com.ayrten.scrots.manager.Assets;
-import com.ayrten.scrots.manager.ButtonInterface;
+import com.ayrten.scrots.common.Assets;
+import com.ayrten.scrots.common.ButtonInterface;
 import com.ayrten.scrots.shop.ShopDot;
 import com.ayrten.scrots.shop.ShopItem;
 import com.ayrten.scrots.shop.ShopRow;
@@ -247,7 +247,7 @@ public class ShopScreen extends ScrotsScreen {
 		dp_scroll.setFlickScroll(true);
 		bottom_portion.add(dp_scroll).height(description_panel_height);
 		
-		Label total_price_label = new Label(String.valueOf(total_price),
+		total_price_label = new Label(String.valueOf(total_price),
 				Assets.style_font_32_white);
 		total_price_label.setAlignment(Align.center);
 
@@ -598,6 +598,15 @@ public class ShopScreen extends ScrotsScreen {
 				.padLeft(buy_label.getStyle().font.getSpaceWidth())
 				.padRight(buy_label.getStyle().font.getSpaceWidth());
 		table.add(total_price_label);
+	}
+	
+	public void minusTotalPrice(int num) {
+		total_price -= num;
+	}
+	
+	public void updateTotalPriceLabel(int new_price) {
+		total_price += new_price;
+		total_price_label.setText(String.valueOf(total_price));
 	}
 
 	public void updateShopTable() {

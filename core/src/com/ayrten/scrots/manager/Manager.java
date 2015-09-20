@@ -8,6 +8,7 @@ package com.ayrten.scrots.manager;
 
 import java.util.ArrayList;
 
+import com.ayrten.scrots.common.Assets;
 import com.ayrten.scrots.dotAnimation.DotAnimation;
 import com.ayrten.scrots.dotAnimation.DotAnimation_TimeMode;
 import com.ayrten.scrots.dots.Dot;

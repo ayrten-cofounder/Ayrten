@@ -9,7 +9,7 @@ import com.ayrten.scrots.android.util.IabHelper;
 import com.ayrten.scrots.android.util.IabResult;
 import com.ayrten.scrots.android.util.Inventory;
 import com.ayrten.scrots.android.util.Purchase;
-import com.ayrten.scrots.manager.Assets;
+import com.ayrten.scrots.common.Assets;
 import com.ayrten.scrots.shop.IAP;
 import com.ayrten.scrots.shop.IAPInterface;
 

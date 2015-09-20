@@ -2,9 +2,9 @@ package com.ayrten.scrots.screens;
 
 import java.util.ArrayList;
 
+import com.ayrten.scrots.common.Assets;
+import com.ayrten.scrots.common.ButtonInterface;
 import com.ayrten.scrots.game.GameMode;
-import com.ayrten.scrots.manager.Assets;
-import com.ayrten.scrots.manager.ButtonInterface;
 import com.ayrten.scrots.manager.Manager;
 import com.ayrten.scrots.scoreboard.TimeScoreboard;
 import com.badlogic.gdx.Gdx;

@@ -2,7 +2,7 @@ package com.ayrten.scrots.shop;
 
 import java.util.ArrayList;
 
-import com.ayrten.scrots.manager.Assets;
+import com.ayrten.scrots.common.Assets;
 import com.ayrten.scrots.screens.ShopScreen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.EventListener;

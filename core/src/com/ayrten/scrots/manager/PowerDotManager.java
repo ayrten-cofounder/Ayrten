@@ -1,5 +1,7 @@
 package com.ayrten.scrots.manager;
 
+import com.ayrten.scrots.common.Assets;
+
 public class PowerDotManager {
 	protected String file = "pd";
 

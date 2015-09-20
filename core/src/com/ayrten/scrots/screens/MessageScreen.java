@@ -2,8 +2,8 @@ package com.ayrten.scrots.screens;
 
 import java.util.ArrayList;
 
-import com.ayrten.scrots.manager.Assets;
-import com.ayrten.scrots.manager.ButtonInterface;
+import com.ayrten.scrots.common.Assets;
+import com.ayrten.scrots.common.ButtonInterface;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;

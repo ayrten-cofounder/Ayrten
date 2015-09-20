@@ -2,8 +2,8 @@ package com.ayrten.scrots.desktop;
 
 import java.util.HashMap;
 
-import com.ayrten.scrots.manager.AndroidInterface;
-import com.ayrten.scrots.manager.Assets.LeaderboardType;
+import com.ayrten.scrots.common.AndroidInterface;
+import com.ayrten.scrots.common.Assets.LeaderboardType;
 import com.ayrten.scrots.manager.GPlayManager;
 import com.ayrten.scrots.screens.ScrotsGame;
 import com.ayrten.scrots.shop.IAP;

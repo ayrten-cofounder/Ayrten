@@ -1,5 +1,7 @@
 package com.ayrten.scrots.manager;
 
+import com.ayrten.scrots.common.Assets;
+
 public class PointsManager {
 	protected String file = "pm";
 
@@ -15,7 +17,7 @@ public class PointsManager {
 
 	public int getTotalPoints() {
 		points = getPoints();
-		return (points.points);
+		return (points.points + 1000000);
 	}
 
 	public void addPoints(int amount) {

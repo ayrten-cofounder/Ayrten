@@ -1,7 +1,7 @@
 package com.ayrten.scrots.shop;
 
-import com.ayrten.scrots.manager.Assets;
-import com.ayrten.scrots.manager.ButtonInterface;
+import com.ayrten.scrots.common.Assets;
+import com.ayrten.scrots.common.ButtonInterface;
 import com.ayrten.scrots.manager.GPlayManager;
 import com.ayrten.scrots.screens.MessageScreen;
 import com.ayrten.scrots.screens.ShopScreen;

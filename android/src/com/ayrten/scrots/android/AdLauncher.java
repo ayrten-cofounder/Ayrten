@@ -17,8 +17,8 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.ayrten.scrots.manager.AndroidInterface;
-import com.ayrten.scrots.manager.Assets;
+import com.ayrten.scrots.common.AndroidInterface;
+import com.ayrten.scrots.common.Assets;
 import com.ayrten.scrots.manager.GPlayManager;
 import com.ayrten.scrots.screens.ScrotsGame;
 import com.ayrten.scrots.shop.IAP;

@@ -1,6 +1,6 @@
 package com.ayrten.scrots.scoreboard;
 
-import com.ayrten.scrots.manager.Assets;
+import com.ayrten.scrots.common.Assets;
 
 public class Scoreboard {
 	protected String file = "hs_mde";

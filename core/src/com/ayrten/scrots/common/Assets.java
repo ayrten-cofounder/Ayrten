@@ -1,5 +1,8 @@
-package com.ayrten.scrots.manager;
+package com.ayrten.scrots.common;
 
+import com.ayrten.scrots.manager.GPlayManager;
+import com.ayrten.scrots.manager.PointsManager;
+import com.ayrten.scrots.manager.PowerDotManager;
 import com.ayrten.scrots.screens.ScrotsGame;
 import com.ayrten.scrots.statistics.StatisticsManager;
 import com.badlogic.gdx.Gdx;

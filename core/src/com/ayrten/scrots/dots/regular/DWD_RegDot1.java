@@ -2,9 +2,9 @@ package com.ayrten.scrots.dots.regular;
 
 import java.util.Random;
 
+import com.ayrten.scrots.common.Assets;
 import com.ayrten.scrots.dots.DWD;
 import com.ayrten.scrots.dots.MovingDot;
-import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;

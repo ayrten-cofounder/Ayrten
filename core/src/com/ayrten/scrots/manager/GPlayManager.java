@@ -2,6 +2,8 @@ package com.ayrten.scrots.manager;
 
 import java.util.HashMap;
 
+import com.ayrten.scrots.common.Assets;
+
 public class GPlayManager {
 	public static final String ACHIEVEMENT_GREEN_POP_1000 = "CgkIxpik37gbEAIQAg";
 	public static final String ACHIEVEMENT_GREEN_POP_5000 = "CgkIxpik37gbEAIQBw";

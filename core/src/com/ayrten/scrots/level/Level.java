@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 
+import com.ayrten.scrots.common.Assets;
 import com.ayrten.scrots.dots.MovingDot;
 import com.ayrten.scrots.dots.penalty.DWD_PenDot1;
 import com.ayrten.scrots.dots.penalty.DWD_PenDot2;
@@ -14,7 +15,6 @@ import com.ayrten.scrots.dots.regular.DWD_RegDot2;
 import com.ayrten.scrots.dots.regular.OrderDot;
 import com.ayrten.scrots.dots.regular.RegDot1;
 import com.ayrten.scrots.dots.regular.RegDot2;
-import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 
 public class Level

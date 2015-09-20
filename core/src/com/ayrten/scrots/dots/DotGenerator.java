@@ -2,6 +2,7 @@ package com.ayrten.scrots.dots;
 
 import java.util.Random;
 
+import com.ayrten.scrots.common.Assets;
 import com.ayrten.scrots.dots.penalty.DWD_PenDot1;
 import com.ayrten.scrots.dots.penalty.DWD_PenDot2;
 import com.ayrten.scrots.dots.penalty.PenDot1;
@@ -16,7 +17,6 @@ import com.ayrten.scrots.dots.regular.OrderDot;
 import com.ayrten.scrots.dots.regular.RegDot1;
 import com.ayrten.scrots.dots.regular.RegDot2;
 import com.ayrten.scrots.dots.regular.RegDot3;
-import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.graphics.Texture;
 

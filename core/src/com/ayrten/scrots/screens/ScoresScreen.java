@@ -1,7 +1,7 @@
 package com.ayrten.scrots.screens;
 
-import com.ayrten.scrots.manager.Assets;
-import com.ayrten.scrots.manager.ButtonInterface;
+import com.ayrten.scrots.common.Assets;
+import com.ayrten.scrots.common.ButtonInterface;
 import com.ayrten.scrots.scoreboard.TimeScoreboard;
 import com.ayrten.scrots.scoreboard.Scoreboard;
 import com.ayrten.scrots.scoreboard.Scoreboard.Scores;

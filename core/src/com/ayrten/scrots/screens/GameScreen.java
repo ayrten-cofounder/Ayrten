@@ -4,12 +4,12 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
+import com.ayrten.scrots.common.Assets;
+import com.ayrten.scrots.common.ButtonInterface;
 import com.ayrten.scrots.dots.power.PowerDot;
 import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.game.GameParams;
 import com.ayrten.scrots.game.TimeMode;
-import com.ayrten.scrots.manager.Assets;
-import com.ayrten.scrots.manager.ButtonInterface;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;

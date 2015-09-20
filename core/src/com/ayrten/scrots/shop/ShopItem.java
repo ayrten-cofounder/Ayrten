@@ -1,6 +1,6 @@
 package com.ayrten.scrots.shop;
 
-import com.ayrten.scrots.manager.Assets;
+import com.ayrten.scrots.common.Assets;
 import com.ayrten.scrots.screens.ShopScreen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -128,7 +128,9 @@ public class ShopItem {
 	}
 	
 	protected void calcTotalCost() {
+		shop.minusTotalPrice(totalCostToBuy);
 		totalCostToBuy = price * amountToBuy;
+		shop.updateTotalPriceLabel(totalCostToBuy);
 	}
 	
 	public short getPrice() {

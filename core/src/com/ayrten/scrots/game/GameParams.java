@@ -2,7 +2,7 @@ package com.ayrten.scrots.game;
 
 import java.util.ArrayList;
 
-import com.ayrten.scrots.manager.Assets;
+import com.ayrten.scrots.common.Assets;
 import com.ayrten.scrots.profile.PlayerProfile;
 import com.badlogic.gdx.graphics.Texture;
 

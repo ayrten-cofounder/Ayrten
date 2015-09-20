@@ -1,7 +1,8 @@
-package com.ayrten.scrots.manager;
+package com.ayrten.scrots.common;
 
 import java.util.HashMap;
 
+import com.ayrten.scrots.manager.GPlayManager;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 public interface AndroidInterface {

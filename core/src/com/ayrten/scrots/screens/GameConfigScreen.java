@@ -2,7 +2,7 @@ package com.ayrten.scrots.screens;
 
 import java.util.ArrayList;
 
-import com.ayrten.scrots.manager.Assets;
+import com.ayrten.scrots.common.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -154,7 +154,6 @@ public class GameConfigScreen extends ScrotsScreen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				super.clicked(event, x, y);
-
 				((Image) selected_powerdot_box.getUserObject())
 						.setDrawable(current_selected_dot.getDrawable());
 				((Image) selected_powerdot_box.getUserObject())
@@ -171,9 +170,9 @@ public class GameConfigScreen extends ScrotsScreen {
 
 		// Scroll from bottom to up.
 		vertical_scroll = new ScrollPane(vertical_table);
-		vertical_scroll.setFlickScroll(false);
+		vertical_scroll.setFlickScroll(true);
 		vertical_scroll.setSize(Assets.width, navigation_bar.getY());
-//		vertical_scroll.setVisible(false);
+		vertical_scroll.setVisible(false);
 	}
 
 	private void initializeHorizontalScroll() {
@@ -198,11 +197,10 @@ public class GameConfigScreen extends ScrotsScreen {
 				public void clicked(InputEvent event, float x, float y) {
 					super.clicked(event, x, y);
 					selected_powerdot_box = event.getTarget();
-//					vertical_scroll.setVisible(true);
-					((Table) vertical_scroll.getWidget()).layout();
 					vertical_scroll.scrollTo(0, navigation_bar.getY(),
 							vertical_scroll.getWidth(),
 							vertical_scroll.getHeight());
+					vertical_scroll.setVisible(true);
 				}
 			});
 

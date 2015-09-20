@@ -1,7 +1,7 @@
 package com.ayrten.scrots.dots.power;
 
+import com.ayrten.scrots.common.Assets;
 import com.ayrten.scrots.dots.Dot;
-import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -36,6 +36,8 @@ public class PowerDot extends Dot {
 	protected SpriteBatch batch;
 	protected float angle;
 	protected Image gray_dot_image;
+	// Level of the power dot.
+	protected int level;
 
 	public PowerDot(Texture dot, Manager gm, Sound pop) {
 		super(dot, gm, pop);

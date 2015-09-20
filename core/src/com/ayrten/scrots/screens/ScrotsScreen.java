@@ -3,7 +3,7 @@ package com.ayrten.scrots.screens;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import com.ayrten.scrots.manager.Assets;
+import com.ayrten.scrots.common.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
