@@ -4,7 +4,11 @@ import java.util.ArrayList;
 
 import com.ayrten.scrots.common.Assets;
 import com.ayrten.scrots.common.ButtonInterface;
-import com.ayrten.scrots.shop.ShopDot;
+import com.ayrten.scrots.dots.power.PowerDot_Decelerate;
+import com.ayrten.scrots.dots.power.PowerDot_Invincible;
+import com.ayrten.scrots.dots.power.PowerDot_Magnet;
+import com.ayrten.scrots.dots.power.PowerDot_Rainbow;
+//import com.ayrten.scrots.shop.ShopDot;
 import com.ayrten.scrots.shop.ShopItem;
 import com.ayrten.scrots.shop.ShopRow;
 import com.ayrten.scrots.shop.UnlockItem;
@@ -14,7 +18,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -40,11 +43,11 @@ public class ShopScreen extends ScrotsScreen {
 	private Label clear_label;
 	private Label premium_label;
 
-	private ArrayList<ShopDot> dots;
+//	private ArrayList<ShopDot> dots;
 	private int total_price = 0;
 
-	protected Image prev_selected_icon;
-	protected ShopRow prev_selected_row;
+	protected Image curr_selected_type;
+	protected ShopRow curr_selected_row;
 	protected Label item_description;
 
 	public ShopScreen(Screen bscreen) {
@@ -113,16 +116,16 @@ public class ShopScreen extends ScrotsScreen {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
 					super.clicked(event, x, y);
-					if (prev_selected_icon != null)
-						((Image) prev_selected_icon.getUserObject())
+					if (curr_selected_type != null)
+						((Image) curr_selected_type.getUserObject())
 								.setVisible(false);
-					prev_selected_icon = (Image) event.getTarget();
-					((Image) prev_selected_icon.getUserObject())
+					curr_selected_type = (Image) event.getTarget();
+					((Image) curr_selected_type.getUserObject())
 							.setVisible(true);
 				}
 			});
 			if (i == 0)
-				prev_selected_icon = icon;
+				curr_selected_type = icon;
 			else
 				selected_bkg.setVisible(false);
 			selected_bkg.setVisible(false);
@@ -147,7 +150,8 @@ public class ShopScreen extends ScrotsScreen {
 		ArrayList<ShopItem> dot_itemlist = new ArrayList<ShopItem>();
 		UnlockItem rainbow_dot = new UnlockItem(this, Assets.rainbow_dot,
 				"Remove negative dots for 5 seconds", (short) 350,
-				Assets.power_dot_manager.isRainbowDotUnlocked(), (short) 1050);
+//				Assets.power_dot_manager.isRainbowDotUnlocked(), (short) 1050);
+				PowerDot_Rainbow.class, (short) 1050);
 		UnlockItem invincible_dot = new UnlockItem(
 				this,
 				Assets.invincible_dot,
@@ -157,13 +161,16 @@ public class ShopScreen extends ScrotsScreen {
 						+ "Negative dots won't affect you for 2 seconds."
 						+ "Negative dots won't affect you for 1 seconds.", (short) 250,
 				// "Negative dots won't affect you for 5 seconds.", (short) 250,
-				Assets.power_dot_manager.isInvincibleDotUnlocked(), (short) 850);
+//				Assets.power_dot_manager.isInvincibleDotUnlocked(), (short) 850);
+				PowerDot_Invincible.class, (short) 850);
 		UnlockItem magnet_dot = new UnlockItem(this, Assets.magnet_dot,
 				"Attracts negative dots for 8 seconds.", (short) 150,
-				Assets.power_dot_manager.isMagnetDotUnlocked(), (short) 500);
+//				Assets.power_dot_manager.isMagnetDotUnlocked(), (short) 500);
+				PowerDot_Magnet.class, (short) 500);
 		UnlockItem decel_dot = new UnlockItem(this, Assets.decelerate_dot,
 				"Slow down negative dots' movement.", (short) 150,
-				Assets.power_dot_manager.isDecelDotUnlocked(), (short) 500);
+//				Assets.power_dot_manager.isDecelDotUnlocked(), (short) 500);
+				PowerDot_Decelerate.class, (short) 500);
 
 		dot_itemlist.add(rainbow_dot);
 		dot_itemlist.add(invincible_dot);
@@ -184,11 +191,11 @@ public class ShopScreen extends ScrotsScreen {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
 					super.clicked(event, x, y);
-					if (prev_selected_row != null)
-						prev_selected_row.highlightRow(false);
-					prev_selected_row = row;
-					prev_selected_row.highlightRow(true);
-					item_description.setText(prev_selected_row.getItem()
+					if (curr_selected_row != null)
+						curr_selected_row.highlightRow(false);
+					curr_selected_row = row;
+					curr_selected_row.highlightRow(true);
+					item_description.setText(curr_selected_row.getItem()
 							.getDescription());
 				}
 			});
@@ -198,7 +205,6 @@ public class ShopScreen extends ScrotsScreen {
 			if (i != dot_itemlist.size() - 1)
 				list_table.row();
 		}
-		// list_table.debug();
 
 		Table main_table = new Table(Assets.skin);
 		main_table.align(Align.topLeft);
@@ -215,7 +221,6 @@ public class ShopScreen extends ScrotsScreen {
 
 		Table description_panel = new Table(Assets.skin);
 		description_panel.setSize(Assets.width / 2, navigation_bar.getY());
-		description_panel.debug();
 
 		final ScrollPane dp_scroll = new ScrollPane(description_panel);
 		dp_scroll.setSize(description_panel.getWidth(),
@@ -502,18 +507,18 @@ public class ShopScreen extends ScrotsScreen {
 	private void setUpShopTable() {
 		table.clear();
 
-		if (dots == null) {
-			final ShopDot invincibleDot = new ShopDot(
-					ShopDot.DOT_TYPE.INVINCIBLE, this);
-			final ShopDot rainbowDot = new ShopDot(ShopDot.DOT_TYPE.RAINBOW,
-					this);
-			final ShopDot magnetDot = new ShopDot(ShopDot.DOT_TYPE.MAGNET, this);
-
-			dots = new ArrayList<ShopDot>();
-			dots.add(magnetDot);
-			dots.add(invincibleDot);
-			dots.add(rainbowDot);
-		}
+//		if (dots == null) {
+//			final ShopDot invincibleDot = new ShopDot(
+//					ShopDot.DOT_TYPE.INVINCIBLE, this);
+//			final ShopDot rainbowDot = new ShopDot(ShopDot.DOT_TYPE.RAINBOW,
+//					this);
+//			final ShopDot magnetDot = new ShopDot(ShopDot.DOT_TYPE.MAGNET, this);
+//
+//			dots = new ArrayList<ShopDot>();
+//			dots.add(magnetDot);
+//			dots.add(invincibleDot);
+//			dots.add(rainbowDot);
+//		}
 
 		Label p = new Label("Item", Assets.style_font_32_white);
 		Label des = new Label("Description", Assets.style_font_32_white);
@@ -559,26 +564,26 @@ public class ShopScreen extends ScrotsScreen {
 
 		float cell_wh = (float) (Assets.height * 0.14);
 
-		for (ShopDot d : dots) {
-			tempt.row().padBottom(Assets.PAD);
-
-			if (d.unlocked) {
-				tempt.add(d.dotImage).height(cell_wh).width(cell_wh);
-				tempt.add(d.descriptionImage).height(cell_wh).width(cell_wh);
-				tempt.add(d.priceLabel).height(cell_wh).width(cell_wh).center();
-				tempt.add(d.amountTable).height(cell_wh).width(cell_wh)
-						.center();
-				tempt.add(d.totalCostLabel).height(cell_wh).width(cell_wh)
-						.center();
-			} else {
-				tempt.add(d.dotImage).height(cell_wh).width(cell_wh).center();
-				tempt.add(d.descriptionImage).height(cell_wh).width(cell_wh)
-						.center();
-				tempt.add(d.unlockPriceLabel).height(cell_wh).width(cell_wh)
-						.center();
-				tempt.add(d.unlockBuyLabel).colspan(2).center();
-			}
-		}
+//		for (ShopDot d : dots) {
+//			tempt.row().padBottom(Assets.PAD);
+//
+//			if (d.unlocked) {
+//				tempt.add(d.dotImage).height(cell_wh).width(cell_wh);
+//				tempt.add(d.descriptionImage).height(cell_wh).width(cell_wh);
+//				tempt.add(d.priceLabel).height(cell_wh).width(cell_wh).center();
+//				tempt.add(d.amountTable).height(cell_wh).width(cell_wh)
+//						.center();
+//				tempt.add(d.totalCostLabel).height(cell_wh).width(cell_wh)
+//						.center();
+//			} else {
+//				tempt.add(d.dotImage).height(cell_wh).width(cell_wh).center();
+//				tempt.add(d.descriptionImage).height(cell_wh).width(cell_wh)
+//						.center();
+//				tempt.add(d.unlockPriceLabel).height(cell_wh).width(cell_wh)
+//						.center();
+//				tempt.add(d.unlockBuyLabel).colspan(2).center();
+//			}
+//		}
 
 		tempt.left();
 		scroll_view = new ScrollPane(tempt);
@@ -616,9 +621,9 @@ public class ShopScreen extends ScrotsScreen {
 	public void updateTotalPrice() {
 		total_price = 0;
 
-		for (ShopDot d : dots) {
-			total_price += d.getTotalCost();
-		}
+//		for (ShopDot d : dots) {
+//			total_price += d.getTotalCost();
+//		}
 
 		updateTotalPriceLabel();
 	}
@@ -641,16 +646,16 @@ public class ShopScreen extends ScrotsScreen {
 			return;
 		}
 
-		for (ShopDot d : dots) {
-			d.buyDots();
-		}
+//		for (ShopDot d : dots) {
+//			d.buyDots();
+//		}
 		clear();
 	}
 
 	private void clear() {
-		for (ShopDot d : dots) {
-			d.clear();
-		}
+//		for (ShopDot d : dots) {
+//			d.clear();
+//		}
 
 		setUpShopTable();
 		updateTotalPrice();

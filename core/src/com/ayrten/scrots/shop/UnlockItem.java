@@ -1,20 +1,17 @@
 package com.ayrten.scrots.shop;
 
-import java.util.ArrayList;
 
 import com.ayrten.scrots.common.Assets;
 import com.ayrten.scrots.screens.ShopScreen;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Array;
 
 public class UnlockItem extends ShopItem 
 {
-	protected boolean unlocked;
+	protected Class<?> clazz;
 	protected short unlockPrice;
 	protected ShopRow row;
 
@@ -22,9 +19,9 @@ public class UnlockItem extends ShopItem
 		super(shop);
 	}
 	
-	public UnlockItem(ShopScreen shop, Texture texture, String description, short price, boolean unlocked, short unlockPrice) {
+	public UnlockItem(ShopScreen shop, Texture texture, String description, short price, Class<?> clazz, short unlockPrice) {
 		super(shop, texture, description, price);
-		this.unlocked = unlocked;
+		this.clazz = clazz;
 		this.unlockPrice = unlockPrice;
 		priceLabel = new Label(Short.toString(getPrice()),
 				Assets.style_font_32_white);
@@ -49,23 +46,26 @@ public class UnlockItem extends ShopItem
 		return label;
 	}
 	
-	public void setShopRow(ShopRow row) { this.row = row; }
 	protected void unlockItem(InputEvent event) {
-//		int cost = getPrice();
-//		if(Assets.points_manager.getTotalPoints() < cost)
-//			shop.notEnoughPoints();
-//		else {
-			unlocked = true;
+		int cost = getPrice();
+		if(Assets.points_manager.getTotalPoints() < cost)
+			shop.notEnoughPoints();
+		else {
+			Assets.points_manager.subtractPoints(cost);
+			Assets.power_dot_manager.unlockDot(clazz);
 			event.getTarget().remove();
 			row.clear();
 			row.setupRow();
-//		}
+			shop.updatePoints();
+		}
 	}
-	public boolean isUnlocked() { return unlocked; }
+	
+	public void setShopRow(ShopRow row) { this.row = row; }
+	public boolean isUnlocked() { return (Assets.power_dot_manager.isDotUnlocked(clazz)); }
 	
 	@Override
 	public short getPrice() {
-		if(unlocked)
+		if(Assets.power_dot_manager.isDotUnlocked(clazz))
 			return super.getPrice();
 		return unlockPrice;
 	}

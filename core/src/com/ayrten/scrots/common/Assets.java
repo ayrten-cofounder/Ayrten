@@ -556,6 +556,7 @@ public class Assets {
 		// OS X: ~/.prefs/My Preferences
 		prefs.flush();
 		gplay_manager.dispose();
+		power_dot_manager.dispose();
 	}
 
 	public static void removeAds() {

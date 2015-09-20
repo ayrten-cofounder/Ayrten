@@ -139,5 +139,8 @@ public class ShopItem {
 
 	public String getDescription() { return description; }
 	public Image getIcon() { return icon; }
-	public Label getPriceLabel() { return priceLabel; }
+	public Label getPriceLabel() {
+		priceLabel.setText(String.valueOf(getPrice()));
+		return priceLabel; 
+	}
 }

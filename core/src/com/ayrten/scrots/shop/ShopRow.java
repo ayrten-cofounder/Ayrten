@@ -19,7 +19,6 @@ public class ShopRow extends Stack {
 	public ShopRow(float colummn_width, float row_height) {
 		table_row = new Table(Assets.skin);
 		table_row.align(Align.left);
-		table_row.debug();
 		highlight = new Image(Assets.rounded_rectangle_blue);
 		highlight.setVisible(false);
 		this.column_width = colummn_width;

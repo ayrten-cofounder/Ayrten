@@ -12,22 +12,20 @@ public class PowerDot_Rainbow extends PowerDot {
 		super(dot, gm, pop);
 		
 		ACTIVE_TIME = 5;
-		num = Assets.power_dot_manager.getRainbowDots();
 	}
 	
 	@Override
 	protected void initializeAssets() {
-		num = Assets.power_dot_manager.getRainbowDots();
+		num = Assets.power_dot_manager.getDotCount(this.getClass());
 		gray_dot_image = new Image(Assets.rainbow_dot_gray);
 	}
 	
 	
 	@Override
-	public void beforeAction()
-	{
+	public void beforeAction() {
 		super.beforeAction();
 		
-		Assets.power_dot_manager.setRainbowDotAmount(--num);
+		Assets.power_dot_manager.setDotCount(this.getClass(), (--num));
 		updateNumLabel();
 		
 		gm.setRainbowState(true);
@@ -36,8 +34,7 @@ public class PowerDot_Rainbow extends PowerDot {
 	}
 	
 	@Override
-	public void afterAction() 
-	{
+	public void afterAction() {
 		super.afterAction();
 		gm.setRainbowState(false);
 		gm.changePenalityDotVisibility(true);
@@ -45,6 +42,6 @@ public class PowerDot_Rainbow extends PowerDot {
 	
 	@Override
 	public boolean isUnlocked() {
-		return (Assets.power_dot_manager.isRainbowDotUnlocked());
+		return (Assets.power_dot_manager.isDotUnlocked(this.getClass()));
 	}
 }
