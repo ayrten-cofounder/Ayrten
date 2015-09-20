@@ -19,20 +19,22 @@ public class ShopItem {
 	protected String description;
 	protected short price;
 	protected Label priceLabel;
-	protected TextField amountTextField;
-	protected Table amountTable;
+	protected ShopRow row;
+	protected int amountToBuy;
+	protected int totalCostToBuy;
 
 	public ShopItem(ShopScreen shop) {
 	}
 
-	public ShopItem(Texture texture, String description, short price) {
+	public ShopItem(ShopScreen shop, Texture texture, String description, short price) {
 		icon = new Image(texture);
+		this.shop = shop;
 		this.description = description;
 		this.price = price;
 		createPriceLabel();
-		createAmountTable();
-
 	}
+	
+	public void setRow(ShopRow row) { this.row = row; }
 	
 	protected void createPriceLabel() {
 		priceLabel = new Label(Short.toString(getPrice()),
@@ -40,8 +42,13 @@ public class ShopItem {
 		priceLabel.setAlignment(Align.center);
 	}
 	
-	protected void createAmountTable() {
-		amountTextField = new TextField("0", Assets.skin);
+	// Called when item is set to ShopRow. This help reduces memory consumption
+	// because ShopRow isn't created until the item is unlocked.
+	public void addAmountAndTotal() {
+		final Label totalCostLabel = new Label("0", Assets.style_font_32_white);
+		totalCostLabel.setAlignment(Align.center);
+		
+		final TextField amountTextField = new TextField("0", Assets.skin);
 		amountTextField.getStyle().background = Assets.gray_box;
 		amountTextField.getStyle().font = Assets.font_32;
 		amountTextField.getStyle().fontColor = Color.WHITE;
@@ -53,12 +60,15 @@ public class ShopItem {
 			public void keyTyped(TextField textField, char c) {
 				if (c == '\n' || c == '\r') {
 					if (!textField.getText().equals("")) {
-//						amountToBuy = Integer.valueOf(textField.getText());
-//						setTotalCost();
+						amountToBuy = Integer.valueOf(textField.getText());
+						textField.setText(String.valueOf(amountToBuy));
+						calcTotalCost();
+						totalCostLabel.setText(String.valueOf(totalCostToBuy));
 					}
 				}
 			}
 		});
+		
 		
 		Image add = new Image(Assets.up_button);
 		add.setBounds(add.getX(), add.getY(), add.getWidth(), add.getHeight());
@@ -66,6 +76,10 @@ public class ShopItem {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				super.clicked(event, x, y);
+				addAmountToBuy(1);
+				amountTextField.setText(String.valueOf(amountToBuy));
+				calcTotalCost();
+				totalCostLabel.setText(String.valueOf(totalCostToBuy));
 			}
 		});
 		
@@ -75,18 +89,46 @@ public class ShopItem {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				super.clicked(event, x, y);
-			
+				minusAmountToBuy(1);
+				amountTextField.setText(String.valueOf(amountToBuy));
+				calcTotalCost();
+				totalCostLabel.setText(String.valueOf(totalCostToBuy));
 			}
 		});
 		
+		float arrow_width = row.column_width / 2;
+		float arrow_height = row.row_height / 2;
 		Table arrow_table = new Table(Assets.skin);
-		arrow_table.add(add);
+		arrow_table.setSize(row.column_width, row.row_height);
+		arrow_table.add(add).width(arrow_width).height(arrow_height);
 		arrow_table.row();
-		arrow_table.add(minus);
+		arrow_table.add(minus).width(arrow_width).height(arrow_height);
 		
-		amountTable = new Table(Assets.skin);
-		amountTable.add(amountTextField);
+		Table amountTable = new Table(Assets.skin);
+		amountTable.add(amountTextField).width(row.column_width - arrow_width).height(row.row_height);
 		amountTable.add(arrow_table);
+		
+		row.table_row.add(amountTable).width(row.column_width).height(row.row_height);
+		row.table_row.add(totalCostLabel).width(row.column_width).height(row.row_height);
+	}
+	
+	protected void addAmountToBuy(int num) {
+		if (amountToBuy + num > 9999)
+			amountToBuy = 9999;
+		else
+			amountToBuy += num;
+	}
+
+	protected void minusAmountToBuy(int num) {
+		if (amountToBuy - num < 0) {
+			return;
+		}
+
+		amountToBuy -= num;
+	}
+	
+	protected void calcTotalCost() {
+		totalCostToBuy = price * amountToBuy;
 	}
 	
 	public short getPrice() {

@@ -1,12 +1,16 @@
 package com.ayrten.scrots.shop;
 
+import java.util.ArrayList;
+
 import com.ayrten.scrots.manager.Assets;
 import com.ayrten.scrots.screens.ShopScreen;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Array;
 
 public class UnlockItem extends ShopItem 
 {
@@ -18,8 +22,8 @@ public class UnlockItem extends ShopItem
 		super(shop);
 	}
 	
-	public UnlockItem(Texture texture, String description, short price, boolean unlocked, short unlockPrice) {
-		super(texture, description, price);
+	public UnlockItem(ShopScreen shop, Texture texture, String description, short price, boolean unlocked, short unlockPrice) {
+		super(shop, texture, description, price);
 		this.unlocked = unlocked;
 		this.unlockPrice = unlockPrice;
 		priceLabel = new Label(Short.toString(getPrice()),
@@ -27,6 +31,9 @@ public class UnlockItem extends ShopItem
 		priceLabel.setAlignment(Align.center);
 	}
 	
+	// Called inside ShopRow. UnlockLabel is not a global variable to reduce memory consumption.
+	// When item is unlocked, label is replaced by amountTable and label is be consumed by 
+	// garbage collection.
 	public Label createUnlockLabel() {
 		Label label = new Label("Unlock", Assets.style_font_32_white);
 		label.setBounds(label.getX(), label.getY(), label.getWidth(), label.getHeight());
@@ -35,19 +42,26 @@ public class UnlockItem extends ShopItem
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				super.clicked(event, x, y);
-				event.getTarget().remove();
-				row.clear();
-				row.add(icon).width(row.getColWidth()).left();
-				row.add(priceLabel).width(row.getColWidth());
-				row.add(amountTable).width(row.getColWidth());
+				unlockItem(event);
 			}
 		});
 		
 		return label;
 	}
 	
-	public boolean isUnlocked() { return unlocked; }
 	public void setShopRow(ShopRow row) { this.row = row; }
+	protected void unlockItem(InputEvent event) {
+//		int cost = getPrice();
+//		if(Assets.points_manager.getTotalPoints() < cost)
+//			shop.notEnoughPoints();
+//		else {
+			unlocked = true;
+			event.getTarget().remove();
+			row.clear();
+			row.setupRow();
+//		}
+	}
+	public boolean isUnlocked() { return unlocked; }
 	
 	@Override
 	public short getPrice() {

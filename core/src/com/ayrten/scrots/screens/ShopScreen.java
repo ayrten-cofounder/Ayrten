@@ -13,9 +13,13 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -39,7 +43,9 @@ public class ShopScreen extends ScrotsScreen {
 	private ArrayList<ShopDot> dots;
 	private int total_price = 0;
 
-	protected Image previous_selected_icon;
+	protected Image prev_selected_icon;
+	protected ShopRow prev_selected_row;
+	protected Label item_description;
 
 	public ShopScreen(Screen bscreen) {
 		super(bscreen, true);
@@ -49,14 +55,22 @@ public class ShopScreen extends ScrotsScreen {
 		setupStage();
 		setupPremiumShop();
 
-		// Create the side column.
+		// Variables
 		float type_column_width = Assets.width - Assets.game_width;
+		float header_column_size = Assets.game_width / 4;
+		float description_panel_height = Assets.font_32.getLineHeight() * 2;
+		float middle_row_height = navigation_bar.getY()
+				- description_panel_height - Assets.font_32.getLineHeight();
 
-		table.add().width(type_column_width);
-		table.align(Align.topLeft);
-//		table.debug();
+		table.align(Align.bottomLeft);
 
-		Table header = new Table(Assets.skin);
+		// There are 3 rows total. top_portion consists of first and middle
+		// rows.
+		Table top_portion = new Table(Assets.skin);
+		top_portion.setSize(Assets.width, navigation_bar.getY()
+				- description_panel_height);
+		top_portion.add().width(type_column_width)
+				.height(Assets.font_32.getCapHeight());
 
 		LabelStyle header_style = new LabelStyle();
 		header_style.font = Assets.font_32;
@@ -72,18 +86,18 @@ public class ShopScreen extends ScrotsScreen {
 		a.setAlignment(Align.center);
 		t.setAlignment(Align.center);
 
-		float header_column_size = Assets.game_width / 4;
+		Table header = new Table(Assets.skin);
 		header.add(p).width(header_column_size);
 		header.add(c).width(header_column_size);
 		header.add(a).width(header_column_size);
 		header.add(t).width(header_column_size);
 
-		table.add(header);
-		table.row();
+		top_portion.add(header);
+		top_portion.row();
 
 		Table type_column = new Table(Assets.skin);
-		type_column.setSize(Assets.width - Assets.game_width,
-				navigation_bar.getY());
+		type_column
+				.setSize(Assets.width - Assets.game_width, middle_row_height);
 		type_column.align(Align.topLeft);
 
 		ArrayList<Texture> type_icons = new ArrayList<Texture>();
@@ -99,16 +113,16 @@ public class ShopScreen extends ScrotsScreen {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
 					super.clicked(event, x, y);
-					if (previous_selected_icon != null)
-						((Image) previous_selected_icon.getUserObject())
+					if (prev_selected_icon != null)
+						((Image) prev_selected_icon.getUserObject())
 								.setVisible(false);
-					previous_selected_icon = (Image) event.getTarget();
-					((Image) previous_selected_icon.getUserObject())
+					prev_selected_icon = (Image) event.getTarget();
+					((Image) prev_selected_icon.getUserObject())
 							.setVisible(true);
 				}
 			});
 			if (i == 0)
-				previous_selected_icon = icon;
+				prev_selected_icon = icon;
 			else
 				selected_bkg.setVisible(false);
 			selected_bkg.setVisible(false);
@@ -120,26 +134,36 @@ public class ShopScreen extends ScrotsScreen {
 		}
 
 		ScrollPane type_column_scroll = new ScrollPane(type_column);
-		type_column_scroll.setSize(type_column.getWidth(), type_column.getHeight());
+		type_column_scroll.setSize(type_column_width, middle_row_height);
 
-		// TODO: create the description table first to calculate final type_column height.
-		table.add(type_column_scroll).width(type_column.getWidth()).height(type_column.getHeight());
+		// TODO: create the description table first to calculate final
+		// type_column height.
+		top_portion.add(type_column_scroll).width(type_column_width)
+				.height(middle_row_height);
 
 		// Outer array list = type. Inner array list = all items for that list.
 		ArrayList<ArrayList<ShopItem>> item_list = new ArrayList<ArrayList<ShopItem>>();
 
 		ArrayList<ShopItem> dot_itemlist = new ArrayList<ShopItem>();
-		UnlockItem rainbow_dot = new UnlockItem(Assets.rainbow_dot,
+		UnlockItem rainbow_dot = new UnlockItem(this, Assets.rainbow_dot,
 				"Remove negative dots for 5 seconds", (short) 350,
 				Assets.power_dot_manager.isRainbowDotUnlocked(), (short) 1050);
-		UnlockItem invincible_dot = new UnlockItem(Assets.invincible_dot,
-				"Negative dots won't affect you for 5 seconds.", (short) 250,
+		UnlockItem invincible_dot = new UnlockItem(
+				this,
+				Assets.invincible_dot,
+						"Negative dots won't affect you for 5 seconds."
+						+ "Negative dots won't affect you for 4 seconds."
+						+ "Negative dots won't affect you for 3 seconds."
+						+ "Negative dots won't affect you for 2 seconds."
+						+ "Negative dots won't affect you for 1 seconds.", (short) 250,
+				// "Negative dots won't affect you for 5 seconds.", (short) 250,
 				Assets.power_dot_manager.isInvincibleDotUnlocked(), (short) 850);
-		UnlockItem magnet_dot = new UnlockItem(Assets.magnet_dot,
-				"Attracts negative dots for 8 seconds.", (short) 150, 
+		UnlockItem magnet_dot = new UnlockItem(this, Assets.magnet_dot,
+				"Attracts negative dots for 8 seconds.", (short) 150,
 				Assets.power_dot_manager.isMagnetDotUnlocked(), (short) 500);
-		UnlockItem decel_dot = new UnlockItem(Assets.decelerate_dot,
-				"Slow down negative dots' movement.", (short) 150, Assets.power_dot_manager.isDecelDotUnlocked(), (short) 500);
+		UnlockItem decel_dot = new UnlockItem(this, Assets.decelerate_dot,
+				"Slow down negative dots' movement.", (short) 150,
+				Assets.power_dot_manager.isDecelDotUnlocked(), (short) 500);
 
 		dot_itemlist.add(rainbow_dot);
 		dot_itemlist.add(invincible_dot);
@@ -148,33 +172,155 @@ public class ShopScreen extends ScrotsScreen {
 
 		item_list.add(dot_itemlist);
 
-//		for(int i = 0; i < item_list.size(); i++) {
-//			for(int j = 0; j < item_list.get(i).size(); j++) {
-//				
-//			}
-//		}
+		// Want to fit 5 items.
+		float item_row_height = middle_row_height / 5;
 		Table list_table = new Table(Assets.skin);
-		for(int i = 0; i < dot_itemlist.size(); i++) {
-			ShopRow row = new ShopRow(header_column_size);
+		for (int i = 0; i < dot_itemlist.size(); i++) {
+			final ShopRow row = new ShopRow(header_column_size, item_row_height);
 			UnlockItem item = (UnlockItem) dot_itemlist.get(i);
 			item.setShopRow(row);
 			row.setItem(item);
-			row.debug();
-			list_table.add(row).width(Assets.game_width);
-			
-			if(i != dot_itemlist.size() - 1)
+			row.addListener(new ClickListener() {
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					super.clicked(event, x, y);
+					if (prev_selected_row != null)
+						prev_selected_row.highlightRow(false);
+					prev_selected_row = row;
+					prev_selected_row.highlightRow(true);
+					item_description.setText(prev_selected_row.getItem()
+							.getDescription());
+				}
+			});
+
+			list_table.add(row).width(Assets.game_width)
+					.height(item_row_height);
+			if (i != dot_itemlist.size() - 1)
 				list_table.row();
 		}
-//		list_table.debug();
-		
+		// list_table.debug();
+
 		Table main_table = new Table(Assets.skin);
 		main_table.align(Align.topLeft);
 		main_table.stack(list_table);
 		ScrollPane main_table_scroll = new ScrollPane(main_table);
 		main_table_scroll.setSize(Assets.game_width, navigation_bar.getY());
-		
-		table.add(main_table_scroll).width(Assets.game_width).height(navigation_bar.getY());
 
+		top_portion.add(main_table_scroll).width(Assets.game_width)
+				.height(middle_row_height);
+
+		Table bottom_portion = new Table(Assets.skin);
+		bottom_portion.setSize(Assets.width, description_panel_height);
+		bottom_portion.align(Align.topLeft);
+
+		Table description_panel = new Table(Assets.skin);
+		description_panel.setSize(Assets.width / 2, navigation_bar.getY());
+		description_panel.debug();
+
+		final ScrollPane dp_scroll = new ScrollPane(description_panel);
+		dp_scroll.setSize(description_panel.getWidth(),
+				description_panel.getHeight());
+		dp_scroll.addAction(Actions.repeat(RepeatAction.FOREVER, new Action() {
+			@Override
+			public boolean act(float delta) {
+				dp_scroll.fling(1, 0, -25);
+				return false;
+			}
+		}));
+		
+		item_description = new Label("", Assets.style_font_32_white);
+		item_description.setWrap(true);
+		item_description.setSize(description_panel.getWidth(),
+				description_panel.getHeight());
+		item_description.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				super.clicked(event, x, y);
+				dp_scroll.fling(2, 0, -50);
+			}
+		});
+		description_panel.add(item_description)
+				.width(description_panel.getWidth())
+				.top().left();
+
+
+		dp_scroll.setFlickScroll(true);
+		bottom_portion.add(dp_scroll).height(description_panel_height);
+		
+		Label total_price_label = new Label(String.valueOf(total_price),
+				Assets.style_font_32_white);
+		total_price_label.setAlignment(Align.center);
+
+		int left = (int) ((int) Assets.width * 0.02);
+		int right = left;
+		int top = (int) ((int) Assets.height * 0.02);
+		int bottom = top;
+
+		// Clear Label
+		NinePatchDrawable rounded_rectangle_red;
+		rounded_rectangle_red = new NinePatchDrawable(new NinePatch(
+				new Texture(
+						Gdx.files.internal("data/rounded_rectangle_red.png")),
+				left, right, top, bottom));
+
+		LabelStyle clear_style = new LabelStyle();
+		clear_style.font = Assets.font_32;
+		clear_style.fontColor = Color.WHITE;
+		clear_style.background = rounded_rectangle_red;
+
+		Label clear_label = new Label("Clear", clear_style);
+		clear_label.setAlignment(Align.center);
+		clear_label.addListener(new InputListener() {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				return true;
+			}
+
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
+				clear();
+			}
+		});
+
+		NinePatchDrawable rounded_rectangle_green = new NinePatchDrawable(
+				new NinePatch(new Texture(Gdx.files
+						.internal("data/rounded_rectangle_green.png")), left,
+						right, top, bottom));
+		;
+
+		LabelStyle buy_style = new LabelStyle();
+		buy_style.font = Assets.font_32;
+		buy_style.fontColor = Color.WHITE;
+		buy_style.background = rounded_rectangle_green;
+
+		// Buy Label
+		Label buy_label = new Label("Buy", buy_style);
+		buy_label.setAlignment(Align.center);
+		buy_label.addListener(new InputListener() {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				return true;
+			}
+
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
+				confirmBuyWindow();
+			}
+		});
+		
+		bottom_portion.add(clear_label).width(Assets.width / 6)
+				.padLeft(clear_label.getStyle().font.getSpaceWidth())
+				.padRight(clear_label.getStyle().font.getSpaceWidth());
+		bottom_portion.add(buy_label).width(Assets.width / 6)
+				.padLeft(buy_label.getStyle().font.getSpaceWidth())
+				.padRight(buy_label.getStyle().font.getSpaceWidth());
+		bottom_portion.add(total_price_label).width(Assets.width / 6);
+		
+		table.add(top_portion);
+		table.row();
+		table.add(bottom_portion).top().left();
+
+		
 		// setUpShopScreen();
 		// setUpShopTable();
 		updatePoints();
@@ -182,9 +328,6 @@ public class ShopScreen extends ScrotsScreen {
 		showTableScreen();
 	}
 
-	private ShopItem createShopItem() {
-		return null;
-	}
 
 	private void setupPremiumShop() {
 		// Total Points Label

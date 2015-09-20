@@ -214,7 +214,7 @@ public class ShopDot extends ShopItem {
 				if (c == '\n' || c == '\r') {
 					if (!textField.getText().equals("")) {
 						amountToBuy = Integer.valueOf(textField.getText());
-						setTotalCost();
+						calcTotalCost();
 					}
 				}
 			}
@@ -278,7 +278,7 @@ public class ShopDot extends ShopItem {
 			amountToBuy = 9999;
 		else
 			amountToBuy += amount;
-		setTotalCost();
+		calcTotalCost();
 	}
 
 	protected void minusAmountToBuy(int amount) {
@@ -287,7 +287,7 @@ public class ShopDot extends ShopItem {
 		}
 
 		amountToBuy -= amount;
-		setTotalCost();
+		calcTotalCost();
 	}
 
 	protected void setAmountToBuy(int amount) {
@@ -296,14 +296,14 @@ public class ShopDot extends ShopItem {
 		}
 
 		amountToBuy = amount;
-		setTotalCost();
+		calcTotalCost();
 	}
 
 	protected void setAmountOnEditText() {
 		amountTextField.setText(String.valueOf(amountToBuy));
 	}
 
-	protected void setTotalCost() {
+	protected void calcTotalCost() {
 		totalCostToBuy = dotType.price() * amountToBuy;
 
 		totalCostLabel.setText(String.valueOf(totalCostToBuy));
