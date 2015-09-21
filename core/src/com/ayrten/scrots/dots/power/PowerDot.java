@@ -142,6 +142,8 @@ public class PowerDot extends Dot {
 		rs_image.setVisible(true);
 		gray_dot_image.setVisible(true);
 		setVisible(false);
+		Assets.item_manager.setItemCount(this.getClass().getSimpleName(), (--num));
+		updateNumLabel();
 	}
 
 	// Action to do during the timer

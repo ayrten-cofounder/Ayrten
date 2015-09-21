@@ -2,7 +2,7 @@ package com.ayrten.scrots.common;
 
 import com.ayrten.scrots.manager.GPlayManager;
 import com.ayrten.scrots.manager.PointsManager;
-import com.ayrten.scrots.manager.PowerDotManager;
+import com.ayrten.scrots.manager.ItemManager;
 import com.ayrten.scrots.screens.ScrotsGame;
 import com.ayrten.scrots.statistics.StatisticsManager;
 import com.badlogic.gdx.Gdx;
@@ -44,8 +44,8 @@ public class Assets {
 	public static final String invincible_dot_description = "Negative dots won't affect you for 5 seconds.";
 	public static final String rainbow_dot_description = "Removes negative dots for 5 seconds.";
 
-	// Shop
-	public static PowerDotManager power_dot_manager;
+	// Managers
+	public static ItemManager item_manager;
 	public static PointsManager points_manager;
 	public static GPlayManager gplay_manager;
 	public static StatisticsManager stats_manager;
@@ -206,7 +206,7 @@ public class Assets {
 		powerdot_thresh = height - game_height;
 
 		// Managers
-		power_dot_manager = new PowerDotManager();
+		item_manager = new ItemManager();
 		points_manager = new PointsManager();
 
 		Json json = new Json();
@@ -556,7 +556,7 @@ public class Assets {
 		// OS X: ~/.prefs/My Preferences
 		prefs.flush();
 		gplay_manager.dispose();
-		power_dot_manager.dispose();
+		item_manager.dispose();
 	}
 
 	public static void removeAds() {

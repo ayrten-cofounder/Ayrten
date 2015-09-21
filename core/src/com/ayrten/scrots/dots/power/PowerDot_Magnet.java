@@ -21,15 +21,13 @@ public class PowerDot_Magnet extends PowerDot {
 	
 	@Override
 	protected void initializeAssets() {
-		num = Assets.power_dot_manager.getDotCount(this.getClass());
+		num = Assets.item_manager.getItemCount(this.getClass().getSimpleName());
 		gray_dot_image = new Image(Assets.magnet_dot_gray);
 	}
 	
 	@Override
 	public void beforeAction() {
 		super.beforeAction();
-		Assets.power_dot_manager.setDotCount(this.getClass(), (--num));
-		updateNumLabel();
 
 		gm.generator.setRandPositions(gm.getMagnet());
 		gm.getMagnet().setVisible(true);
@@ -69,7 +67,7 @@ public class PowerDot_Magnet extends PowerDot {
 
 	@Override
 	public boolean isUnlocked() {
-		return (Assets.power_dot_manager.isDotUnlocked(this.getClass()));
+		return (Assets.item_manager.isItemUnlocked(this.getClass().getSimpleName()));
 	}
 	
 }

@@ -17,7 +17,7 @@ public class PowerDot_Invincible extends PowerDot {
 
 	@Override
 	protected void initializeAssets() {
-		num = Assets.power_dot_manager.getDotCount(this.getClass());
+		num = Assets.item_manager.getItemCount(this.getClass().getSimpleName());
 		gray_dot_image = new Image(Assets.invincible_dot_gray);
 	}
 	
@@ -25,8 +25,6 @@ public class PowerDot_Invincible extends PowerDot {
 	public void beforeAction() {
 		super.beforeAction();
 		
-		Assets.power_dot_manager.setDotCount(this.getClass(), (--num));
-		updateNumLabel();
 		gm.setInvincible(true);
 		Assets.stats_manager.getPlayerStats().power_dot_invincible.popped++;
 	}
@@ -40,6 +38,6 @@ public class PowerDot_Invincible extends PowerDot {
 	
 	@Override
 	public boolean isUnlocked() {
-		return (Assets.power_dot_manager.isDotUnlocked(this.getClass()));
+		return (Assets.item_manager.isItemUnlocked(this.getClass().getSimpleName()));
 	}
 }

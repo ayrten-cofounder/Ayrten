@@ -6,13 +6,15 @@ import java.util.Map;
 import com.ayrten.scrots.common.Assets;
 import com.badlogic.gdx.Gdx;
 
-public class PowerDotManager {
+public class ItemManager {
 	protected Map<String, Object> map;
 	protected String MAP_FILENAME = "pdm";
+	// For items that need to be unlocked.
 	protected String UNLOCK_FORMAT = "%s_unlock";
+	// For items that have an amount (ie. PowerDot)
 	protected String COUNT_FORMAT = "%s_count";
 	
-	public PowerDotManager() {
+	public ItemManager() {
 		// Delete old file. Should remove in future iteration.
 		if(Gdx.files.local("pd").exists())
 			Gdx.files.local("pd").delete();
@@ -20,27 +22,27 @@ public class PowerDotManager {
 		map = getMappings();
 	}
 	
-	public boolean isDotUnlocked(Class<?> clazz) {
-		String key = String.format(UNLOCK_FORMAT, clazz.getSimpleName());
+	public boolean isItemUnlocked(String item_name) {
+		String key = String.format(UNLOCK_FORMAT, item_name);
 		if(map.containsKey(key))
 			return (Boolean) map.get(key);
 		return false;
 	}
 	
-	public void unlockDot(Class<?> clazz) {
-		String key = String.format(UNLOCK_FORMAT, clazz.getSimpleName());
+	public void unlockItem(String item_name) {
+		String key = String.format(UNLOCK_FORMAT, item_name);
 		map.put(key, true);
 	}
 
-	public int getDotCount(Class<?> clazz) {
-		String key = String.format(COUNT_FORMAT, clazz.getSimpleName());
+	public int getItemCount(String item_name) {
+		String key = String.format(COUNT_FORMAT, item_name);
 		if(map.containsKey(key))
 			return (Integer) (map.get(key));
 		return 0;
 	}
 
-	public void setDotCount(Class<?> clazz, int count) {
-		String key = String.format(COUNT_FORMAT, clazz.getSimpleName());
+	public void setItemCount(String item_name, int count) {
+		String key = String.format(COUNT_FORMAT, item_name);
 		map.put(key, count);
 	}
 

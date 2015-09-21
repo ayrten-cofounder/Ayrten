@@ -18,7 +18,7 @@ public class PowerDot_Decelerate extends PowerDot {
 	
 	@Override
 	protected void initializeAssets() {
-		num = Assets.power_dot_manager.getDotCount(this.getClass());
+		num = Assets.item_manager.getItemCount(this.getClass().getSimpleName());
 		gray_dot_image = new Image(Assets.invincible_dot_gray);
 	}
 	

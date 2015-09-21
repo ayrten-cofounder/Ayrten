@@ -22,15 +22,16 @@ public class ShopItem {
 	protected ShopRow row;
 	protected int amountToBuy;
 	protected int totalCostToBuy;
+	protected Label totalCostLabel;
+	protected TextField amountTextField;
+	protected String item_name;
 
-	public ShopItem(ShopScreen shop) {
-	}
-
-	public ShopItem(ShopScreen shop, Texture texture, String description, short price) {
+	public ShopItem(ShopScreen shop, Texture texture, String description, short price, String item_name) {
 		icon = new Image(texture);
 		this.shop = shop;
 		this.description = description;
 		this.price = price;
+		this.item_name = item_name;
 		createPriceLabel();
 	}
 	
@@ -45,10 +46,10 @@ public class ShopItem {
 	// Called when item is set to ShopRow. This help reduces memory consumption
 	// because ShopRow isn't created until the item is unlocked.
 	public void addAmountAndTotal() {
-		final Label totalCostLabel = new Label("0", Assets.style_font_32_white);
+		totalCostLabel = new Label("0", Assets.style_font_32_white);
 		totalCostLabel.setAlignment(Align.center);
 		
-		final TextField amountTextField = new TextField("0", Assets.skin);
+		amountTextField = new TextField("0", Assets.skin);
 		amountTextField.getStyle().background = Assets.gray_box;
 		amountTextField.getStyle().font = Assets.font_32;
 		amountTextField.getStyle().fontColor = Color.WHITE;
@@ -142,5 +143,19 @@ public class ShopItem {
 	public Label getPriceLabel() {
 		priceLabel.setText(String.valueOf(getPrice()));
 		return priceLabel; 
+	}
+	
+	public void clear() {
+		totalCostToBuy = 0;
+		totalCostLabel.setText("0");
+		amountTextField.setText("0");
+	}
+	
+	// Called when items are bought. By default, this is for items
+	// that have an amount (ie. PowerDot). Override default if you
+	// want something else.
+	public void executeEffect() {
+		Assets.points_manager.subtractPoints(totalCostToBuy);
+		Assets.item_manager.setItemCount(item_name, amountToBuy);
 	}
 }

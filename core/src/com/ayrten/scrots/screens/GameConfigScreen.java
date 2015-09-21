@@ -55,16 +55,16 @@ public class GameConfigScreen extends ScrotsScreen {
 			public void clicked(InputEvent event, float x, float y) {
 				if (Assets.prefs.getBoolean("sound_effs", true))
 					Assets.button_pop.play();
-				// if (Assets.prefs.getBoolean("first_time", true))
-				// loadTutorialScreen();
-				// else {
-				// game_screen = new GameScreen();
-				// Assets.playGameBGM();
-				// Assets.game.setScreen(game_screen);
-				// }
-				horizontal_scroll.scrollTo(horizontal_scroll.getScrollX()
-						+ Assets.width, 0, horizontal_scroll.getWidth(),
-						horizontal_scroll.getHeight());
+				 if (Assets.prefs.getBoolean("first_time", true))
+				 loadTutorialScreen();
+				 else {
+				 game_screen = new GameScreen();
+				 Assets.playGameBGM();
+				 Assets.game.setScreen(game_screen);
+				 }
+//				horizontal_scroll.scrollTo(horizontal_scroll.getScrollX()
+//						+ Assets.width, 0, horizontal_scroll.getWidth(),
+//						horizontal_scroll.getHeight());
 			}
 		});
 

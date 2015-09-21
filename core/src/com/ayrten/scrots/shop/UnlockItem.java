@@ -9,19 +9,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-public class UnlockItem extends ShopItem 
-{
-	protected Class<?> clazz;
+public class UnlockItem extends ShopItem {
 	protected short unlockPrice;
 	protected ShopRow row;
 
-	public UnlockItem(ShopScreen shop) {
-		super(shop);
-	}
-	
-	public UnlockItem(ShopScreen shop, Texture texture, String description, short price, Class<?> clazz, short unlockPrice) {
-		super(shop, texture, description, price);
-		this.clazz = clazz;
+	public UnlockItem(ShopScreen shop, Texture texture, String description, short price, String item_name, short unlockPrice) {
+		super(shop, texture, description, price, item_name);
 		this.unlockPrice = unlockPrice;
 		priceLabel = new Label(Short.toString(getPrice()),
 				Assets.style_font_32_white);
@@ -52,7 +45,7 @@ public class UnlockItem extends ShopItem
 			shop.notEnoughPoints();
 		else {
 			Assets.points_manager.subtractPoints(cost);
-			Assets.power_dot_manager.unlockDot(clazz);
+			Assets.item_manager.unlockItem(item_name);
 			event.getTarget().remove();
 			row.clear();
 			row.setupRow();
@@ -61,15 +54,16 @@ public class UnlockItem extends ShopItem
 	}
 	
 	public void setShopRow(ShopRow row) { this.row = row; }
-	public boolean isUnlocked() { return (Assets.power_dot_manager.isDotUnlocked(clazz)); }
+	public boolean isUnlocked() { return (Assets.item_manager.isItemUnlocked(item_name)); }
 	
 	@Override
 	public short getPrice() {
-		if(Assets.power_dot_manager.isDotUnlocked(clazz))
+		if(Assets.item_manager.isItemUnlocked(item_name))
 			return super.getPrice();
 		return unlockPrice;
 	}
 	
+	// Empty on purpose. Price label created in constructor.
 	@Override
 	protected void createPriceLabel() {}
 }
