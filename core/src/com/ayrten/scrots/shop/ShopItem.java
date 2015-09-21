@@ -128,6 +128,9 @@ public class ShopItem {
 		amountToBuy -= num;
 	}
 	
+	// Instead of looking through all items and adding up
+	// the total cost, doing it this way reduces the number
+	// of calculations.
 	protected void calcTotalCost() {
 		shop.minusTotalPrice(totalCostToBuy);
 		totalCostToBuy = price * amountToBuy;

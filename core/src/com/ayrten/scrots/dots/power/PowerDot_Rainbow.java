@@ -36,9 +36,4 @@ public class PowerDot_Rainbow extends PowerDot {
 		gm.setRainbowState(false);
 		gm.changePenalityDotVisibility(true);
 	}
-	
-	@Override
-	public boolean isUnlocked() {
-		return (Assets.item_manager.isItemUnlocked(this.getClass().getSimpleName()));
-	}
 }

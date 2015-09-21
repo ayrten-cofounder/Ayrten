@@ -66,4 +66,13 @@ public class UnlockItem extends ShopItem {
 	// Empty on purpose. Price label created in constructor.
 	@Override
 	protected void createPriceLabel() {}
+	
+	@Override
+	public void clear() {
+		totalCostToBuy = 0;
+		if(isUnlocked()) {
+			totalCostLabel.setText("0");
+			amountTextField.setText("0");
+		}
+	}
 }

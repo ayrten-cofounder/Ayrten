@@ -64,10 +64,4 @@ public class PowerDot_Magnet extends PowerDot {
 				dot.magneted = false;
 		}
 	}
-
-	@Override
-	public boolean isUnlocked() {
-		return (Assets.item_manager.isItemUnlocked(this.getClass().getSimpleName()));
-	}
-	
 }

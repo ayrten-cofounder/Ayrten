@@ -526,6 +526,7 @@ public class ShopScreen extends ScrotsScreen {
 			curr_selected_row.highlightRow(false);
 			curr_selected_row = null;
 		}
+		item_description.setText("");
 	}
 
 	@Override

@@ -35,9 +35,4 @@ public class PowerDot_Invincible extends PowerDot {
 		super.afterAction();
 		gm.setInvincible(false);
 	}
-	
-	@Override
-	public boolean isUnlocked() {
-		return (Assets.item_manager.isItemUnlocked(this.getClass().getSimpleName()));
-	}
 }

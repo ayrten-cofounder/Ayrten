@@ -120,9 +120,7 @@ public class PowerDot extends Dot {
 	}
 	
 	public boolean isUnlocked() {
-		Gdx.app.error("POWERDOT", this.getClass().toString() + " did not override isUnlocked() function!");
-		Gdx.app.exit();
-		return false;
+		return (Assets.item_manager.isItemUnlocked(this.getClass().getSimpleName()));
 	}
 
 	@Override

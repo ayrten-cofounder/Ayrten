@@ -36,10 +36,4 @@ public class PowerDot_Decelerate extends PowerDot {
 		for(MovingDot dot : gm.curr_level.getDotList())
 			dot.resetSpeed();
 	}
-	
-	@Override
-	public boolean isUnlocked() {
-		return true;
-	}
-
 }

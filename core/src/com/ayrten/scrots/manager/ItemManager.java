@@ -8,7 +8,7 @@ import com.badlogic.gdx.Gdx;
 
 public class ItemManager {
 	protected Map<String, Object> map;
-	protected String MAP_FILENAME = "pdm";
+	protected String MAP_FILENAME = "im";
 	// For items that need to be unlocked.
 	protected String UNLOCK_FORMAT = "%s_unlock";
 	// For items that have an amount (ie. PowerDot)
