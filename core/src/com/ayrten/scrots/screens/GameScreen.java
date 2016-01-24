@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import com.ayrten.scrots.common.Assets;
 import com.ayrten.scrots.common.ButtonInterface;
 import com.ayrten.scrots.dots.power.PowerDot;
+import com.ayrten.scrots.dots.regular.TestObject;
 import com.ayrten.scrots.game.GameMode;
 import com.ayrten.scrots.game.GameParams;
 import com.ayrten.scrots.game.TimeMode;
@@ -186,6 +187,10 @@ public class GameScreen extends ScrotsScreen {
 		// need to put the pause_scroll at the bottom or else you can't touch the dots.
 		stage.addActor(pause_scroll);
 		gamemode.gen_start_level(1);
+		
+//		TestObject obj = new TestObject();
+//		stage.addActor(obj);
+		
 		addStageActors();
 		gm.startGame();
 	}
@@ -349,7 +354,7 @@ public class GameScreen extends ScrotsScreen {
 			public void run() {
 				pause_table.setVisible(true);
 			}
-		}, (float) 0.5);
+		}, 0.5f);
 	}
 	
 	private void createStage() {

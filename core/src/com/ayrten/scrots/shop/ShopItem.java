@@ -35,7 +35,7 @@ public class ShopItem {
 		createPriceLabel();
 	}
 	
-	public void setRow(ShopRow row) { this.row = row; }
+	public void setShopRow(ShopRow row) { this.row = row; }
 	
 	protected void createPriceLabel() {
 		priceLabel = new Label(Short.toString(getPrice()),
@@ -157,7 +157,7 @@ public class ShopItem {
 	// Called when items are bought. By default, this is for items
 	// that have an amount (ie. PowerDot). Override default if you
 	// want something else.
-	public void executeEffect() {
+	public void executeEffect(ShopItem item) {
 		Assets.points_manager.subtractPoints(totalCostToBuy);
 		Assets.item_manager.setItemCount(item_name, amountToBuy);
 	}

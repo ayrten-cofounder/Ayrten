@@ -60,7 +60,6 @@ public class MainMenuScreen extends ScrotsScreen {
 		LabelStyle title_style = new LabelStyle();
 		title_style.font = Assets.font_200;
 		title_style.fontColor = Color.valueOf("0099cc");
-//		title_style.fontColor = Color.GRAY;
 		
 		LabelStyle title_style_border = new LabelStyle();
 		title_style_border.font = Assets.font_200_border;

@@ -182,7 +182,7 @@ public class ScrotsScreen implements Screen {
 		}
 	}
 
-	public void addActors() {
+	protected void addActors() {
 		if (back != null && navigation_bar != null && table != null) {
 			actors.add(navigation_bar);
 			actors.add(back);

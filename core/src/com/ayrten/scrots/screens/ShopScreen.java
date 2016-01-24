@@ -21,9 +21,11 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
@@ -47,10 +49,14 @@ public class ShopScreen extends ScrotsScreen {
 	protected SectionTab curr_selected_tab;
 	protected ShopRow curr_selected_row;
 	protected Label item_description;
+	
+	// Icons
+	protected static Texture power_dot_shop_icon;
 
 	public ShopScreen(Screen bscreen) {
 		super(bscreen, true);
-
+		
+		power_dot_shop_icon = new Texture("data/dots/power_dot_shop_icon.png");
 		points = Assets.points_manager.getTotalPoints();
 
 		setupStage();
@@ -104,7 +110,7 @@ public class ShopScreen extends ScrotsScreen {
 		type_item_list.add(createMiscItems());
 
 		ArrayList<Texture> type_icons = new ArrayList<Texture>();
-		type_icons.add(Assets.rainbow_dot);
+		type_icons.add(power_dot_shop_icon);
 		type_icons.add(Assets.combo_dot);
 		// The number of types has to match with the number of item lists.
 		assert type_icons.size() == type_item_list.size();
@@ -131,7 +137,7 @@ public class ShopScreen extends ScrotsScreen {
 			for (int j = 0; j < type_item_list.get(i).size(); j++) {
 				final ShopRow row = new ShopRow(header_column_size,
 						item_row_height);
-				UnlockItem item = (UnlockItem) type_item_list.get(i).get(j);
+				ShopItem item = type_item_list.get(i).get(j);
 				item.setShopRow(row);
 				row.setItem(item);
 				row.addListener(new ClickListener() {
@@ -156,7 +162,7 @@ public class ShopScreen extends ScrotsScreen {
 			stack.add(item_table);
 
 			// Create the section tab for this listing.
-			final SectionTab tab = new SectionTab(type_icons.get(i), item_table);
+			final SectionTab tab = new SectionTab(new Image(type_icons.get(i)), item_table);
 			tab.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
@@ -200,6 +206,7 @@ public class ShopScreen extends ScrotsScreen {
 		final ScrollPane dp_scroll = new ScrollPane(description_panel);
 		dp_scroll.setSize(description_panel.getWidth(),
 				description_panel.getHeight());
+		dp_scroll.setTouchable(Touchable.disabled);;
 		dp_scroll.addAction(Actions.repeat(RepeatAction.FOREVER, new Action() {
 			@Override
 			public boolean act(float delta) {
@@ -212,17 +219,9 @@ public class ShopScreen extends ScrotsScreen {
 		item_description.setWrap(true);
 		item_description.setSize(description_panel.getWidth(),
 				description_panel.getHeight());
-		item_description.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				super.clicked(event, x, y);
-				dp_scroll.fling(2, 0, -50);
-			}
-		});
 		description_panel.add(item_description)
 				.width(description_panel.getWidth()).top().left();
 
-		dp_scroll.setFlickScroll(true);
 		bottom_portion.add(dp_scroll).height(description_panel_height);
 
 		total_price_label = new Label(String.valueOf(total_price),
@@ -298,35 +297,85 @@ public class ShopScreen extends ScrotsScreen {
 		table.row();
 		table.add(bottom_portion).top().left();
 
-		// setUpShopScreen();
-		// setUpShopTable();
-		updatePoints();
 		showTableScreen();
 	}
 
 	private ArrayList<ShopItem> createPowerDotItems() {
 		ArrayList<ShopItem> dot_itemlist = new ArrayList<ShopItem>();
-		UnlockItem rainbow_dot = new UnlockItem(this, Assets.rainbow_dot,
-				"Remove negative dots for 5 seconds", (short) 350,
-				PowerDot_Rainbow.class.getSimpleName(), (short) 1050);
-		UnlockItem invincible_dot = new UnlockItem(this, Assets.invincible_dot,
-				"Negative dots won't affect you for 5 seconds."
-						+ "Negative dots won't affect you for 4 seconds."
-						+ "Negative dots won't affect you for 3 seconds."
-						+ "Negative dots won't affect you for 2 seconds."
-						+ "Negative dots won't affect you for 1 seconds.",
-				(short) 250, PowerDot_Invincible.class.getSimpleName(), (short) 850);
-		UnlockItem magnet_dot = new UnlockItem(this, Assets.magnet_dot,
-				"Attracts negative dots for 8 seconds.", (short) 150,
-				PowerDot_Magnet.class.getSimpleName(), (short) 500);
-		UnlockItem decel_dot = new UnlockItem(this, Assets.decelerate_dot,
-				"Slow down negative dots' movement.", (short) 150,
-				PowerDot_Decelerate.class.getSimpleName(), (short) 500);
-
-		dot_itemlist.add(rainbow_dot);
-		dot_itemlist.add(invincible_dot);
-		dot_itemlist.add(magnet_dot);
-		dot_itemlist.add(decel_dot);
+		
+		ArrayList<Texture> icon_list = new ArrayList<Texture>();
+		ArrayList<String> desc_list = new ArrayList<String>();
+		ArrayList<Short> price_list = new ArrayList<Short>();
+		ArrayList<String> item_name_list = new ArrayList<String>();
+		ArrayList<Short> unlock_price_list = new ArrayList<Short>();
+		
+		icon_list.add(Assets.rainbow_dot);
+		icon_list.add(Assets.invincible_dot);
+		icon_list.add(Assets.magnet_dot);
+		icon_list.add(Assets.decelerate_dot);
+		
+		desc_list.add("Remove negative dots for 5 seconds");
+		desc_list.add("Negative dots won't affect you for 5 seconds."
+				+ "Negative dots won't affect you for 4 seconds."
+				+ "Negative dots won't affect you for 3 seconds."
+				+ "Negative dots won't affect you for 2 seconds."
+				+ "Negative dots won't affect you for 1 seconds.");
+		desc_list.add("Attracts negative dots for 8 seconds.");
+		desc_list.add("Slow down negative dots' movement.");
+		
+		price_list.add((short) 350);
+		price_list.add((short) 250);
+		price_list.add((short) 150);
+		price_list.add((short) 150);
+		
+		item_name_list.add(PowerDot_Rainbow.class.getSimpleName());
+		item_name_list.add(PowerDot_Invincible.class.getSimpleName());
+		item_name_list.add(PowerDot_Magnet.class.getSimpleName());
+		item_name_list.add(PowerDot_Decelerate.class.getSimpleName());
+		
+		unlock_price_list.add((short) 1050);
+		unlock_price_list.add((short) 850);
+		unlock_price_list.add((short) 500);
+		unlock_price_list.add((short) 500);
+		
+		assert icon_list.size() == desc_list.size();
+		assert desc_list.size() == price_list.size();
+		assert price_list.size() == item_name_list.size();
+		assert item_name_list.size() == unlock_price_list.size();
+		for(int i = 0; i < icon_list.size(); i++) {
+			final UnlockItem dot = new UnlockItem(this, icon_list.get(i),
+					desc_list.get(i), price_list.get(i), item_name_list.get(i),
+					unlock_price_list.get(i)) {
+				@Override
+				protected void unlockItem(InputEvent event, ShopItem item) {
+					super.unlockItem(event, item);
+					Assets.game.main_menu.gameConfigScreen.addUnlockedDot(item.getIcon());
+				}
+			};
+			dot_itemlist.add(dot);
+		}
+		
+//		UnlockItem rainbow_dot = new UnlockItem(this, Assets.rainbow_dot,
+//				"Remove negative dots for 5 seconds", (short) 350,
+//				PowerDot_Rainbow.class.getSimpleName(), (short) 1050);
+//		UnlockItem invincible_dot = new UnlockItem(this, Assets.invincible_dot,
+//				"Negative dots won't affect you for 5 seconds."
+//						+ "Negative dots won't affect you for 4 seconds."
+//						+ "Negative dots won't affect you for 3 seconds."
+//						+ "Negative dots won't affect you for 2 seconds."
+//						+ "Negative dots won't affect you for 1 seconds.",
+//				(short) 250, PowerDot_Invincible.class.getSimpleName(), (short) 850);
+//		UnlockItem magnet_dot = new UnlockItem(this, Assets.magnet_dot,
+//				"Attracts negative dots for 8 seconds.", (short) 150,
+//				PowerDot_Magnet.class.getSimpleName(), (short) 500);
+//		UnlockItem decel_dot = new UnlockItem(this, Assets.decelerate_dot,
+//				"Slow down negative dots' movement.", (short) 150,
+//				PowerDot_Decelerate.class.getSimpleName(), (short) 500);
+//
+//		dot_itemlist.add(rainbow_dot);
+//		dot_itemlist.add(invincible_dot);
+//		dot_itemlist.add(magnet_dot);
+//		dot_itemlist.add(decel_dot);
 
 		return dot_itemlist;
 	}
@@ -439,10 +488,6 @@ public class ShopScreen extends ScrotsScreen {
 				});
 	}
 
-//	public int getPoints() {
-//		return points;
-//	}
-
 	public void updatePoints() {
 		points = Assets.points_manager.getTotalPoints();
 		points_label.setText("Points: " + String.valueOf(points));
@@ -479,7 +524,7 @@ public class ShopScreen extends ScrotsScreen {
 			Table contents = tab.getContents();
 			for(Cell<ShopRow> c : contents.getCells()) {
 				ShopRow row = (ShopRow) c.getActor();
-				row.getItem().executeEffect();
+				row.getItem().executeEffect(row.getItem());
 			}
 		}
 		

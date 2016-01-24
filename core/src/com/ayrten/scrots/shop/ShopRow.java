@@ -45,7 +45,7 @@ public class ShopRow extends Stack {
 	public void setItem(ShopItem item) {
 		// Set pointers.
 		this.item = item;
-		item.setRow(this);
+		item.setShopRow(this);
 		setupRow();
 	}
 	

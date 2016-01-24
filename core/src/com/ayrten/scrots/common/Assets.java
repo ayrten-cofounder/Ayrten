@@ -40,9 +40,9 @@ public class Assets {
 	public static boolean inGameMusic = false;
 
 	// Power Dot Descriptions
-	public static final String magnet_dot_description = "Attracts negative dots for 8 seconds.";
-	public static final String invincible_dot_description = "Negative dots won't affect you for 5 seconds.";
-	public static final String rainbow_dot_description = "Removes negative dots for 5 seconds.";
+//	public static final String magnet_dot_description = "Attracts negative dots for 8 seconds.";
+//	public static final String invincible_dot_description = "Negative dots won't affect you for 5 seconds.";
+//	public static final String rainbow_dot_description = "Removes negative dots for 5 seconds.";
 
 	// Managers
 	public static ItemManager item_manager;
@@ -138,6 +138,7 @@ public class Assets {
 	public static Texture explosion_dot;
 	public static Texture combo_dot;
 	
+	// Power Dots
 	public static Texture invincible_dot;
 	public static Texture magnet_dot;
 	public static Texture rainbow_dot;
@@ -145,6 +146,9 @@ public class Assets {
 	public static Texture invincible_dot_gray;
 	public static Texture magnet_dot_gray;
 	public static Texture rainbow_dot_gray;
+	
+	// Other miscellaneous textures
+	public static Texture explosion_ring;
 	
 	public static Texture order_dot_1;
 	public static Texture order_dot_2;
@@ -155,8 +159,6 @@ public class Assets {
 	public static Texture order_dot_7;
 	public static Texture order_dot_8;
 	public static Texture order_dot_9;
-
-	public static Texture question_mark;
 
 	// Game Screen
 	public static Texture slot_switch;
@@ -209,7 +211,6 @@ public class Assets {
 		item_manager = new ItemManager();
 		points_manager = new PointsManager();
 
-		Json json = new Json();
 		String text = Assets.readFile(GPLAY_FILE);
 		if (text.isEmpty())
 			gplay_manager = new GPlayManager();
@@ -333,8 +334,6 @@ public class Assets {
 		skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 		skin_window = new Skin(Gdx.files.internal("data/uiskin2.json"));
 
-		question_mark = new Texture(Gdx.files.internal("data/question_dot.png"));
-
 		// Miscellaneous
 		prefs = Gdx.app.getPreferences("com.ayrten.scrots-preferences");
 		game = sg;
@@ -355,7 +354,6 @@ public class Assets {
 				Gdx.files.internal("data/dots/explosion_dot.png"));
 		explosion_dot.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
-		question_mark = new Texture(Gdx.files.internal("data/question_dot.png"));
 		combo_dot = new Texture(Gdx.files.internal("data/dots/combo_dot.png"));
 
 		invincible_dot = new Texture(
@@ -379,6 +377,8 @@ public class Assets {
 		rainbow_dot_gray = new Texture(
 				Gdx.files.internal("data/dots/rainbow_dot_gray.png"));
 		
+		explosion_ring = new Texture("data/dots/explosion_ring.png");
+		
 		order_dot_1 = new Texture("data/dots/order_dot_1.png");
 		order_dot_2 = new Texture("data/dots/order_dot_2.png");
 		order_dot_3 = new Texture("data/dots/order_dot_3.png");
@@ -388,7 +388,6 @@ public class Assets {
 		order_dot_7 = new Texture("data/dots/order_dot_7.png");
 		order_dot_8 = new Texture("data/dots/order_dot_8.png");
 		order_dot_9 = new Texture("data/dots/order_dot_9.png");
-
 
 		slot_switch = explosion_dot;
 		pause_button = new Texture(
@@ -548,7 +547,6 @@ public class Assets {
 		penDot_2.dispose();
 		regDot_1.dispose();
 		regDot_2.dispose();
-		question_mark.dispose();
 
 		// Miscellaneous
 		// Make the changes persist. (ie. saves an XML file for Windows in

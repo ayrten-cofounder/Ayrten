@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class UnlockItem extends ShopItem {
 	protected short unlockPrice;
-	protected ShopRow row;
 
 	public UnlockItem(ShopScreen shop, Texture texture, String description, short price, String item_name, short unlockPrice) {
 		super(shop, texture, description, price, item_name);
@@ -32,14 +31,16 @@ public class UnlockItem extends ShopItem {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				super.clicked(event, x, y);
-				unlockItem(event);
+				unlockItem(event, getItem());
 			}
 		});
 		
 		return label;
 	}
 	
-	protected void unlockItem(InputEvent event) {
+	public ShopItem getItem() { return this; }
+	
+	protected void unlockItem(InputEvent event, ShopItem item) {
 		int cost = getPrice();
 		if(Assets.points_manager.getTotalPoints() < cost)
 			shop.notEnoughPoints();
@@ -53,7 +54,6 @@ public class UnlockItem extends ShopItem {
 		}
 	}
 	
-	public void setShopRow(ShopRow row) { this.row = row; }
 	public boolean isUnlocked() { return (Assets.item_manager.isItemUnlocked(item_name)); }
 	
 	@Override

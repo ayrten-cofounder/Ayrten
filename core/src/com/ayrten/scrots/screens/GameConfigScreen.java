@@ -3,14 +3,17 @@ package com.ayrten.scrots.screens;
 import java.util.ArrayList;
 
 import com.ayrten.scrots.common.Assets;
+import com.ayrten.scrots.common.SelectionBox;
+import com.ayrten.scrots.dots.power.PowerDot_Decelerate;
+import com.ayrten.scrots.dots.power.PowerDot_Invincible;
+import com.ayrten.scrots.dots.power.PowerDot_Magnet;
+import com.ayrten.scrots.dots.power.PowerDot_Rainbow;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
@@ -33,17 +36,21 @@ public class GameConfigScreen extends ScrotsScreen {
 
 	protected Table vertical_table;
 	protected ScrollPane vertical_scroll;
+	
+	protected ArrayList<Image> newly_unlocked_dots;
+	protected Table dot_column;
 
-	protected Actor selected_powerdot_box;
-
-	protected Image previous_selected_dot;
-	protected Image current_selected_dot;
+	protected SelectionBox selected_powerdot_box;
+	
+	protected Image prev_selected_dot;
+	protected Image curr_selected_dot;
 
 	public GameConfigScreen(Screen backScreen) {
 		super(backScreen, true);
 		setupStage();
 		showTableScreen();
 
+		newly_unlocked_dots = new ArrayList<Image>();
 		Label intro = new Label("Pick Your Mode of Gameplay",
 				Assets.style_font_64_white);
 
@@ -87,14 +94,51 @@ public class GameConfigScreen extends ScrotsScreen {
 		table.row();
 		table.add(survivalMode);
 
-		initializeHorizontalScroll();
-		initializeVerticalScroll();
+		initializeHorizontalScroll(initializeVerticalScroll());
 
-		stage.addActor(vertical_scroll);
 		stage.addActor(horizontal_scroll);
+		stage.addActor(vertical_scroll);
+	}
+	
+	@Override
+	public void show() {
+		super.show();
+		if(!newly_unlocked_dots.isEmpty()) {
+			for(Image dot_image : newly_unlocked_dots)
+				createSelectionDot(dot_image);
+		}
+	}
+	
+	private void createSelectionDot(final Image dot_image) {
+		float size = Assets.width - Assets.game_width;
+		Image selected_bkg = new Image(Assets.rounded_rectangle_dark_gray);
+		selected_bkg.setVisible(false);
+//		final Image image = new Image(dot_texture);
+		dot_image.setUserObject(selected_bkg);
+		dot_image.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				super.clicked(event, x, y);
+				if (prev_selected_dot != null)
+					((Image) prev_selected_dot.getUserObject())
+							.setVisible(false);
+				prev_selected_dot = (Image) event.getTarget();
+				((Image) event.getTarget().getUserObject())
+						.setVisible(true);
+				curr_selected_dot = dot_image;
+			}
+		});
+		
+		dot_column.stack(selected_bkg, dot_image).width(size).height(size);
+		dot_column.row();
+	}
+	
+	public void addUnlockedDot(Image dot_image) {
+		newly_unlocked_dots.add(dot_image);
 	}
 
-	private void initializeVerticalScroll() {
+	private ArrayList<Table> initializeVerticalScroll() {
+		ArrayList<Table> all_columns = new ArrayList<Table>();
 		vertical_table = new Table(Assets.skin);
 		vertical_table.setSize(Assets.width, navigation_bar.getY() * 2);
 
@@ -104,34 +148,48 @@ public class GameConfigScreen extends ScrotsScreen {
 		dots.add(new Image(Assets.magnet_dot));
 
 		float size = Assets.width - Assets.game_width;
-		Table dot_column = new Table(Assets.skin);
+		dot_column = new Table(Assets.skin);
+		ArrayList<Texture> dot_list = new ArrayList<Texture>();
+		
+		if(Assets.item_manager.isItemUnlocked(PowerDot_Rainbow.class.getSimpleName()));
+			dot_list.add(Assets.rainbow_dot);
+		if(Assets.item_manager.isItemUnlocked(PowerDot_Invincible.class.getSimpleName()))
+			dot_list.add(Assets.invincible_dot);
+		if(Assets.item_manager.isItemUnlocked(PowerDot_Magnet.class.getSimpleName()))
+			dot_list.add(Assets.magnet_dot);
+		if(Assets.item_manager.isItemUnlocked(PowerDot_Decelerate.class.getSimpleName()))
+			dot_list.add(Assets.decelerate_dot);
 
-		for (int i = 0; i < 6; i++) {
-			Image selected_bkg = new Image(Assets.rounded_rectangle_dark_gray);
-			selected_bkg.setVisible(false);
-			Image image = new Image(Assets.rainbow_dot);
-			image.setUserObject(selected_bkg);
-			image.addListener(new ClickListener() {
-				@Override
-				public void clicked(InputEvent event, float x, float y) {
-					super.clicked(event, x, y);
-					if (previous_selected_dot != null)
-						((Image) previous_selected_dot.getUserObject())
-								.setVisible(false);
-					previous_selected_dot = (Image) event.getTarget();
-					((Image) event.getTarget().getUserObject())
-							.setVisible(true);
-					current_selected_dot = (Image) event.getTarget();
-				}
-			});
-			dot_column.stack(selected_bkg, image).width(size).height(size);
-			// if(i != dots.size() - 1)
-			dot_column.row();
+		for (int i = 0; i < dot_list.size(); i++) {
+//			Image selected_bkg = new Image(Assets.rounded_rectangle_dark_gray);
+//			selected_bkg.setVisible(false);
+//			final Image image = new Image(dot_list.get(i));
+//			image.setUserObject(selected_bkg);
+//			image.addListener(new ClickListener() {
+//				@Override
+//				public void clicked(InputEvent event, float x, float y) {
+//					super.clicked(event, x, y);
+//					if (prev_selected_dot != null)
+//						((Image) prev_selected_dot.getUserObject())
+//								.setVisible(false);
+//					prev_selected_dot = (Image) event.getTarget();
+//					((Image) event.getTarget().getUserObject())
+//							.setVisible(true);
+//					curr_selected_dot = image;
+//				}
+//			});
+//			dot_column.stack(selected_bkg, image).width(size).height(size);
+//			// if(i != dots.size() - 1)
+//			dot_column.row();
+			Image image = new Image(dot_list.get(i));
+			createSelectionDot(image);
 		}
 
 		ScrollPane dot_column_scroll = new ScrollPane(dot_column);
 		Table bkg_column_table = new Table(Assets.skin);
 		bkg_column_table.setBackground(Assets.rounded_rectangle_blue);
+		
+		all_columns.add(dot_column);
 
 		int left = (int) ((int) Assets.width * 0.02);
 		int right = left;
@@ -144,7 +202,6 @@ public class GameConfigScreen extends ScrotsScreen {
 		style.background = new NinePatchDrawable(new NinePatch(new Texture(
 				Gdx.files.internal("data/rounded_rectangle_pale_orange.png")),
 				left, right, top, bottom));
-		;
 
 		Label select_button = new Label("Select", style);
 		select_button.setBounds(select_button.getX(), select_button.getY(),
@@ -154,64 +211,111 @@ public class GameConfigScreen extends ScrotsScreen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				super.clicked(event, x, y);
-				((Image) selected_powerdot_box.getUserObject())
-						.setDrawable(current_selected_dot.getDrawable());
-				((Image) selected_powerdot_box.getUserObject())
-						.setVisible(true);
+				if (curr_selected_dot != null) {
+					vertical_scroll.scrollTo(0, 0, vertical_scroll.getWidth(),
+							vertical_scroll.getHeight());
+
+					new Timer().scheduleTask(new Task() {
+						@Override
+						public void run() {
+							vertical_scroll.setVisible(false);
+							selected_powerdot_box.setIcon(curr_selected_dot);
+							selected_powerdot_box.setIconVisible(true);
+//							((Image) selected_powerdot_box.getUserObject())
+//									.setDrawable(curr_selected_dot
+//											.getDrawable());
+//							((Image) selected_powerdot_box.getUserObject())
+//									.setVisible(true);
+						}
+					}, 0.5f);
+				}
 			}
 		});
+		
+		Table top_table = new Table(Assets.skin);
+		top_table.setSize(Assets.width, navigation_bar.getY());
+		top_table.add(select_button).width(size);
+		top_table.stack(bkg_column_table, dot_column_scroll).width(size);
 
-		vertical_table.add().width(Assets.game_width / 2);
-		vertical_table.add(select_button).width(Assets.game_width / 2);
-		vertical_table.stack(bkg_column_table, dot_column_scroll)
-				.height(navigation_bar.getY()).width(size);
+		vertical_table.add(top_table).width(Assets.width)
+				.height(navigation_bar.getY());
 		vertical_table.row();
-		vertical_table.add().width(Assets.width).height(navigation_bar.getY());
-
+		vertical_table.add().height(navigation_bar.getY());
+		
 		// Scroll from bottom to up.
 		vertical_scroll = new ScrollPane(vertical_table);
-		vertical_scroll.setFlickScroll(true);
+		vertical_scroll.setSize(Assets.width, navigation_bar.getY());
 		vertical_scroll.setSize(Assets.width, navigation_bar.getY());
 		vertical_scroll.setVisible(false);
+		vertical_scroll.setFlickScroll(false);
+		vertical_scroll.setScrollPercentY(100);
+		vertical_scroll.layout();
+		vertical_scroll.scrollTo(0, 0, vertical_scroll.getWidth(), vertical_scroll.getHeight());
+	
+		return all_columns;
 	}
 
-	private void initializeHorizontalScroll() {
+	private void initializeHorizontalScroll(ArrayList<Table> all_columns) {
 		horizontal_table = new Table(Assets.skin);
 		horizontal_table.setSize(Assets.width * 2, navigation_bar.getY());
 		horizontal_table.add(table).width(Assets.width);
 
-		Table power_selection_table = new Table(Assets.skin);
-		power_selection_table.setSize(Assets.width, navigation_bar.getY());
+//		Table power_selection_table = new Table(Assets.skin);
+//		power_selection_table.setSize(Assets.width, navigation_bar.getY());
 
 		// First row is power dots, second row is profile (which will have
 		// powers), third row is exchangeable powers.
-		float row_height = navigation_bar.getY() / 3;
-		Table powerdot_selection_row = new Table(Assets.skin);
-
-		for (int i = 0; i < 3; i++) {
-			Image box = new Image(Assets.rounded_rectangle_border_blue);
-			box.setBounds(box.getX(), box.getY(), box.getWidth(),
-					box.getHeight());
-			box.addListener(new ClickListener() {
-				@Override
-				public void clicked(InputEvent event, float x, float y) {
-					super.clicked(event, x, y);
-					selected_powerdot_box = event.getTarget();
-					vertical_scroll.scrollTo(0, navigation_bar.getY(),
-							vertical_scroll.getWidth(),
-							vertical_scroll.getHeight());
-					vertical_scroll.setVisible(true);
-				}
-			});
-
-			Image selected_dot = new Image();
-			selected_dot.setVisible(false);
-			box.setUserObject(selected_dot);
-			powerdot_selection_row.stack(box, selected_dot).height(row_height)
-					.width(Assets.width / 3);
+		byte num_of_selections = 2;
+		// +1 because need bottom row for starting game.
+		float row_height = navigation_bar.getY() / (num_of_selections + 1);
+		Table selection_table = new Table(Assets.skin);
+		
+		ArrayList<ArrayList<SelectionBox>> rows = new ArrayList<ArrayList<SelectionBox>>();
+		rows.add(createPowerDotSelection(all_columns.get(0)));
+		
+		ArrayList<String> text_selection = new ArrayList<String>();
+		text_selection.add("Powerdot Selection: ");
+		
+		assert rows.size() == text_selection.size();
+		for(int i = 0; i < rows.size(); i++) {
+			Table row = new Table(Assets.skin);
+			Label label = new Label(text_selection.get(i), Assets.style_font_32_white);
+			row.add(label).height(row_height);
+			for(int j = 0; j < rows.get(i).size(); j++)
+				row.add(rows.get(i).get(j)).height(row_height);
+			selection_table.add(row).width(Assets.width).height(row_height);
+			selection_table.row();
 		}
 
-		horizontal_table.add(powerdot_selection_row).width(Assets.width);
+//		for (int i = 0; i < 3; i++) {
+//			final Image box = new Image(Assets.rounded_rectangle_border_blue);
+//			box.setBounds(box.getX(), box.getY(), box.getWidth(),
+//					box.getHeight());
+//
+//			Image selected_dot = new Image();
+//			selected_dot.setVisible(false);
+//			box.setUserObject(selected_dot);
+//			
+//			Stack stack = new Stack();
+//			stack.addListener(new ClickListener() {
+//				@Override
+//				public void clicked(InputEvent event, float x, float y) {
+//					super.clicked(event, x, y);
+//					selected_powerdot_box = box;					
+//					vertical_scroll.setVisible(true);
+//					vertical_scroll.scrollTo(0, navigation_bar.getY(),
+//							vertical_scroll.getWidth(),
+//							vertical_scroll.getHeight());
+//				}
+//			});
+//			stack.add(box);
+//			stack.add(selected_dot);
+//			
+//			powerdot_selection_row.add(stack).height(row_height)
+//					.width(Assets.width / 3);
+//		}
+
+		horizontal_table.add(selection_table).width(Assets.width);
 
 		horizontal_scroll = new ScrollPane(horizontal_table);
 		horizontal_scroll.setFlickScroll(false);
@@ -223,6 +327,28 @@ public class GameConfigScreen extends ScrotsScreen {
 		super.addActors();
 		actors.add(timeMode);
 		actors.add(survivalMode);
+	}
+	
+	private ArrayList<SelectionBox> createPowerDotSelection(Table ref_contents) {
+		ArrayList<SelectionBox> list = new ArrayList<SelectionBox>();
+		// Number of powerdot slots, hardcoded to 3 for now.
+		for(int i = 0; i < 3; i++) {
+			final SelectionBox sbox = new SelectionBox(ref_contents, new Image(Assets.rounded_rectangle_border_blue));
+			sbox.addListener(new ClickListener() {
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					super.clicked(event, x, y);
+					selected_powerdot_box = sbox;					
+					vertical_scroll.setVisible(true);
+					vertical_scroll.scrollTo(0, navigation_bar.getY(),
+							vertical_scroll.getWidth(),
+							vertical_scroll.getHeight());
+				}
+			});
+			list.add(sbox);
+		}
+		
+		return list;
 	}
 
 	private void loadTutorialScreen() {
