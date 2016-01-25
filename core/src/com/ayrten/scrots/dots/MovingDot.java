@@ -42,7 +42,7 @@ public class MovingDot extends Dot {
 				touchedByAnAngel(event);
 			}
 		};
-		addListener(listener);
+		this.addListener(listener);
 	}
 	
 	@Override

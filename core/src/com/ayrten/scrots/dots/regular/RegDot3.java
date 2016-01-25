@@ -7,16 +7,19 @@ import com.ayrten.scrots.dots.MovingDot;
 import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
 public class RegDot3 extends MovingDot {
 	private Circle circle;
+	private Texture explosion_ring;
 
-	public RegDot3(Texture dot, Manager gm, Sound pop) {
-		super(dot, gm, pop);
+	public RegDot3(Texture dot_texture, Manager gm, Sound pop) {
+		super(dot_texture, gm, pop);
 		circle = new Circle();
+		explosion_ring = Assets.explosion_ring;
 	}
 
 	@Override
@@ -27,6 +30,12 @@ public class RegDot3 extends MovingDot {
 		checkRadius(gm.curr_level.getDotList());
 		Assets.stats_manager.getPlayerStats().reg_dot_3.popped++;
 		gm.removePersistentDot(this);
+	}
+	
+	@Override
+	public void draw(Batch batch, float alpha) {
+		super.draw(batch, alpha);
+		batch.draw(explosion_ring, getX() - getWidth()/2, getY() - getHeight()/2, getWidth() * 2, getHeight() * 2);
 	}
 
 	private void checkRadius(LinkedList<MovingDot> linkedList) {

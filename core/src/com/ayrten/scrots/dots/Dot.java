@@ -5,21 +5,24 @@ import com.ayrten.scrots.manager.Manager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 
-public class Dot extends Actor {
-	protected Texture dot;
+public class Dot extends Stack {
+
+	protected Texture dot_texture;
 	public Manager gm;
 
 	protected Sound pop;
 	protected InputListener listener;
 
 	public Dot(Texture dot, Manager gm, Sound pop) {
-		this.dot = dot;
+		this.dot_texture = dot;
 		this.gm = gm;
 		this.pop = pop;
+		this.setTouchable(Touchable.enabled);
 		initializeListener();
 	}
 	
@@ -33,11 +36,11 @@ public class Dot extends Actor {
 			pop.play();
 	}
 	
-	public void setTexture(Texture dot) {
-		this.dot = dot;
+	public void setTexture(Texture dot_texture) {
+		this.dot_texture = dot_texture;
 	}
 
 	public Texture getTexture() {
-		return dot;
+		return dot_texture;
 	}
 }
