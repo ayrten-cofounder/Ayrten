@@ -14,13 +14,18 @@ public class RegDot1 extends MovingDot {
 	
 	@Override
 	public void touchedByAnAngel(InputEvent event) {
-		super.touchedByAnAngel(event);
+		removeFromStage(event);
+		incrementCombo();
+	}
+	
+	@Override
+	protected void removeFromStage(InputEvent event) {
+		super.removeFromStage(event);
 		gm.minusGreenDot();
 		Assets.stats_manager.getPlayerStats().reg_dot_1.popped++;
 		Assets.gplay_manager.unlockDotAchievement(Assets.stats_manager
 				.getPlayerStats().reg_dot_1.popped);
 		gm.curr_level.getRegDotList().remove(this);
-		incrementCombo();
 	}
 	
 	protected void incrementCombo() {

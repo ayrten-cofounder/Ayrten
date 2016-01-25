@@ -29,18 +29,7 @@ public class DotGenerator {
 	}
 	
 	public OrderDot genOrderDot(int number) {
-		Texture texture = null;
-		switch(number) {
-		case 1: texture = Assets.order_dot_1; break;
-		case 2: texture = Assets.order_dot_2; break;
-		case 3: texture = Assets.order_dot_3; break;
-		case 4: texture = Assets.order_dot_4; break;
-		case 5: texture = Assets.order_dot_5; break;
-		case 6: texture = Assets.order_dot_6; break;
-		case 7: texture = Assets.order_dot_7; break;
-		case 8: texture = Assets.order_dot_8; break;
-		case 9: texture = Assets.order_dot_9; break;
-		}
+		Texture texture = Assets.regDot_1;
 		
 		OrderDot orderDot = new OrderDot(texture, gm, Assets.button_pop, number);
 		setRandPositions(orderDot);
@@ -48,18 +37,7 @@ public class DotGenerator {
 	}
 	
 	public LastOrderDot genLastOrderDot(int number) {
-		Texture texture = null;
-		switch(number) {
-		case 1: texture = Assets.order_dot_1; break;
-		case 2: texture = Assets.order_dot_2; break;
-		case 3: texture = Assets.order_dot_3; break;
-		case 4: texture = Assets.order_dot_4; break;
-		case 5: texture = Assets.order_dot_5; break;
-		case 6: texture = Assets.order_dot_6; break;
-		case 7: texture = Assets.order_dot_7; break;
-		case 8: texture = Assets.order_dot_8; break;
-		case 9: texture = Assets.order_dot_9; break;
-		}
+		Texture texture = Assets.regDot_1;
 		
 		LastOrderDot dot = new LastOrderDot(texture, gm, Assets.button_pop, number);
 		setRandPositions(dot);

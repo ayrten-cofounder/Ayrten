@@ -19,33 +19,33 @@ import com.ayrten.scrots.manager.Manager;
 
 public class Level
 {
-	protected static final int GREEN_DOT_START = 0;
-	protected static final int RED_DOT_START = 1;
-	protected static final int BLUE_DOT_START = 2;
-	protected static final int BABY_BLUE_DOT_START = 5;
+	protected final byte GREEN_DOT_START = 0;
+	protected final byte RED_DOT_START = 1;
+	protected final byte BLUE_DOT_START = 2;
+	protected final byte BABY_BLUE_DOT_START = 5;
 	
 	// Modifiers for generating dots
-	protected static final float GREEN_DOT_MOD = 1.5f;
-	protected static final float RED_DOT_MOD = 1.3f;
-	protected static final float BLUE_DOT_MOD = 1.2f;
-	protected static final float BABY_BLUE_DOT_MOD = 1.25f;
+	protected final float GREEN_DOT_MOD = 1.5f;
+	protected final float RED_DOT_MOD = 1.3f;
+	protected final float BLUE_DOT_MOD = 1.2f;
+	protected final float BABY_BLUE_DOT_MOD = 1.25f;
 	
-	protected static final float YELLOW_DOT_MOD = 0.3f;
-	protected static final float ORANGE_DOT_MOD = 0.3f;
-	protected static final float BROWN_DOT_MOD = 0.3f;
-	protected static final float PINK_DOT_MOD = 0.3f;
+	protected final float YELLOW_DOT_MOD = 0.3f;
+	protected final float ORANGE_DOT_MOD = 0.3f;
+	protected final float BROWN_DOT_MOD = 0.3f;
+	protected final float PINK_DOT_MOD = 0.3f;
 	
 	// Cap for dots
-	protected static final int GREEN_DOT_CAP = 15;
-	protected static final int RED_DOT_CAP = 15;
-	protected static final int BLUE_DOT_CAP = 15;
-	protected static final int BABY_BLUE_DOT_CAP = 15;
+	protected final byte GREEN_DOT_CAP = 15;
+	protected final byte RED_DOT_CAP = 15;
+	protected final byte BLUE_DOT_CAP = 15;
+	protected final byte BABY_BLUE_DOT_CAP = 15;
 	
 	// DWD (Dot Within Dot) Weight
-	protected static final int DWD_WEIGHT = 2;
+	protected final byte DWD_WEIGHT = 2;
 
 	protected LinkedList<MovingDot> allDots;
-	protected int number_of_green_dots;
+	protected byte number_of_green_dots;
 	protected boolean firstDWD_regdot1, firstDWD_regdot2, firstDWD_pendot1, firstDWD_pendot2;
 	protected Manager gm;
 	
@@ -99,54 +99,34 @@ public class Level
 	
 	protected void gen_grn_dots(int level)
 	{
+		// Could be determined by Manager (ie. normal vs challenge)
 		int num = (int) Math.floor((level - GREEN_DOT_START) * GREEN_DOT_MOD);
 		
-		if	(num > GREEN_DOT_CAP)
-		{
-			int yellow_num = (int) Math.floor(level * YELLOW_DOT_MOD);
-			num = GREEN_DOT_CAP;
+		if (num > GREEN_DOT_CAP) {
+			// Generate Ordered Dots before Yellow Dots
+			int num_ordered_dots = (int) (Math.floor(level%10 * 1.5) + 2);
+			num = GREEN_DOT_CAP - num_ordered_dots;
+			gen_ordered_dots(num_ordered_dots);
+			number_of_green_dots += num_ordered_dots;
 			
-			for (int i = 0; i < yellow_num; i++)
-			{
-				DWD_RegDot1 dot = gm.generator.genDWDRegDot1();
-				allDots.add(dot);
+			if(num_ordered_dots > GREEN_DOT_CAP) {
+				int yellow_num = (int) Math.floor(level * YELLOW_DOT_MOD);
+				for (byte i = 0; i < yellow_num; i++) {
+					DWD_RegDot1 dot = gm.generator.genDWDRegDot1();
+					allDots.add(dot);
+				}
 			}
 			
 			firstDWD_regdot1 = Assets.prefs.getBoolean("firstDWD_regdot1_help", true);
 		}
 		
-		for (int i = 0; i < num; i++)
-		{
+		for (byte i = 0; i < num; i++) {
 			RegDot1 dot = gm.generator.genRegDot1();
 			allDots.add(dot);
 			reg_dots.add(dot);
 		}
 		
-		// Tony (6/1/2015) - DO NOT DELETE!! Example for OrderDot...
-//		num = 9;
-//		LinkedList<OrderDot> tempList = new LinkedList<OrderDot>();
-//		for (int i = 1; i <= 9; i++)
-//		{	
-//			OrderDot dot;
-//			if(i != 9)
-//			  dot = gm.generator.genOrderDot(i);
-//			else 
-//			  dot = gm.generator.genLastOrderDot(9);
-//			allDots.add(dot);
-//			reg_dots.add(dot);
-//			tempList.add(dot);
-//		}
-//		
-//		for(int i = 0; i < tempList.size(); i++) {
-//			OrderDot dot = tempList.get(i);
-//			dot.setFirstDot(tempList.getFirst());
-//			dot.setLastDot(tempList.getLast());
-//			if(i != tempList.size() - 1) {
-//				dot.setNextDot(tempList.get(i + 1));
-//			}
-//		}
-		
-		number_of_green_dots = num;
+		number_of_green_dots += num;
 	}
 
 	protected void gen_red_dots(int level)
@@ -222,6 +202,31 @@ public class Level
 			RegDot2 dot = gm.generator.genRegDot2();
 			allDots.add(dot);
 		}
+	}
+	
+	public void gen_ordered_dots(int num_ordered_dots) {
+		LinkedList<OrderDot> tempList = new LinkedList<OrderDot>();
+		for (int i = 1; i <= num_ordered_dots; i++)
+		{	
+			OrderDot dot;
+			if(i != num_ordered_dots)
+			  dot = gm.generator.genOrderDot(i);
+			else 
+			  dot = gm.generator.genLastOrderDot(num_ordered_dots);
+			allDots.add(dot);
+			reg_dots.add(dot);
+			tempList.add(dot);
+		}
+		
+		for(int i = 0; i < tempList.size(); i++) {
+			OrderDot dot = tempList.get(i);
+			dot.setFirstDot(tempList.getFirst());
+			dot.setLastDot(tempList.getLast());
+			if(i != tempList.size() - 1) {
+				dot.setNextDot(tempList.get(i + 1));
+			}
+		}
+		tempList.get(0).setOrder();
 	}
 	
 	public void setFirst(String key, boolean enable) {

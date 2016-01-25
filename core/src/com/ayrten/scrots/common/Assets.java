@@ -150,16 +150,6 @@ public class Assets {
 	// Other miscellaneous textures
 	public static Texture explosion_ring;
 	
-	public static Texture order_dot_1;
-	public static Texture order_dot_2;
-	public static Texture order_dot_3;
-	public static Texture order_dot_4;
-	public static Texture order_dot_5;
-	public static Texture order_dot_6;
-	public static Texture order_dot_7;
-	public static Texture order_dot_8;
-	public static Texture order_dot_9;
-
 	// Game Screen
 	public static Texture slot_switch;
 	public static Texture pause_button;
@@ -379,16 +369,6 @@ public class Assets {
 		
 		explosion_ring = new Texture("data/dots/explosion_ring.png");
 		
-		order_dot_1 = new Texture("data/dots/order_dot_1.png");
-		order_dot_2 = new Texture("data/dots/order_dot_2.png");
-		order_dot_3 = new Texture("data/dots/order_dot_3.png");
-		order_dot_4 = new Texture("data/dots/order_dot_4.png");
-		order_dot_5 = new Texture("data/dots/order_dot_5.png");
-		order_dot_6 = new Texture("data/dots/order_dot_6.png");
-		order_dot_7 = new Texture("data/dots/order_dot_7.png");
-		order_dot_8 = new Texture("data/dots/order_dot_8.png");
-		order_dot_9 = new Texture("data/dots/order_dot_9.png");
-
 		slot_switch = explosion_dot;
 		pause_button = new Texture(
 				Gdx.files.internal("data/dots/pause_dot.png"));
