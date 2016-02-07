@@ -316,7 +316,7 @@ public class MainMenuScreen extends ScrotsScreen {
 		message.makeWindow("Do you want to exit the game?", "I want to keep playing!", "I am done for today...", new ButtonInterface() {
 			@Override
 			public void buttonPressed() {
-				backStage = true;
+				back.setTouchable(Touchable.enabled);
 			}
 		}, new ButtonInterface() {
 			@Override

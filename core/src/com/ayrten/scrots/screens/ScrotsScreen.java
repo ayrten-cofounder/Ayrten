@@ -41,9 +41,7 @@ public class ScrotsScreen implements Screen {
 
 	// Background
 	protected Table bkg;
-
 	protected boolean createBack;
-	protected boolean backStage;
 
 	public ScrotsScreen() {
 	}
@@ -52,12 +50,11 @@ public class ScrotsScreen implements Screen {
 		backScreen = bscreen;
 		actors = new ArrayList<Actor>();
 		this.createBack = createBack;
-		backStage = true;
 		stage = new Stage() {
 			public boolean keyDown(int keyCode) {
 				// if ((keyCode == Keys.BACK || keyCode == Keys.BACKSPACE) && backStage) {
-				if ((keyCode == Keys.BACK) && backStage) {
-					backStage = false;
+				if (keyCode == Keys.BACK) {
+					back.setTouchable(Touchable.disabled);
 					executeBackAction();
 				}
 				return super.keyDown(keyCode);
@@ -66,8 +63,7 @@ public class ScrotsScreen implements Screen {
 	}
 	
 	public void executeBackAction() {
-		if (Assets.prefs.getBoolean("sound_effs"))
-			Assets.button_pop.play();
+		Assets.playButtonSound();
 		stage.addAction(Actions.parallel(
 				Actions.run(new Runnable() {
 					public void run() {
@@ -95,21 +91,7 @@ public class ScrotsScreen implements Screen {
 		back.setAlignment(Align.left);
 		back.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
-				if (Assets.prefs.getBoolean("sound_effs"))
-					Assets.button_pop.play();
-				stage.addAction(Actions.parallel(
-						Actions.run(new Runnable() {
-							public void run() {
-								setActorsTouchable(Touchable.disabled);
-							}
-						}),
-						Actions.sequence(Actions.alpha(1),
-								Actions.fadeOut(0.35f),
-								Actions.run(new Runnable() {
-									public void run() {
-										Assets.game.setScreen(backScreen);
-									}
-								}))));
+				executeBackAction();
 			}
 		});
 
@@ -219,7 +201,8 @@ public class ScrotsScreen implements Screen {
 				Actions.run(new Runnable() {
 					public void run() {
 						otherShowOptions();
-						backStage = true;
+						if(back != null)
+							back.setTouchable(Touchable.enabled);
 						setActorsTouchable(Touchable.enabled);
 						Gdx.input.setInputProcessor(stage);
 					}

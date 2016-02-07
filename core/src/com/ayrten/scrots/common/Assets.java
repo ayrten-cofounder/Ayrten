@@ -39,10 +39,11 @@ public class Assets {
 	// If in Game
 	public static boolean inGameMusic = false;
 
-	// Power Dot Descriptions
-//	public static final String magnet_dot_description = "Attracts negative dots for 8 seconds.";
-//	public static final String invincible_dot_description = "Negative dots won't affect you for 5 seconds.";
-//	public static final String rainbow_dot_description = "Removes negative dots for 5 seconds.";
+	// Item descriptions
+	public static String magnet_dot_description;
+	public static String invincible_dot_description; 
+	public static String rainbow_dot_description;
+	public static String decelerate_dot_description;
 
 	// Managers
 	public static ItemManager item_manager;
@@ -169,6 +170,19 @@ public class Assets {
 
 	// Objects
 	public static Json json;
+	
+	protected static void initItemDescriptions() {
+		magnet_dot_description = "Attracts negative dots for 8 seconds.";
+		invincible_dot_description = "Negative dots won't affect you for 5 seconds."
+				+ "this is the story of my life, please forget everything that i said."
+				+ "Negative dots won't affect you for 3 seconds."
+				+ "Negative dots won't affect you for 2 seconds."
+				+ "Negative dots won't affect you for 1 seconds."
+				+ " hello this is tony how can i hlep you" 
+				+ "more testing to do hope this works";
+		rainbow_dot_description =  "Removes negative dots for 5 seconds.";
+		decelerate_dot_description = "Slow down negative dots' movement.";
+	}
 
 	public static void load(ScrotsGame sg) {
 		int ref_width = 800;
@@ -176,6 +190,8 @@ public class Assets {
 
 		// Objects
 		json = new Json();
+		
+		initItemDescriptions();
 
 		// Fonts
 		font_220 = generate_BitMapFont(220, font_ratio);
@@ -586,5 +602,10 @@ public class Assets {
 			}
 		}
 		return "";
+	}
+	
+	public static void playButtonSound() {
+		if (Assets.prefs.getBoolean("sound_effs"))
+			Assets.button_pop.play();
 	}
 }

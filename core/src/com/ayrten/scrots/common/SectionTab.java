@@ -5,7 +5,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 // Used for organizing objects into tabs (ie. a folder with tabs).
-// Each tab has a table and a highlight associated with it.
+// Each tab has a table of contents that gets displayed when tab is
+// touched and a highlight to show current tab is being accessed.
+
+// When working with multiple tabs, all tabs will be in a separate
+// table. The contents of each tab will be contained all in one table,
+// stacked on top of each other. When a tab is selected, its contents
+// are made visible via highlight() function and previous tab's contents
+// are hidden.
 public class SectionTab extends Stack {
 	protected Table contents;
 	protected Image icon;

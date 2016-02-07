@@ -42,7 +42,6 @@ public class ShopScreen extends ScrotsScreen {
 	private Label total_price_label;
 	private Label premium_label;
 
-	// private ArrayList<ShopDot> dots;
 	private int total_price = 0;
 
 	protected ArrayList<SectionTab> section_tabs;
@@ -308,20 +307,16 @@ public class ShopScreen extends ScrotsScreen {
 		ArrayList<Short> price_list = new ArrayList<Short>();
 		ArrayList<String> item_name_list = new ArrayList<String>();
 		ArrayList<Short> unlock_price_list = new ArrayList<Short>();
-		
+
 		icon_list.add(Assets.rainbow_dot);
 		icon_list.add(Assets.invincible_dot);
 		icon_list.add(Assets.magnet_dot);
 		icon_list.add(Assets.decelerate_dot);
 		
-		desc_list.add("Remove negative dots for 5 seconds");
-		desc_list.add("Negative dots won't affect you for 5 seconds."
-				+ "Negative dots won't affect you for 4 seconds."
-				+ "Negative dots won't affect you for 3 seconds."
-				+ "Negative dots won't affect you for 2 seconds."
-				+ "Negative dots won't affect you for 1 seconds.");
-		desc_list.add("Attracts negative dots for 8 seconds.");
-		desc_list.add("Slow down negative dots' movement.");
+		desc_list.add(Assets.rainbow_dot_description);
+		desc_list.add(Assets.invincible_dot_description);
+		desc_list.add(Assets.magnet_dot_description);
+		desc_list.add(Assets.decelerate_dot_description);
 		
 		price_list.add((short) 350);
 		price_list.add((short) 250);
